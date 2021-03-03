@@ -8,7 +8,6 @@
 import UIKit
 import Foundation
 class loginViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         idTextField.layer.borderWidth = 2.0
@@ -16,11 +15,13 @@ class loginViewController: UIViewController {
         idTextField.layer.cornerRadius = 30
         idTextField.clipsToBounds = true
         idTextField.attributedPlaceholder = NSAttributedString(string: "  Enter ID", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        idTextField.backgroundColor = #colorLiteral(red: 0.1333114207, green: 0.1568785012, blue: 0.2901559472, alpha: 1)
         passwordTextField.layer.borderWidth = 2.0
         passwordTextField.layer.borderColor = UIColor.white.cgColor
         passwordTextField.layer.cornerRadius = 30
         passwordTextField.clipsToBounds = true
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        passwordTextField.backgroundColor = #colorLiteral(red: 0.1333114207, green: 0.1568785012, blue: 0.2901559472, alpha: 1)
         // Do any additional setup after loading the view.
     }
     @IBOutlet var loginButton: UIButton!

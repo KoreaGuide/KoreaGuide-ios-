@@ -12,7 +12,10 @@ class registerViewController: UIViewController {
     @IBOutlet var nicknameTextField : UITextField!
     @IBOutlet var passwordTextField : UITextField!
     @IBOutlet var passwordCheckTextField : UITextField!
-    
+    @IBOutlet var lowButton : UIButton!
+    @IBOutlet var midButton : UIButton!
+    @IBOutlet var highButton : UIButton!
+    @IBOutlet var registerButton : UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.layer.borderWidth = 2.0
@@ -35,9 +38,42 @@ class registerViewController: UIViewController {
         passwordCheckTextField.layer.cornerRadius = 25
         passwordCheckTextField.clipsToBounds = true
         passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password again", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        
+        
+        lowButton.layer.borderColor = UIColor.white.cgColor
+        lowButton.layer.borderWidth = 2
+        lowButton.layer.cornerRadius = 20
+        
+        midButton.layer.borderColor = UIColor.white.cgColor
+        midButton.layer.borderWidth = 2
+        midButton.layer.cornerRadius = 20
+        
+        highButton.layer.borderColor = UIColor.white.cgColor
+        highButton.layer.borderWidth = 2
+        highButton.layer.cornerRadius = 20
+        
+        registerButton.layer.borderColor = UIColor.white.cgColor
+        registerButton.layer.borderWidth = 2
+        registerButton.layer.cornerRadius = 20
+        registerButton.backgroundColor = #colorLiteral(red: 0.2038938701, green: 0.2274695039, blue: 0.3450517654, alpha: 1)
         // Do any additional setup after loading the view.
     }
-    
+    @IBAction func didTapLow(_ sender: Any) {
+        lowButton.isSelected = true
+        lowButton.backgroundColor = .blue
+    }
+    @IBAction func didTapMid(_ sender: Any) {
+        midButton.isSelected = true
+        midButton.backgroundColor = .blue
+    }
+    @IBAction func didTapHigh(_ sender: Any) {
+        highButton.isSelected = true
+        highButton.backgroundColor = .blue
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+
+    }
 
     /*
     // MARK: - Navigation
