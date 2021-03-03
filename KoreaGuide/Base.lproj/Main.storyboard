@@ -164,16 +164,28 @@
                                         <rect key="frame" x="0.0" y="45.5" width="358" height="774.5"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-Fs-hUe">
-                                                <rect key="frame" x="0.0" y="0.0" width="358" height="774.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="358" height="743.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="81B-Q9-lJz">
+                                                <rect key="frame" x="0.0" y="743.5" width="358" height="32"/>
+                                                <segments>
+                                                    <segment title="" image="home"/>
+                                                    <segment title="" image="map"/>
+                                                    <segment title="" image="word"/>
+                                                    <segment title="" image="profile"/>
+                                                </segments>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="81B-Q9-lJz" secondAttribute="bottom" id="0je-jo-WWp"/>
                                             <constraint firstItem="g2d-Fs-hUe" firstAttribute="top" secondItem="ug2-gX-hj3" secondAttribute="top" id="Hal-fG-vFB"/>
                                             <constraint firstItem="g2d-Fs-hUe" firstAttribute="leading" secondItem="ug2-gX-hj3" secondAttribute="leading" id="MNV-ph-C0a"/>
-                                            <constraint firstAttribute="bottom" secondItem="g2d-Fs-hUe" secondAttribute="bottom" id="Xf8-46-Qzo"/>
+                                            <constraint firstItem="81B-Q9-lJz" firstAttribute="leading" secondItem="ug2-gX-hj3" secondAttribute="leading" id="PMW-br-ec1"/>
+                                            <constraint firstItem="81B-Q9-lJz" firstAttribute="top" secondItem="g2d-Fs-hUe" secondAttribute="bottom" id="YSF-q1-tl4"/>
+                                            <constraint firstAttribute="trailing" secondItem="81B-Q9-lJz" secondAttribute="trailing" id="gdH-rf-peW"/>
                                             <constraint firstAttribute="trailing" secondItem="g2d-Fs-hUe" secondAttribute="trailing" id="sEP-at-hbH"/>
                                         </constraints>
                                     </view>
@@ -410,6 +422,10 @@
     <resources>
         <image name="Image" width="562.5" height="1218"/>
         <image name="btn_menu_white" width="18" height="18"/>
+        <image name="home" width="61" height="59"/>
+        <image name="map" width="61" height="59"/>
+        <image name="profile" width="59" height="59"/>
+        <image name="word" width="59" height="59"/>
         <image name="배경 화면" width="1125" height="2436"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
