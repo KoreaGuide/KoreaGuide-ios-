@@ -7,3 +7,6 @@
 
 import Foundation
 
+struct signUpModel: Codable {
+  let result_code: Int
+}
