@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1E0B14928BE7F021615EBC22 /* Pods_KoreaGuide_KoreaGuideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8803102ECE03FCE1C6C4A0 /* Pods_KoreaGuide_KoreaGuideUITests.framework */; };
+		5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03501F25FB15B600CE21E0 /* ApiHelper.swift */; };
+		5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */; };
+		5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503525FB2AB200CE21E0 /* ApiModel.swift */; };
 		5E11D98925D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98A25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98B25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
@@ -58,6 +61,9 @@
 		31302EA325836B1DEBC11ACB /* Pods-KoreaGuideTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoreaGuideTests.release.xcconfig"; path = "Target Support Files/Pods-KoreaGuideTests/Pods-KoreaGuideTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D098F3E3BAFFAB261F5CD31 /* Pods-KoreaGuideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoreaGuideTests.debug.xcconfig"; path = "Target Support Files/Pods-KoreaGuideTests/Pods-KoreaGuideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4AE751A7594BA9F1049F45C5 /* Pods-KoreaGuide-KoreaGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoreaGuide-KoreaGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5E03501F25FB15B600CE21E0 /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
+		5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
+		5E03503525FB2AB200CE21E0 /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		5E11D98825D979BB00356166 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		5E11D99625DA31E600356166 /* startViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startViewController.swift; sourceTree = "<group>"; };
 		5E2E281A25D7CC410067C41F /* KoreaGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoreaGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +119,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E03501E25FB158F00CE21E0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5E03501F25FB15B600CE21E0 /* ApiHelper.swift */,
+				5E03503525FB2AB200CE21E0 /* ApiModel.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		5E03502F25FB1FF400CE21E0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5E11D97A25D978FF00356166 /* view controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +151,8 @@
 		5E2E281125D7CC400067C41F = {
 			isa = PBXGroup;
 			children = (
+				5E03502F25FB1FF400CE21E0 /* Extensions */,
+				5E03501E25FB158F00CE21E0 /* API */,
 				5E6BB00D25DE7AD900CB066D /* fonts */,
 				5E11D97A25D978FF00356166 /* view controller */,
 				5E2E281C25D7CC410067C41F /* KoreaGuide */,
@@ -223,6 +248,7 @@
 				5E2E281625D7CC410067C41F /* Sources */,
 				5E2E281725D7CC410067C41F /* Frameworks */,
 				5E2E281825D7CC410067C41F /* Resources */,
+				8E7E3B3D1D94A887A7F061B0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,6 +286,7 @@
 				5E2E283725D7CC420067C41F /* Sources */,
 				5E2E283825D7CC420067C41F /* Frameworks */,
 				5E2E283925D7CC420067C41F /* Resources */,
+				56EA2295D8901627327A2F56 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -342,6 +369,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		56EA2295D8901627327A2F56 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E7E3B3D1D94A887A7F061B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C0B7D65E3CFFB242711E52C7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,11 +478,14 @@
 			files = (
 				5E11D99725DA31E600356166 /* startViewController.swift in Sources */,
 				5E11D98925D979BB00356166 /* loginViewController.swift in Sources */,
+				5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */,
 				5E2E282225D7CC410067C41F /* ViewController.swift in Sources */,
+				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,
 				5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */,
+				5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */,
 				5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

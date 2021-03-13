@@ -158,17 +158,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvp-Tp-ai3">
-                                <rect key="frame" x="28" y="44" width="358" height="818"/>
+                                <rect key="frame" x="32.5" y="44" width="349" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug2-gX-hj3">
-                                        <rect key="frame" x="0.0" y="45.5" width="358" height="774.5"/>
+                                        <rect key="frame" x="0.0" y="33" width="349" height="787"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-Fs-hUe">
-                                                <rect key="frame" x="0.0" y="0.0" width="358" height="743.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="756"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="81B-Q9-lJz">
-                                                <rect key="frame" x="0.0" y="743.5" width="358" height="32"/>
+                                                <rect key="frame" x="0.0" y="756" width="349" height="32"/>
                                                 <segments>
                                                     <segment title="" image="home"/>
                                                     <segment title="" image="map"/>
@@ -190,16 +190,16 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="221" translatesAutoresizingMaskIntoConstraints="NO" id="fga-x1-17U" userLabel="상단 스택뷰">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="45.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="349" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cm3-ZP-mrZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="33"/>
                                                 <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="28"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="btn_menu_white" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2wl-k6-sbw">
-                                                <rect key="frame" x="289.5" y="0.0" width="68.5" height="45.5"/>
+                                                <rect key="frame" x="285" y="0.0" width="64" height="33"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
