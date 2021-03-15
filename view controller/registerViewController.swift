@@ -17,6 +17,8 @@ class registerViewController: UIViewController {
     @IBOutlet var midButton : UIButton!
     @IBOutlet var highButton : UIButton!
     @IBOutlet var registerButton : UIButton!
+    @IBOutlet var dismissButton : UIButton!
+    @IBOutlet var emailCheckButton : UIButton!
     var didCheckEmail: Bool = false
     var buttons: [UIButton]!
     
@@ -49,6 +51,10 @@ class registerViewController: UIViewController {
         passwordCheckTextField.clipsToBounds = true
         passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password again", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         
+        emailCheckButton.layer.borderWidth = 2.0
+        emailCheckButton.layer.borderColor = UIColor.white.cgColor
+        emailCheckButton.layer.cornerRadius = 15
+        
         
         lowButton.layer.borderColor = UIColor.white.cgColor
         lowButton.layer.borderWidth = 2
@@ -64,8 +70,14 @@ class registerViewController: UIViewController {
         
         registerButton.layer.borderColor = UIColor.white.cgColor
         registerButton.layer.borderWidth = 2
-        registerButton.layer.cornerRadius = 20
+        registerButton.layer.cornerRadius = 15
         registerButton.backgroundColor = #colorLiteral(red: 0.2038938701, green: 0.2274695039, blue: 0.3450517654, alpha: 1)
+        
+        
+        dismissButton.layer.borderColor = UIColor.white.cgColor
+        dismissButton.layer.borderWidth = 2
+        dismissButton.layer.cornerRadius = 15
+        dismissButton.backgroundColor = #colorLiteral(red: 0.2038938701, green: 0.2274695039, blue: 0.3450517654, alpha: 1)
         // Do any additional setup after loading the view.
     }
     
@@ -100,9 +112,9 @@ class registerViewController: UIViewController {
             return
         }
         ApiHelper.emailCheck(email: email) { status in
-            if status == 0 {
+            if status == 409 {
                 self.defaultAlert(title: "알람", message: "이미 존재하는 아이디입니다.", callback: nil)
-            } else if status == 1 {
+            } else if status == 200 {
                 self.didCheckEmail = true
                 self.defaultAlert(title: "알람", message: "사용할 수 있는 아이디입니다", callback: nil)
             }
@@ -147,15 +159,13 @@ class registerViewController: UIViewController {
             return
         }
         
-        ApiHelper.register(nickName: nickName, email: email, password: password, level: level!) { status in
+        ApiHelper.register(email: email, password: password, nickName: nickName, level: level!) { status in
             switch status {
-            case 0 :
-                self.defaultAlert(title: "알람", message: "이미 존재하는 이메일입니다.", callback: nil)
-
-            case 1:
+          
+            case 409:
                 self.defaultAlert(title: "알람", message: "이미 가입되어 있는 이메일입니다.", callback: nil)
 
-            case 2:
+            case 201:
                 self.defaultAlert(title: "알람", message: "계정이 생성되었습니다.") { _ in
                   self.dismiss(animated: true, completion: {
                     self.presentingController?.dismiss(animated: true, completion: nil)

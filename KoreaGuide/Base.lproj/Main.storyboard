@@ -111,7 +111,7 @@
                                 </state>
                                 <connections>
                                     <action selector="didTapLoginButton:" destination="VXb-z4-38u" eventType="touchUpInside" id="Rlo-v4-zSP"/>
-                                    <segue destination="JdL-BD-nED" kind="presentation" modalPresentationStyle="fullScreen" id="khe-sC-yFc"/>
+                                    <segue destination="JdL-BD-nED" kind="presentation" identifier="home" modalPresentationStyle="fullScreen" id="4fM-qp-f4t"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-bq-RWl">
@@ -160,17 +160,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvp-Tp-ai3">
-                                <rect key="frame" x="28" y="44" width="358" height="818"/>
+                                <rect key="frame" x="32.5" y="44" width="349" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug2-gX-hj3">
-                                        <rect key="frame" x="0.0" y="45.5" width="358" height="774.5"/>
+                                        <rect key="frame" x="0.0" y="33" width="349" height="787"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-Fs-hUe">
-                                                <rect key="frame" x="0.0" y="0.0" width="358" height="743.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="756"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="81B-Q9-lJz">
-                                                <rect key="frame" x="0.0" y="743.5" width="358" height="32"/>
+                                                <rect key="frame" x="0.0" y="756" width="349" height="32"/>
                                                 <segments>
                                                     <segment title="" image="home"/>
                                                     <segment title="" image="map"/>
@@ -192,16 +192,16 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="221" translatesAutoresizingMaskIntoConstraints="NO" id="fga-x1-17U" userLabel="상단 스택뷰">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="45.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="349" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cm3-ZP-mrZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="33"/>
                                                 <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="28"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="btn_menu_white" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2wl-k6-sbw">
-                                                <rect key="frame" x="289.5" y="0.0" width="68.5" height="45.5"/>
+                                                <rect key="frame" x="285" y="0.0" width="64" height="33"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -234,7 +234,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEp-WV-HHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2534.7826086956525" y="115.84821428571428"/>
+            <point key="canvasLocation" x="461" y="1074"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="eDM-V7-f3k">
+            <objects>
+                <tableViewController id="H4g-81-phy" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ceO-RS-Q5e">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SsV-Zv-Mua">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SsV-Zv-Mua" id="Bt8-3f-3ls">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="H4g-81-phy" id="qd7-e5-HBZ"/>
+                            <outlet property="delegate" destination="H4g-81-phy" id="cLo-LM-HFI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="jaD-bT-4Rh"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9C-F6-TB1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2319" y="1093"/>
+        </scene>
+        <!--Swipe Navigation Controller-->
+        <scene sceneID="K2R-48-HdT">
+            <objects>
+                <navigationController id="h5x-7K-gGQ" customClass="SwipeNavigationController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vZl-cM-9H1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="H4g-81-phy" kind="relationship" relationship="rootViewController" id="Oat-hY-n1Y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vCm-mD-ZDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="1093"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="h1p-Ax-LYE">
@@ -377,7 +422,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-1k-o1x">
-                                <rect key="frame" x="64" y="777" width="288" height="39"/>
+                                <rect key="frame" x="64" y="777" width="160" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="19"/>
                                 <state key="normal" title="Make Account">
@@ -399,6 +444,28 @@
                                     <action selector="didTapHigh:" destination="fvv-Ln-RG0" eventType="touchUpInside" id="Aa7-MR-yBv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="god-wv-r6h">
+                                <rect key="frame" x="274" y="775" width="80" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="19"/>
+                                <state key="normal" title="Dismiss">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapDismiss:" destination="fvv-Ln-RG0" eventType="touchUpInside" id="JqP-pU-3g9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8O-fa-tA0">
+                                <rect key="frame" x="354" y="265" width="55" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="15"/>
+                                <state key="normal" title="Check">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapEmailCheck:" destination="fvv-Ln-RG0" eventType="touchUpInside" id="RXE-RT-gUr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FmT-vK-SZr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -410,6 +477,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dismissButton" destination="god-wv-r6h" id="whQ-0n-eC0"/>
+                        <outlet property="emailCheckButton" destination="Q8O-fa-tA0" id="7uu-uZ-NdZ"/>
                         <outlet property="emailTextField" destination="SrH-le-s6O" id="v1D-TS-8us"/>
                         <outlet property="highButton" destination="6yr-fj-ZEf" id="DAt-HJ-wFQ"/>
                         <outlet property="lowButton" destination="NQc-JN-VSg" id="nWh-mK-QXa"/>
@@ -422,7 +491,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DTd-Su-Eon" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1466.6666666666667" y="1163.1696428571429"/>
+            <point key="canvasLocation" x="2592.753623188406" y="115.84821428571428"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

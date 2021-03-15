@@ -19,6 +19,7 @@
 		5E11D99925DA31E600356166 /* startViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D99625DA31E600356166 /* startViewController.swift */; };
 		5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2425FD071400864789 /* AlertExtensions.swift */; };
 		5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2925FD095100864789 /* PasswordEncoder.swift */; };
+		5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2F25FF6C1500864789 /* SwipeNavigationController.swift */; };
 		5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E281D25D7CC410067C41F /* AppDelegate.swift */; };
 		5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E281F25D7CC410067C41F /* SceneDelegate.swift */; };
 		5E2E282225D7CC410067C41F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E282125D7CC410067C41F /* ViewController.swift */; };
@@ -70,6 +71,7 @@
 		5E11D99625DA31E600356166 /* startViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startViewController.swift; sourceTree = "<group>"; };
 		5E192E2425FD071400864789 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
 		5E192E2925FD095100864789 /* PasswordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEncoder.swift; sourceTree = "<group>"; };
+		5E192E2F25FF6C1500864789 /* SwipeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		5E2E281A25D7CC410067C41F /* KoreaGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoreaGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2E281D25D7CC410067C41F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E2E281F25D7CC410067C41F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,9 +156,18 @@
 			path = "view controller";
 			sourceTree = "<group>";
 		};
+		5E192E2E25FF6BFF00864789 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5E192E2F25FF6C1500864789 /* SwipeNavigationController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		5E2E281125D7CC400067C41F = {
 			isa = PBXGroup;
 			children = (
+				5E192E2E25FF6BFF00864789 /* Controllers */,
 				5E03502F25FB1FF400CE21E0 /* Extensions */,
 				5E03501E25FB158F00CE21E0 /* API */,
 				5E6BB00D25DE7AD900CB066D /* fonts */,
@@ -488,6 +499,7 @@
 				5E2E282225D7CC410067C41F /* ViewController.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
+				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */,
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,

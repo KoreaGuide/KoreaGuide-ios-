@@ -18,15 +18,15 @@ final class ApiHelper {
 
     enum Router: URLRequestConvertible {
         case login(email: String, password: String) //로그인
-        case register(nickName: String, email: String, password: String, level: String)
+        case register(email: String, password: String, nickName: String, level: String)
         case emailCheck(email: String)
         //case confirmEmail(key: String)
         
         func asURLRequest() throws -> URLRequest {
             let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
                 switch self {
-                case let .register(nickName, email, password, level):
-                    return("/api/user", ["data":["nickName": nickName, "email": email, "password":password, "level":level]], .post, defaultHeaders)
+                case let .register(email, password, nickName, level):
+                    return("/api/user", ["data":["email": email, "password":password, "nickname": nickName, "level":level]], .post, defaultHeaders)
                 case let .login(email, password):
                     return ("/api/user/login",["data": ["email": email, "password":password]], .post, defaultHeaders)
                 case let .emailCheck(email):
@@ -45,8 +45,8 @@ final class ApiHelper {
             }
         }
     }
-    static func register(nickName: String, email: String, password: String, level: String, callback: @escaping (Int?) -> Void) {
-      AF.request(Router.register(nickName: nickName, email: email, password: password, level: level))
+    static func register(email: String, password: String, nickName: String, level: String, callback: @escaping (Int?) -> Void) {
+      AF.request(Router.register(email: email, password: password, nickName: nickName, level: level))
         .responseJSON { response in
 
           debugPrint(response)
