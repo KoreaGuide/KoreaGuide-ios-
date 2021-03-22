@@ -35,6 +35,8 @@
 		5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
+		5EE338572608921500D54B59 /* CardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE338552608921500D54B59 /* CardViewCell.swift */; };
+		5EE338582608921500D54B59 /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE338562608921500D54B59 /* CardViewCell.xib */; };
 		5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
@@ -89,6 +91,8 @@
 		5E65A6F525DE479C00A0259B /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
 		5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bangla MN.ttc"; path = "../../../../../Downloads/Bangla MN.ttc"; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		5EE338552608921500D54B59 /* CardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCell.swift; sourceTree = "<group>"; };
+		5EE338562608921500D54B59 /* CardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewCell.xib; sourceTree = "<group>"; };
 		5EF5916B25EFA62800E07D88 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +172,7 @@
 		5E2E281125D7CC400067C41F = {
 			isa = PBXGroup;
 			children = (
+				5EE338472608913000D54B59 /* XIBs */,
 				5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */,
 				5E192E2E25FF6BFF00864789 /* Controllers */,
 				5E03502F25FB1FF400CE21E0 /* Extensions */,
@@ -231,6 +236,15 @@
 				5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		5EE338472608913000D54B59 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				5EE338552608921500D54B59 /* CardViewCell.swift */,
+				5EE338562608921500D54B59 /* CardViewCell.xib */,
+			);
+			path = XIBs;
 			sourceTree = "<group>";
 		};
 		657E920CF8A204BEF0636CD2 /* Pods */ = {
@@ -369,6 +383,7 @@
 				5E2E282725D7CC410067C41F /* Assets.xcassets in Resources */,
 				5E6BB00F25DE7AEC00CB066D /* Bangla MN.ttc in Resources */,
 				5E2E282525D7CC410067C41F /* Main.storyboard in Resources */,
+				5EE338582608921500D54B59 /* CardViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +540,7 @@
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,
 				5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */,
 				5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */,
+				5EE338572608921500D54B59 /* CardViewCell.swift in Sources */,
 				5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */,
 				5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */,
 			);

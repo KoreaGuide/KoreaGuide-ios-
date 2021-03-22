@@ -27,4 +27,30 @@ struct login_keys: Codable {
       let token: String
       let last_login_at: String
       let week_attendance: Int
-      let status: String}
+      let status: String
+}
+struct homeReadModel: Codable {
+    let result_code: Int
+    let status: String
+    let description: String
+    let data: [home_keys]
+}
+struct home_keys: Codable {
+    let place_id: Int
+    let place_title: String
+    let place_image: String
+}
+struct CardInfo {
+    var backgroundColor: UIColor
+    var height: CGFloat
+    var place_id: Int
+    var place_title: String
+    var place_image: String
+    init(_ id: Int, _ image: String,_ titleString: String,_ bgColor: UIColor,_ cellheight:CGFloat) {
+        place_title = titleString
+        backgroundColor = bgColor
+        height = cellheight
+        place_id = id
+        place_image = image
+    }
+}
