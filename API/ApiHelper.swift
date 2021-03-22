@@ -11,26 +11,42 @@ import JWTDecode
 
 final class ApiHelper {
     static var baseHostName = "http://165.194.104.24:8080"
-    //static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": UserDefaults.accessToken ?? "no_value"]
-    //static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": UserDefaults.accessToken ?? "no_value"]
-    static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
-    static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+    static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
+    static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
+    //static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
+    //static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
 
     enum Router: URLRequestConvertible {
         case login(email: String, password: String) //로그인
-        case register(email: String, password: String, nickName: String, level: String)
+        case register(email: String, password: String, nickName: String)
         case emailCheck(email: String)
+        case homeRead
+        case myWordCreate(word_id: String)
+        case myWordRead
+        case myWordDelete(word_id: String)
+        case regionListRead
+        
         //case confirmEmail(key: String)
         
         func asURLRequest() throws -> URLRequest {
             let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
                 switch self {
-                case let .register(email, password, nickName, level):
-                    return("/api/user", ["data":["email": email, "password":password, "nickname": nickName, "level":level]], .post, defaultHeaders)
+                case let .register(email, password, nickName):
+                    return("/api/user", ["data":["email": email, "password":password, "nickname": nickName]], .post, defaultHeaders)
                 case let .login(email, password):
                     return ("/api/user/login",["data": ["email": email, "password":password]], .post, defaultHeaders)
                 case let .emailCheck(email):
                     return ("/api/user/checkDuplicate",["data": ["email": email]], .post, defaultHeaders)
+                case .homeRead:
+                    return ("/api/home/",["":""],.get,defaultHeaders)
+                case let .myWordCreate(word_id):
+                    return ("/api/myWord/"+String(UserDefaults.id!),["data":["word_id":word_id]],.post,defaultHeaders)
+                case .myWordRead://이거 어케함
+                    return ("/api/myWord/"+String(UserDefaults.id!),["":""],.get,defaultHeaders)
+                case let .myWordDelete(word_id):
+                    return ("/api/myWord/"+String(UserDefaults.id!),["data":["word_id":word_id]],.delete,defaultHeaders)
+                case .regionListRead:
+                    return ("/api/place/regionList",["":""],.get,defaultHeaders)
                 //case let .confirmEmail(key):
                    // return ("/api/user/checkDuplicate",["email": email, "pwd":password], .post, defaultHeaders)
                 }
@@ -45,8 +61,120 @@ final class ApiHelper {
             }
         }
     }
-    static func register(email: String, password: String, nickName: String, level: String, callback: @escaping (Int?) -> Void) {
-      AF.request(Router.register(email: email, password: password, nickName: nickName, level: level))
+    static func homeRead(callback: @escaping (Int?) -> Void)
+    {
+        AF.request(Router.homeRead)
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .failure:
+                    callback(nil)
+                    return
+                case .success:
+                    break
+                }
+                guard let data = response.data else {return}
+                print (String(decoding: data, as: UTF8.self))
+                let decoder = JSONDecoder()
+                do {
+                    let result = try decoder.decode(signUpModel.self, from: data)
+                    callback(result.result_code)
+                } catch {
+                    callback(nil)
+                }
+            }
+    }
+    
+    static func myWordCreate(word_id: String, callback: @escaping (Int?) -> Void) {
+        AF.request(Router.myWordCreate(word_id: word_id))
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .failure:
+                    callback(nil)
+                    return
+                case .success:
+                    break
+                }
+                guard let data = response.data else {return}
+                print(String(decoding: data, as: UTF8.self))
+                let decoder = JSONDecoder()
+                do {
+                    let result = try decoder.decode(signUpModel.self, from: data)
+                    callback(result.result_code)
+                } catch {
+                    callback(nil)
+                }
+            }
+    }
+    static func myWordRead(callback: @escaping (Int?) -> Void) {
+        AF.request(Router.myWordRead)
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .failure:
+                    callback(nil)
+                    return
+                case .success:
+                    break
+                }
+                guard let data = response.data else {return}
+                print(String(decoding: data, as: UTF8.self))
+                let decoder = JSONDecoder()
+                do {
+                    let result = try decoder.decode(signUpModel.self, from: data)
+                    callback(result.result_code)
+                } catch {
+                    callback(nil)
+                }
+            }
+    }
+    static func myWordDelete(word_id: String, callback: @escaping (Int?) -> Void) {
+        AF.request(Router.myWordDelete(word_id: word_id))
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .failure:
+                    callback(nil)
+                    return
+                case .success:
+                    break
+                }
+                guard let data = response.data else {return}
+                print(String(decoding: data, as: UTF8.self))
+                let decoder = JSONDecoder()
+                do {
+                    let result = try decoder.decode(signUpModel.self, from: data)
+                    callback(result.result_code)
+                } catch {
+                    callback(nil)
+                }
+            }
+    }
+    static func regionListRead(callback: @escaping (Int?) -> Void) {
+        AF.request(Router.regionListRead)
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .failure:
+                    callback(nil)
+                    return
+                case .success:
+                    break
+                }
+                guard let data = response.data else {return}
+                print(String(decoding: data, as: UTF8.self))
+                let decoder = JSONDecoder()
+                do {
+                    let result = try decoder.decode(signUpModel.self, from: data)
+                    callback(result.result_code)
+                } catch {
+                    callback(nil)
+                }
+            }
+    }
+    static func register(email: String, password: String, nickName: String, callback: @escaping (Int?) -> Void) {
+      AF.request(Router.register(email: email, password: password, nickName: nickName))
         .responseJSON { response in
 
           debugPrint(response)
@@ -95,7 +223,6 @@ final class ApiHelper {
     static func login(email: String, password: String, callback: @escaping (Int?) -> Void) {
       AF.request(Router.login(email: email, password: password))
         .responseJSON { response in
-
           debugPrint(response)
           switch response.result {
           case .failure:
@@ -105,43 +232,22 @@ final class ApiHelper {
             break
           }
 
-          guard let data = response.data else { return }
+          guard let data = response.data else { return }//여기 있는거 아님?
           print(String(decoding: data, as: UTF8.self))
           let decoder = JSONDecoder()
           do {
-            let result = try decoder.decode(signUpModel.self, from: data)
-            
-              print("hello")
-            // 헤더에서 access 토큰을 빼와서 저장해준다.
-            // 헤더의 JWT를 decoding해서 정보를 저장한다.
-
-            if let accessToken = response.response?.allHeaderFields["Authorization"] as? String {
-              UserDefaults.accessToken = accessToken
-              // ApiHelper는 final class이므로 값을 직접 업데이트 해줘야 한다.
-              ApiHelper.defaultHeaders["Authorization"] = accessToken
-
-              let jwt = try decode(jwt: accessToken)
-              print(jwt)
-              //UserDefaults.loginID = jwt.body["login_id"] as? String
-              //UserDefaults.auth = jwt.body["auth"] as? Int
-              //UserDefaults.entryYear = jwt.body["year"] as? Int
-              UserDefaults.email = jwt.body["email"] as? String
-                UserDefaults.level = jwt.body["level"] as? String
-                UserDefaults.created_at = jwt.body["created_at"] as? String
-                UserDefaults.created_by = jwt.body["created_by"] as? String
-                UserDefaults.week_attendance = jwt.body["week_attendance"] as? String
-              //UserDefaults.name = jwt.body["name"] as? String
-              //UserDefaults.email = jwt.body["e"] as? Int
-  //            UserDefaults.verified = jwt.body["verified"] as? String
-            }
-
-            // 헤더에서 refresh 토큰을 빼와서 저장해준다.
-            //if let refreshToken = response.response?.allHeaderFields["RefreshToken"] as? String {
-              //UserDefaults.refreshToken = refreshToken
-            //}
-
-            // 헤더의 JWT를 decoding해서 auth, name을 저장한다.
-            callback(result.result_code)
+            //>???
+            let login_info = try decoder.decode(loginModel.self, from: data)
+            print(login_info)
+            ApiHelper.defaultHeaders["Authorization"] = "Bearer \(login_info.data.token)"
+            UserDefaults.id = login_info.data.id
+            UserDefaults.email = login_info.data.email
+            UserDefaults.created_by = login_info.data.created_by
+            UserDefaults.created_at = login_info.data.created_at
+            UserDefaults.token = login_info.data.token
+            UserDefaults.week_attendance = login_info.data.week_attendance
+            print(login_info.data.token)
+            callback(login_info.result_code)
           } catch {
             callback(nil)
           }

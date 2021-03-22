@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import KRProgressHUD
+
 class loginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +58,8 @@ class loginViewController: UIViewController {
         }
         //let encodedPassword = PasswordEncoder().encode(password: password)!
         ApiHelper.login(email: loginEmail, password: password) { status in
-    
+            print(status)
           switch status {
-          
           case 500:
             self.defaultAlert(title: "경고", message: "아이디가 없습니다.", callback: nil)
           case 409:

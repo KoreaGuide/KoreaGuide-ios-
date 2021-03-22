@@ -13,9 +13,7 @@ class registerViewController: UIViewController {
     @IBOutlet var nicknameTextField : UITextField!
     @IBOutlet var passwordTextField : UITextField!
     @IBOutlet var passwordCheckTextField : UITextField!
-    @IBOutlet var lowButton : UIButton!
-    @IBOutlet var midButton : UIButton!
-    @IBOutlet var highButton : UIButton!
+
     @IBOutlet var registerButton : UIButton!
     @IBOutlet var dismissButton : UIButton!
     @IBOutlet var emailCheckButton : UIButton!
@@ -25,11 +23,6 @@ class registerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        buttons = [lowButton, midButton, highButton]
-        buttons.forEach { $0.isSelected = false}
-        lowButton.setTitle("LOW", for: .normal)
-        midButton.setTitle("MID", for: .normal)
-        highButton.setTitle("HIGH", for: .normal)
         emailTextField.layer.borderWidth = 2.0
         emailTextField.layer.borderColor = UIColor.white.cgColor
         emailTextField.layer.cornerRadius = 25
@@ -55,18 +48,7 @@ class registerViewController: UIViewController {
         emailCheckButton.layer.borderColor = UIColor.white.cgColor
         emailCheckButton.layer.cornerRadius = 15
         
-        
-        lowButton.layer.borderColor = UIColor.white.cgColor
-        lowButton.layer.borderWidth = 2
-        lowButton.layer.cornerRadius = 20
-        
-        midButton.layer.borderColor = UIColor.white.cgColor
-        midButton.layer.borderWidth = 2
-        midButton.layer.cornerRadius = 20
-        
-        highButton.layer.borderColor = UIColor.white.cgColor
-        highButton.layer.borderWidth = 2
-        highButton.layer.cornerRadius = 20
+
         
         registerButton.layer.borderColor = UIColor.white.cgColor
         registerButton.layer.borderWidth = 2
@@ -88,21 +70,6 @@ class registerViewController: UIViewController {
       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)*/
     }
     
-    @IBAction func didTapLow(_ sender: Any) {
-        buttons.forEach{$0.isSelected = false}
-        lowButton.isSelected = true
-        lowButton.backgroundColor = .blue
-    }
-    @IBAction func didTapMid(_ sender: Any) {
-        buttons.forEach{$0.isSelected = false}
-        midButton.isSelected = true
-        midButton.backgroundColor = .blue
-    }
-    @IBAction func didTapHigh(_ sender: Any) {
-        buttons.forEach{$0.isSelected = false}
-        highButton.isSelected = true
-        highButton.backgroundColor = .blue
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -130,7 +97,7 @@ class registerViewController: UIViewController {
     }
     
     @IBAction func didTapDone(_ sender: Any) {
-        var level : String?
+        
         guard let email = emailTextField.text, !email.isEmpty else { unfinishedAlert(problem: "이메일(email)")
             return
         }
@@ -148,18 +115,8 @@ class registerViewController: UIViewController {
             defaultAlert(title: "알람", message: "이메일 중복확인을 진행하지 않았습니다", callback: nil)
             return
         }
-        for lev in buttons {
-            if(lev.isSelected) {
-                level = lev.title(for: .normal)
-            }
-        }
         
-        guard !level!.isEmpty else {
-            unfinishedAlert(problem: "레벨(level)")
-            return
-        }
-        
-        ApiHelper.register(email: email, password: password, nickName: nickName, level: level!) { status in
+        ApiHelper.register(email: email, password: password, nickName: nickName) { status in
             switch status {
           
             case 409:
