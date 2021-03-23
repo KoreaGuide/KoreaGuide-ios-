@@ -13,33 +13,43 @@ struct signUpModel: Codable {
 }
 struct loginModel: Codable {
     let result_code: Int
-      let status: String
-      let description: String
-      let data: login_keys
+    let status: String
+    let description: String
+    let data: login_keys
+    struct login_keys: Codable {
+        let id: Int
+        let email: String
+        let password: String
+        let nickname: String
+        let created_at: String
+        let created_by: String
+        let token: String
+        let last_login_at: String
+        let week_attendance: Int
+        let status: String
+    }
 }
-struct login_keys: Codable {
-    let id: Int
-      let email: String
-      let password: String
-      let nickname: String
-      let created_at: String
-      let created_by: String
-      let token: String
-      let last_login_at: String
-      let week_attendance: Int
-      let status: String
-}
+
 struct homeReadModel: Codable {
     let result_code: Int
     let status: String
     let description: String
-    let data: [home_keys]
+    let data: home_keys
+    struct home_keys: Codable {
+        let id: Int
+        let word_id: Int
+        let word: String
+        let word_image: String
+        let word_audio: String
+        let place_list: [home_data]
+        struct home_data: Codable {
+            let id: Int
+            let title: String
+            let first_image: String
+        }
+    }
 }
-struct home_keys: Codable {
-    let place_id: Int
-    let place_title: String
-    let place_image: String
-}
+
 struct CardInfo {
     var backgroundColor: UIColor
     var height: CGFloat

@@ -18,13 +18,13 @@ class loginViewController: UIViewController {
         idTextField.layer.cornerRadius = 30
         idTextField.clipsToBounds = true
         idTextField.attributedPlaceholder = NSAttributedString(string: "  Enter ID", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        idTextField.backgroundColor = #colorLiteral(red: 0.1333114207, green: 0.1568785012, blue: 0.2901559472, alpha: 1)
+        idTextField.backgroundColor = .clear
         passwordTextField.layer.borderWidth = 2.0
         passwordTextField.layer.borderColor = UIColor.white.cgColor
         passwordTextField.layer.cornerRadius = 30
         passwordTextField.clipsToBounds = true
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        passwordTextField.backgroundColor = #colorLiteral(red: 0.1333114207, green: 0.1568785012, blue: 0.2901559472, alpha: 1)
+        passwordTextField.backgroundColor = .clear
         
         // Do any additional setup after loading the view.
     }
@@ -58,7 +58,6 @@ class loginViewController: UIViewController {
         }
         //let encodedPassword = PasswordEncoder().encode(password: password)!
         ApiHelper.login(email: loginEmail, password: password) { status in
-            print(status)
           switch status {
           case 500:
             self.defaultAlert(title: "경고", message: "아이디가 없습니다.", callback: nil)

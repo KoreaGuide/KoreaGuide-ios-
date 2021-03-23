@@ -16,7 +16,6 @@ class registerViewController: UIViewController {
 
     @IBOutlet var registerButton : UIButton!
     @IBOutlet var dismissButton : UIButton!
-    @IBOutlet var emailCheckButton : UIButton!
     var didCheckEmail: Bool = false
     var buttons: [UIButton]!
     
@@ -44,9 +43,6 @@ class registerViewController: UIViewController {
         passwordCheckTextField.clipsToBounds = true
         passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password again", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         
-        emailCheckButton.layer.borderWidth = 2.0
-        emailCheckButton.layer.borderColor = UIColor.white.cgColor
-        emailCheckButton.layer.cornerRadius = 15
         
 
         

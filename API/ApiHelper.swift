@@ -10,7 +10,7 @@ import Alamofire
 import JWTDecode
 
 final class ApiHelper {
-    static var baseHostName = "http://165.194.104.24:8080"
+    static var baseHostName = "http://192.168.0.28:8080"
     static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
     static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
     //static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
@@ -77,8 +77,10 @@ final class ApiHelper {
                 print (String(decoding: data, as: UTF8.self))
                 let decoder = JSONDecoder()
                 do {
-                    let result = try decoder.decode(signUpModel.self, from: data)
+                    let result = try decoder.decode(homeReadModel.self, from: data)
+                    print(result)
                     callback(result.result_code)
+                    
                 } catch {
                     callback(nil)
                 }
