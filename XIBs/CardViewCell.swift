@@ -8,7 +8,9 @@
 import UIKit
 
 class CardViewCell: UICollectionViewCell {
-
+    @IBOutlet var place_image: UIImageView!
+    @IBOutlet var place_title_kor: UILabel!
+    @IBOutlet var place_title_eng: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

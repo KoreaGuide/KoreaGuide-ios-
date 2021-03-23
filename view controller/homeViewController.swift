@@ -10,10 +10,14 @@ import UIKit
 
 class homeViewController: UIViewController {
     @IBOutlet var menuButton: UIButton!
-    @IBOutlet var button: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    
     @IBAction func didTapButton(_ sender: Any) {
         ApiHelper.homeRead { status in
                 switch status {
@@ -28,4 +32,6 @@ class homeViewController: UIViewController {
                 }
         }
     }
+    
+    
 }

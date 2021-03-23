@@ -35,6 +35,7 @@
 		5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
+		5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */; };
 		5EE338572608921500D54B59 /* CardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE338552608921500D54B59 /* CardViewCell.swift */; };
 		5EE338582608921500D54B59 /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE338562608921500D54B59 /* CardViewCell.xib */; };
 		5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
@@ -91,6 +92,7 @@
 		5E65A6F525DE479C00A0259B /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
 		5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bangla MN.ttc"; path = "../../../../../Downloads/Bangla MN.ttc"; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5EE338552608921500D54B59 /* CardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCell.swift; sourceTree = "<group>"; };
 		5EE338562608921500D54B59 /* CardViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewCell.xib; sourceTree = "<group>"; };
 		5EF5916B25EFA62800E07D88 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */,
 				5E192E2425FD071400864789 /* AlertExtensions.swift */,
 				5E192E2925FD095100864789 /* PasswordEncoder.swift */,
+				5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */,
 				5E2E282225D7CC410067C41F /* ViewController.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
+				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
