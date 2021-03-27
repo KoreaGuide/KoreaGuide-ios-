@@ -58,7 +58,8 @@ class loginViewController: UIViewController {
         }
         //let encodedPassword = PasswordEncoder().encode(password: password)!
         ApiHelper.login(email: loginEmail, password: password) { status in
-          switch status {
+          print(status)
+            switch status {
           case 500:
             self.defaultAlert(title: "경고", message: "아이디가 없습니다.", callback: nil)
           case 409:

@@ -10,7 +10,7 @@ import Alamofire
 import JWTDecode
 
 final class ApiHelper {
-    static var baseHostName = "http://172.30.1.56:8080"
+    static var baseHostName = "http://localhost:8080"
     static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
     static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
     //static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
@@ -34,7 +34,8 @@ final class ApiHelper {
                 case let .register(email, password, nickName):
                     return("/api/user", ["data":["email": email, "password":password, "nickname": nickName]], .post, defaultHeaders)
                 case let .login(email, password):
-                    return ("/api/user/login",["data": ["email": email, "password":password]], .post, defaultHeaders)
+                    let loginHeader: HTTPHeaders = ["Content-Type":"application/json","Authorization": "Bearer no_value"]
+                    return ("/api/user/login",["data": ["email": email, "password":password]], .post, loginHeader)
                 case let .emailCheck(email):
                     return ("/api/user/checkDuplicate",["data": ["email": email]], .post, defaultHeaders)
                 case .homeRead:
@@ -61,7 +62,7 @@ final class ApiHelper {
             }
         }
     }
-    static func homeRead(callback: @escaping (Int?) -> Void)
+    static func homeRead(callback: @escaping (homeReadModel?) -> Void)
     {
         AF.request(Router.homeRead)
             .responseJSON { response in
@@ -79,7 +80,8 @@ final class ApiHelper {
                 do {
                     let result = try decoder.decode(homeReadModel.self, from: data)
                     print(result)
-                    callback(result.result_code)
+                    
+                    callback(result)
                     
                 } catch {
                     callback(nil)
@@ -233,7 +235,6 @@ final class ApiHelper {
           case .success:
             break
           }
-
           guard let data = response.data else { return }//여기 있는거 아님?
           print(String(decoding: data, as: UTF8.self))
           let decoder = JSONDecoder()
@@ -251,7 +252,13 @@ final class ApiHelper {
             print(login_info.data.token)
             callback(login_info.result_code)
           } catch {
-            callback(nil)
+            do {
+                let failure_info = try decoder.decode(signUpModel.self, from: data)
+                print(failure_info)
+                callback(failure_info.result_code)
+            }catch {
+                callback(nil)
+            }
           }
         }
     }
