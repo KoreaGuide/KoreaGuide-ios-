@@ -7,10 +7,11 @@
 
 import Foundation
 import IGListKit
-
+import AVFoundation
 class HomeSectionController: ListBindingSectionController<Home>,
   ListBindingSectionControllerDataSource
 {
+  
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     guard let home = object as? Home else {
       fatalError()
@@ -21,7 +22,7 @@ class HomeSectionController: ListBindingSectionController<Home>,
     return result + home.cards
   }
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
-    print("call cellForViewModel")
+    print("1")
     let identifier:String
     switch viewModel {
     case is CardViewModel:
@@ -34,9 +35,11 @@ class HomeSectionController: ListBindingSectionController<Home>,
     guard let cell = collectionContext?.dequeueReusableCellFromStoryboard(withIdentifier: identifier, for: self, at: index) else {
       fatalError()
     }
+    if let cell = cell as? WordCell {
+      cell.delegate = self
+    }
     return cell
   }
-  
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
     guard let width = collectionContext?.containerSize.width else {
       fatalError()
@@ -44,7 +47,8 @@ class HomeSectionController: ListBindingSectionController<Home>,
     let height: CGFloat
     switch viewModel {
     case is CardViewModel:
-      height = 150
+      height = 250
+      
     case is WordViewModel:
       height = 200
     default:
@@ -56,5 +60,20 @@ class HomeSectionController: ListBindingSectionController<Home>,
   override init() {
     super.init()
     dataSource = self
+    self.inset = UIEdgeInsets(top:0, left:0, bottom: 30, right: 0)
+    self.minimumLineSpacing = 20
+    
+  }
+  
+}
+
+extension HomeSectionController : WordCellDelegate {
+  func didTap(cell: WordCell) {
+    let url = URL(string: cell.word_audio)
+    var player: AVPlayer?
+    var playerItem : AVPlayerItem?
+    playerItem = AVPlayerItem(url: url!)
+    player = AVPlayer(playerItem: playerItem)
+    player!.play()
   }
 }

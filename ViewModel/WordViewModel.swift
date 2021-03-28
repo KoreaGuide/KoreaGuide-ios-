@@ -19,8 +19,14 @@ final class WordViewModel : ListDiffable{
     self.word_image = word_image
     self.word_audio = word_audio
   }
+  init (key: home_keys)
+  {
+    self.word_id = key.word_id
+    self.word = key.word
+    self.word_image = key.word_image
+    self.word_audio = key.word_audio
+  }
 }
-
 extension WordViewModel {
   func diffIdentifier() -> NSObjectProtocol {
     return "Word" as NSObjectProtocol

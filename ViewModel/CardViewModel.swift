@@ -18,6 +18,12 @@ final class CardViewModel: ListDiffable {
     self.title_eng = title_eng
     self.image = image
   }
+  init (card: HomeCard)
+  {
+    self.title_kor = card.title
+    self.title_eng = card.title
+    self.image = card.first_image
+  }
 }
 extension CardViewModel {
   func diffIdentifier() -> NSObjectProtocol {

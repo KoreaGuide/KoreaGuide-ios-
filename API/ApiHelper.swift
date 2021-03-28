@@ -80,9 +80,7 @@ final class ApiHelper {
                 do {
                     let result = try decoder.decode(homeReadModel.self, from: data)
                     print(result)
-                    
                     callback(result)
-                    
                 } catch {
                     callback(nil)
                 }

@@ -10,17 +10,20 @@ import IGListKit
 import SDWebImage
 
 final class CardCell: UICollectionViewCell {
-  @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet var imageView: UIImageView!
   @IBOutlet var title_kor: UILabel!
   @IBOutlet var title_eng: UILabel!
-  
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? CardViewModel else {
       return
     }
+    layer.borderWidth = 2
+    layer.borderColor = UIColor.white.cgColor
     title_kor.text = viewModel.title_kor
     title_eng.text = viewModel.title_eng
-    let url = URL(fileURLWithPath: viewModel.image)
+    let url = URL(string: viewModel.image)
     imageView.sd_setImage(with: url)
+    print("3")
   }
+  
 }

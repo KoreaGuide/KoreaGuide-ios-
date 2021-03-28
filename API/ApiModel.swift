@@ -40,11 +40,17 @@ struct homeReadModel: Codable {
 
 struct home_keys: Codable {
   let id: Int
-  let word: Word
+  let word: String
+  let word_id: Int
+  let word_image: String
+  let word_audio: String
   let place_list: [HomeCard]
-  init(id: Int, word: Word, place_list: [HomeCard]) {
+  init(id: Int, word: String, word_id: Int, word_image: String, word_audio: String, place_list: [HomeCard]) {
     self.id = id
     self.word = word
+    self.word_id = word_id
+    self.word_image = word_image
+    self.word_audio = word_audio
     self.place_list = place_list
   }
 }
