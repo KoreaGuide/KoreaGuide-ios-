@@ -35,10 +35,11 @@ class homeViewController: UIViewController, ListAdapterDataSource {
     ApiHelper.homeRead { result in
       self.res = result
       let status = Int(self.res!.result_code)
-      
+
       switch status {
       case 200:
-        self.data.append(Home(cards: [CardViewModel(card: self.res!.data.place_list[0]), CardViewModel(card: self.res!.data.place_list[1]), CardViewModel(card: self.res!.data.place_list[2])], word: WordViewModel(key: self.res!.data)))
+        self.data.append(Home(cards: [CardViewModel(card: self.res!.data.place_list[0]), CardViewModel(card: self.res!.data.place_list[1]), CardViewModel(card: self.res!.data.place_list[2])], word: WordViewModel(word_id: self.res!.data.word_id, word: self.res!.data.word, word_image: self.res!.data.word_image, word_audio: "https://drive.google.com/file/d/1jVKirdapm-7WP2UMXewi7IOypji_w8qK/view?usp=sharing")))
+
         self.adapter.performUpdates(animated: true, completion: nil)
       default:
         self.defaultAlert(title: "알람", message: "서버 장애가 발생하였습니다. ", callback: nil)
