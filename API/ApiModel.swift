@@ -83,7 +83,7 @@ struct PlaceDetailModel: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: home_keys
+  let data: placeDetailAll
   struct placeDetailAll: Codable {
     let user_id: Int
     let place_status: String
@@ -95,8 +95,8 @@ struct PlaceDetailModel: Codable {
     let address2: String
     let first_image: String
     let first_image2: String
-    let map_x: Float
-    let max_y: Float
+    let map_x: String
+    let map_y: String
     let overview_korean: String
     let overview_english: String
     let category1: String
@@ -122,7 +122,7 @@ struct placeDetailKorModel: Codable {
     let first_image: String
     let first_image2: String
     let map_x: Float
-    let max_y: Float
+    let map_y: Float
     let overview_korean: String
     let category1: String
     let category2: String
@@ -147,7 +147,7 @@ struct placeDetailEngModel: Codable {
     let first_image: String
     let first_image2: String
     let map_x: Float
-    let max_y: Float
+    let map_y: Float
     let overview_english: String
     let category1: String
     let category2: String

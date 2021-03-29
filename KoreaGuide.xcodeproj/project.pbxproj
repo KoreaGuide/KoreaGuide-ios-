@@ -34,15 +34,6 @@
 		5E637962260F683700900192 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637961260F683700900192 /* HomeViewModel.swift */; };
 		5E637963260F683700900192 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637961260F683700900192 /* HomeViewModel.swift */; };
 		5E637964260F683700900192 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637961260F683700900192 /* HomeViewModel.swift */; };
-		5E637977260F6D5700900192 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637976260F6D5700900192 /* ImageViewModel.swift */; };
-		5E637978260F6D5700900192 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637976260F6D5700900192 /* ImageViewModel.swift */; };
-		5E637979260F6D5700900192 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E637976260F6D5700900192 /* ImageViewModel.swift */; };
-		5E63797F260F6DF000900192 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63797E260F6DF000900192 /* CardViewModel.swift */; };
-		5E637980260F6DF000900192 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63797E260F6DF000900192 /* CardViewModel.swift */; };
-		5E637981260F6DF000900192 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63797E260F6DF000900192 /* CardViewModel.swift */; };
-		5E63798F260F6F1200900192 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63798E260F6F1200900192 /* WordViewModel.swift */; };
-		5E637990260F6F1200900192 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63798E260F6F1200900192 /* WordViewModel.swift */; };
-		5E637991260F6F1200900192 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63798E260F6F1200900192 /* WordViewModel.swift */; };
 		5E63799D260F760500900192 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63799C260F760500900192 /* CardCell.swift */; };
 		5E63799E260F760500900192 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63799C260F760500900192 /* CardCell.swift */; };
 		5E63799F260F760500900192 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E63799C260F760500900192 /* CardCell.swift */; };
@@ -58,6 +49,15 @@
 		5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */; };
+		5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
+		5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
+		5E9CE5292611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
+		5E9CE52E2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */; };
+		5E9CE52F2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */; };
+		5E9CE5302611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */; };
+		5E9CE53E2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
+		5E9CE53F2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
+		5E9CE5402611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
 		5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
@@ -111,9 +111,6 @@
 		5E2E284125D7CC420067C41F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E637956260F67D100900192 /* HomeSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionController.swift; sourceTree = "<group>"; };
 		5E637961260F683700900192 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		5E637976260F6D5700900192 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
-		5E63797E260F6DF000900192 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
-		5E63798E260F6F1200900192 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		5E63799C260F760500900192 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		5E6379A6260F761600900192 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 		5E6379D8260F889100900192 /* UICollectionViewCellExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtensions.swift; sourceTree = "<group>"; };
@@ -121,6 +118,9 @@
 		5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bangla MN.ttc"; path = "../../../../../Downloads/Bangla MN.ttc"; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
+		5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSectionController.swift; sourceTree = "<group>"; };
+		5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
 		5EF5916B25EFA62800E07D88 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +187,7 @@
 				5E65A6F525DE479C00A0259B /* mapViewController.swift */,
 				5E6BB01925DE955E00CB066D /* registerViewController.swift */,
 				5EF5916B25EFA62800E07D88 /* homeViewController.swift */,
+				5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */,
 			);
 			path = "view controller";
 			sourceTree = "<group>";
@@ -266,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				5E637956260F67D100900192 /* HomeSectionController.swift */,
+				5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */,
 			);
 			path = SectionController;
 			sourceTree = "<group>";
@@ -274,9 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				5E637961260F683700900192 /* HomeViewModel.swift */,
-				5E637976260F6D5700900192 /* ImageViewModel.swift */,
-				5E63797E260F6DF000900192 /* CardViewModel.swift */,
-				5E63798E260F6F1200900192 /* WordViewModel.swift */,
+				5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -583,24 +583,24 @@
 				5E63799D260F760500900192 /* CardCell.swift in Sources */,
 				5E637957260F67D100900192 /* HomeSectionController.swift in Sources */,
 				5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */,
-				5E637977260F6D5700900192 /* ImageViewModel.swift in Sources */,
 				5E6379D9260F889100900192 /* UICollectionViewCellExtensions.swift in Sources */,
 				5E2E282225D7CC410067C41F /* ViewController.swift in Sources */,
-				5E63798F260F6F1200900192 /* WordViewModel.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,
+				5E9CE53E2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E637962260F683700900192 /* HomeViewModel.swift in Sources */,
 				5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */,
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,
+				5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */,
 				5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */,
 				5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */,
 				5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */,
+				5E9CE52E2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5E6379A7260F761600900192 /* WordCell.swift in Sources */,
-				5E63797F260F6DF000900192 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,13 +608,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E637980260F6DF000900192 /* CardViewModel.swift in Sources */,
 				5E637958260F67D100900192 /* HomeSectionController.swift in Sources */,
 				5E637963260F683700900192 /* HomeViewModel.swift in Sources */,
+				5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E65A6F725DE479C00A0259B /* mapViewController.swift in Sources */,
+				5E9CE53F2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
 				5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */,
-				5E637978260F6D5700900192 /* ImageViewModel.swift in Sources */,
-				5E637990260F6F1200900192 /* WordViewModel.swift in Sources */,
+				5E9CE52F2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5E63799E260F760500900192 /* CardCell.swift in Sources */,
 				5E11D99825DA31E600356166 /* startViewController.swift in Sources */,
 				5E11D98A25D979BB00356166 /* loginViewController.swift in Sources */,
@@ -628,13 +628,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E637981260F6DF000900192 /* CardViewModel.swift in Sources */,
 				5E637959260F67D100900192 /* HomeSectionController.swift in Sources */,
 				5E637964260F683700900192 /* HomeViewModel.swift in Sources */,
+				5E9CE5292611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E65A6F825DE479C00A0259B /* mapViewController.swift in Sources */,
+				5E9CE5402611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
 				5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */,
-				5E637979260F6D5700900192 /* ImageViewModel.swift in Sources */,
-				5E637991260F6F1200900192 /* WordViewModel.swift in Sources */,
+				5E9CE5302611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5E63799F260F760500900192 /* CardCell.swift in Sources */,
 				5E11D99925DA31E600356166 /* startViewController.swift in Sources */,
 				5E11D98B25D979BB00356166 /* loginViewController.swift in Sources */,
