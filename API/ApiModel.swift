@@ -78,3 +78,107 @@ struct HomeCard: Codable {
     self.first_image = first_image
   }
 }
+
+struct PlaceDetailModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: home_keys
+  struct placeDetailAll: Codable {
+    let user_id: Int
+    let place_status: String
+    let id: Int
+    let title: String
+    let content_id: Int
+    let area_code: Int
+    let address1: String
+    let address2: String
+    let first_image: String
+    let first_image2: String
+    let map_x: Float
+    let max_y: Float
+    let overview_korean: String
+    let overview_english: String
+    let category1: String
+    let category2: String
+    let category3: String
+  }
+}
+
+struct placeDetailKorModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: placeDetailKor
+  struct placeDetailKor: Codable {
+    let user_id: Int
+    let place_status: String
+    let id: Int
+    let title: String
+    let content_id: Int
+    let area_code: Int
+    let address1: String
+    let address2: String
+    let first_image: String
+    let first_image2: String
+    let map_x: Float
+    let max_y: Float
+    let overview_korean: String
+    let category1: String
+    let category2: String
+    let category3: String
+  }
+}
+
+struct placeDetailEngModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: placeDetailEng
+  struct placeDetailEng: Codable {
+    let user_id: Int
+    let place_status: String
+    let id: Int
+    let title: String
+    let content_id: Int
+    let area_code: Int
+    let address1: String
+    let address2: String
+    let first_image: String
+    let first_image2: String
+    let map_x: Float
+    let max_y: Float
+    let overview_english: String
+    let category1: String
+    let category2: String
+    let category3: String
+  }
+}
+
+struct placeRelatedWordModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: relatedWordList
+  struct relatedWordList: Codable {
+    let user_id: Int
+    let place_id: Int
+    let pagination: pagination
+    let word_list: wordList
+
+    struct pagination: Codable {
+      let total_pages: Int
+      let total_elements: Int
+      let current_page: Int
+      let current_elements: Int
+    }
+    struct wordList: Codable {
+      let word_id: Int
+      let word_kor: String
+      let word_eng: String
+      let word_status: String
+      let word_image: String
+      let word_audio: String
+    }
+  }
+}
