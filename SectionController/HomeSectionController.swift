@@ -59,9 +59,10 @@ class HomeSectionController: ListBindingSectionController<Home>,
     }
     return CGSize(width: width, height: height)
   }
+  
   override func didSelectItem(at index: Int) {
     guard let selectedCell = collectionContext?.cellForItem(at: index, sectionController: self) as? CardCell else { return }
-    guard var place_id = selectedCell.place_id else { return }
+    guard let place_id = selectedCell.place_id else { return }
     ApiHelper.placeDetailAllRead(place_id: place_id) { result in
       
       let status = Int(result!.result_code)

@@ -11,6 +11,7 @@
 		5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03501F25FB15B600CE21E0 /* ApiHelper.swift */; };
 		5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */; };
 		5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503525FB2AB200CE21E0 /* ApiModel.swift */; };
+		5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */; };
 		5E11D98925D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98A25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98B25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
@@ -90,6 +91,7 @@
 		5E03501F25FB15B600CE21E0 /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
 		5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
 		5E03503525FB2AB200CE21E0 /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
+		5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		5E11D98825D979BB00356166 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		5E11D99625DA31E600356166 /* startViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startViewController.swift; sourceTree = "<group>"; };
 		5E192E2425FD071400864789 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				5E192E2425FD071400864789 /* AlertExtensions.swift */,
 				5E192E2925FD095100864789 /* PasswordEncoder.swift */,
 				5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */,
+				5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E11D99725DA31E600356166 /* startViewController.swift in Sources */,
+				5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */,
 				5E11D98925D979BB00356166 /* loginViewController.swift in Sources */,
 				5E63799D260F760500900192 /* CardCell.swift in Sources */,
 				5E637957260F67D100900192 /* HomeSectionController.swift in Sources */,

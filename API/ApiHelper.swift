@@ -7,7 +7,6 @@
 // User Create, User Read, User Delete, Check Duplicate Email, Login,
 import Alamofire
 import Foundation
-import JWTDecode
 
 final class ApiHelper {
   static var baseHostName = "http://localhost:8080"
@@ -166,8 +165,9 @@ final class ApiHelper {
         }
       }
   }
+  
   static func homeRead(callback: @escaping (homeReadModel?) -> Void) {
-    AF.request(Router.homeRead)
+      AF.request(Router.homeRead)
       .responseJSON { response in
         debugPrint(response)
         switch response.result {

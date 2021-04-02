@@ -9,10 +9,11 @@ import Foundation
 import IGListKit
 
 final class Home: ListDiffable {
+  //section controller에서 demux 해주는용
   func diffIdentifier() -> NSObjectProtocol {
     return "Home" as NSObjectProtocol
   }
-
+  //cell 업데이트용
   func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
     return true
   }
@@ -22,26 +23,6 @@ final class Home: ListDiffable {
   init(cards: [CardViewModel], word: WordViewModel) {
     self.cards = cards
     self.word = word
-  }
-}
-
-class ImageViewModel: ListDiffable {
-  let imageURL: String
-  init(url: String) {
-    imageURL = url
-  }
-}
-
-extension ImageViewModel {
-  func diffIdentifier() -> NSObjectProtocol {
-    return "image" as NSObjectProtocol
-  }
-
-  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-    guard let right = object as? ImageViewModel else {
-      return false
-    }
-    return imageURL == right.imageURL
   }
 }
 
