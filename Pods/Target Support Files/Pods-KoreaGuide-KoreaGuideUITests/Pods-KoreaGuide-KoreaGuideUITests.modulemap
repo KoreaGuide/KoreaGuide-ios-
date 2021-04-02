@@ -1,0 +1,6 @@
+framework module Pods_KoreaGuide_KoreaGuideUITests {
+  umbrella header "Pods-KoreaGuide-KoreaGuideUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

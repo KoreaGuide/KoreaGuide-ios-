@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Card" id="gTV-IL-0wX" customClass="CardViewCell" customModule="KoreaGuide" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="364" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="364" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zkd-gQ-gE0">
+                        <rect key="frame" x="20" y="5" width="324" height="121"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="장소 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKc-GX-gwE">
+                        <rect key="frame" x="20" y="135" width="64" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Th-CP-tOE">
+                        <rect key="frame" x="296" y="104" width="18" height="22"/>
+                        <state key="normal" image="btn_plus_white"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Place title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPm-vN-IUH">
+                        <rect key="frame" x="20" y="159" width="75" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" red="0.23209425810000001" green="0.2455849051" blue="0.32942157979999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="4Th-CP-tOE" firstAttribute="top" secondItem="zkd-gQ-gE0" secondAttribute="bottom" constant="5" id="2Em-mn-Wnq"/>
+                <constraint firstItem="zkd-gQ-gE0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="CPa-ni-LKJ"/>
+                <constraint firstItem="fKc-GX-gwE" firstAttribute="top" secondItem="zkd-gQ-gE0" secondAttribute="bottom" constant="5" id="LiL-JR-TI7"/>
+                <constraint firstItem="4Th-CP-tOE" firstAttribute="trailing" secondItem="zkd-gQ-gE0" secondAttribute="trailing" constant="-30" id="UTi-Ln-GTu"/>
+                <constraint firstItem="LPm-vN-IUH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="aJ6-Sb-LM3"/>
+                <constraint firstItem="fKc-GX-gwE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="iiR-QV-ED6"/>
+                <constraint firstItem="zkd-gQ-gE0" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="kqU-CH-X2z"/>
+                <constraint firstItem="LPm-vN-IUH" firstAttribute="top" secondItem="fKc-GX-gwE" secondAttribute="bottom" constant="5" id="piR-FU-G0o"/>
+                <constraint firstItem="zkd-gQ-gE0" firstAttribute="leading" secondItem="fKc-GX-gwE" secondAttribute="leading" id="q4b-wv-zdU"/>
+            </constraints>
+            <size key="customSize" width="201" height="140"/>
+            <connections>
+                <outlet property="place_image" destination="zkd-gQ-gE0" id="4SB-OY-wUv"/>
+                <outlet property="place_title_eng" destination="LPm-vN-IUH" id="l2I-IY-XfR"/>
+                <outlet property="place_title_kor" destination="fKc-GX-gwE" id="7qi-YN-MQn"/>
+            </connections>
+            <point key="canvasLocation" x="50.724637681159422" y="96.428571428571431"/>
+        </collectionViewCell>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bai-qv-2jj">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="-148" y="-21"/>
+        </label>
+    </objects>
+    <resources>
+        <image name="btn_plus_white" width="18" height="18"/>
+    </resources>
+</document>
