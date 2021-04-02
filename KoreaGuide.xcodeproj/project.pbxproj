@@ -45,7 +45,6 @@
 		5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E65A6F525DE479C00A0259B /* mapViewController.swift */; };
 		5E65A6F725DE479C00A0259B /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E65A6F525DE479C00A0259B /* mapViewController.swift */; };
 		5E65A6F825DE479C00A0259B /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E65A6F525DE479C00A0259B /* mapViewController.swift */; };
-		5E6BB00F25DE7AEC00CB066D /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */; };
 		5E6BB01A25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
@@ -92,6 +91,7 @@
 		5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
 		5E03503525FB2AB200CE21E0 /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangla MN.ttc"; sourceTree = "<group>"; };
 		5E11D98825D979BB00356166 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		5E11D99625DA31E600356166 /* startViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startViewController.swift; sourceTree = "<group>"; };
 		5E192E2425FD071400864789 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
@@ -117,7 +117,6 @@
 		5E6379A6260F761600900192 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 		5E6379D8260F889100900192 /* UICollectionViewCellExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtensions.swift; sourceTree = "<group>"; };
 		5E65A6F525DE479C00A0259B /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
-		5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bangla MN.ttc"; path = "../../../../../Downloads/Bangla MN.ttc"; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
@@ -287,7 +286,7 @@
 		5E6BB00D25DE7AD900CB066D /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				5E6BB00E25DE7AEC00CB066D /* Bangla MN.ttc */,
+				5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -435,7 +434,6 @@
 			files = (
 				5E2E282A25D7CC410067C41F /* LaunchScreen.storyboard in Resources */,
 				5E2E282725D7CC410067C41F /* Assets.xcassets in Resources */,
-				5E6BB00F25DE7AEC00CB066D /* Bangla MN.ttc in Resources */,
 				5E2E282525D7CC410067C41F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
