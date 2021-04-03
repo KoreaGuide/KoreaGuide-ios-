@@ -12,6 +12,9 @@
 		5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503025FB200A00CE21E0 /* UserDefaultsExtensions.swift */; };
 		5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E03503525FB2AB200CE21E0 /* ApiModel.swift */; };
 		5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */; };
+		5E0CAF2826189F4800B5B3FD /* tapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CAF2726189F4800B5B3FD /* tapBarController.swift */; };
+		5E0CAF2926189F4800B5B3FD /* tapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CAF2726189F4800B5B3FD /* tapBarController.swift */; };
+		5E0CAF2A26189F4800B5B3FD /* tapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CAF2726189F4800B5B3FD /* tapBarController.swift */; };
 		5E11D98925D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98A25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
 		5E11D98B25D979BB00356166 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11D98825D979BB00356166 /* loginViewController.swift */; };
@@ -92,6 +95,7 @@
 		5E03503525FB2AB200CE21E0 /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bangla MN.ttc"; sourceTree = "<group>"; };
+		5E0CAF2726189F4800B5B3FD /* tapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapBarController.swift; sourceTree = "<group>"; };
 		5E11D98825D979BB00356166 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
 		5E11D99625DA31E600356166 /* startViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startViewController.swift; sourceTree = "<group>"; };
 		5E192E2425FD071400864789 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
@@ -181,15 +185,40 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5E0CAF2E2618AA4300B5B3FD /* ProfileController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ProfileController;
+			sourceTree = "<group>";
+		};
+		5E0CAF2F2618AA5D00B5B3FD /* PlaceController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlaceController;
+			sourceTree = "<group>";
+		};
+		5E0CAF302618AA6600B5B3FD /* WordController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WordController;
+			sourceTree = "<group>";
+		};
 		5E11D97A25D978FF00356166 /* view controller */ = {
 			isa = PBXGroup;
 			children = (
+				5E0CAF302618AA6600B5B3FD /* WordController */,
+				5E0CAF2F2618AA5D00B5B3FD /* PlaceController */,
+				5E0CAF2E2618AA4300B5B3FD /* ProfileController */,
 				5E11D98825D979BB00356166 /* loginViewController.swift */,
 				5E11D99625DA31E600356166 /* startViewController.swift */,
 				5E65A6F525DE479C00A0259B /* mapViewController.swift */,
 				5E6BB01925DE955E00CB066D /* registerViewController.swift */,
 				5EF5916B25EFA62800E07D88 /* homeViewController.swift */,
 				5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */,
+				5E0CAF2726189F4800B5B3FD /* tapBarController.swift */,
 			);
 			path = "view controller";
 			sourceTree = "<group>";
@@ -583,6 +612,7 @@
 				5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */,
 				5E11D98925D979BB00356166 /* loginViewController.swift in Sources */,
 				5E63799D260F760500900192 /* CardCell.swift in Sources */,
+				5E0CAF2826189F4800B5B3FD /* tapBarController.swift in Sources */,
 				5E637957260F67D100900192 /* HomeSectionController.swift in Sources */,
 				5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */,
 				5E6379D9260F889100900192 /* UICollectionViewCellExtensions.swift in Sources */,
@@ -615,6 +645,7 @@
 				5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E65A6F725DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E9CE53F2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
+				5E0CAF2926189F4800B5B3FD /* tapBarController.swift in Sources */,
 				5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E9CE52F2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5E63799E260F760500900192 /* CardCell.swift in Sources */,
@@ -635,6 +666,7 @@
 				5E9CE5292611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E65A6F825DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E9CE5402611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
+				5E0CAF2A26189F4800B5B3FD /* tapBarController.swift in Sources */,
 				5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E9CE5302611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5E63799F260F760500900192 /* CardCell.swift in Sources */,

@@ -13,19 +13,22 @@ final class CardCell: UICollectionViewCell {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var title_kor: UILabel!
   @IBOutlet var title_eng: UILabel!
-  var place_id :Int!
+  var place_id: Int!
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? CardViewModel else {
       return
     }
     layer.borderWidth = 2
     layer.borderColor = UIColor.white.cgColor
-    title_kor.text = viewModel.title_kor
-    title_eng.text = viewModel.title_eng
+    let str = viewModel.title_kor
+    let arr = str.components(separatedBy: "(")
+    let strRange = arr[1].startIndex ..< arr[1].index(before: arr[1].endIndex)
+    print(arr[1][strRange])
+    title_kor.text = String(arr[1][strRange])
+    title_eng.text = arr[0]
     let url = URL(string: viewModel.image)
     place_id = viewModel.place_id
     imageView.sd_setImage(with: url)
     print("3")
   }
-  
 }

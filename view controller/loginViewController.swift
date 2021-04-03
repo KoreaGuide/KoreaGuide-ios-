@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import KRProgressHUD
 import UIKit
 
 class loginViewController: UIViewController {
