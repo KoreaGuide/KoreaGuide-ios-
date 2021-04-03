@@ -24,8 +24,13 @@ final class CardCell: UICollectionViewCell {
     let arr = str.components(separatedBy: "(")
     let strRange = arr[1].startIndex ..< arr[1].index(before: arr[1].endIndex)
     print(arr[1][strRange])
-    title_kor.text = String(arr[1][strRange])
-    title_eng.text = arr[0]
+    if arr[1].hasSuffix(")") {
+      title_kor.text = String(arr[1][strRange])
+      title_eng.text = arr[0]
+    } else {
+      title_kor.text = arr[1]
+      title_eng.text = arr[0]
+    }
     let url = URL(string: viewModel.image)
     place_id = viewModel.place_id
     imageView.sd_setImage(with: url)
