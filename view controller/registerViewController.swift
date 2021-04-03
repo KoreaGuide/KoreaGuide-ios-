@@ -20,27 +20,30 @@ class registerViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    emailTextField.addLeftPadding()
     emailTextField.layer.borderWidth = 1.5
     emailTextField.layer.borderColor = UIColor.white.cgColor
     emailTextField.layer.cornerRadius = 25
     emailTextField.clipsToBounds = true
-    emailTextField.attributedPlaceholder = NSAttributedString(string: "  Enter email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    emailTextField.attributedPlaceholder = NSAttributedString(string: "Enter email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     passwordTextField.layer.borderWidth = 1.5
     passwordTextField.layer.borderColor = UIColor.white.cgColor
     passwordTextField.layer.cornerRadius = 25
     passwordTextField.clipsToBounds = true
-    passwordTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    passwordTextField.attributedPlaceholder = NSAttributedString(string: "Enter password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    passwordTextField.addLeftPadding()
     nicknameTextField.layer.borderWidth = 1.5
     nicknameTextField.layer.borderColor = UIColor.white.cgColor
     nicknameTextField.layer.cornerRadius = 25
     nicknameTextField.clipsToBounds = true
-    nicknameTextField.attributedPlaceholder = NSAttributedString(string: "  Enter nickname", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    nicknameTextField.attributedPlaceholder = NSAttributedString(string: "Enter nickname", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    nicknameTextField.addLeftPadding()
     passwordCheckTextField.layer.borderWidth = 1.5
     passwordCheckTextField.layer.borderColor = UIColor.white.cgColor
     passwordCheckTextField.layer.cornerRadius = 25
     passwordCheckTextField.clipsToBounds = true
-    passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "  Enter password again", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-
+    passwordCheckTextField.attributedPlaceholder = NSAttributedString(string: "Enter password again", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    passwordCheckTextField.addLeftPadding()
     registerButton.layer.borderColor = #colorLiteral(red: 0.3097642064, green: 0.345123291, blue: 0.4862119555, alpha: 1)
     registerButton.layer.borderWidth = 2
     registerButton.layer.cornerRadius = 27
@@ -64,19 +67,7 @@ class registerViewController: UIViewController {
     view.endEditing(true)
   }
 
-  @IBAction func didTapEmailCheck(_ sender: Any) {
-    guard let email = emailTextField.text, !email.isEmpty else { unfinishedAlert(problem: "이메일(email)")
-      return
-    }
-    ApiHelper.emailCheck(email: email) { status in
-      if status == 409 {
-        self.defaultAlert(title: "알람", message: "이미 존재하는 아이디입니다.", callback: nil)
-      } else if status == 200 {
-        self.didCheckEmail = true
-        self.defaultAlert(title: "알람", message: "사용할 수 있는 아이디입니다", callback: nil)
-      }
-    }
-  }
+  @IBAction func didTapEmailCheck(_ sender: Any) {}
 
   @IBAction func didTapDismiss(_ sender: Any) {
     print("취소 버튼 클릭됨")
@@ -89,33 +80,43 @@ class registerViewController: UIViewController {
     guard let email = emailTextField.text, !email.isEmpty else { unfinishedAlert(problem: "이메일(email)")
       return
     }
-    guard let password = passwordTextField.text, !password.isEmpty, 8 ... 15 ~= password.count,
-          !password.contains(email), !password.contains(" "), !password.contains("&"), !password.contains("|"), !password.contains("<"),
-          !password.contains(">")
-    else { unfinishedAlert(problem: "비밀번호(Password")
-      return
-    }
-
-    guard let nickName = nicknameTextField.text, !nickName.isEmpty else { unfinishedAlert(problem: "닉네임(nickName)")
-      return
-    }
-    
-    guard didCheckEmail else {
-      defaultAlert(title: "알람", message: "이메일 중복확인을 진행하지 않았습니다", callback: nil)
-      return
-    }
-
-    ApiHelper.register(email: email, password: password, nickName: nickName) { status in
-      switch status {
-      case 409:
-        self.defaultAlert(title: "알람", message: "이미 가입되어 있는 이메일입니다.", callback: nil)
-
-      case 201:
-        self.defaultAlert(title: "알람", message: "계정이 생성되었습니다.") { _ in
-          self.dismiss(animated: true, completion:nil)
+    ApiHelper.emailCheck(email: email) { status in
+      if status == 409 {
+        self.defaultAlert(title: "알람", message: "이미 존재하는 아이디입니다.", callback: nil)
+      } else if status == 200 {
+        self.didCheckEmail = true
+        guard let email = self.emailTextField.text, !email.isEmpty else { self.unfinishedAlert(problem: "이메일(email)")
+          return
         }
-      default:
-        self.defaultAlert(title: "알람", message: "서버 장애가 발생하였습니다. ", callback: nil)
+        guard let password = self.passwordTextField.text, !password.isEmpty, 8 ... 15 ~= password.count,
+              !password.contains(email), !password.contains(" "), !password.contains("&"), !password.contains("|"), !password.contains("<"),
+              !password.contains(">")
+        else { self.unfinishedAlert(problem: "비밀번호(Password")
+          return
+        }
+
+        guard let nickName = self.nicknameTextField.text, !nickName.isEmpty else { self.unfinishedAlert(problem: "닉네임(nickName)")
+          return
+        }
+
+        guard self.didCheckEmail else {
+          self.defaultAlert(title: "알람", message: "이메일 중복확인을 진행하지 않았습니다", callback: nil)
+          return
+        }
+
+        ApiHelper.register(email: email, password: password, nickName: nickName) { status in
+          switch status {
+          case 409:
+            self.defaultAlert(title: "알람", message: "이미 가입되어 있는 이메일입니다.", callback: nil)
+
+          case 201:
+            self.defaultAlert(title: "알람", message: "계정이 생성되었습니다.") { _ in
+              self.dismiss(animated: true, completion: nil)
+            }
+          default:
+            self.defaultAlert(title: "알람", message: "서버 장애가 발생하였습니다. ", callback: nil)
+          }
+        }
       }
     }
   }
