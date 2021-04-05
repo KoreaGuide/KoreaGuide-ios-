@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -105,13 +104,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="한옥" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-im-4XJ">
-                                <rect key="frame" x="-82" y="-383" width="578" height="1923"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.97254908080000002" blue="0.85490196939999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="gx2-5j-6F3">
                                 <rect key="frame" x="-82" y="0.0" width="578" height="911"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="iLg-Xo-WKe">
+                                <rect key="frame" x="-59" y="-90" width="910" height="1455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QXF-sz-cYd">
@@ -164,10 +162,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="iLg-Xo-WKe">
-                                <rect key="frame" x="-59" y="-90" width="910" height="1455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Rlf-Km-GFq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -297,11 +291,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="한옥" translatesAutoresizingMaskIntoConstraints="NO" id="fhy-GK-aD0">
-                                <rect key="frame" x="-82" y="-383" width="578" height="1923"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.97254908080000002" blue="0.85490196939999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="I41-LF-gvc">
                                 <rect key="frame" x="-82" y="0.0" width="578" height="911"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -376,11 +365,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" image="한옥" translatesAutoresizingMaskIntoConstraints="NO" id="qt3-oi-xQF">
-                                <rect key="frame" x="-82" y="-383" width="578" height="1923"/>
-                                <color key="tintColor" red="1" green="0.97254908080000002" blue="0.85490196939999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="top-jb-oLQ">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="top-jb-oLQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Title" id="m7o-LN-mhN">
@@ -388,8 +373,11 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="UbT-UE-zTN">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="UbT-UE-zTN">
                                 <rect key="frame" x="-82" y="0.0" width="578" height="911"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="578" id="Xzs-aa-pdU"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0a-xZ-VtX">
                                 <rect key="frame" x="162" y="100" width="90" height="29"/>
@@ -397,9 +385,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="CyM-6a-etL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="flower" translatesAutoresizingMaskIntoConstraints="NO" id="CyM-6a-etL">
                                 <rect key="frame" x="-445" y="-132" width="859" height="1558"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="859" id="2mU-Cm-DZA"/>
+                                    <constraint firstAttribute="height" constant="1558" id="MJc-Zp-uMY"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tsF-n5-KBx">
                                 <rect key="frame" x="184" y="715" width="46" height="30"/>
@@ -421,7 +412,7 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" name="AccentColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="TY0-CO-g6B" firstAttribute="top" secondItem="yHf-be-daa" secondAttribute="top" constant="112" id="tKK-c1-P4O"/>
                                 </constraints>
@@ -430,10 +421,13 @@
                         <viewLayoutGuide key="safeArea" id="cvx-sD-StI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="V0a-xZ-VtX" firstAttribute="centerX" secondItem="qt3-oi-xQF" secondAttribute="centerX" id="3Oy-8f-nCg"/>
                             <constraint firstItem="yHf-be-daa" firstAttribute="leading" secondItem="vmN-hc-Oda" secondAttribute="leadingMargin" id="4uk-OG-YaR"/>
                             <constraint firstItem="V0a-xZ-VtX" firstAttribute="centerX" secondItem="top-jb-oLQ" secondAttribute="centerX" id="5eQ-ya-WLI"/>
+                            <constraint firstItem="UbT-UE-zTN" firstAttribute="top" secondItem="vmN-hc-Oda" secondAttribute="topMargin" constant="-44" id="5n3-4y-fnM"/>
+                            <constraint firstItem="top-jb-oLQ" firstAttribute="leading" secondItem="cvx-sD-StI" secondAttribute="leading" id="6sv-k5-zQj"/>
+                            <constraint firstItem="CyM-6a-etL" firstAttribute="top" secondItem="vmN-hc-Oda" secondAttribute="top" constant="-132" id="7eg-oM-kdk"/>
                             <constraint firstItem="cvx-sD-StI" firstAttribute="trailing" secondItem="yHf-be-daa" secondAttribute="trailing" constant="18" id="9ZI-Xi-XpC"/>
+                            <constraint firstItem="top-jb-oLQ" firstAttribute="trailing" secondItem="CyM-6a-etL" secondAttribute="trailing" id="CU0-Aq-d6h"/>
                             <constraint firstItem="yHf-be-daa" firstAttribute="top" secondItem="vmN-hc-Oda" secondAttribute="top" constant="183" id="HQN-c6-kPh"/>
                             <constraint firstItem="tsF-n5-KBx" firstAttribute="top" secondItem="yHf-be-daa" secondAttribute="bottom" constant="20" id="KAE-Ti-F36"/>
                             <constraint firstItem="V0a-xZ-VtX" firstAttribute="centerX" secondItem="tsF-n5-KBx" secondAttribute="centerX" id="MSB-um-KtV"/>
@@ -442,6 +436,7 @@
                             <constraint firstItem="V0a-xZ-VtX" firstAttribute="centerX" secondItem="UbT-UE-zTN" secondAttribute="centerX" id="cEk-Z5-ssV"/>
                             <constraint firstItem="yHf-be-daa" firstAttribute="top" secondItem="V0a-xZ-VtX" secondAttribute="bottom" constant="54" id="gtv-QR-4FN"/>
                             <constraint firstAttribute="bottom" secondItem="yHf-be-daa" secondAttribute="bottom" constant="201" id="jKu-gW-sS7"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="UbT-UE-zTN" secondAttribute="bottom" constant="-49" id="n1p-Th-znH"/>
                         </constraints>
                     </view>
                     <connections>
@@ -560,10 +555,6 @@
     <resources>
         <image name="flower" width="1938" height="1907"/>
         <image name="배경 화면" width="1125" height="2436"/>
-        <image name="한옥" width="1125" height="2436"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
