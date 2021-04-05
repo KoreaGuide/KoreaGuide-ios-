@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class wordMainViewController : UIViewController {
+class wordLearnViewController : UIViewController {
     @IBOutlet weak var placeTitleLabel: UINavigationItem!
     @IBOutlet weak var backBarButton: UIBarButtonItem!
     @IBOutlet weak var wordCountLabel: UILabel!

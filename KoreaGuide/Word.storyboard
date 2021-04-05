@@ -15,10 +15,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Word Main View Controller-->
+        <!--Word Learn View Controller-->
         <scene sceneID="gwD-0J-PPn">
             <objects>
-                <viewController storyboardIdentifier="wordMainVC" id="nx1-To-1b7" customClass="wordMainViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordMainVC" id="nx1-To-1b7" customClass="wordLearnViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ZC-wh-hG5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,53 +112,38 @@
                                 <rect key="frame" x="-59" y="-90" width="910" height="1455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QXF-sz-cYd">
-                                <rect key="frame" x="20" y="224" width="374" height="529"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKk-5q-XHa">
-                                    <size key="itemSize" width="337" height="132"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RuR-fV-HJc">
-                                        <rect key="frame" x="18.5" y="0.0" width="337" height="132"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="E9m-c1-MER">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="132"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMx-lz-46y">
-                                                    <rect key="frame" x="275" y="51" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                            </subviews>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="337" height="132"/>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlr-BP-szi">
-                                <rect key="frame" x="141" y="69" width="139" height="39"/>
+                                <rect key="frame" x="138" y="64" width="139" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total vocab " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6su-ig-BdQ">
-                                <rect key="frame" x="44" y="146" width="123" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMS-Lt-7c7">
+                                <rect key="frame" x="38" y="187" width="345" height="160"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="pgc-Ec-2Hd" kind="embed" id="8O4-Ny-UQ3"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKk-hD-Wow">
+                                <rect key="frame" x="38" y="375" width="345" height="160"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="JCA-T0-Fyi" kind="embed" id="qdr-6b-178"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKS-Qz-Ajc">
+                                <rect key="frame" x="38" y="574" width="345" height="160"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Oel-Pq-Fx0" kind="embed" id="pIN-ie-Wqa"/>
+                                </connections>
+                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEY-9S-fo8">
-                                <rect key="frame" x="241" y="146" width="118" height="29"/>
+                                <rect key="frame" x="38" y="121" width="111" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -167,7 +152,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="vocabCollectionView" destination="QXF-sz-cYd" id="7Lg-Li-QOF"/>
                         <outlet property="vocabTopLabel" destination="jlr-BP-szi" id="Lm2-I4-ADv"/>
                     </connections>
                 </viewController>
@@ -283,10 +267,10 @@
             </objects>
             <point key="canvasLocation" x="-625.36231884057975" y="193.86160714285714"/>
         </scene>
-        <!--Word Vocab View Controller-->
+        <!--Word List View Controller-->
         <scene sceneID="eC5-HU-HqU">
             <objects>
-                <viewController storyboardIdentifier="wordListVC" id="kvK-Q1-hQt" customClass="wordVocabViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordListVC" id="kvK-Q1-hQt" customClass="wordListViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JBP-Kx-lu1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -337,10 +321,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zP-ug-S2D">
-                                <rect key="frame" x="20" y="100" width="119" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sort" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zP-ug-S2D">
+                                <rect key="frame" x="334" y="98" width="49" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -357,10 +341,10 @@
             </objects>
             <point key="canvasLocation" x="1776.8115942028987" y="87.723214285714278"/>
         </scene>
-        <!--Word Vocab View Controller-->
+        <!--Word Test Type View Controller-->
         <scene sceneID="N0y-KR-1YX">
             <objects>
-                <viewController storyboardIdentifier="testListVC" id="Z2u-YY-uLf" customClass="wordVocabViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="testListVC" id="Z2u-YY-uLf" customClass="wordTestTypeViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmN-hc-Oda">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -447,10 +431,10 @@
             </objects>
             <point key="canvasLocation" x="2621.739130434783" y="87.723214285714278"/>
         </scene>
-        <!--Word Main View Controller-->
+        <!--Word Test View Controller-->
         <scene sceneID="aSd-zt-gCF">
             <objects>
-                <viewController storyboardIdentifier="wordTestVC" id="cLw-fR-QFQ" customClass="wordMainViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordTestVC" id="cLw-fR-QFQ" customClass="wordTestViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aJO-ab-7Zp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -550,6 +534,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5S5-ef-7Em" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2990" y="-429"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="nrD-b1-gbH">
+            <objects>
+                <viewController id="pgc-Ec-2Hd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cbC-yZ-Kvd">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j8I-MC-bGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="752" y="-328"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="irB-Le-8B6">
+            <objects>
+                <viewController id="JCA-T0-Fyi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hf6-Lp-Tz2">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CzC-2u-Izv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="417" y="552"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ISv-rD-6Y8">
+            <objects>
+                <viewController id="Oel-Pq-Fx0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lht-oa-b45">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPn-f5-ZRv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1170" y="577"/>
         </scene>
     </scenes>
     <resources>
