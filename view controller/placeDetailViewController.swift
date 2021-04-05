@@ -37,6 +37,8 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self
+    guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { fatalError() }
+    layout.sectionHeadersPinToVisibleBounds = true
   }
 
   func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
@@ -50,5 +52,14 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
 
   func emptyView(for listAdapter: ListAdapter) -> UIView? {
     return nil
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.isNavigationBarHidden = false
+    let backButton = UIBarButtonItem()
+    backButton.title = ""
+    self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    self.navigationController?.navigationBar.topItem?.title = res?.data.title
   }
 }

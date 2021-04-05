@@ -66,9 +66,6 @@ class registerViewController: UIViewController {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     view.endEditing(true)
   }
-
-  @IBAction func didTapEmailCheck(_ sender: Any) {}
-
   @IBAction func didTapDismiss(_ sender: Any) {
     print("취소 버튼 클릭됨")
     showAlert { _ in
