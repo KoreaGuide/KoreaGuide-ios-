@@ -17,11 +17,24 @@ final class PostingCell: UICollectionViewCell {
   var overview_eng : String?
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? PostingViewModel else { return }
-    title_kor.text = viewModel.title
-    title_eng.text = viewModel.title
+    
+    let str = viewModel.title
+    let arr = str.components(separatedBy: "(")
+    let strRange = arr[1].startIndex ..< arr[1].index(before: arr[1].endIndex)
+    if arr[1].hasSuffix(")") {
+      title_kor.text = String(arr[1][strRange])
+      title_eng.text = arr[0]
+    } else {
+      title_kor.text = arr[1]
+      title_eng.text = arr[0]
+    }
     overview.text = viewModel.overview_Kor
     overview_eng = viewModel.overview_Eng
     overview_kor = viewModel.overview_Kor
+    let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    seg.setTitleTextAttributes(titleTextAttributes, for: .normal)
+    seg.setTitleTextAttributes(titleTextAttributes, for: .selected)
+
   }
   
   @IBAction func sgChangeLanguage(_ sender: UISegmentedControl) {

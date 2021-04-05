@@ -65,7 +65,7 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
       height = 200
 
     case is PostingViewModel:
-      height = 600
+      height = 400
     case is MapViewModel:
       height = 300
     default:

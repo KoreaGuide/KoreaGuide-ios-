@@ -9,11 +9,11 @@ import Foundation
 import IGListKit
 import UIKit
 class placeDetailViewController: UIViewController, ListAdapterDataSource {
-  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet var collectionView: UICollectionView!
   @IBOutlet var LearnButton: UIButton!
   var res: PlaceDetailModel?
   var data = [ListDiffable]()
-  var place_id : Int?
+  var place_id: Int?
   lazy var adapter: ListAdapter = {
     ListAdapter(updater: ListAdapterUpdater(), viewController: self)
   }()
@@ -30,13 +30,14 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
       default:
         print("hello")
       }
+      self.LearnButton.layer.borderWidth = 2
+      self.LearnButton.layer.borderColor = #colorLiteral(red: 0.4645748071, green: 0.5725829005, blue: 0.5960008502, alpha: 1)
+      self.LearnButton.layer.cornerRadius = 22
+      self.LearnButton.layer.backgroundColor = #colorLiteral(red: 0.3324496303, green: 0.3750489015, blue: 0.4744465351, alpha: 1)
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self
-    
   }
-  
-  
 
   func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
     return data
