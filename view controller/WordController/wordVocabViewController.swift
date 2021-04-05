@@ -11,9 +11,13 @@ import UIKit
 class wordVocabViewController : UIViewController {
     
     @IBOutlet weak var vocabTopLabel: UILabel!
-    @IBOutlet weak var vocabCollectionView: UICollectionView!
+    @IBOutlet weak var addedFolder: UIView!
+    @IBOutlet weak var learningFolder: UIView!
+    @IBOutlet weak var completeFolder: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
+
+
