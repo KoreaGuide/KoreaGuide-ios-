@@ -8,12 +8,9 @@
 import Foundation
 import IGListKit
 
-final class WordList : ListDiffable {
-    
-    
-    
+class OneWord : ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
-        <#code#>
+        return (word_kor) as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
@@ -21,11 +18,18 @@ final class WordList : ListDiffable {
     }
     
     
+    let word_kor:String
+    let word_eng:String
+    init(){
+        self.word_kor = ""
+        self.word_eng = ""
+    }
 }
+
 
 class Vocab : ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
-        <#code#>
+        return (vocabTitle) as NSObjectProtocol
     }
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
@@ -41,5 +45,33 @@ class Vocab : ListDiffable {
         self.vocabTotalCount = 0
         self.vocabCompleteCount = 0
     }
+    
+}
+
+
+final class WordBox: ListDiffable {
+    func diffIdentifier() -> NSObjectProtocol {
+        <#code#>
+    }
+    
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        <#code#>
+    }
+    
+    let audio:String
+    init() {
+        self.audio = ""
+    }
+    
+}
+
+
+final class imageViewModel{
+    
+}
+final class word_korViewModel{
+    
+}
+final class word_engViewModel{
     
 }
