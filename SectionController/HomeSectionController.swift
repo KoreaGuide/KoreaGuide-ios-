@@ -71,19 +71,11 @@ class HomeSectionController: ListBindingSectionController<Home>,
   override func didSelectItem(at index: Int) {
     guard let selectedCell = collectionContext?.cellForItem(at: index, sectionController: self) as? CardCell else { return }
     guard let place_id = selectedCell.place_id else { return }
-    ApiHelper.placeDetailAllRead(place_id: place_id) { result in
-      let status = Int(result!.result_code)
-      switch status {
-      case 200:
-        print("\(place_id) and \(index)")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
-        postingVC.res = result
-        self.viewController?.navigationController?.pushViewController(postingVC, animated: true)
-      default:
-        print("hello")
-      }
-    }
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
+    postingVC.place_id = place_id
+    viewController?.navigationController?.pushViewController(postingVC, animated: true)
   }
 }
 

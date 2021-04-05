@@ -9,21 +9,31 @@ import Foundation
 import IGListKit
 import UIKit
 class placeDetailViewController: UIViewController, ListAdapterDataSource {
-  @IBOutlet var collectionView: UICollectionView!
+  @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet var LearnButton: UIButton!
-  var layout = UICollectionViewFlowLayout()
   var res: PlaceDetailModel?
   var data = [ListDiffable]()
+  var place_id : Int?
   lazy var adapter: ListAdapter = {
     ListAdapter(updater: ListAdapterUpdater(), viewController: self)
   }()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    ApiHelper.placeDetailAllRead(place_id: place_id!) { result in
+      let status = Int(result!.result_code)
+      switch status {
+      case 200:
+        self.res = result
+        self.data.append(PlaceDetail(place_id: (self.res?.data.id)!, placeDetail: self.res!))
+        self.adapter.performUpdates(animated: true, completion: nil)
+      default:
+        print("hello")
+      }
+    }
     adapter.collectionView = collectionView
     adapter.dataSource = self
-    adapter.performUpdates(animated: true, completion: nil)
-    data.append(PlaceDetail(place_id: (res?.data.id)!, placeDetail: res!))
+    
   }
   
   

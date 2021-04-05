@@ -13,7 +13,7 @@ final class PlaceDetail: ListDiffable {
   let posting : PostingViewModel
   let map : MapViewModel
   func diffIdentifier() -> NSObjectProtocol {
-    return "Detail" as NSObjectProtocol
+    return "PlaceDetail" as NSObjectProtocol
   }
 
   func isEqual(toDiffableObject object: ListDiffable?) -> Bool {

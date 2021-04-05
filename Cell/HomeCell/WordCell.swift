@@ -17,7 +17,7 @@ final class WordCell: UICollectionViewCell {
   weak var delegate: WordCellDelegate?
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? WordViewModel else { return }
-    word.text = "Do yot Know\nwhat the "+viewModel.word+" is called\nin Korean?"
+    word.text = "Do you Know\nwhat "+viewModel.word+" is called\nin Korean?"
     word.numberOfLines = 3
     let url = URL(string: viewModel.word_image)
     word_image.sd_setImage(with: url)

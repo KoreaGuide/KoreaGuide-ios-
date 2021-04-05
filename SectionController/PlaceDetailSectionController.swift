@@ -10,7 +10,7 @@ import AVKit
 import Foundation
 import IGListKit
 class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
-  ListBindingSectionControllerDataSource
+  ListBindingSectionControllerDataSource, ListSupplementaryViewSource
 {
   func supportedElementKinds() -> [String] {
     return [UICollectionView.elementKindSectionHeader]
@@ -26,12 +26,17 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
   
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     guard let placeDetail = object as? PlaceDetail else {
-      fatalError()
+      return []
     }
     let result: [ListDiffable] = [placeDetail.image,placeDetail.posting,placeDetail.map]
     return result
   }
-
+  //이거 무조건 해줘여함.
+  override init() {
+    super.init()
+    dataSource = self
+    
+  }
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
     let identifier: String
     switch viewModel {
