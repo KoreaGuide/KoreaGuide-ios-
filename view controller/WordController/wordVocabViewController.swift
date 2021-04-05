@@ -10,6 +10,8 @@ import UIKit
 
 class wordVocabViewController : UIViewController {
     
+    @IBOutlet weak var vocabTopLabel: UILabel!
+    @IBOutlet weak var vocabCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
