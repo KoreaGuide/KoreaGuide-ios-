@@ -617,6 +617,9 @@
                                                                 <segment title="English"/>
                                                             </segments>
                                                             <color key="selectedSegmentTintColor" red="0.40769708160000001" green="0.69023704529999996" blue="0.74892485139999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <connections>
+                                                                <action selector="sgChangeLanguage:" destination="E3P-QM-aSq" eventType="valueChanged" id="XW8-i7-XSd"/>
+                                                            </connections>
                                                         </segmentedControl>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title_eng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oo9-wH-d58">
                                                             <rect key="frame" x="15" y="31" width="324" height="21"/>
