@@ -4,16 +4,154 @@
 //
 //  Created by Song chi hyun on 2021/03/29.
 //
-/*
+
 import Foundation
 import IGListKit
-final class PlaceDetail : ListDiffable {
+final class PlaceDetail: ListDiffable {
+  let place_id: Int
   func diffIdentifier() -> NSObjectProtocol {
-    <#code#>
+    return "Detail" as NSObjectProtocol
   }
-  
+
   func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-    <#code#>
+    guard let object = object as? PlaceDetail else { return false }
+    return place_id == object.place_id
+  }
+
+  init(place_id: Int) {
+    self.place_id = place_id
   }
 }
-*/
+
+final class PostingAll: ListDiffable {
+  let place_status: String = ""
+  let title: String
+  let content_id: Int
+  let area_code: Int
+  let address1: String
+  let address2: String
+  let first_image: String
+  let first_image2: String
+  let map_x: Float
+  let map_y: Float
+  let overview_Eng: String
+  let overview_Kor: String
+  let category1: String
+  let category2: String
+  let category3: String
+  func diffIdentifier() -> NSObjectProtocol {
+    return "PostingAll" as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? PostingAll else { return false }
+    return content_id == object.content_id && place_status == object.place_status
+  }
+  
+  init(placeDetail : PlaceDetailModel)
+  {
+    place_status = placeDetail.data.place_status
+    title = placeDetail.data.title
+    content_id = placeDetail.data.content_id
+    area_code = placeDetail.data.area_code
+    address1 = placeDetail.data.address1
+    address2 = placeDetail.data.address2
+    first_image = placeDetail.data.first_image
+    first_image2 = placeDetail.data.first_image2
+    map_x = Float(placeDetail.data.map_x) ?? 0
+    map_y = Float(placeDetail.data.map_y) ?? 0
+    overview_Eng = placeDetail.data.overview_english
+    overview_Kor = placeDetail.data.overview_korean
+    category1 = placeDetail.data.category1
+    category2 = placeDetail.data.category2
+    category3 = placeDetail.data.category3
+  }
+  
+}
+
+final class PostingKor: ListDiffable {
+  let place_status: String
+  let title: String
+  let content_id: Int
+  let area_code: Int
+  let address1: String
+  let address2: String
+  let first_image: String
+  let first_image2: String
+  let map_x: Float
+  let map_y: Float
+  let overview_Kor: String
+  let category1: String
+  let category2: String
+  let category3: String
+  
+  func diffIdentifier() -> NSObjectProtocol {
+    return "PostingKor" as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? PostingKor else { return false }
+    return place_status == object.place_status && content_id == object.content_id
+  }
+  
+  init(placeDetail : placeDetailKorModel)
+  {
+    place_status = placeDetail.data.place_status
+    title = placeDetail.data.title
+    content_id = placeDetail.data.content_id
+    area_code = placeDetail.data.area_code
+    address1 = placeDetail.data.address1
+    address2 = placeDetail.data.address2
+    first_image = placeDetail.data.first_image
+    first_image2 = placeDetail.data.first_image2
+    map_x = Float(placeDetail.data.map_x) ?? 0
+    map_y = Float(placeDetail.data.map_y) ?? 0
+    overview_Kor = placeDetail.data.overview_korean
+    category1 = placeDetail.data.category1
+    category2 = placeDetail.data.category2
+    category3 = placeDetail.data.category3
+  }
+}
+
+final class PostingEng: ListDiffable {
+  let place_status: String
+  let title: String
+  let content_id: Int
+  let area_code: Int
+  let address1: String
+  let address2: String
+  let first_image: String
+  let first_image2: String
+  let map_x: Float
+  let map_y: Float
+  let overview_Eng: String
+  let category1: String
+  let category2: String
+  let category3: String
+  func diffIdentifier() -> NSObjectProtocol {
+    return "PostingEng" as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? PostingEng else { return false }
+    return place_status == object.place_status && content_id == object.content_id
+  }
+  
+  init(placeDetail : placeDetailEngModel)
+  {
+    place_status = placeDetail.data.place_status
+    title = placeDetail.data.title
+    content_id = placeDetail.data.content_id
+    area_code = placeDetail.data.area_code
+    address1 = placeDetail.data.address1
+    address2 = placeDetail.data.address2
+    first_image = placeDetail.data.first_image
+    first_image2 = placeDetail.data.first_image2
+    map_x = Float(placeDetail.data.map_x) ?? 0
+    map_y = Float(placeDetail.data.map_y) ?? 0
+    overview_Eng = placeDetail.data.overview_english
+    category1 = placeDetail.data.category1
+    category2 = placeDetail.data.category2
+    category3 = placeDetail.data.category3
+  }
+}

@@ -5,17 +5,12 @@
 //  Created by Song chi hyun on 2021/03/29.
 //
 
-/*import AVFoundation
+import AVFoundation
 import AVKit
 import Foundation
 import IGListKit
 class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
                                     ListBindingSectionControllerDataSource {
-  
-  
-  
-  
-  
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     <#code#>
   }
@@ -32,4 +27,4 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
   
   
 }
-*/
+
