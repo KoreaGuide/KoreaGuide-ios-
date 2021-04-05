@@ -10,6 +10,7 @@ import IGListKit
 import UIKit
 class placeDetailViewController: UIViewController, ListAdapterDataSource {
   @IBOutlet var collectionView: UICollectionView!
+  @IBOutlet var LearnButton: UIButton!
   var layout = UICollectionViewFlowLayout()
   var res: PlaceDetailModel?
   var data = [ListDiffable]()
@@ -21,14 +22,19 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
     super.viewDidLoad()
     adapter.collectionView = collectionView
     adapter.dataSource = self
+    adapter.performUpdates(animated: true, completion: nil)
+    data.append(PlaceDetail(place_id: (res?.data.id)!, placeDetail: res!))
   }
+  
+  
 
   func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
     return data
   }
 
   func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-    return PlaceDetailSectionController()
+    let sectionController = PlaceDetailSectionController()
+    return sectionController
   }
 
   func emptyView(for listAdapter: ListAdapter) -> UIView? {

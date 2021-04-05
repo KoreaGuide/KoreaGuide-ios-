@@ -33,6 +33,10 @@
 		5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2425FD071400864789 /* AlertExtensions.swift */; };
 		5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2925FD095100864789 /* PasswordEncoder.swift */; };
 		5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E192E2F25FF6C1500864789 /* SwipeNavigationController.swift */; };
+		5E20E52E261AF7A4002427EA /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E20E52D261AF7A4002427EA /* ImageCell.swift */; };
+		5E20E539261AF7B8002427EA /* PostingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E20E538261AF7B8002427EA /* PostingCell.swift */; };
+		5E20E544261AF7CF002427EA /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E20E543261AF7CF002427EA /* MapCell.swift */; };
+		5E20E551261B25F1002427EA /* PlaceHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E20E550261B25F1002427EA /* PlaceHeaderCell.swift */; };
 		5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E281D25D7CC410067C41F /* AppDelegate.swift */; };
 		5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E281F25D7CC410067C41F /* SceneDelegate.swift */; };
 		5E2E282225D7CC410067C41F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E282125D7CC410067C41F /* ViewController.swift */; };
@@ -113,6 +117,10 @@
 		5E192E2425FD071400864789 /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
 		5E192E2925FD095100864789 /* PasswordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEncoder.swift; sourceTree = "<group>"; };
 		5E192E2F25FF6C1500864789 /* SwipeNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
+		5E20E52D261AF7A4002427EA /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		5E20E538261AF7B8002427EA /* PostingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingCell.swift; sourceTree = "<group>"; };
+		5E20E543261AF7CF002427EA /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		5E20E550261B25F1002427EA /* PlaceHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHeaderCell.swift; sourceTree = "<group>"; };
 		5E2E281A25D7CC410067C41F /* KoreaGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoreaGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2E281D25D7CC410067C41F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E2E281F25D7CC410067C41F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -246,12 +254,32 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		5E20E52B261AF783002427EA /* HomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				5E63799C260F760500900192 /* CardCell.swift */,
+				5E6379A6260F761600900192 /* WordCell.swift */,
+			);
+			path = HomeCell;
+			sourceTree = "<group>";
+		};
+		5E20E52C261AF796002427EA /* PlaceDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				5E20E52D261AF7A4002427EA /* ImageCell.swift */,
+				5E20E538261AF7B8002427EA /* PostingCell.swift */,
+				5E20E543261AF7CF002427EA /* MapCell.swift */,
+				5E20E550261B25F1002427EA /* PlaceHeaderCell.swift */,
+			);
+			path = PlaceDetailCell;
+			sourceTree = "<group>";
+		};
 		5E2E281125D7CC400067C41F = {
 			isa = PBXGroup;
 			children = (
 				5E637960260F682900900192 /* ViewModel */,
 				5E637955260F67BE00900192 /* SectionController */,
-				5EE338472608913000D54B59 /* XIBs */,
+				5EE338472608913000D54B59 /* Cell */,
 				5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */,
 				5E192E2E25FF6BFF00864789 /* Controllers */,
 				5E03502F25FB1FF400CE21E0 /* Extensions */,
@@ -335,13 +363,13 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
-		5EE338472608913000D54B59 /* XIBs */ = {
+		5EE338472608913000D54B59 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				5E63799C260F760500900192 /* CardCell.swift */,
-				5E6379A6260F761600900192 /* WordCell.swift */,
+				5E20E52C261AF796002427EA /* PlaceDetailCell */,
+				5E20E52B261AF783002427EA /* HomeCell */,
 			);
-			path = XIBs;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		657E920CF8A204BEF0636CD2 /* Pods */ = {
@@ -627,7 +655,10 @@
 				5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */,
 				5E11D98925D979BB00356166 /* loginViewController.swift in Sources */,
 				5E63799D260F760500900192 /* CardCell.swift in Sources */,
+				5E20E539261AF7B8002427EA /* PostingCell.swift in Sources */,
+				5E20E551261B25F1002427EA /* PlaceHeaderCell.swift in Sources */,
 				5E0CAF2826189F4800B5B3FD /* tapBarController.swift in Sources */,
+				5E20E52E261AF7A4002427EA /* ImageCell.swift in Sources */,
 				5E637957260F67D100900192 /* HomeSectionController.swift in Sources */,
 				5E03503125FB200A00CE21E0 /* UserDefaultsExtensions.swift in Sources */,
 				5E6379D9260F889100900192 /* UICollectionViewCellExtensions.swift in Sources */,
@@ -644,6 +675,7 @@
 				5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */,
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,
 				5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */,
+				5E20E544261AF7CF002427EA /* MapCell.swift in Sources */,
 				5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */,
 				5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */,
 				5E03503625FB2AB200CE21E0 /* ApiModel.swift in Sources */,
