@@ -350,7 +350,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEp-WV-HHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3284.057971014493" y="900.66964285714278"/>
+            <point key="canvasLocation" x="1297" y="1778"/>
         </scene>
         <!--place-->
         <scene sceneID="JXZ-s1-85h">
@@ -400,41 +400,6 @@
             </objects>
             <point key="canvasLocation" x="4428" y="1778"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="pUf-Cl-753">
-            <objects>
-                <viewController id="faj-tO-tDC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RZb-cg-Gq3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="MaC-4l-MQf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xgg-gc-b8W">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem systemItem="favorites" id="6Uk-UB-FrR"/>
-                                    <tabBarItem systemItem="more" id="qfc-5M-fS5"/>
-                                </items>
-                            </tabBar>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="3SU-6z-Ff4"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="MaC-4l-MQf" firstAttribute="top" secondItem="RZb-cg-Gq3" secondAttribute="top" id="Yh4-bj-Bc3"/>
-                            <constraint firstAttribute="trailing" secondItem="MaC-4l-MQf" secondAttribute="trailing" id="aKt-DY-bIk"/>
-                            <constraint firstAttribute="bottom" secondItem="MaC-4l-MQf" secondAttribute="bottom" id="kYb-xW-WyE"/>
-                            <constraint firstItem="MaC-4l-MQf" firstAttribute="leading" secondItem="RZb-cg-Gq3" secondAttribute="leading" id="lri-eO-Sgc"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q7o-wq-QY9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="165" y="1546"/>
-        </scene>
         <!--Swipe Navigation Controller-->
         <scene sceneID="1pM-fW-7e9">
             <objects>
@@ -450,67 +415,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eV7-9f-Kyy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1425" y="901"/>
-        </scene>
-        <!--Map View Controller-->
-        <scene sceneID="h1p-Ax-LYE">
-            <objects>
-                <viewController id="Q08-1B-tRh" customClass="mapViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zFk-T3-OKU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="a4W-XQ-2Ih">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Xxs-QD-0iP">
-                                <rect key="frame" x="54" y="252" width="307" height="392"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Wz1-F6-UGU">
-                                <rect key="frame" x="54" y="98" width="307" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="현재 위치"/>
-                                    <segment title="정통밥집"/>
-                                    <segment title="이디야"/>
-                                </segments>
-                                <connections>
-                                    <action selector="sgChangeLocation:" destination="Q08-1B-tRh" eventType="valueChanged" id="4I7-MC-lgj"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmg-Y9-adV">
-                                <rect key="frame" x="54" y="719" width="307" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LB-Ii-Mlc">
-                                <rect key="frame" x="54" y="782" width="307" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="IXa-Vh-Keu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="a4W-XQ-2Ih" secondAttribute="trailing" id="3wD-2H-xat"/>
-                            <constraint firstItem="a4W-XQ-2Ih" firstAttribute="top" secondItem="zFk-T3-OKU" secondAttribute="top" id="J1j-x0-TU3"/>
-                            <constraint firstItem="a4W-XQ-2Ih" firstAttribute="leading" secondItem="zFk-T3-OKU" secondAttribute="leading" id="evH-Bd-HQL"/>
-                            <constraint firstAttribute="bottom" secondItem="a4W-XQ-2Ih" secondAttribute="bottom" id="iWh-NW-5Zt"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="lblLocationInfo1" destination="fmg-Y9-adV" id="aIc-LH-8q7"/>
-                        <outlet property="lblLocationInfo2" destination="8LB-Ii-Mlc" id="eCe-9O-jPY"/>
-                        <outlet property="myMap" destination="Xxs-QD-0iP" id="N7C-we-wkp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Upv-yd-htV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2535" y="-685"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Nnd-uD-cDF">
@@ -609,64 +513,6 @@
             </objects>
             <point key="canvasLocation" x="2592.753623188406" y="115.84821428571428"/>
         </scene>
-        <!--Map View Controller-->
-        <scene sceneID="TEN-fC-kon">
-            <objects>
-                <viewController id="Bvm-n2-lYe" customClass="MapViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="LSg-OM-mX5"/>
-                        <viewControllerLayoutGuide type="bottom" id="QVn-xN-PXA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kY1-b3-31Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Db3-MW-f3V">
-                                <rect key="frame" x="300" y="810" width="94" height="32"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="levelStepperValeChanged:" destination="Bvm-n2-lYe" eventType="valueChanged" id="pkw-bV-JrA"/>
-                                </connections>
-                            </stepper>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="rS0-5q-ENB"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="QVn-xN-PXA" firstAttribute="top" secondItem="Db3-MW-f3V" secondAttribute="bottom" constant="20" id="GSk-oY-TCg"/>
-                            <constraint firstItem="Db3-MW-f3V" firstAttribute="trailing" secondItem="kY1-b3-31Y" secondAttribute="trailingMargin" id="UAN-5t-sio"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="cWn-la-aPn">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="uTA-Fy-NW3">
-                            <rect key="frame" x="67.5" y="6" width="173" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Vector"/>
-                                <segment title="Satellite"/>
-                                <segment title="Hybrid"/>
-                            </segments>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="modeChanged:" destination="Bvm-n2-lYe" eventType="valueChanged" id="Otm-33-mZb"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Overlay Layers" id="a7D-Vs-cBc">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="layerButtonAction:" destination="Bvm-n2-lYe" id="mtz-r4-wqN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="levelStepper" destination="Db3-MW-f3V" id="jnb-iq-RZs"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9wc-t1-xQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2489" y="-668"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hbK-bJ-mKx">
             <objects>
@@ -674,6 +520,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Hir-mz-ON1"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sZ6-ox-EIc">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

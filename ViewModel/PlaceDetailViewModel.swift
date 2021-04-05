@@ -9,6 +9,9 @@ import Foundation
 import IGListKit
 final class PlaceDetail: ListDiffable {
   let place_id: Int
+  let postingAll : PostingAll
+  let postingKor : PostingKor
+  let postingEng : PostingEng
   func diffIdentifier() -> NSObjectProtocol {
     return "Detail" as NSObjectProtocol
   }
@@ -18,13 +21,16 @@ final class PlaceDetail: ListDiffable {
     return place_id == object.place_id
   }
 
-  init(place_id: Int) {
+  init(place_id: Int, postingAll : PostingAll, postingKor:PostingKor, postingEng:PostingEng) {
     self.place_id = place_id
+    self.postingAll = postingAll
+    self.postingKor = postingKor
+    self.postingEng = postingEng
   }
 }
 
 final class PostingAll: ListDiffable {
-  let place_status: String = ""
+  let place_status: String
   let title: String
   let content_id: Int
   let area_code: Int
@@ -47,9 +53,8 @@ final class PostingAll: ListDiffable {
     guard let object = object as? PostingAll else { return false }
     return content_id == object.content_id && place_status == object.place_status
   }
-  
-  init(placeDetail : PlaceDetailModel)
-  {
+
+  init(placeDetail: PlaceDetailModel) {
     place_status = placeDetail.data.place_status
     title = placeDetail.data.title
     content_id = placeDetail.data.content_id
@@ -66,7 +71,6 @@ final class PostingAll: ListDiffable {
     category2 = placeDetail.data.category2
     category3 = placeDetail.data.category3
   }
-  
 }
 
 final class PostingKor: ListDiffable {
@@ -84,7 +88,7 @@ final class PostingKor: ListDiffable {
   let category1: String
   let category2: String
   let category3: String
-  
+
   func diffIdentifier() -> NSObjectProtocol {
     return "PostingKor" as NSObjectProtocol
   }
@@ -93,9 +97,8 @@ final class PostingKor: ListDiffable {
     guard let object = object as? PostingKor else { return false }
     return place_status == object.place_status && content_id == object.content_id
   }
-  
-  init(placeDetail : placeDetailKorModel)
-  {
+
+  init(placeDetail: placeDetailKorModel) {
     place_status = placeDetail.data.place_status
     title = placeDetail.data.title
     content_id = placeDetail.data.content_id
@@ -136,9 +139,8 @@ final class PostingEng: ListDiffable {
     guard let object = object as? PostingEng else { return false }
     return place_status == object.place_status && content_id == object.content_id
   }
-  
-  init(placeDetail : placeDetailEngModel)
-  {
+
+  init(placeDetail: placeDetailEngModel) {
     place_status = placeDetail.data.place_status
     title = placeDetail.data.title
     content_id = placeDetail.data.content_id
@@ -155,3 +157,60 @@ final class PostingEng: ListDiffable {
     category3 = placeDetail.data.category3
   }
 }
+
+
+final class Map : ListDiffable {
+  func diffIdentifier() -> NSObjectProtocol {
+    <#code#>
+  }
+  
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    <#code#>
+  }
+  
+  let map_x : Float
+  let map_y : Float
+  let address1: String
+  let address2: String
+  init (placeDetail: PlaceDetailModel) {
+    
+  }
+}
+
+final class Image : ListDiffable {
+  func diffIdentifier() -> NSObjectProtocol {
+    <#code#>
+  }
+  
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    <#code#>
+  }
+  
+  let first_image: String
+  let first_image2: String
+  
+  
+  init (placeDetail: PlaceDetailModel) {
+    
+  }
+}
+
+final class Posting : ListDiffable {
+  func diffIdentifier() -> NSObjectProtocol {
+    <#code#>
+  }
+  
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    <#code#>
+  }
+  
+  let title: String
+  let overview_Eng: String
+  let overview_Kor: String
+  
+  init (placeDetail: PlaceDetailModel) {
+    
+  }
+
+}
+
