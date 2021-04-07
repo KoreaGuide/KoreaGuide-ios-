@@ -10,27 +10,34 @@ import UIKit
 
 class wordVocabViewController : UIViewController {
     
+    let wordStoryboard : UIStoryboard = UIStoryboard(name: "Word", bundle: nil)
+    
+    
     @IBOutlet weak var vocabTopLabel: UILabel!
     @IBOutlet weak var totalWordLabel: UILabel!
     
-    @IBOutlet weak var addedFolder: UIView!
-    @IBOutlet weak var learningFolder: UIView!
-    @IBOutlet weak var completeFolder: UIView!
-    
-    @IBOutlet weak var addedWordLabel: UILabel!
-    @IBOutlet weak var learningWordLabel: UILabel!
-    @IBOutlet weak var completeWordLabel: UILabel!
+  
+    @IBAction func addedWordButton(_ sender: Any) {
+        let wordListViewController = wordStoryboard.instantiateViewController(identifier: "wordListView")
+        self.show(wordListViewController, sender: self)
+    }
+    @IBAction func learningWordButton(_ sender: Any) {
+        let wordListViewController = wordStoryboard.instantiateViewController(identifier: "wordListView")
+        self.show(wordListViewController, sender: self)
+    }
+    @IBAction func completeWordButton(_ sender: Any) {
+        let wordListViewController = wordStoryboard.instantiateViewController(identifier: "wordListView")
+        self.show(wordListViewController, sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        //when any word count changes
+        totalWordLabel.text = "";
         
-        addedFolder.layer.cornerRadius = 10;
-        learningFolder.layer.cornerRadius = 10;
-        completeFolder.layer.cornerRadius = 10;
-        
-        addedFolder.alpha = 0.8;
-        learningFolder.alpha = 0.8;
-        completeFolder.alpha = 0.8;
+       
+       
         
         
     }

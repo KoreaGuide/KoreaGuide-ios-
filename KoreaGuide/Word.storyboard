@@ -15,10 +15,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Word Learn View Controller-->
+        <!--Word Add View Controller-->
         <scene sceneID="gwD-0J-PPn">
             <objects>
-                <viewController storyboardIdentifier="wordMainVC" id="nx1-To-1b7" customClass="wordLearnViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordAddView" id="nx1-To-1b7" customClass="wordAddViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ZC-wh-hG5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -164,7 +164,7 @@
         <!--Word Vocab View Controller-->
         <scene sceneID="ywv-Bl-5CL">
             <objects>
-                <viewController storyboardIdentifier="wordVocabVC" id="TNQ-1G-3RV" customClass="wordVocabViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordVocabView" id="TNQ-1G-3RV" customClass="wordVocabViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VUL-Ew-Wjv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,73 +188,91 @@
                                 <rect key="frame" x="38" y="176" width="345" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mae" translatesAutoresizingMaskIntoConstraints="NO" id="tVd-29-x1O">
-                                        <rect key="frame" x="-20" y="-81" width="434" height="319"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="addedFolderButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMs-km-GCH">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12 words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IrQ-Td-DKH">
-                                        <rect key="frame" x="12" y="78" width="320" height="59"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="35"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Added Word List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPC-jU-6MT">
-                                        <rect key="frame" x="17" y="39" width="311" height="53"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="35"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" backgroundImage="mae">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Added Word List">
+                                                    <attributes>
+                                                        <font key="NSFont" size="35" name="BanglaMN-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <state key="selected" backgroundImage="mae">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Added Word List">
+                                                    <attributes>
+                                                        <font key="NSFont" size="35" name="BanglaMN-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="addedWordButton:" destination="TNQ-1G-3RV" eventType="touchUpInside" id="EFY-y3-fsN"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" updatesFrequently="YES" causesPageTurn="YES"/>
+                                </accessibility>
+                                <gestureRecognizers/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EV6-Ly-twb">
                                 <rect key="frame" x="38" y="375" width="345" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="juck" translatesAutoresizingMaskIntoConstraints="NO" id="sUE-Mk-7y0">
-                                        <rect key="frame" x="-560" y="-31" width="1199" height="221"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-cy-i3G">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="32 words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSP-ef-njS">
-                                        <rect key="frame" x="91" y="83" width="162" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="35"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Learning Word List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUV-iw-zI3">
-                                        <rect key="frame" x="6" y="39" width="332" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="35"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" backgroundImage="juck">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Learning Word List">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <font key="NSFont" size="35" name="BanglaMN-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="learningWordButton:" destination="TNQ-1G-3RV" eventType="touchUpInside" id="QCO-ks-JjL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" updatesFrequently="YES" causesPageTurn="YES"/>
+                                </accessibility>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqw-tw-9c0">
                                 <rect key="frame" x="38" y="574" width="345" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="nan" translatesAutoresizingMaskIntoConstraints="NO" id="UHm-qx-hcM">
-                                        <rect key="frame" x="-137" y="-87" width="618" height="334"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vqo-VY-vtb">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Complete Word List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJj-iL-Lcy">
-                                        <rect key="frame" x="7" y="41" width="331" height="54"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="33"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="142 words" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuP-IL-ILP">
-                                        <rect key="frame" x="80" y="74" width="185" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="35"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" backgroundImage="nan">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Complete Word List">
+                                                    <attributes>
+                                                        <font key="NSFont" size="33" name="BanglaMN-Bold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="completeWordButton:" destination="TNQ-1G-3RV" eventType="touchUpInside" id="Cte-Zb-e7r"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" causesPageTurn="YES"/>
+                                </accessibility>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ForWord" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v00-NB-FoS">
                                 <rect key="frame" x="38" y="44" width="82" height="33"/>
@@ -277,11 +295,8 @@
                     </view>
                     <connections>
                         <outlet property="addedFolder" destination="obE-Qg-faj" id="kxI-aa-XtV"/>
-                        <outlet property="addedWordLabel" destination="IrQ-Td-DKH" id="LOA-IO-WlE"/>
                         <outlet property="completeFolder" destination="Rqw-tw-9c0" id="Z4X-eJ-6te"/>
-                        <outlet property="completeWordLabel" destination="zuP-IL-ILP" id="dkL-of-kc8"/>
                         <outlet property="learningFolder" destination="EV6-Ly-twb" id="NMO-Cg-Afw"/>
-                        <outlet property="learningWordLabel" destination="KSP-ef-njS" id="Gqo-tN-gBC"/>
                         <outlet property="totalWordLabel" destination="xEY-9S-fo8" id="yJt-zA-JXj"/>
                         <outlet property="vocabTopLabel" destination="jlr-BP-szi" id="Lm2-I4-ADv"/>
                     </connections>
@@ -293,7 +308,7 @@
         <!--Word List View Controller-->
         <scene sceneID="eC5-HU-HqU">
             <objects>
-                <viewController storyboardIdentifier="wordListVC" id="kvK-Q1-hQt" customClass="wordListViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordListView" id="kvK-Q1-hQt" customClass="wordListViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JBP-Kx-lu1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -351,30 +366,36 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zP-ug-S2D">
-                                <rect key="frame" x="184" y="133" width="46" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lym-aP-ZW0">
+                                <rect key="frame" x="87" y="130" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ch7-qe-tgJ">
+                                <rect key="frame" x="270" y="130" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4HF-Nr-GZ5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="vocabCollectionView" destination="DWS-74-9nv" id="JaT-Wz-KM2"/>
-                        <outlet property="vocabTopLabel" destination="0zP-ug-S2D" id="yCg-VF-vaN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiS-Be-YG6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776.8115942028987" y="87.723214285714278"/>
+            <point key="canvasLocation" x="1549" y="88"/>
         </scene>
         <!--Word Test Type View Controller-->
         <scene sceneID="N0y-KR-1YX">
             <objects>
-                <viewController storyboardIdentifier="testListVC" id="Z2u-YY-uLf" customClass="wordTestTypeViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="testListView" id="Z2u-YY-uLf" customClass="wordTestTypeViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmN-hc-Oda">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -385,7 +406,7 @@
                                     <constraint firstAttribute="width" constant="578" id="Xzs-aa-pdU"/>
                                 </constraints>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="top-jb-oLQ">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="top-jb-oLQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="Title" id="m7o-LN-mhN">
@@ -400,9 +421,28 @@
                                     <constraint firstAttribute="height" constant="1558" id="MJc-Zp-uMY"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33s-pN-ayw">
-                                <rect key="frame" x="48" y="155" width="319" height="544"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33s-pN-ayw">
+                                <rect key="frame" x="48" y="155" width="318" height="544"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-lw-olR">
+                                        <rect key="frame" x="8" y="8" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Msq-WP-85Y">
+                                        <rect key="frame" x="0.0" y="33" width="319" height="121"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5S-8c-zKf">
+                                        <rect key="frame" x="8" y="171" width="163" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="21"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Msj-H2-F0y">
                                         <rect key="frame" x="0.0" y="200" width="319" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -423,25 +463,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5S-8c-zKf">
-                                        <rect key="frame" x="8" y="171" width="163" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="21"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Msq-WP-85Y">
-                                        <rect key="frame" x="0.0" y="33" width="319" height="121"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fw-lw-olR">
-                                        <rect key="frame" x="8" y="8" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -452,13 +473,27 @@
                             <constraint firstItem="UbT-UE-zTN" firstAttribute="top" secondItem="vmN-hc-Oda" secondAttribute="topMargin" constant="-44" id="5n3-4y-fnM"/>
                             <constraint firstItem="top-jb-oLQ" firstAttribute="leading" secondItem="cvx-sD-StI" secondAttribute="leading" id="6sv-k5-zQj"/>
                             <constraint firstItem="CyM-6a-etL" firstAttribute="top" secondItem="vmN-hc-Oda" secondAttribute="top" constant="-132" id="7eg-oM-kdk"/>
+                            <constraint firstItem="33s-pN-ayw" firstAttribute="leading" secondItem="cvx-sD-StI" secondAttribute="leading" constant="48" id="9od-vB-5kf"/>
+                            <constraint firstItem="33s-pN-ayw" firstAttribute="top" secondItem="top-jb-oLQ" secondAttribute="bottom" constant="67" id="A0E-Z2-XnC"/>
                             <constraint firstItem="top-jb-oLQ" firstAttribute="trailing" secondItem="CyM-6a-etL" secondAttribute="trailing" id="CU0-Aq-d6h"/>
                             <constraint firstItem="UbT-UE-zTN" firstAttribute="centerX" secondItem="top-jb-oLQ" secondAttribute="centerX" id="Nde-Xq-0ac"/>
                             <constraint firstItem="UbT-UE-zTN" firstAttribute="centerX" secondItem="33s-pN-ayw" secondAttribute="centerX" id="TX0-bk-VG5"/>
+                            <constraint firstItem="top-jb-oLQ" firstAttribute="top" secondItem="cvx-sD-StI" secondAttribute="top" id="bDj-qj-rMh"/>
+                            <constraint firstItem="top-jb-oLQ" firstAttribute="centerX" secondItem="33s-pN-ayw" secondAttribute="centerX" id="ijc-8R-Lan"/>
                             <constraint firstAttribute="bottomMargin" secondItem="UbT-UE-zTN" secondAttribute="bottom" constant="-49" id="n1p-Th-znH"/>
                             <constraint firstItem="UbT-UE-zTN" firstAttribute="centerX" secondItem="vmN-hc-Oda" secondAttribute="centerX" id="rty-wH-zTF"/>
+                            <constraint firstItem="cvx-sD-StI" firstAttribute="bottom" secondItem="33s-pN-ayw" secondAttribute="bottom" constant="163" id="y4t-XN-TDK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="testTypeTitleLabel" destination="m7o-LN-mhN" id="xkc-pd-Nxg"/>
+                        <outlet property="testTypeView" destination="33s-pN-ayw" id="YNg-Xj-rXy"/>
+                        <outlet property="type1View" destination="Msj-H2-F0y" id="WCV-D5-kbP"/>
+                        <outlet property="type2View" destination="sHv-1M-XNE" id="k3i-cb-Kt2"/>
+                        <outlet property="type3View" destination="D7f-As-vCh" id="NA1-x3-QND"/>
+                        <outlet property="type4View" destination="9dH-cY-JgD" id="hoh-RN-5Q3"/>
+                        <outlet property="vocabInfoView" destination="Msq-WP-85Y" id="G5V-Bd-ize"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOD-sB-cbR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -549,7 +584,7 @@
         <!--Word Learn View Controller-->
         <scene sceneID="FHI-G5-IkN">
             <objects>
-                <viewController storyboardIdentifier="wordMainVC" id="CyW-5c-UVS" customClass="wordLearnViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="wordLearnView" id="CyW-5c-UVS" customClass="wordLearnViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mpn-F0-Cvo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -696,6 +731,222 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1776.8115942028987" y="805.58035714285711"/>
+        </scene>
+        <!--Word Add End View Controller-->
+        <scene sceneID="bvN-fd-qpA">
+            <objects>
+                <viewController storyboardIdentifier="wordAddEndView" id="JyS-HL-4gt" customClass="wordAddEndViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s1l-VZ-eoN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="vLt-4m-Gxn">
+                                <rect key="frame" x="-82" y="-8" width="578" height="911"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNT-4g-KC0">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.054901964960000001" green="0.074509806930000005" blue="0.15294116739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.054901964960000001" green="0.074509806930000005" blue="0.15294116739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="barTintColor" red="0.036457717420000001" green="0.03598695993" blue="0.11683354529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Title" id="RiI-Fg-dhY">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="3uM-Rp-Knr">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJL-sl-o30">
+                                <rect key="frame" x="82" y="755" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqe-Pa-mG4">
+                                <rect key="frame" x="288" y="755" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHC-MQ-97C">
+                                <rect key="frame" x="38" y="164" width="338" height="520"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6op-26-Wtm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="backBarButton" destination="3uM-Rp-Knr" id="nFe-yP-meY"/>
+                        <outlet property="placeTitleLabel" destination="RiI-Fg-dhY" id="tsX-Qx-jux"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gXK-Iq-qLt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Qd1-cJ-gpi">
+                    <connections>
+                        <action selector="tapRecognized:" destination="JyS-HL-4gt" id="2Mi-xB-leT"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="805.58035714285711"/>
+        </scene>
+        <!--Word Learn End View Controller-->
+        <scene sceneID="Ktw-K9-NkE">
+            <objects>
+                <viewController storyboardIdentifier="wordLearnEndView" id="060-tr-cEn" customClass="wordLearnEndViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tKY-fJ-reV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="배경 화면" translatesAutoresizingMaskIntoConstraints="NO" id="Whw-j8-H56">
+                                <rect key="frame" x="-82" y="-8" width="578" height="911"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kKJ-T5-Bnr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.054901964960000001" green="0.074509806930000005" blue="0.15294116739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.054901964960000001" green="0.074509806930000005" blue="0.15294116739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="barTintColor" red="0.036457717420000001" green="0.03598695993" blue="0.11683354529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Title" id="ZVl-eS-FgA">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="NK6-B5-gHU">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" image="delete.left" catalog="system" id="2Eq-VE-hd9">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="g91-HB-9Fx">
+                                <rect key="frame" x="62" y="172" width="290" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMo-DD-s90">
+                                <rect key="frame" x="185" y="136" width="43" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="W8R-Rl-NBf">
+                                <rect key="frame" x="40" y="216" width="333" height="463"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bgt-Pw-TXL">
+                                        <rect key="frame" x="66" y="226" width="200" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="BanglaMN-Bold" family="Bangla MN" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pronun" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqx-lj-Jnv">
+                                        <rect key="frame" x="66" y="252" width="200" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UcJ-dt-gd0">
+                                        <rect key="frame" x="26" y="276" width="281" height="117"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <string key="text">Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label</string>
+                                        <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sey-SF-t2F">
+                                        <rect key="frame" x="154" y="409.5" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
+                                        </accessibility>
+                                        <fontDescription key="fontDescription" name="BanglaMN" family="Bangla MN" pointSize="11"/>
+                                        <state key="normal" backgroundImage="speaker.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="playButton:forEvent:" destination="060-tr-cEn" eventType="touchUpInside" id="lmv-MT-ZHP"/>
+                                        </connections>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hOC-wZ-rAu">
+                                        <rect key="frame" x="48" y="32" width="236" height="177"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.054901964960000001" green="0.074509806930000005" blue="0.15294116739999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="2Pc-tE-eiN" appends="YES" id="2ly-6z-v5h"/>
+                                    <outletCollection property="gestureRecognizers" destination="2Pc-tE-eiN" appends="YES" id="YOX-Wl-PH0"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQi-z4-Wkd">
+                                <rect key="frame" x="8" y="433" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="chevron.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="leftButton:" destination="060-tr-cEn" eventType="touchUpInside" id="qaN-m0-KDd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BF8-he-K6C">
+                                <rect key="frame" x="376" y="433" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="chevron.right" catalog="system"/>
+                                <connections>
+                                    <action selector="rightButton:" destination="060-tr-cEn" eventType="touchUpInside" id="K30-08-Kn3"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fOe-vw-So2">
+                                <rect key="frame" x="76" y="708" width="260" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Added"/>
+                                    <segment title="Learning"/>
+                                    <segment title="Completed"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AHa-jc-Y5o"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="backBarButton" destination="NK6-B5-gHU" id="Ptk-IC-buZ"/>
+                        <outlet property="imageView" destination="hOC-wZ-rAu" id="ryq-D2-FNb"/>
+                        <outlet property="meaningLabel" destination="UcJ-dt-gd0" id="Jzo-30-dJy"/>
+                        <outlet property="nameLabel" destination="bgt-Pw-TXL" id="i9h-IC-GVj"/>
+                        <outlet property="placeTitleLabel" destination="ZVl-eS-FgA" id="0qK-jO-APD"/>
+                        <outlet property="progressView" destination="g91-HB-9Fx" id="2au-GR-VWi"/>
+                        <outlet property="pronunLabel" destination="yqx-lj-Jnv" id="9fN-wm-bhS"/>
+                        <outlet property="wordCountLabel" destination="RMo-DD-s90" id="SeI-SQ-0Mm"/>
+                        <outlet property="wordView" destination="W8R-Rl-NBf" id="TfO-Zv-Fbe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mGs-v9-xUg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2Pc-tE-eiN">
+                    <connections>
+                        <action selector="tapRecognized:" destination="060-tr-cEn" id="JiF-FB-2nz"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1777" y="1507"/>
         </scene>
     </scenes>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
