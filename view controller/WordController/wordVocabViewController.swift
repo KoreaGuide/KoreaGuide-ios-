@@ -11,11 +11,15 @@ import UIKit
 class wordVocabViewController : UIViewController {
     
     @IBOutlet weak var vocabTopLabel: UILabel!
-  
+    @IBOutlet weak var totalWordLabel: UILabel!
+    
     @IBOutlet weak var addedFolder: UIView!
     @IBOutlet weak var learningFolder: UIView!
     @IBOutlet weak var completeFolder: UIView!
     
+    @IBOutlet weak var addedWordLabel: UILabel!
+    @IBOutlet weak var learningWordLabel: UILabel!
+    @IBOutlet weak var completeWordLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,8 @@ class wordVocabViewController : UIViewController {
         completeFolder.layer.cornerRadius = 10;
         
         addedFolder.alpha = 0.8;
+        learningFolder.alpha = 0.8;
+        completeFolder.alpha = 0.8;
         
         
     }
