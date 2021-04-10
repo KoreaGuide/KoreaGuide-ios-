@@ -10,7 +10,7 @@ target 'KoreaGuide' do
   pod 'JWTDecode', '~> 2.4'
   pod 'KRProgressHUD'
   pod 'NMapsMap'
-  pod 'IGListKit', '~> 4.0'
+  pod 'IGListKit', '~> 3.0.0'
   pod 'SDWebImage', '~> 5.0'
   target 'KoreaGuideTests' do
     inherit! :search_paths
