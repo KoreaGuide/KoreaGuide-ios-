@@ -30,7 +30,7 @@ class wordListViewController : UIViewController {
 }
 
 
-
+/*
 class wordCollectionViewCell : UICollectionViewCell {
     convenience override init(frame: CGRect) {
         self.init(frame: frame)
@@ -39,7 +39,7 @@ class wordCollectionViewCell : UICollectionViewCell {
         var visualEffectView: UIVisualEffectView
         visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.frame = self.mask!.bounds
-        self.addSubView(visualEffectView)
+       // self.addSubView(visualEffectView)
     }
     
     override func layoutSubviews() {
@@ -47,3 +47,4 @@ class wordCollectionViewCell : UICollectionViewCell {
         self.mask!.frame = self.contentView.bounds
     }
 }
+*/

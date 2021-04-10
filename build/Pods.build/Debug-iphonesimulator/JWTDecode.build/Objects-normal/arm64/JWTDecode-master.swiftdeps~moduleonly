@@ -1,0 +1,11 @@
+version: "Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+options: "618ea9c7519c35e87e067a0ddc4aaaa4"
+build_time: [1618059900, 655629000]
+inputs:
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/A0JWT.swift": [1617387092, 707203218]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/Errors.swift": [1617387092, 707279923]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/JWT.swift": [1617387092, 707346420]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/JWTDecode.swift": [1617387092, 707406084]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/TokenValidators.swift": [1617387092, 707476331]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/ValidationError.swift": [1617387092, 707538245]
+  "/Users/imseonho/Documents/GitHub/KoreaGuide-ios-/Pods/JWTDecode/JWTDecode/ValidatorJWT.swift": [1617387092, 707605659]

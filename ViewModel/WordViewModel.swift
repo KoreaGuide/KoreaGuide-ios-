@@ -7,7 +7,7 @@
 
 import Foundation
 import IGListKit
-
+/*
 class OneWord : ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
         return (word_kor) as NSObjectProtocol
@@ -75,3 +75,4 @@ final class word_korViewModel{
 final class word_engViewModel{
     
 }
+*/
