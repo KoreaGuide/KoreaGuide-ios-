@@ -7,32 +7,49 @@
 
 import UIKit
 
-final class wordCollectionViewController: UICollectionViewController {
-    private let reuseIdentifier = "wordCell"
-    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
-    private let itemsPerRow: CGFloat = 3
+class wordCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-}
-
-
-
-extension wordCollectionViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return wordlist.count
-    }
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wordlist[section].results.count
+    var words = ["1", "2", "3"]
+    
+    @IBOutlet var wordCollectionView: UICollectionView!
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return words.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .black
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wordCell", for: indexPath) as! wordCollectionViewCell
+        
+        cell.backgroundColor = .lightGray
+        cell.wordCellLabel.text = words[indexPath.row]
         return cell
     }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.wordCollectionView.delegate = self
+        self.wordCollectionView.dataSource = self
+    }
 }
 
+extension wordCollectionViewController: UICollectionViewDelegateFlowLayout {
+    //위아래 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    //옆 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width / 3 - 1
+        let size = CGSize(width: width, height: width)
+        return size
+    }
+}
 
-
-extension wordCollectionViewController: UICollectionViewFlowLayout {
-    func collectionView()
+class wordCollectionViewCell: UICollectionViewCell{
+    
+    @IBOutlet weak var wordCellLabel: UILabel!
 }

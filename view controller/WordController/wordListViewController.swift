@@ -30,7 +30,7 @@ class wordListViewController : UIViewController {
 }
 
 
-
+/*
 class wordCollectionViewCell : UICollectionViewCell {
     convenience override init(frame: CGRect) {
         self.init(frame: frame)
@@ -47,3 +47,4 @@ class wordCollectionViewCell : UICollectionViewCell {
         self.mask!.frame = self.contentView.bounds
     }
 }
+*/
