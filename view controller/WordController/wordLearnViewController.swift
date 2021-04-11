@@ -7,5 +7,17 @@
 
 import Foundation
 class wordLearnViewController : UIViewController {
-
+    //vocab type 1~3
+    //total count
+    //past count
+    
+    //word list
+    
+    //left button
+    //right button
+    
+    //audio button
+    
+    //back button (stop)
+    
 }

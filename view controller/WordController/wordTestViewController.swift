@@ -10,6 +10,8 @@ import UIKit
 
 
 class wordTestViewController : UIViewController {
+    //test type 1~4
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

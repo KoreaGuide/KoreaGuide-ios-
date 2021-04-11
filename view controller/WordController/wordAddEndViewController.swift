@@ -7,5 +7,11 @@
 
 import Foundation
 class wordAddEndViewController : UIViewController {
-
+    //place id
+    //place name
+    
+    //total place's word count
+    //added word count
+    
+    //back button
 }
