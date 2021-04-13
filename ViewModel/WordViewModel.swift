@@ -4,7 +4,7 @@
 //
 //  Created by 임선호 on 2021/04/05.
 //
-
+/*
 import Foundation
 import IGListKit
 
@@ -75,3 +75,4 @@ final class word_korViewModel{
 final class word_engViewModel{
     
 }
+*/
