@@ -85,6 +85,7 @@
 		8836CD91261D86D4008EFD46 /* wordLearnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836CD90261D86D4008EFD46 /* wordLearnViewController.swift */; };
 		8836CD99261D8703008EFD46 /* wordLearnEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836CD98261D8703008EFD46 /* wordLearnEndViewController.swift */; };
 		8836CD9E26217FD8008EFD46 /* wordCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836CD9D26217FD8008EFD46 /* wordCollectionViewController.swift */; };
+		888BB6142627566000B46606 /* WordMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888BB6132627566000B46606 /* WordMainViewController.swift */; };
 		88E6585B2625F11F00FF0534 /* WordAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E6585A2625F11F00FF0534 /* WordAddView.swift */; };
 		88E658602625F84B00FF0534 /* WordMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E6585F2625F84B00FF0534 /* WordMainView.swift */; };
 		AE4656D132686AF9B5E030D2 /* Pods_KoreaGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */; };
@@ -168,6 +169,7 @@
 		8836CD90261D86D4008EFD46 /* wordLearnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wordLearnViewController.swift; sourceTree = "<group>"; };
 		8836CD98261D8703008EFD46 /* wordLearnEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wordLearnEndViewController.swift; sourceTree = "<group>"; };
 		8836CD9D26217FD8008EFD46 /* wordCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wordCollectionViewController.swift; sourceTree = "<group>"; };
+		888BB6132627566000B46606 /* WordMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordMainViewController.swift; sourceTree = "<group>"; };
 		88E6585A2625F11F00FF0534 /* WordAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordAddView.swift; sourceTree = "<group>"; };
 		88E6585F2625F84B00FF0534 /* WordMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordMainView.swift; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -407,6 +409,7 @@
 			children = (
 				88E6585A2625F11F00FF0534 /* WordAddView.swift */,
 				88E6585F2625F84B00FF0534 /* WordMainView.swift */,
+				888BB6132627566000B46606 /* WordMainViewController.swift */,
 			);
 			name = seonho;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				5E2E282225D7CC410067C41F /* ViewController.swift in Sources */,
 				5E0CAF442618B1E400B5B3FD /* File1.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
+				888BB6142627566000B46606 /* WordMainViewController.swift in Sources */,
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,

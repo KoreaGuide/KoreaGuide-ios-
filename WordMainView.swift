@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 struct WordMainView: View {
+  //@ObservableObject var viewModel: WordMainViewModel?
+  //init(viewModel: WordMainViewModel) { self.viewModel = viewModel }
+
   var body: some View {
     NavigationView {
       NavigationLink(destination: WordListView()) {
@@ -30,6 +33,15 @@ struct WordListView: View {
   // var input as option 1~3
 
   var body: some View {
+    NavigationView {
+      NavigationLink(destination: WordLearnView()) {
+        LearnButton()
+      }.navigationBarTitle("Words")
+
+      NavigationLink(destination: WordTestView()) {
+        TestButton()
+      }.navigationBarTitle("Words")
+    }
     // NavigationView
     // learn btn and test btn
 
@@ -38,11 +50,46 @@ struct WordListView: View {
     Text("list here")
   }
 }
-//from this view ...
-//button navigation to learn
-//button navigation to test
 
+struct LearnButton: View {
+  var body: some View{
+    ZStack {
+      // Image()
+      Text("Learn")
+    }
+  }
+}
 
+struct TestButton: View {
+  var body: some View {
+    ZStack {
+      // Image()
+      Text("Test")
+    }
+  }
+}
+
+// from this view ...
+// button navigation to learn
+// button navigation to test
+
+struct WordLearnView: View {
+  var body: some View {
+    VStack{
+      Text("")
+
+    }
+  }
+}
+
+struct WordTestView: View {
+  var body: some View {
+    VStack{
+      Text("")
+
+    }
+  }
+}
 
 struct WordCollectionView: View {
   let data: WordInfo
@@ -71,54 +118,53 @@ struct WordCollectionView: View {
   }
 }
 
-
 struct PopUpWindow: View {
-    var title: String
-    var message: String
-    var buttonText: String
-    @Binding var show: Bool
+  var title: String
+  var message: String
+  var buttonText: String
+  @Binding var show: Bool
 
-    var body: some View {
-        ZStack {
-            if show {
-                // PopUp background color
-                Color.black.opacity(show ? 0.3 : 0).edgesIgnoringSafeArea(.all)
+  var body: some View {
+    ZStack {
+      if show {
+        // PopUp background color
+        Color.black.opacity(show ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
-                // PopUp Window
-                VStack(alignment: .center, spacing: 0) {
-                    Text(title)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 45, alignment: .center)
-                        .font(Font.system(size: 23, weight: .semibold))
-                        .foregroundColor(Color.white)
-                        .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
+        // PopUp Window
+        VStack(alignment: .center, spacing: 0) {
+          Text(title)
+            .frame(maxWidth: .infinity)
+            .frame(height: 45, alignment: .center)
+            .font(Font.system(size: 23, weight: .semibold))
+            .foregroundColor(Color.white)
+            .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
 
-                    Text(message)
-                        .multilineTextAlignment(.center)
-                        .font(Font.system(size: 16, weight: .semibold))
-                        .padding(EdgeInsets(top: 20, leading: 25, bottom: 20, trailing: 25))
-                        .foregroundColor(Color.white)
+          Text(message)
+            .multilineTextAlignment(.center)
+            .font(Font.system(size: 16, weight: .semibold))
+            .padding(EdgeInsets(top: 20, leading: 25, bottom: 20, trailing: 25))
+            .foregroundColor(Color.white)
 
-                    Button(action: {
-                        // Dismiss the PopUp
-                        withAnimation(.linear(duration: 0.3)) {
-                            show = false
-                        }
-                    }, label: {
-                        Text(buttonText)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 54, alignment: .center)
-                            .foregroundColor(Color.white)
-                            .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
-                            .font(Font.system(size: 23, weight: .semibold))
-                    }).buttonStyle(PlainButtonStyle())
-                }
-                .frame(maxWidth: 300)
-                .border(Color.white, width: 2)
-                .background(Color(#colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)))
+          Button(action: {
+            // Dismiss the PopUp
+            withAnimation(.linear(duration: 0.3)) {
+              show = false
             }
+          }, label: {
+            Text(buttonText)
+              .frame(maxWidth: .infinity)
+              .frame(height: 54, alignment: .center)
+              .foregroundColor(Color.white)
+              .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
+              .font(Font.system(size: 23, weight: .semibold))
+          }).buttonStyle(PlainButtonStyle())
         }
+        .frame(maxWidth: 300)
+        .border(Color.white, width: 2)
+        .background(Color(#colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)))
+      }
     }
+  }
 }
 
 struct AddedWordButton: View {
