@@ -9,22 +9,28 @@ import Foundation
 import SwiftUI
 
 struct WordMainView: View {
-  //@ObservableObject var viewModel: WordMainViewModel?
-  //init(viewModel: WordMainViewModel) { self.viewModel = viewModel }
+  // @ObservableObject var viewModel: WordMainViewModel?
+  // init(viewModel: WordMainViewModel) { self.viewModel = viewModel }
 
   var body: some View {
-    NavigationView {
-      NavigationLink(destination: WordListView()) {
-        AddedWordButton()
-      }.navigationBarTitle("Your Words")
+    ZStack {
+      //Image("background")
 
-      NavigationLink(destination: WordListView()) {
-        LearningWordButton()
-      }.navigationBarTitle("Your Words")
+      NavigationView {
+        VStack {
+          NavigationLink(destination: WordListView()) {
+            AddedWordButton()
+          }.navigationBarTitle("Your Words")
 
-      NavigationLink(destination: WordListView()) {
-        CompleteWordButton()
-      }.navigationBarTitle("Your Words")
+          NavigationLink(destination: WordListView()) {
+            LearningWordButton()
+          }.navigationBarTitle("Your Words")
+
+          NavigationLink(destination: WordListView()) {
+            CompleteWordButton()
+          }.navigationBarTitle("Your Words")
+        }
+      }
     }
   }
 }
@@ -33,14 +39,16 @@ struct WordListView: View {
   // var input as option 1~3
 
   var body: some View {
-    NavigationView {
-      NavigationLink(destination: WordLearnView()) {
-        LearnButton()
-      }.navigationBarTitle("Words")
+    NavigationView { // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
+      HStack {
+        NavigationLink(destination: WordLearnView()) {
+          LearnButton()
+        }.navigationBarTitle("Words")
 
-      NavigationLink(destination: WordTestView()) {
-        TestButton()
-      }.navigationBarTitle("Words")
+        NavigationLink(destination: WordTestView()) {
+          TestButton()
+        }.navigationBarTitle("Words")
+      }
     }
     // NavigationView
     // learn btn and test btn
@@ -52,7 +60,7 @@ struct WordListView: View {
 }
 
 struct LearnButton: View {
-  var body: some View{
+  var body: some View {
     ZStack {
       // Image()
       Text("Learn")
@@ -75,18 +83,16 @@ struct TestButton: View {
 
 struct WordLearnView: View {
   var body: some View {
-    VStack{
+    VStack {
       Text("")
-
     }
   }
 }
 
 struct WordTestView: View {
   var body: some View {
-    VStack{
+    VStack {
       Text("")
-
     }
   }
 }
@@ -169,7 +175,7 @@ struct PopUpWindow: View {
 
 struct AddedWordButton: View {
   var body: some View {
-    ZStack {
+    VStack {
       // Image()
       Text("Added Word List")
     }
@@ -178,7 +184,7 @@ struct AddedWordButton: View {
 
 struct LearningWordButton: View {
   var body: some View {
-    ZStack {
+    VStack {
       // Image()
       Text("Learning Word List")
     }
@@ -187,7 +193,7 @@ struct LearningWordButton: View {
 
 struct CompleteWordButton: View {
   var body: some View {
-    ZStack {
+    VStack {
       // Image()
       Text("Complete Word List")
     }
