@@ -120,8 +120,11 @@ struct WordSelectTestView: View {
 
       Text("시험 볼 단어")
       Rectangle()
+        .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
       
       Text("test type select")
+      Rectangle()
+        .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
       
       //four button
       
