@@ -14,7 +14,7 @@ struct WordMainView: View {
 
   var body: some View {
     ZStack {
-      //Image("background")
+      // Image("background")
 
       NavigationView {
         VStack {
@@ -39,23 +39,28 @@ struct WordListView: View {
   // var input as option 1~3
 
   var body: some View {
-    NavigationView { // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
+    // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
+    VStack {
       HStack {
+        // back button
+        Text("단어장 이름")
+        //선택 버튼? -> 삭제
+      }
+
+      HStack { // learn btn and test btn
         NavigationLink(destination: WordLearnView()) {
           LearnButton()
         }.navigationBarTitle("Words")
 
-        NavigationLink(destination: WordTestView()) {
+        NavigationLink(destination: WordSelectTestView()) {
           TestButton()
         }.navigationBarTitle("Words")
       }
+
+      // wordlist
+
+      Text("list here")
     }
-    // NavigationView
-    // learn btn and test btn
-
-    // wordlist
-
-    Text("list here")
   }
 }
 
@@ -84,19 +89,68 @@ struct TestButton: View {
 struct WordLearnView: View {
   var body: some View {
     VStack {
+      //시험 나가기 버튼
+      
+      Text("title")
+      
       Text("")
+      
+      WordBox()
+      
+      //segmented controll?
     }
   }
 }
 
-struct WordTestView: View {
+struct WordLearnFinishView: View {
+  var body: some View{
+    Text("title")
+    //뭘 보여주지... 잘햇다?
+    //learn 도 기록이 되면 공부한 횟수라든가...
+  }
+}
+
+struct WordSelectTestView: View {
   var body: some View {
     VStack {
-      Text("")
+      HStack {
+        // back button
+        Text("단어장 이름")
+      }
+
+      Text("시험 볼 단어")
+      Rectangle()
+      
+      Text("test type select")
+      
+      //four button
+      
+      
     }
   }
 }
 
+struct WordTestView: View{
+  var body: some View {
+    VStack{
+      Text("3/3")
+      
+      //ProgressBar
+      
+      //test box...
+    }
+  }
+}
+
+struct WordTestFinishView : View {
+  var body: some View {
+    VStack{
+      Text("finish")
+    }
+  }
+}
+
+// 단어장 속 단어 목록
 struct WordCollectionView: View {
   let data: WordInfo
   var body: some View {

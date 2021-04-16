@@ -112,3 +112,14 @@ struct WordBox: View {
     
   }
 }
+
+struct WordAddFinishView: View{
+  var body: some View {
+    Text("place title")
+    
+    Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
+    
+    //button 장소페이지로 돌아가기
+    //button 단어장으로 가기
+  }
+}
