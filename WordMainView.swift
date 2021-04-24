@@ -13,24 +13,42 @@ struct WordMainView: View {
   var body: some View {
     NavigationView {
       ZStack {
-        Image("background")
+        Image("left_bg")
           .resizable()
           .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
           .ignoresSafeArea()
 
         VStack {
-          Text("Your Words")
+          HStack {
+            Text("Your Words")
+              .foregroundColor(.white)
+              .font(.title)
+              .padding(.horizontal, 20)
+            Spacer()
+          }
+          .padding(.vertical, 20)
+          HStack {
+            Text("Total Words : 10")
+              .foregroundColor(.white)
+              .font(.title2)
+              .padding(.horizontal, 20)
+            Spacer()
+          }
+          .padding(.vertical, 20)
 
-          NavigationLink(destination: WordListView()) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
             AddedWordButton()
+              .padding(.vertical, 10)
           }
 
-          NavigationLink(destination: WordListView()) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
             LearningWordButton()
+              .padding(.vertical, 10)
           }
 
-          NavigationLink(destination: WordListView()) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
             CompleteWordButton()
+              .padding(.vertical, 10)
           }
         }
       }
@@ -44,6 +62,9 @@ struct WordMainView: View {
 
 struct WordListView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+  @ObservedObject var viewModel: WordListViewModel
+
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
@@ -59,114 +80,75 @@ struct WordListView: View {
         .padding(.trailing, 20)
         .padding(.bottom, 10)
         .frame(width: 50, height: 50, alignment: .center)
+        .foregroundColor(.white)
     })
   }
 
   var body: some View {
-    // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
-    // NavigationView{
-    VStack {
-      HStack {
-        // back button
-        Text("단어장 이름")
-        // 선택 버튼? -> 삭제
+    NavigationView {
+      ZStack {
+        Image("center_bg")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
+
+        VStack(alignment: .center) {
+          Text("Words List")
+            .foregroundColor(.white)
+            .font(.title)
+            .padding(.vertical, 20)
+
+          HStack {
+            NavigationLink(destination: WordLearnView()) {
+              LearnButton()
+                .frame(width: 200, height: 100, alignment: .center)
+            }
+            Spacer()
+            NavigationLink(destination: WordSelectTestView()) {
+              TestButton()
+                .frame(width: 200, height: 100, alignment: .center)
+            }
+          }
+          .padding(.horizontal, 20)
+          Spacer()
+          Text("list here")
+
+          WordGridView(rows: (viewModel.words.count + 1) / 2, columns: 2) { row, col in
+
+            let num = row * 2 + col
+
+            if (viewModel.words.count > num) && (num >= 0) {
+              WordCellView(word: $viewModel.words[num])
+                .onTapGesture {
+                  viewModel.selectedWord = viewModel.words[num]
+                }
+            }
+          }
+        }
       }
-      /*
-       HStack { // learn btn and test btn
-         NavigationLink(destination: WordLearnView()) {
-           LearnButton()
-         }.navigationBarTitle("Words")
-
-         NavigationLink(destination: WordSelectTestView()) {
-           TestButton()
-         }.navigationBarTitle("Words")
-       }
-       */
-      // wordlist
-
-      Text("list here")
     }
-    // }
+    .navigationBarTitle("")
+    .ignoresSafeArea()
     .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: backButton)
-  }
-}
-
-struct LearningWordListView: View {
-  // var input as option 1~3
-
-  var body: some View {
-    // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
-
-    VStack {
-      HStack {
-        // back button
-        Text("단어장 이름")
-        // 선택 버튼? -> 삭제
-      }
-
-      HStack { // learn btn and test btn
-        NavigationLink(destination: WordLearnView()) {
-          LearnButton()
-        }.navigationBarTitle("Words")
-
-        NavigationLink(destination: WordSelectTestView()) {
-          TestButton()
-        }.navigationBarTitle("Words")
-      }
-
-      // wordlist
-
-      Text("list here")
-    }
-  }
-}
-
-struct CompleteWordListView: View {
-  // var input as option 1~3
-
-  var body: some View {
-    // TODO: 이거 네비게이션 말고 딴걸로 변경 하든가
-
-    VStack {
-      HStack {
-        // back button
-        Text("단어장 이름")
-        // 선택 버튼? -> 삭제
-      }
-
-      HStack { // learn btn and test btn
-        NavigationLink(destination: WordLearnView()) {
-          LearnButton()
-        }.navigationBarTitle("Words")
-
-        NavigationLink(destination: WordSelectTestView()) {
-          TestButton()
-        }.navigationBarTitle("Words")
-      }
-
-      // wordlist
-
-      Text("list here")
-    }
+    .navigationBarItems(leading: self.backButton)
   }
 }
 
 struct LearnButton: View {
   var body: some View {
-    ZStack {
-      // Image()
-      Text("Learn")
-    }
+    Text("Learn")
+      // .overlay(RoundedRectangle(cornerRadius: 25).frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/ .blue/*@END_MENU_TOKEN@*/))
+      .foregroundColor(.white)
+      .font(.title)
   }
 }
 
 struct TestButton: View {
   var body: some View {
-    ZStack {
-      // Image()
-      Text("Test")
-    }
+    Text("Test")
+      // .overlay(RoundedRectangle(cornerRadius: 25).frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/ .blue/*@END_MENU_TOKEN@*/))
+      .foregroundColor(.white)
+      .font(.title)
   }
 }
 
@@ -199,23 +181,52 @@ struct WordLearnFinishView: View {
 }
 
 struct WordSelectTestView: View {
+  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  var backButton: some View {
+    // 뒤로가기
+    Button(action: {
+      self.presentationMode.wrappedValue.dismiss()
+    }, label: {
+      Image(systemName: "chevron.left.square")
+        .resizable()
+        .scaledToFit()
+        .padding(.top, 15)
+        .padding(.trailing, 20)
+        .padding(.bottom, 10)
+        .frame(width: 50, height: 50, alignment: .center)
+        .foregroundColor(.white)
+    })
+  }
+  
   var body: some View {
-    VStack {
-      HStack {
-        // back button
-        Text("단어장 이름")
+    NavigationView {
+      ZStack {
+        Image("right_bg")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
+
+        VStack {
+          HStack {
+            // back button
+            Text("단어장 이름")
+          }
+
+          Text("시험 볼 단어")
+          Rectangle()
+            .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+
+          Text("test type select")
+          Rectangle()
+            .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+
+          // four button
+        }
       }
-
-      Text("시험 볼 단어")
-      Rectangle()
-        .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-
-      Text("test type select")
-      Rectangle()
-        .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-
-      // four button
     }
+    .navigationBarTitle("")
+    .navigationBarHidden(true)
+    .navigationBarItems(leading: self.backButton)
   }
 }
 
@@ -235,34 +246,6 @@ struct WordTestFinishView: View {
   var body: some View {
     VStack {
       Text("finish")
-    }
-  }
-}
-
-// 단어장 속 단어 목록
-struct WordCollectionView: View {
-  let data: WordInfo
-  var body: some View {
-    VStack {
-      HStack {
-        ForEach(0 ..< 2) { items in
-          Spacer()
-          Image("")
-            .resizable()
-            .frame(width: 150, height: 150)
-            .foregroundColor(.yellow)
-            .clipShape(Circle())
-            .shadow(radius: 10) // click -> popup
-          Spacer()
-        }.padding(.bottom, 16)
-      }
-      HStack {
-        Spacer()
-        Text(self.data.word)
-        Spacer()
-        Text(self.data.word)
-        Spacer()
-      }
     }
   }
 }
@@ -319,14 +302,17 @@ struct PopUpWindow: View {
 struct AddedWordButton: View {
   var body: some View {
     ZStack {
-      Image("mae")
-        .resizable()
-        .clipShape(RoundedRectangle(cornerRadius: 25))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+      // Image("mae")
+      RoundedRectangle(cornerRadius: 25)
+        .foregroundColor(Color("Navy"))
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
 
       VStack {
         Text("Added Word List")
+          .foregroundColor(.white)
+          .font(.title)
         Text("number of words")
+          .foregroundColor(.white)
       }
     }
   }
@@ -335,14 +321,16 @@ struct AddedWordButton: View {
 struct LearningWordButton: View {
   var body: some View {
     ZStack {
-      Image("mae")
-        .resizable()
-        .clipShape(RoundedRectangle(cornerRadius: 25))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+      RoundedRectangle(cornerRadius: 25)
+        .foregroundColor(Color("Navy"))
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
 
       VStack {
         Text("Learning Word List")
+          .foregroundColor(.white)
+          .font(.title)
         Text("number of words")
+          .foregroundColor(.white)
       }
     }
   }
@@ -351,14 +339,16 @@ struct LearningWordButton: View {
 struct CompleteWordButton: View {
   var body: some View {
     ZStack {
-      Image("mae")
-        .resizable()
-        .clipShape(RoundedRectangle(cornerRadius: 25))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+      RoundedRectangle(cornerRadius: 25)
+        .foregroundColor(Color("Navy"))
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
 
       VStack {
         Text("Complete Word List")
+          .foregroundColor(.white)
+          .font(.title)
         Text("number of words")
+          .foregroundColor(.white)
       }
     }
   }

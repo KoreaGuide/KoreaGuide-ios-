@@ -9,7 +9,9 @@ import Foundation
 import SwiftUI
 
 struct WordInfo{
-  let word: String
+  let word: String //kor
+  let meaning: String //eng
+  let wordId: Int
 }
 
 struct WordAddView: View {
