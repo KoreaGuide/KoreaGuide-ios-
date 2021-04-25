@@ -46,7 +46,7 @@ struct WordMainView: View {
               .padding(.vertical, 10)
           }
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
+          NavigationLink(destination: WordAddView(totalWordCount: 3, currentWord: 3, wordlist: [WordInfo(word: "단어 단어", meaning: "meaning meaning", wordId: 3)])) {
             CompleteWordButton()
               .padding(.vertical, 10)
           }
