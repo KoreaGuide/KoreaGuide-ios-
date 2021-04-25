@@ -20,13 +20,21 @@ struct WordMainView: View {
 
         VStack {
           HStack {
+            Text("ForWord")
+              .foregroundColor(.white)
+              .font(.title3)
+              .padding(.horizontal, 20)
+            Spacer()
+          }
+          
+          HStack {
             Text("Your Words")
               .foregroundColor(.white)
               .font(.title)
               .padding(.horizontal, 20)
             Spacer()
           }
-          .padding(.vertical, 20)
+         
           HStack {
             Text("Total Words : 10")
               .foregroundColor(.white)
@@ -207,21 +215,49 @@ struct WordSelectTestView: View {
           .ignoresSafeArea()
 
         VStack {
-          HStack {
-            // back button
+          
             Text("단어장 이름")
-          }
+              .foregroundColor(.white)
+              .padding(.vertical, 20)
 
           Text("시험 볼 단어")
+            .foregroundColor(.white)
+          
           Rectangle()
-            .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+            .frame(width: 250, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment:  .center)
+            .foregroundColor(.orange)
+            .padding(.horizontal, 20)
 
           Text("test type select")
+            .foregroundColor(.white)
+          
+          NavigationView{
+            List{}
+          }
+          
+          ZStack{
           Rectangle()
-            .frame(width: 100, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-
+            .frame(width: 250, height: 50, alignment:  .center)
+            .foregroundColor(.blue)
+            .padding(.horizontal, 20)
+            Text("1")
+          }
+          Rectangle()
+            .frame(width: 250, height: 50, alignment:  .center)
+            .foregroundColor(.blue)
+            .padding(.horizontal, 20)
+          Rectangle()
+            .frame(width: 250, height: 50, alignment:  .center)
+            .foregroundColor(.blue)
+            .padding(.horizontal, 20)
+          Rectangle()
+            .frame(width: 250, height: 50, alignment:  .center)
+            .foregroundColor(.blue)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
           // four button
         }
+        .background(Color.gray.opacity(0.5))
       }
     }
     .navigationBarTitle("")

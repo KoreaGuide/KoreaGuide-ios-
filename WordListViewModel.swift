@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 class WordListViewModel: ObservableObject {
-  @Published var words: [WordInfo] = [WordInfo(word: "첫번째 단어", meaning: "first word", wordId: 1), WordInfo(word: "두번째 단어", meaning: "second word", wordId: 2)]
+  @Published var words: [WordInfo] = [WordInfo(word: "첫번째 단어", meaning: "first word", wordId: 1), WordInfo(word: "두번째 단어", meaning: "second word", wordId: 2), WordInfo(word: "세번째 단어", meaning: "third word", wordId: 3)]
   @Published var selectedWord: WordInfo?
   @Published var didSelectWord: Bool = false
   @Published var wordId: Int = 0

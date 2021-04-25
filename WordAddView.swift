@@ -128,6 +128,7 @@ struct WordBox: View {
         Image("mae")
           .resizable()
           .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+          .cornerRadius(10)
         Spacer().frame(height: 30)
         Text("word")
           .foregroundColor(.white)
