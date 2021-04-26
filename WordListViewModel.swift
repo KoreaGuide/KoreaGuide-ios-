@@ -10,10 +10,12 @@ import Combine
 import SwiftUI
 
 class WordListViewModel: ObservableObject {
-  @Published var words: [WordInfo] = [WordInfo(word: "첫번째 단어", meaning: "first word", wordId: 1), WordInfo(word: "두번째 단어", meaning: "second word", wordId: 2), WordInfo(word: "세번째 단어", meaning: "third word", wordId: 3)]
+  @Published var wordlist: [WordInfo] = [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
   @Published var selectedWord: WordInfo?
   @Published var didSelectWord: Bool = false
-  @Published var wordId: Int = 0
+  @Published var word_id: Int = 0
+  
+  
   private var cancellable: Set<AnyCancellable> = []
 
   private var didSelectWordPublisher: AnyPublisher<Bool, Never> {
@@ -30,10 +32,10 @@ class WordListViewModel: ObservableObject {
 
     $selectedWord
       .map {
-        if $0 != nil { return $0!.wordId } else { return 0 }
+        if $0 != nil { return $0!.word_id } else { return 0 }
       }
       .receive(on: RunLoop.main)
-      .assign(to: \.wordId, on: self)
+      .assign(to: \.word_id, on: self)
       .store(in: &cancellable)
   }
 }

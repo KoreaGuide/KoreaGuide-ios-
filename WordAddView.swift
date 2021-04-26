@@ -7,19 +7,20 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 struct WordInfo {
+  let word_id: Int
   let word: String // kor
   let meaning: String // eng
-  let wordId: Int
 }
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-  var totalWordCount: Int // 1~
-  var currentWord: Int // 1~
-  @State var progressValue: Float = 0.5
-  var wordlist: [WordInfo]
+  @ObservedObject var viewModel: WordAddViewModel
+  @State private var cancellable: AnyCancellable?
+  
+  
 
   var backButton: some View {
     // 뒤로가기
@@ -37,6 +38,20 @@ struct WordAddView: View {
     })
   }
 
+  var progressBar: some View {
+    GeometryReader { geometry in
+      ZStack(alignment: .leading) {
+        Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
+          .opacity(0.3)
+          .foregroundColor(Color(UIColor.systemTeal))
+
+        Rectangle().frame(width: min(CGFloat(self.viewModel.progressValue) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+          .foregroundColor(Color(UIColor.systemBlue))
+          .animation(.linear)
+      }.cornerRadius(45.0)
+    }
+  }
+  
   var body: some View {
     NavigationView {
       ZStack{
@@ -48,14 +63,14 @@ struct WordAddView: View {
       VStack {
         HStack {
           // place title
-          Label("place title", systemImage: "book.fill") // icon change
+          Label(viewModel.placeTitle, systemImage: "book.fill") // icon change
             .foregroundColor(.white)
         }
 
         // label
         Text("3/3")
           .foregroundColor(.white)
-        ProgressBar(value: $progressValue)
+        progressBar
           .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
 
         // label
@@ -64,7 +79,12 @@ struct WordAddView: View {
 
         HStack {
           // left
-          Button(action: {}, label: {
+          Button(action: {
+            if viewModel.currentWordCount > 0 {
+              viewModel.currentWordCount -= 1
+            }
+            
+          }, label: {
             Image(systemName: "chevron.left.circle")
               .resizable()
             .scaledToFit()
@@ -74,10 +94,16 @@ struct WordAddView: View {
           })
 
           // box
-          WordBox()
+          WordBox(viewModel: viewModel)
 
           // right
-          Button(action: {}, label: {
+          Button(action: {
+            if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
+              
+              viewModel.currentWordCount += 1
+            }
+            
+          }, label: {
             Image(systemName: "chevron.right.circle")
               .resizable()
             .scaledToFit()
@@ -99,25 +125,10 @@ struct WordAddView: View {
   }
 }
 
-struct ProgressBar: View {
-  @Binding var value: Float
-
-  var body: some View {
-    GeometryReader { geometry in
-      ZStack(alignment: .leading) {
-        Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
-          .opacity(0.3)
-          .foregroundColor(Color(UIColor.systemTeal))
-
-        Rectangle().frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
-          .foregroundColor(Color(UIColor.systemBlue))
-          .animation(.linear)
-      }.cornerRadius(45.0)
-    }
-  }
-}
 
 struct WordBox: View {
+  @ObservedObject var viewModel: WordAddViewModel
+  
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
@@ -130,16 +141,16 @@ struct WordBox: View {
           .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
           .cornerRadius(10)
         Spacer().frame(height: 30)
-        Text("word")
+        Text(viewModel.wordList[viewModel.currentWordCount].word)
           .foregroundColor(.white)
         Text("pronun")
           .foregroundColor(.white)
-        Text("meaning")
+        Text(viewModel.wordList[viewModel.currentWordCount].meaning)
           .foregroundColor(.white)
         Button(action: {
-          // back to place detail page
+          //replay
         }, label: {
-          Text("play")
+          Image(systemName: "play.circle") //play.circle.fill
         })
       }
     }
@@ -147,8 +158,10 @@ struct WordBox: View {
 }
 
 struct WordAddFinishView: View {
+  @ObservedObject var viewModel: WordAddViewModel
+  
   var body: some View {
-    Text("place title")
+    Text(viewModel.placeTitle)
 
     Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
 

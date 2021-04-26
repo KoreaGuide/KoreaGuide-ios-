@@ -26,7 +26,7 @@ struct WordMainView: View {
               .padding(.horizontal, 20)
             Spacer()
           }
-          
+
           HStack {
             Text("Your Words")
               .foregroundColor(.white)
@@ -34,7 +34,7 @@ struct WordMainView: View {
               .padding(.horizontal, 20)
             Spacer()
           }
-         
+
           HStack {
             Text("Total Words : 10")
               .foregroundColor(.white)
@@ -54,7 +54,7 @@ struct WordMainView: View {
               .padding(.vertical, 10)
           }
 
-          NavigationLink(destination: WordAddView(totalWordCount: 3, currentWord: 3, wordlist: [WordInfo(word: "단어 단어", meaning: "meaning meaning", wordId: 3)])) {
+          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel())) {
             CompleteWordButton()
               .padding(.vertical, 10)
           }
@@ -73,6 +73,7 @@ struct WordListView: View {
 
   @ObservedObject var viewModel: WordListViewModel
 
+  @State var showPopup: Bool = false
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
@@ -121,17 +122,36 @@ struct WordListView: View {
           Spacer()
           Text("list here")
 
-          WordGridView(rows: (viewModel.words.count + 1) / 2, columns: 2) { row, col in
+          WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
 
             let num = row * 2 + col
 
-            if (viewModel.words.count > num) && (num >= 0) {
-              WordCellView(word: $viewModel.words[num])
-                .onTapGesture {
-                  viewModel.selectedWord = viewModel.words[num]
+            if (viewModel.wordlist.count > num) && (num >= 0) {
+              Button(action: {
+                self.showPopup = true
+              }, label: {
+                WordCellView(word: $viewModel.wordlist[num])
+              })
+                .sheet(isPresented: $showPopup, onDismiss: {
+                  print(self.showPopup)
+                }) {
+                  
+                  //PopUpWindow(viewModel: viewModel)
+                    //.frame(width: 300, height: 400)
+                    //.clearModalBackground()
                 }
             }
           }
+          
+          GeometryReader { geometry in
+                      Color.green
+                      BottomSheetView(
+                          isOpen: self.$showPopup,
+                          maxHeight: geometry.size.height * 0.7
+                      ) {
+                          Color.blue
+                      }
+                  }.edgesIgnoringSafeArea(.all)
         }
       }
     }
@@ -140,6 +160,32 @@ struct WordListView: View {
     .navigationBarBackButtonHidden(true)
     .navigationBarItems(leading: self.backButton)
   }
+}
+
+struct ClearBackgroundView: UIViewRepresentable {
+    func makeUIView(context: Context) -> some UIView {
+        let view = UIView()
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+    }
+}
+
+struct ClearBackgroundViewModifier: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+            .background(ClearBackgroundView())
+    }
+}
+
+extension View {
+    func clearModalBackground()->some View {
+        self.modifier(ClearBackgroundViewModifier())
+    }
 }
 
 struct LearnButton: View {
@@ -173,7 +219,7 @@ struct WordLearnView: View {
 
       Text("")
 
-      WordBox()
+      // WordBox()
 
       // segmented controll?
     }
@@ -205,7 +251,7 @@ struct WordSelectTestView: View {
         .foregroundColor(.white)
     })
   }
-  
+
   var body: some View {
     NavigationView {
       ZStack {
@@ -215,43 +261,42 @@ struct WordSelectTestView: View {
           .ignoresSafeArea()
 
         VStack {
-          
-            Text("단어장 이름")
-              .foregroundColor(.white)
-              .padding(.vertical, 20)
+          Text("단어장 이름")
+            .foregroundColor(.white)
+            .padding(.vertical, 20)
 
           Text("시험 볼 단어")
             .foregroundColor(.white)
-          
+
           Rectangle()
-            .frame(width: 250, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment:  .center)
+            .frame(width: 250, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
             .foregroundColor(.orange)
             .padding(.horizontal, 20)
 
           Text("test type select")
             .foregroundColor(.white)
-          
-          NavigationView{
-            List{}
+
+          NavigationView {
+            List {}
           }
-          
-          ZStack{
-          Rectangle()
-            .frame(width: 250, height: 50, alignment:  .center)
-            .foregroundColor(.blue)
-            .padding(.horizontal, 20)
+
+          ZStack {
+            Rectangle()
+              .frame(width: 250, height: 50, alignment: .center)
+              .foregroundColor(.blue)
+              .padding(.horizontal, 20)
             Text("1")
           }
           Rectangle()
-            .frame(width: 250, height: 50, alignment:  .center)
+            .frame(width: 250, height: 50, alignment: .center)
             .foregroundColor(.blue)
             .padding(.horizontal, 20)
           Rectangle()
-            .frame(width: 250, height: 50, alignment:  .center)
+            .frame(width: 250, height: 50, alignment: .center)
             .foregroundColor(.blue)
             .padding(.horizontal, 20)
           Rectangle()
-            .frame(width: 250, height: 50, alignment:  .center)
+            .frame(width: 250, height: 50, alignment: .center)
             .foregroundColor(.blue)
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
@@ -286,48 +331,79 @@ struct WordTestFinishView: View {
   }
 }
 
+struct BottomSheetView<Content: View>: View {
+  var body: some View {
+      GeometryReader { geometry in
+          VStack(spacing: 0) {
+              //self.indicator.padding()
+              self.content
+          }
+          .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
+          .background(Color(.secondarySystemBackground))
+          .cornerRadius(25)
+          .frame(height: geometry.size.height, alignment: .bottom)
+          //.offset(y: self.offset)
+      }
+  }
+  
+    @Binding var isOpen: Bool
+
+    let maxHeight: CGFloat
+    let minHeight: CGFloat
+    let content: Content
+
+    init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
+        self.minHeight = 200
+        self.maxHeight = 400
+        self.content = content()
+        self._isOpen = isOpen
+    }
+}
+
 struct PopUpWindow: View {
-  var title: String
-  var message: String
-  var buttonText: String
-  @Binding var show: Bool
+  @ObservedObject var viewModel: WordListViewModel
+  @Environment(\.presentationMode) var presentation
 
   var body: some View {
     ZStack {
-      if show {
+      if viewModel.didSelectWord {
         // PopUp background color
-        Color.black.opacity(show ? 0.3 : 0).edgesIgnoringSafeArea(.all)
+        Color.black.opacity(viewModel.didSelectWord ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
         // PopUp Window
         VStack(alignment: .center, spacing: 0) {
-          Text(title)
+          Text(viewModel.selectedWord?.word ?? "")
             .frame(maxWidth: .infinity)
             .frame(height: 45, alignment: .center)
             .font(Font.system(size: 23, weight: .semibold))
-            .foregroundColor(Color.white)
-            .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
+            .foregroundColor(Color.black)
+            .background(Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)))
 
-          Text(message)
+          Text(viewModel.selectedWord?.meaning ?? "")
             .multilineTextAlignment(.center)
             .font(Font.system(size: 16, weight: .semibold))
             .padding(EdgeInsets(top: 20, leading: 25, bottom: 20, trailing: 25))
-            .foregroundColor(Color.white)
+            .foregroundColor(Color.blue)
 
           Button(action: {
             // Dismiss the PopUp
             withAnimation(.linear(duration: 0.3)) {
-              show = false
+              viewModel.didSelectWord = false
             }
           }, label: {
-            Text(buttonText)
+            Text("xxxxxx")
               .frame(maxWidth: .infinity)
               .frame(height: 54, alignment: .center)
-              .foregroundColor(Color.white)
+              .foregroundColor(Color.black)
               .background(Color(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1)))
               .font(Font.system(size: 23, weight: .semibold))
           }).buttonStyle(PlainButtonStyle())
+
+          Button("Dismiss") {
+           // self.presentation.
+          }
         }
-        .frame(maxWidth: 300)
+        .frame(height: 300)
         .border(Color.white, width: 2)
         .background(Color(#colorLiteral(red: 0.737254902, green: 0.1294117647, blue: 0.2941176471, alpha: 1)))
       }
