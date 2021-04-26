@@ -74,7 +74,7 @@ struct WordAddView: View {
           .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
 
         // label
-        Text("Swipe up to add")
+        Text("Add to my list")
           .foregroundColor(.white)
 
         HStack {

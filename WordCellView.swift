@@ -18,12 +18,14 @@ struct WordCellView: View {
     ZStack {
       RoundedRectangle(cornerRadius: 20)
         .frame(width: UIScreen.main.bounds.width / 2 - 30, height: UIScreen.main.bounds.width / 2 - 30)
-        .foregroundColor(.green)
+        .foregroundColor(.white)
         .opacity(0.8)
       
       VStack {
         Text(word.word)
+          .foregroundColor(.black)
         Text(word.meaning)
+          .foregroundColor(.black)
       }
     }
   }

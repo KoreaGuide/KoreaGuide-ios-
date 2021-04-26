@@ -11,17 +11,27 @@ import SwiftUI
 
 struct WordPopup: View {
   @Binding var displayItem: Int
+  @ObservedObject var viewModel: WordListViewModel
 
   var body: some View {
     ZStack {
       // Rectangle().fill(Color.gray).opacity(0.5)
       if self.displayItem != -1 {
         Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
+
         VStack {
-          Text("Name")
-          Text("Age")
-          Text("Profession")
-          Text("Interest")
+          // Text("word")
+          Text(viewModel.wordlist[displayItem].word)
+            .padding(10)
+          // Text("meaning")
+          Text(viewModel.wordlist[displayItem].meaning)
+            .padding(10)
+
+          Text("이게 무슨 말이냐면 어쩌고 저쩌고 응")
+            .padding(10)
+
+          Text("추가된 날짜 등")
+            .padding(10)
         }
         .frame(width: 300, height: 300, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
@@ -49,6 +59,7 @@ struct WordMainView: View {
               .foregroundColor(.white)
               .font(.title3)
               .padding(.horizontal, 20)
+              
             Spacer()
           }
 
@@ -84,6 +95,7 @@ struct WordMainView: View {
               .padding(.vertical, 10)
           }
         }
+        .padding(.bottom, 20)
       }
       .ignoresSafeArea()
     }
@@ -128,10 +140,14 @@ struct WordListView: View {
             .ignoresSafeArea()
 
           VStack(alignment: .center) {
-            Text("Words List")
-              .foregroundColor(.white)
-              .font(.title)
-              .padding(.vertical, 20)
+            HStack{
+              Text("Words List")
+                .foregroundColor(.white)
+                .font(.title)
+                .padding(.vertical, 20)
+              Spacer()
+            }
+            .padding(.horizontal, 40)
 
             HStack {
               NavigationLink(destination: WordLearnView()) {
@@ -144,7 +160,7 @@ struct WordListView: View {
                   .frame(width: 200, height: 100, alignment: .center)
               }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 40)
             Spacer()
             Text("list here")
 
@@ -169,8 +185,8 @@ struct WordListView: View {
       .navigationBarItems(leading: self.backButton)
 
       if showPopup != -1 {
-        WordPopup(displayItem: $showPopup)
-          .padding(.top, -200)
+        WordPopup(displayItem: $showPopup, viewModel: viewModel)
+          .padding(.top, -180)
       }
     }
   }
@@ -178,36 +194,12 @@ struct WordListView: View {
 
 // .animation(.easeInOut)
 
-struct ClearBackgroundView: UIViewRepresentable {
-  func makeUIView(context: Context) -> some UIView {
-    let view = UIView()
-    DispatchQueue.main.async {
-      view.superview?.superview?.backgroundColor = .clear
-    }
-    return view
-  }
-
-  func updateUIView(_ uiView: UIViewType, context: Context) {}
-}
-
-struct ClearBackgroundViewModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .background(ClearBackgroundView())
-  }
-}
-
-extension View {
-  func clearModalBackground() -> some View {
-    modifier(ClearBackgroundViewModifier())
-  }
-}
-
 struct LearnButton: View {
   var body: some View {
     Text("Learn")
-      // .overlay(RoundedRectangle(cornerRadius: 25).frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/ .blue/*@END_MENU_TOKEN@*/))
-      .foregroundColor(.white)
+      .frame(width: 120, height: 50, alignment: .center)
+      .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
+      .foregroundColor(Color("Navy"))
       .font(.title)
   }
 }
@@ -215,8 +207,9 @@ struct LearnButton: View {
 struct TestButton: View {
   var body: some View {
     Text("Test")
-      // .overlay(RoundedRectangle(cornerRadius: 25).frame(width: UIScreen.main.bounds.width - 100, height: 150, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/).foregroundColor(/*@START_MENU_TOKEN@*/ .blue/*@END_MENU_TOKEN@*/))
-      .foregroundColor(.white)
+      .frame(width: 120, height: 50, alignment: .center)
+      .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
+      .foregroundColor(Color("Navy"))
       .font(.title)
   }
 }
@@ -226,26 +219,47 @@ struct TestButton: View {
 // button navigation to test
 
 struct WordLearnView: View {
+  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+  var backButton: some View {
+    // 뒤로가기
+    Button(action: {
+      self.presentationMode.wrappedValue.dismiss()
+    }, label: {
+      Image(systemName: "chevron.left.square")
+        .resizable()
+        .scaledToFit()
+        .padding(.top, 15)
+        .padding(.trailing, 20)
+        .padding(.bottom, 10)
+        .frame(width: 50, height: 50, alignment: .center)
+        .foregroundColor(.white)
+    })
+  }
+
   var body: some View {
-    VStack {
-      // 시험 나가기 버튼
+    NavigationView {
+      VStack {
+        Text("learn view")
 
-      Text("title")
+        Text("")
 
-      Text("")
-
-      // WordBox()
-
-      // segmented controll?
+        // WordBox(viewModel: viewModel)
+      }
     }
+    .navigationBarTitle("")
+    .ignoresSafeArea()
+    .navigationBarBackButtonHidden(true)
+    .navigationBarItems(leading: self.backButton)
   }
 }
 
 struct WordLearnFinishView: View {
   var body: some View {
-    Text("title")
+    Text("end of learning")
     // 뭘 보여주지... 잘햇다?
     // learn 도 기록이 되면 공부한 횟수라든가...
+    // Button()
   }
 }
 
@@ -284,54 +298,76 @@ struct WordSelectTestView: View {
             .foregroundColor(.white)
 
           Rectangle()
-            .frame(width: 250, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
+            .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
             .foregroundColor(.orange)
             .padding(.horizontal, 20)
 
           Text("test type select")
             .foregroundColor(.white)
 
-          NavigationView {
-            List {}
+          // NavigationView {
+          List {
+            NavigationLink(destination: WordTestView(viewModel: LearningWordViewModel())) {
+              Text("1. ")
+                .foregroundColor(.black)
+            }
+            NavigationLink(destination: WordTestView(viewModel: LearningWordViewModel())) {
+              Text("2. ")
+                .foregroundColor(.black)
+            }
+            NavigationLink(destination: WordTestView(viewModel: LearningWordViewModel())) {
+              Text("3. ")
+                .foregroundColor(.black)
+            }
+            NavigationLink(destination: WordTestView(viewModel: LearningWordViewModel())) {
+              Text("4. ")
+                .foregroundColor(.black)
+            }
           }
+          // .background(Color.clear)
+          // }
+          // .navigationBarTitle("")
+          // .navigationBarHidden(true)
 
-          ZStack {
-            Rectangle()
-              .frame(width: 250, height: 50, alignment: .center)
-              .foregroundColor(.blue)
-              .padding(.horizontal, 20)
-            Text("1")
-          }
-          Rectangle()
-            .frame(width: 250, height: 50, alignment: .center)
-            .foregroundColor(.blue)
-            .padding(.horizontal, 20)
-          Rectangle()
-            .frame(width: 250, height: 50, alignment: .center)
-            .foregroundColor(.blue)
-            .padding(.horizontal, 20)
-          Rectangle()
-            .frame(width: 250, height: 50, alignment: .center)
-            .foregroundColor(.blue)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
           // four button
         }
-        .background(Color.gray.opacity(0.5))
+        // .background(Color.gray.opacity(0.5))
       }
     }
     .navigationBarTitle("")
     .navigationBarHidden(true)
     .navigationBarItems(leading: self.backButton)
+    .ignoresSafeArea()
   }
 }
 
 struct WordTestView: View {
+  @ObservedObject var viewModel: LearningWordViewModel // 변경
+
+  var progressBar: some View {
+    GeometryReader { geometry in
+      ZStack(alignment: .leading) {
+        Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
+          .opacity(0.3)
+          .foregroundColor(Color(UIColor.systemTeal))
+
+        Rectangle().frame(width: min(CGFloat(self.viewModel.progressValue) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+          .foregroundColor(Color(UIColor.systemBlue))
+          .animation(.linear)
+      }.cornerRadius(45.0)
+    }
+  }
+
   var body: some View {
     VStack {
+      Text("test page")
       Text("3/3")
 
       // ProgressBar
+      Text("3/3")
+        .foregroundColor(.white)
+      progressBar
+        .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
 
       // test box...
     }
