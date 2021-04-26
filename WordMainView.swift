@@ -9,6 +9,31 @@ import Combine
 import Foundation
 import SwiftUI
 
+struct WordPopup: View {
+  @Binding var displayItem: Int
+
+  var body: some View {
+    ZStack {
+      // Rectangle().fill(Color.gray).opacity(0.5)
+      if self.displayItem != -1 {
+        Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
+        VStack {
+          Text("Name")
+          Text("Age")
+          Text("Profession")
+          Text("Interest")
+        }
+        .frame(width: 300, height: 300, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
+      }
+    }
+    .ignoresSafeArea()
+    .onTapGesture {
+      self.displayItem = -1
+    }
+  }
+}
+
 struct WordMainView: View {
   var body: some View {
     NavigationView {
@@ -73,7 +98,7 @@ struct WordListView: View {
 
   @ObservedObject var viewModel: WordListViewModel
 
-  @State var showPopup: Bool = false
+  @State var showPopup: Int = -1
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
@@ -94,98 +119,88 @@ struct WordListView: View {
   }
 
   var body: some View {
-    NavigationView {
-      ZStack {
-        Image("center_bg")
-          .resizable()
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-          .ignoresSafeArea()
+    ZStack {
+      NavigationView {
+        ZStack {
+          Image("center_bg")
+            .resizable()
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+            .ignoresSafeArea()
 
-        VStack(alignment: .center) {
-          Text("Words List")
-            .foregroundColor(.white)
-            .font(.title)
-            .padding(.vertical, 20)
+          VStack(alignment: .center) {
+            Text("Words List")
+              .foregroundColor(.white)
+              .font(.title)
+              .padding(.vertical, 20)
 
-          HStack {
-            NavigationLink(destination: WordLearnView()) {
-              LearnButton()
-                .frame(width: 200, height: 100, alignment: .center)
+            HStack {
+              NavigationLink(destination: WordLearnView()) {
+                LearnButton()
+                  .frame(width: 200, height: 100, alignment: .center)
+              }
+              Spacer()
+              NavigationLink(destination: WordSelectTestView()) {
+                TestButton()
+                  .frame(width: 200, height: 100, alignment: .center)
+              }
             }
+            .padding(.horizontal, 20)
             Spacer()
-            NavigationLink(destination: WordSelectTestView()) {
-              TestButton()
-                .frame(width: 200, height: 100, alignment: .center)
+            Text("list here")
+
+            WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
+
+              let num = row * 2 + col
+
+              if (viewModel.wordlist.count > num) && (num >= 0) {
+                Button(action: {
+                  self.showPopup = num
+                }, label: {
+                  WordCellView(word: $viewModel.wordlist[num])
+                })
+              }
             }
           }
-          .padding(.horizontal, 20)
-          Spacer()
-          Text("list here")
-
-          WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
-
-            let num = row * 2 + col
-
-            if (viewModel.wordlist.count > num) && (num >= 0) {
-              Button(action: {
-                self.showPopup = true
-              }, label: {
-                WordCellView(word: $viewModel.wordlist[num])
-              })
-                .sheet(isPresented: $showPopup, onDismiss: {
-                  print(self.showPopup)
-                }) {
-                  
-                  //PopUpWindow(viewModel: viewModel)
-                    //.frame(width: 300, height: 400)
-                    //.clearModalBackground()
-                }
-            }
-          }
-          
-          GeometryReader { geometry in
-                      Color.green
-                      BottomSheetView(
-                          isOpen: self.$showPopup,
-                          maxHeight: geometry.size.height * 0.7
-                      ) {
-                          Color.blue
-                      }
-                  }.edgesIgnoringSafeArea(.all)
         }
       }
+      .navigationBarTitle("")
+      .ignoresSafeArea()
+      .navigationBarBackButtonHidden(true)
+      .navigationBarItems(leading: self.backButton)
+
+      if showPopup != -1 {
+        WordPopup(displayItem: $showPopup)
+          .padding(.top, -200)
+      }
     }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: self.backButton)
   }
 }
 
+// .animation(.easeInOut)
+
 struct ClearBackgroundView: UIViewRepresentable {
-    func makeUIView(context: Context) -> some UIView {
-        let view = UIView()
-        DispatchQueue.main.async {
-            view.superview?.superview?.backgroundColor = .clear
-        }
-        return view
+  func makeUIView(context: Context) -> some UIView {
+    let view = UIView()
+    DispatchQueue.main.async {
+      view.superview?.superview?.backgroundColor = .clear
     }
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-    }
+    return view
+  }
+
+  func updateUIView(_ uiView: UIViewType, context: Context) {}
 }
 
 struct ClearBackgroundViewModifier: ViewModifier {
-    
-    func body(content: Content) -> some View {
-        content
-            .background(ClearBackgroundView())
-    }
+  func body(content: Content) -> some View {
+    content
+      .background(ClearBackgroundView())
+  }
 }
 
 extension View {
-    func clearModalBackground()->some View {
-        self.modifier(ClearBackgroundViewModifier())
-    }
+  func clearModalBackground() -> some View {
+    modifier(ClearBackgroundViewModifier())
+  }
 }
 
 struct LearnButton: View {
@@ -331,35 +346,6 @@ struct WordTestFinishView: View {
   }
 }
 
-struct BottomSheetView<Content: View>: View {
-  var body: some View {
-      GeometryReader { geometry in
-          VStack(spacing: 0) {
-              //self.indicator.padding()
-              self.content
-          }
-          .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
-          .background(Color(.secondarySystemBackground))
-          .cornerRadius(25)
-          .frame(height: geometry.size.height, alignment: .bottom)
-          //.offset(y: self.offset)
-      }
-  }
-  
-    @Binding var isOpen: Bool
-
-    let maxHeight: CGFloat
-    let minHeight: CGFloat
-    let content: Content
-
-    init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
-        self.minHeight = 200
-        self.maxHeight = 400
-        self.content = content()
-        self._isOpen = isOpen
-    }
-}
-
 struct PopUpWindow: View {
   @ObservedObject var viewModel: WordListViewModel
   @Environment(\.presentationMode) var presentation
@@ -400,7 +386,7 @@ struct PopUpWindow: View {
           }).buttonStyle(PlainButtonStyle())
 
           Button("Dismiss") {
-           // self.presentation.
+            // self.presentation.
           }
         }
         .frame(height: 300)
