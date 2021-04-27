@@ -10,6 +10,8 @@ import SwiftUI
 
 
 struct TodayWordView: View {
+  @ObservedObject var todayWordViewModel: TodayWordViewModel
+  
   var body: some View{
     ZStack{
       Image("background")
