@@ -20,6 +20,8 @@ struct rowItem: View {
 }
 
 struct WordTestSelectView: View {
+  @ObservedObject var viewModel: WordTestSelectViewModel
+  
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   var backButton: some View {
     // 뒤로가기
@@ -50,16 +52,20 @@ struct WordTestSelectView: View {
             .foregroundColor(.white)
             .padding(.vertical, 20)
 
-          Text("시험 볼 단어")
+          Text("Words to test")
             .foregroundColor(.white)
+            .padding(10)
 
-          Rectangle()
-            .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
-            .foregroundColor(.orange)
-            .padding(.horizontal, 20)
-
-          Text("test type select")
+          Text("Number of Words : " + String(viewModel.wordlist.count))
+            .background(Rectangle()
+                          .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
+                          .foregroundColor(Color.white.opacity(0.8)))
+            .padding(40)
+        
+          Text("Select word test type !")
             .foregroundColor(.white)
+            .fontWeight(.heavy)
+            .padding(10)
 
           // NavigationView {
           VStack (alignment: .leading){
@@ -85,11 +91,9 @@ struct WordTestSelectView: View {
             .background(Color.white.opacity(0.8))
             .padding(10)
           }
-          //.frame(width: UIScreen.main.bounds.width - 60, height: UIScreen.main.bounds.height / 3, alignment: .leading)
-          .foregroundColor(Color.orange)
-          //.listRowBackground(Color.green)
-          //.accentColor(Color.gray)
           .background(Color.clear)
+          .padding(.bottom, 120)
+          
         }
         // .background(Color.gray.opacity(0.5))
       }

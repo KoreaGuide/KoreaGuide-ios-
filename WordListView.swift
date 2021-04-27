@@ -109,7 +109,7 @@ struct WordListView: View {
               }
               .isDetailLink(false)
               Spacer()
-              NavigationLink(destination: WordTestSelectView()) {
+              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(wordlist: [WordInfo(word_id: 999, word: "시험중", meaning: "testing")]))) {
                 TestButton()
                   .frame(width: 200, height: 100, alignment: .center)
               }

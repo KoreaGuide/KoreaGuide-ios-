@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class WordLearnViewModel: ObservableObject {
+  @Published var todayword: WordInfo
+  
+  init(wordInfo: WordInfo){
+    self.todayword = wordInfo
+  }
+}
