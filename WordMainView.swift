@@ -49,16 +49,19 @@ struct WordMainView: View {
             AddedWordButton()
               .padding(.vertical, 10)
           }
+          .isDetailLink(false)
 
           NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
             LearningWordButton()
               .padding(.vertical, 10)
           }
+          .isDetailLink(false)
 
           NavigationLink(destination: WordAddView(viewModel: WordAddViewModel())) {
             CompleteWordButton()
               .padding(.vertical, 10)
           }
+          .isDetailLink(false)
         }
         .padding(.bottom, 20)
       }
@@ -67,105 +70,11 @@ struct WordMainView: View {
     .navigationBarTitle("")
     .navigationBarHidden(true)
     .ignoresSafeArea()
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 }
-
 
 // .animation(.easeInOut)
-
-
-struct WordLearnView: View {
-  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-  var backButton: some View {
-    // 뒤로가기
-    Button(action: {
-      self.presentationMode.wrappedValue.dismiss()
-    }, label: {
-      Image(systemName: "chevron.left.square")
-        .resizable()
-        .scaledToFit()
-        .padding(.top, 15)
-        .padding(.trailing, 20)
-        .padding(.bottom, 10)
-        .frame(width: 50, height: 50, alignment: .center)
-        .foregroundColor(.white)
-    })
-  }
-
-  var body: some View {
-    NavigationView {
-      ZStack{
-        Image("background")
-          .resizable()
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-          .ignoresSafeArea()
-        
-        VStack {
-          Text("learn view")
-
-          Text("")
-
-          // WordBox(viewModel: viewModel)
-        }
-      }
-    }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: self.backButton)
-  }
-}
-
-struct WordLearnFinishView: View {
-  var body: some View {
-    Text("end of learning")
-    // 뭘 보여주지... 잘햇다?
-    // learn 도 기록이 되면 공부한 횟수라든가...
-    // Button()
-  }
-}
-
-struct WordTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel 
-
-  var progressBar: some View {
-    GeometryReader { geometry in
-      ZStack(alignment: .leading) {
-        Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
-          .opacity(0.3)
-          .foregroundColor(Color(UIColor.systemTeal))
-
-        Rectangle().frame(width: min(CGFloat(self.viewModel.progressValue) * geometry.size.width, geometry.size.width), height: geometry.size.height)
-          .foregroundColor(Color(UIColor.systemBlue))
-          .animation(.linear)
-      }.cornerRadius(45.0)
-    }
-  }
-
-  var body: some View {
-    VStack {
-      Text("test page")
-      Text("3/3")
-
-      // ProgressBar
-      Text("3/3")
-        .foregroundColor(.white)
-      progressBar
-        .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
-
-      // test box...
-    }
-  }
-}
-
-struct WordTestFinishView: View {
-  var body: some View {
-    VStack {
-      Text("finish")
-    }
-  }
-}
 
 struct AddedWordButton: View {
   var body: some View {

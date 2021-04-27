@@ -8,6 +8,17 @@
 import Foundation
 import SwiftUI
 
+struct rowItem: View {
+  var content: String
+  var body: some View {
+    Text(content)
+      .fontWeight(.bold)
+      .foregroundColor(.black)
+      .frame(width: UIScreen.main.bounds.width - 40, height: 60, alignment: .center)
+      .multilineTextAlignment(TextAlignment.center)
+  }
+}
+
 struct WordTestSelectView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   var backButton: some View {
@@ -51,30 +62,34 @@ struct WordTestSelectView: View {
             .foregroundColor(.white)
 
           // NavigationView {
-          List {
+          VStack (alignment: .leading){
             NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
-              Text("1. Match the meaning of the word ") // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
-                .foregroundColor(.black)
+              rowItem(content: " 1. Match the meaning of the word ") // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
             }
+            .background(Color.white.opacity(0.8))
+            .padding(10)
             NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
-              Text("2. Listen to the pronunciation and match the word ") // 한국어 발음 -> 영어 단어 or 영어 설명
-                .foregroundColor(.black)
+              rowItem(content: " 2. Listen to the pronunciation \n and match the word ") // 한국어 발음 -> 영어 단어 or 영어 설명
+            
             }
+            .background(Color.white.opacity(0.8))
+            .padding(10)
             NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
-              Text("3. Complete the spelling of words letter by letter ") // 영어 단어 or 영어 설명 -> 한국어 단어
-                .foregroundColor(.black)
+              rowItem(content: " 3. Complete the spelling of words \n letter by letter ") // 영어 단어 or 영어 설명 -> 한국어 단어
             }
+            .background(Color.white.opacity(0.8))
+            .padding(10)
             NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
-              Text("4. Enter the corresponding word in Korean ") // 영어 단어 or 영어 설명 -> 한국어 단어
-                .foregroundColor(.black)
+              rowItem(content: " 4. Enter the corresponding word \n in Korean by typing ") // 영어 단어 or 영어 설명 -> 한국어 단어
             }
+            .background(Color.white.opacity(0.8))
+            .padding(10)
           }
-          // .background(Color.clear)
-          // }
-          // .navigationBarTitle("")
-          // .navigationBarHidden(true)
-
-          // four button
+          //.frame(width: UIScreen.main.bounds.width - 60, height: UIScreen.main.bounds.height / 3, alignment: .leading)
+          .foregroundColor(Color.orange)
+          //.listRowBackground(Color.green)
+          //.accentColor(Color.gray)
+          .background(Color.clear)
         }
         // .background(Color.gray.opacity(0.5))
       }

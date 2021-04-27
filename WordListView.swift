@@ -8,14 +8,12 @@
 import Foundation
 import SwiftUI
 
-
 struct WordPopup: View {
   @Binding var displayItem: Int
   @ObservedObject var viewModel: WordListViewModel
 
   var body: some View {
     ZStack {
-      // Rectangle().fill(Color.gray).opacity(0.5)
       if self.displayItem != -1 {
         Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
@@ -65,8 +63,8 @@ struct TestButton: View {
 }
 
 struct WordListView: View {
-  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+  // @State private var isShowingDetailView = false
   @ObservedObject var viewModel: WordListViewModel
 
   @State var showPopup: Int = -1
@@ -109,11 +107,13 @@ struct WordListView: View {
                 LearnButton()
                   .frame(width: 200, height: 100, alignment: .center)
               }
+              .isDetailLink(false)
               Spacer()
               NavigationLink(destination: WordTestSelectView()) {
                 TestButton()
                   .frame(width: 200, height: 100, alignment: .center)
               }
+              .isDetailLink(false)
             }
             .padding(.horizontal, 40)
             Spacer()
@@ -138,6 +138,7 @@ struct WordListView: View {
       .ignoresSafeArea()
       .navigationBarBackButtonHidden(true)
       .navigationBarItems(leading: self.backButton)
+      .navigationViewStyle(StackNavigationViewStyle())
 
       if showPopup != -1 {
         WordPopup(displayItem: $showPopup, viewModel: viewModel)
