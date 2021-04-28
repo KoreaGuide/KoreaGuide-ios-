@@ -5,23 +5,50 @@
 //  Created by 임선호 on 2021/04/14.
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 struct WordInfo {
   let word_id: Int
   let word: String // kor
   let meaning: String // eng
+  var added: Bool = false
+  var folder: Int = 0
+  var playing: Bool = false
+  let image = Image("mae")
+}
+
+//place word list
+//  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
+
+struct ProgressBar: View {
+  @Binding var value: Float
+  
+  var body: some View {
+    GeometryReader { geometry in
+      ZStack(alignment: .leading) {
+        Rectangle()
+          .frame(width: geometry.size.width, height: geometry.size.height)
+          .opacity(0.3)
+          .foregroundColor(Color(UIColor.systemTeal))
+
+        Rectangle()
+          .frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+          .foregroundColor(Color(UIColor.systemBlue))
+          .animation(.linear)
+      }.cornerRadius(45.0)
+    }
+  }
 }
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordAddViewModel
-  @State private var cancellable: AnyCancellable?
+  @State var progressValue: Float = 0.0
+  // @State private var cancellable: AnyCancellable?
   
   
-
   var backButton: some View {
     // 뒤로가기
     Button(action: {
@@ -38,85 +65,71 @@ struct WordAddView: View {
     })
   }
 
-  var progressBar: some View {
-    GeometryReader { geometry in
-      ZStack(alignment: .leading) {
-        Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
-          .opacity(0.3)
-          .foregroundColor(Color(UIColor.systemTeal))
-
-        Rectangle().frame(width: min(CGFloat(self.viewModel.progressValue) * geometry.size.width, geometry.size.width), height: geometry.size.height)
-          .foregroundColor(Color(UIColor.systemBlue))
-          .animation(.linear)
-      }.cornerRadius(45.0)
-    }
-  }
-  
   var body: some View {
     NavigationView {
-      ZStack{
-      Image("background")
-        .resizable()
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-        .ignoresSafeArea()
-        
-      VStack {
-        HStack {
-          // place title
-          Label(viewModel.placeTitle, systemImage: "book.fill") // icon change
+      ZStack {
+        Image("background")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
+
+        VStack {
+          HStack {
+            // place title
+            Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
+              .foregroundColor(.white)
+              .font(.title3)
+          }
+
+          // label
+          Text("3/3")
             .foregroundColor(.white)
+            .padding(.top, 5)
+          
+          ProgressBar(value: $progressValue)
+            .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
+            .padding(.vertical, 20)
+
+          HStack {
+            // left
+            Button(action: {
+              if viewModel.currentWordCount > 0 {
+                viewModel.currentWordCount -= 1
+                self.progressValue = Float(viewModel.currentWordCount/viewModel.totalWordCount)
+              }
+
+            }, label: {
+              Image(systemName: "chevron.left.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(.white)
+
+            })
+
+            // box
+            WordBox(viewModel: WordBoxViewModel( currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+
+            // right
+            Button(action: {
+              if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
+                viewModel.currentWordCount += 1
+                self.progressValue = Float(viewModel.currentWordCount/viewModel.totalWordCount)
+              }
+
+            }, label: {
+              Image(systemName: "chevron.right.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(.white)
+            })
+          }
+
+          Spacer()
+            .frame(height: 120, alignment: .center)
         }
-
-        // label
-        Text("3/3")
-          .foregroundColor(.white)
-        progressBar
-          .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
-
-        // label
-        Text("Add to my list")
-          .foregroundColor(.white)
-
-        HStack {
-          // left
-          Button(action: {
-            if viewModel.currentWordCount > 0 {
-              viewModel.currentWordCount -= 1
-            }
-            
-          }, label: {
-            Image(systemName: "chevron.left.circle")
-              .resizable()
-            .scaledToFit()
-              .frame(width: 30, height: 30, alignment: .center)
-              .foregroundColor(.white)
-            
-          })
-
-          // box
-          WordBox(viewModel: viewModel)
-
-          // right
-          Button(action: {
-            if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
-              
-              viewModel.currentWordCount += 1
-            }
-            
-          }, label: {
-            Image(systemName: "chevron.right.circle")
-              .resizable()
-            .scaledToFit()
-              .frame(width: 30, height: 30, alignment: .center)
-              .foregroundColor(.white)
-          })
-        }
-        
-        Spacer()
-          .frame(height: 120, alignment: .center)
       }
-      }
-      
     }
     .navigationBarTitle("")
     .ignoresSafeArea()
@@ -125,10 +138,11 @@ struct WordAddView: View {
   }
 }
 
-
 struct WordBox: View {
-  @ObservedObject var viewModel: WordAddViewModel
-  
+  @ObservedObject var viewModel: WordBoxViewModel
+  //@State var added: Bool = false
+  //@State var playing: Bool = false
+
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
@@ -136,22 +150,46 @@ struct WordBox: View {
         .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 5 * 3)
 
       VStack {
-        Image("mae")
+        // 1.circle
+        Button(action: {
+          viewModel.wordInfo.added.toggle()
+          if viewModel.wordInfo.added == true {
+            //viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
+          } else {
+            //viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
+          }
+        }, label: {
+          Image(systemName: viewModel.wordInfo.added ? "bookmark.fill" : "bookmark")
+            .resizable()
+            .frame(width: 20, height: 30, alignment: .center)
+            .foregroundColor(Color.orange)
+        })
+          .padding(.bottom, 20)
+
+        Image("mae") // viewModel.wordList[viewModel.currentWordCount].image
           .resizable()
-          .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+          .frame(width: 200, height: 200, alignment:  .center)
           .cornerRadius(10)
+
         Spacer().frame(height: 30)
-        Text(viewModel.wordList[viewModel.currentWordCount].word)
+
+        Text(viewModel.wordInfo.word)
           .foregroundColor(.white)
         Text("pronun")
           .foregroundColor(.white)
-        Text(viewModel.wordList[viewModel.currentWordCount].meaning)
+        Text(viewModel.wordInfo.meaning)
           .foregroundColor(.white)
+
         Button(action: {
-          //replay
+          viewModel.wordInfo.playing.toggle()
+          //
         }, label: {
-          Image(systemName: "play.circle") //play.circle.fill
+          Image(systemName: viewModel.wordInfo.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
+            .resizable()
+            .frame(width: 30, height: 30, alignment: .center)
+            .foregroundColor(Color.orange)
         })
+          .padding(.bottom, 20)
       }
     }
   }
@@ -159,7 +197,7 @@ struct WordBox: View {
 
 struct WordAddFinishView: View {
   @ObservedObject var viewModel: WordAddViewModel
-  
+
   var body: some View {
     Text(viewModel.placeTitle)
 
