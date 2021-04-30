@@ -48,7 +48,7 @@ struct WordTestSelectView: View {
           .ignoresSafeArea()
 
         VStack {
-          Text("단어장 이름")
+          Text("Let's see how much you're moving forward !")
             .foregroundColor(.white)
             .padding(.vertical, 20)
 

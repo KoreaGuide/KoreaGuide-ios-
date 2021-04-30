@@ -19,12 +19,16 @@ struct WordInfo {
   let image = Image("mae")
 }
 
-//place word list
+// place word list
 //  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
 
 struct ProgressBar: View {
   @Binding var value: Float
-  
+
+  init(value: Binding<Float>) {
+    self._value = value // beta 4
+  }
+
   var body: some View {
     GeometryReader { geometry in
       ZStack(alignment: .leading) {
@@ -45,10 +49,9 @@ struct ProgressBar: View {
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordAddViewModel
-  @State var progressValue: Float = 0.0
+  // @State var progressValue: Float = 0.0
   // @State private var cancellable: AnyCancellable?
-  
-  
+
   var backButton: some View {
     // 뒤로가기
     Button(action: {
@@ -74,28 +77,26 @@ struct WordAddView: View {
           .ignoresSafeArea()
 
         VStack {
-          HStack {
-            // place title
-            Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
-              .foregroundColor(.white)
-              .font(.title3)
-          }
+          // place title
+          Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
+            .foregroundColor(.white)
+            .font(.title3)
 
           // label
-          Text("3/3")
+          Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
             .foregroundColor(.white)
             .padding(.top, 5)
-          
-          ProgressBar(value: $progressValue)
+
+          ProgressBar(value: $viewModel.progressValue)
             .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
             .padding(.vertical, 20)
-
+          
           HStack {
             // left
             Button(action: {
               if viewModel.currentWordCount > 0 {
                 viewModel.currentWordCount -= 1
-                self.progressValue = Float(viewModel.currentWordCount/viewModel.totalWordCount)
+                // self.progressValue = Float(viewModel.currentWordCount + 1) / Float(viewModel.totalWordCount)
               }
 
             }, label: {
@@ -108,13 +109,13 @@ struct WordAddView: View {
             })
 
             // box
-            WordBox(viewModel: WordBoxViewModel( currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
 
             // right
             Button(action: {
               if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
                 viewModel.currentWordCount += 1
-                self.progressValue = Float(viewModel.currentWordCount/viewModel.totalWordCount)
+                // self.progressValue = Float(viewModel.currentWordCount + 1) / Float(viewModel.totalWordCount)
               }
 
             }, label: {
@@ -140,8 +141,8 @@ struct WordAddView: View {
 
 struct WordBox: View {
   @ObservedObject var viewModel: WordBoxViewModel
-  //@State var added: Bool = false
-  //@State var playing: Bool = false
+  // @State var added: Bool = false
+  // @State var playing: Bool = false
 
   var body: some View {
     ZStack {
@@ -154,9 +155,9 @@ struct WordBox: View {
         Button(action: {
           viewModel.wordInfo.added.toggle()
           if viewModel.wordInfo.added == true {
-            //viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
+            // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
           } else {
-            //viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
+            // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
           }
         }, label: {
           Image(systemName: viewModel.wordInfo.added ? "bookmark.fill" : "bookmark")
@@ -168,7 +169,7 @@ struct WordBox: View {
 
         Image("mae") // viewModel.wordList[viewModel.currentWordCount].image
           .resizable()
-          .frame(width: 200, height: 200, alignment:  .center)
+          .frame(width: 200, height: 200, alignment: .center)
           .cornerRadius(10)
 
         Spacer().frame(height: 30)
@@ -203,6 +204,21 @@ struct WordAddFinishView: View {
 
     Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
 
+    Text("You got " + String(3) + "words")
+    HStack{
+      Button(action: {
+        
+      }, label: {
+     Text("Let's go back to place page")
+      })
+        .padding(.bottom, 20)
+      Button(action: {
+        
+      }, label: {
+     Text("Let's go to check the words")
+      })
+        .padding(.bottom, 20)
+    }
     // button 장소페이지로 돌아가기
     // button 단어장으로 가기
   }

@@ -35,7 +35,21 @@ class WordAddViewModel: ObservableObject {
  
   
   @Published var totalWordCount: Int = 3// 1~
-  @Published var currentWordCount: Int = 0// 1~ -> index naming
+  
+  // 1~ -> index naming
+  @Published var currentWordCount: Int = 0 {
+    willSet{
+      self.currentWordCountForShow = newValue + 1
+    }
+  }
+  
+  @Published var currentWordCountForShow: Int = 1 {
+    willSet{
+      self.progressValue = Float(newValue) / Float(self.totalWordCount)
+    }
+  }
+  
+  @Published var progressValue: Float =  0.0
   //@Published var progressValue: Float = 0
  
   /*
