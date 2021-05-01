@@ -1,0 +1,50 @@
+PODS:
+  - Alamofire (5.4.3)
+  - ExpyTableView (1.2.1)
+  - IGListKit (3.0.0):
+    - IGListKit/Default (= 3.0.0)
+  - IGListKit/Default (3.0.0):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.0.0)
+  - JWTDecode (2.6.0)
+  - KRActivityIndicatorView (3.0.7)
+  - KRProgressHUD (3.4.7):
+    - KRActivityIndicatorView (= 3.0.7)
+  - NMapsMap (3.11.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - ExpyTableView
+  - IGListKit (~> 3.0.0)
+  - JWTDecode (~> 2.4)
+  - KRProgressHUD
+  - NMapsMap
+  - SDWebImage (~> 5.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - ExpyTableView
+    - IGListKit
+    - JWTDecode
+    - KRActivityIndicatorView
+    - KRProgressHUD
+    - NMapsMap
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  ExpyTableView: 19cf224c2ff04b1ec215ec52bc4ba6f81fa809ed
+  IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
+  JWTDecode: 480ca441ddbd5fbfb2abf17870af62f86436be58
+  KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
+  KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
+  NMapsMap: e6dbea85c2c195c7532deb637a5e90fd70f94fed
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+
+PODFILE CHECKSUM: ecaf6ae4234108298d1c5ae048a3f8c2d7ce8146
+
+COCOAPODS: 1.10.1
