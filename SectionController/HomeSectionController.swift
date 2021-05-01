@@ -25,7 +25,7 @@ class HomeSectionController: ListBindingSectionController<Home>,
   }
 
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
-    print("1")
+    
     let identifier: String
     switch viewModel {
     case is CardViewModel:

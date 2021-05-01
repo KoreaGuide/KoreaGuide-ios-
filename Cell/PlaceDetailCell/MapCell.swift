@@ -9,13 +9,13 @@ import Foundation
 import IGListKit
 import MapKit
 final class MapCell: UICollectionViewCell, CLLocationManagerDelegate {
-  @IBOutlet var address: UILabel!
+  @IBOutlet var address_Label: UILabel!
   @IBOutlet var myMap: MKMapView!
-  var address1: String?
-  var address2: String?
+
   var map_x: Float?
   var map_y: Float?
   let locationManager = CLLocationManager()
+  var address: String?
   override func awakeFromNib() {
     super.awakeFromNib()
   }
@@ -24,17 +24,18 @@ final class MapCell: UICollectionViewCell, CLLocationManagerDelegate {
     guard let viewModel = viewModel as? MapViewModel else { return }
     map_x = viewModel.map_x
     map_y = viewModel.map_y
-    address1 = viewModel.address1
-    address2 = viewModel.address2
-    address.text = address1
+    address = viewModel.address
+    address_Label.text = address
+    address_Label.numberOfLines = 3
+    address_Label.textAlignment = .center
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestWhenInUseAuthorization()
     myMap.showsUserLocation = true
-    
+
     locationManager.startUpdatingLocation()
-    setAnnotation(latitudeValue: CLLocationDegrees(map_y!), longitudeValue: CLLocationDegrees(map_x!), delta: 0.01, title: address1!, subtitle: address2!)
-    
+    setAnnotation(latitudeValue: CLLocationDegrees(map_y!), longitudeValue: CLLocationDegrees(map_x!), delta: 0.01, title: address!, subtitle: "")
+
     locationManager.stopUpdatingLocation()
   }
 

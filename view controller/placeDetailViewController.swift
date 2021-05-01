@@ -20,6 +20,7 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationController?.isNavigationBarHidden = true
     ApiHelper.placeDetailAllRead(place_id: place_id!) { result in
       let status = Int(result!.result_code)
       switch status {
@@ -54,12 +55,5 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
     return nil
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    self.navigationController?.isNavigationBarHidden = false
-    let backButton = UIBarButtonItem()
-    backButton.title = ""
-    self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-    self.navigationController?.navigationBar.topItem?.title = res?.data.title
-  }
+  
 }

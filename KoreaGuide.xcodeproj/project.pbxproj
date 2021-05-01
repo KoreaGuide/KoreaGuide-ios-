@@ -142,6 +142,7 @@
 		5E6379D8260F889100900192 /* UICollectionViewCellExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtensions.swift; sourceTree = "<group>"; };
 		5E65A6F525DE479C00A0259B /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
+		5E96587326398E2D00A76449 /* KoreaGuide copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KoreaGuide copy-Info.plist"; path = "/Users/songchihyun/Desktop/2021-1학기/캡스톤/KoreaGuide/KoreaGuide copy-Info.plist"; sourceTree = "<absolute>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
 		5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSectionController.swift; sourceTree = "<group>"; };
@@ -287,11 +288,11 @@
 				5E6BB00D25DE7AD900CB066D /* fonts */,
 				5E11D97A25D978FF00356166 /* view controller */,
 				5E2E281C25D7CC410067C41F /* KoreaGuide */,
-				5E2E283325D7CC420067C41F /* KoreaGuideTests */,
 				5E2E283E25D7CC420067C41F /* KoreaGuideUITests */,
 				5E2E281B25D7CC410067C41F /* Products */,
 				657E920CF8A204BEF0636CD2 /* Pods */,
 				E8F836E6A6D9C5E49A70F596 /* Frameworks */,
+				5E96587326398E2D00A76449 /* KoreaGuide copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,9 +311,9 @@
 			children = (
 				5E2E281D25D7CC410067C41F /* AppDelegate.swift */,
 				5E2E281F25D7CC410067C41F /* SceneDelegate.swift */,
-				5E2E282125D7CC410067C41F /* ViewController.swift */,
 				5E2E282325D7CC410067C41F /* Main.storyboard */,
 				5E2E282625D7CC410067C41F /* Assets.xcassets */,
+				5E2E282125D7CC410067C41F /* ViewController.swift */,
 				5E2E282825D7CC410067C41F /* LaunchScreen.storyboard */,
 				5E2E282B25D7CC410067C41F /* Info.plist */,
 			);
@@ -331,6 +332,7 @@
 		5E2E283E25D7CC420067C41F /* KoreaGuideUITests */ = {
 			isa = PBXGroup;
 			children = (
+				5E2E283325D7CC420067C41F /* KoreaGuideTests */,
 				5E2E283F25D7CC420067C41F /* KoreaGuideUITests.swift */,
 				5E2E284125D7CC420067C41F /* Info.plist */,
 			);
@@ -893,7 +895,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM5J7UX994;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -926,8 +930,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = this.KoreaGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -938,6 +943,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZM5J7UX994;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,7 +977,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = this.KoreaGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

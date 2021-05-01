@@ -2,14 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:maps.ios-master/Frameworks/ApiGatewayMac.framework">
-   </FileRef>
-   <Group
-      location = "container:"
-      name = "New Group">
-   </Group>
-   <FileRef
       location = "group:KoreaGuide.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:maps.ios-master/Frameworks/ApiGatewayMac.framework">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

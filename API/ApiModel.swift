@@ -89,10 +89,8 @@ struct PlaceDetailModel: Codable {
     let place_status: String
     let id: Int
     let title: String
-    let content_id: Int
     let area_code: Int
-    let address1: String
-    let address2: String
+    let address: String
     let first_image: String
     let first_image2: String
     let map_x: String

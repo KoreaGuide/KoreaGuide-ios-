@@ -10,36 +10,27 @@ import AVKit
 import Foundation
 import IGListKit
 class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
-  ListBindingSectionControllerDataSource, ListSupplementaryViewSource
+  ListBindingSectionControllerDataSource
 {
-  func supportedElementKinds() -> [String] {
-    return [UICollectionView.elementKindSectionHeader]
-  }
-  
-  func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
-    return placeHeaderView(atIndex: index)
-  }
-  
-  func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
-    return CGSize(width: collectionContext!.containerSize.width, height: 100)
-  }
-  
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     guard let placeDetail = object as? PlaceDetail else {
       return []
     }
-    let result: [ListDiffable] = [placeDetail.image,placeDetail.posting,placeDetail.map]
+    let result: [ListDiffable] = [placeDetail.header, placeDetail.image, placeDetail.posting, placeDetail.map]
     return result
   }
-  //이거 무조건 해줘여함.
+
+  // 이거 무조건 해줘여함.
   override init() {
     super.init()
     dataSource = self
-    
   }
+
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
     let identifier: String
     switch viewModel {
+    case is PlaceDetailHeaderViewModel:
+      identifier = "header"
     case is ImageViewModel:
       identifier = "image"
     case is PostingViewModel:
@@ -51,6 +42,9 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
     }
     guard let cell = collectionContext?.dequeueReusableCellFromStoryboard(withIdentifier: identifier, for: self, at: index) else {
       fatalError()
+    }
+    if let cell = cell as? PlaceHeaderCell {
+      cell.delegate = self
     }
     return cell
   }
@@ -73,15 +67,10 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
     }
     return CGSize(width: width, height: height)
   }
-  
-  
-  private func placeHeaderView(atIndex index: Int) -> UICollectionReusableView {
-      guard let view: PlaceHeaderCell = collectionContext?.dequeueReusableSupplementaryView(
-          ofKind: UICollectionView.elementKindSectionHeader,
-              for: self,
-              nibName: "PlaceHeaderCell",
-              bundle: nil,
-              at: index) as? PlaceHeaderCell else {fatalError()}
-      return view
+}
+
+extension PlaceDetailSectionController: HeaderCellDelegate {
+  func didTab(cell: PlaceHeaderCell) {
+    viewController?.navigationController?.popViewController(animated: true)
   }
 }

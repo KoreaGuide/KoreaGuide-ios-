@@ -12,6 +12,7 @@ final class PlaceDetail: ListDiffable {
   let image : ImageViewModel
   let posting : PostingViewModel
   let map : MapViewModel
+  let header : PlaceDetailHeaderViewModel
   func diffIdentifier() -> NSObjectProtocol {
     return "PlaceDetail" as NSObjectProtocol
   }
@@ -26,16 +27,29 @@ final class PlaceDetail: ListDiffable {
     self.image = ImageViewModel(placeDetail: placeDetail)
     self.posting = PostingViewModel(placeDetail: placeDetail)
     self.map = MapViewModel(placeDetail: placeDetail)
+    self.header = PlaceDetailHeaderViewModel(placeDetail: placeDetail)
+  }
+}
+final class PlaceDetailHeaderViewModel: ListDiffable {
+  let place_title: String
+  func diffIdentifier() -> NSObjectProtocol {
+    return "PlaceDetailHeader" as NSObjectProtocol
+  }
+
+  func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    guard let object = object as? PlaceDetailHeaderViewModel else { return false }
+    return place_title == object.place_title
+  }
+
+  init(placeDetail: PlaceDetailModel) {
+    self.place_title = placeDetail.data.title
   }
 }
 
 final class PostingAll: ListDiffable {
   let place_status: String
   let title: String
-  let content_id: Int
-  let area_code: Int
-  let address1: String
-  let address2: String
+  let address: String
   let first_image: String
   let first_image2: String
   let map_x: Float
@@ -51,16 +65,13 @@ final class PostingAll: ListDiffable {
 
   func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
     guard let object = object as? PostingAll else { return false }
-    return content_id == object.content_id && place_status == object.place_status
+    return place_status == object.place_status
   }
 
   init(placeDetail: PlaceDetailModel) {
     place_status = placeDetail.data.place_status
     title = placeDetail.data.title
-    content_id = placeDetail.data.content_id
-    area_code = placeDetail.data.area_code
-    address1 = placeDetail.data.address1
-    address2 = placeDetail.data.address2
+    address = placeDetail.data.address
     first_image = placeDetail.data.first_image
     first_image2 = placeDetail.data.first_image2
     map_x = Float(placeDetail.data.map_x) ?? 0
@@ -170,13 +181,12 @@ final class MapViewModel: ListDiffable {
 
   let map_x: Float
   let map_y: Float
-  let address1: String
-  let address2: String
+  let address: String!
+  
   init(placeDetail: PlaceDetailModel) {
     map_x = Float(placeDetail.data.map_x) ?? 0
     map_y = Float(placeDetail.data.map_y) ?? 0
-    address1 = placeDetail.data.address1
-    address2 = placeDetail.data.address2
+    address = placeDetail.data.address
   }
 }
 
@@ -198,6 +208,7 @@ final class ImageViewModel: ListDiffable {
     first_image2 = placeDetail.data.first_image2
   }
 }
+
 
 final class PostingViewModel: ListDiffable {
   func diffIdentifier() -> NSObjectProtocol {
