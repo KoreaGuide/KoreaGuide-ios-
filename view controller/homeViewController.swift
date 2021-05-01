@@ -44,8 +44,15 @@ class homeViewController: UIViewController, ListAdapterDataSource {
       default:
         self.defaultAlert(title: "알람", message: "서버 장애가 발생하였습니다. ", callback: nil)
       }
+      
+    
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.isNavigationBarHidden = true
   }
 }
