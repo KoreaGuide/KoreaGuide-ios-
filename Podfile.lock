@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.4.3)
   - ExpyTableView (1.2.1)
+  - GeoJSON (0.3.3)
   - IGListKit (3.0.0):
     - IGListKit/Default (= 3.0.0)
   - IGListKit/Default (3.0.0):
@@ -18,6 +19,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - ExpyTableView
+  - GeoJSON
   - IGListKit (~> 3.0.0)
   - JWTDecode (~> 2.4)
   - KRProgressHUD
@@ -28,6 +30,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - ExpyTableView
+    - GeoJSON
     - IGListKit
     - JWTDecode
     - KRActivityIndicatorView
@@ -38,6 +41,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   ExpyTableView: 19cf224c2ff04b1ec215ec52bc4ba6f81fa809ed
+  GeoJSON: 92d886a3ee9e587b7410388456145eb4b71cdbfc
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   JWTDecode: 480ca441ddbd5fbfb2abf17870af62f86436be58
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
@@ -45,6 +49,6 @@ SPEC CHECKSUMS:
   NMapsMap: e6dbea85c2c195c7532deb637a5e90fd70f94fed
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: ecaf6ae4234108298d1c5ae048a3f8c2d7ce8146
+PODFILE CHECKSUM: ec6a2e92c88a1a6900fcf7467e4f974a74a52cab
 
 COCOAPODS: 1.10.1

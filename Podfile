@@ -6,6 +6,7 @@ target 'KoreaGuide' do
   use_frameworks!
   # Pods for KoreaGuide
   pod 'Alamofire'
+  pod 'GeoJSON'
   pod 'ExpyTableView'
   pod 'JWTDecode', '~> 2.4'
   pod 'KRProgressHUD'

@@ -7,4 +7,7 @@
    <FileRef
       location = "group:maps.ios-master/Frameworks/ApiGatewayMac.framework">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>
