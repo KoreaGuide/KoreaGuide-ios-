@@ -18,20 +18,24 @@ struct WordPopup: View {
         Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
         VStack {
-          // Text("word")
-          Text(viewModel.wordlist[displayItem].word)
-            .padding(10)
-          // Text("meaning")
-          Text(viewModel.wordlist[displayItem].meaning)
-            .padding(10)
-
-          Text("이게 무슨 말이냐면 어쩌고 저쩌고 응")
-            .padding(10)
-
-          Text("추가된 날짜 등")
-            .padding(10)
+          HStack {
+            Text(viewModel.wordlist[displayItem].word)
+          }
+          .padding(10)
+          HStack {
+            Text(viewModel.wordlist[displayItem].word)
+          }
+          .padding(10)
+          HStack {
+            Text(viewModel.wordlist[displayItem].word)
+          }
+          .padding(10)
+          HStack {
+            Text(viewModel.wordlist[displayItem].word)
+          }
+          .padding(10)
         }
-        .frame(width: 300, height: 300, alignment: .center)
+        .frame(width: 240, height: 240, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
       }
     }
@@ -44,21 +48,43 @@ struct WordPopup: View {
 
 struct LearnButton: View {
   var body: some View {
-    Text("Learn")
-      .frame(width: 120, height: 50, alignment: .center)
-      .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
-      .foregroundColor(Color("Navy"))
-      .font(.title)
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8))
+          .frame(width: 150, height: 50, alignment: .center)
+        HStack {
+          Image(systemName: "book")
+            .resizable()
+            .foregroundColor(Color("Green"))
+            .frame(width: 30, height: 30)
+          Text("Learn")
+            .foregroundColor(Color("Green"))
+            .font(.title)
+        }
+      }
+      .frame(width: 150, height: 50, alignment: .center)
+    }
   }
 }
 
 struct TestButton: View {
   var body: some View {
-    Text("Test")
-      .frame(width: 120, height: 50, alignment: .center)
-      .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
-      .foregroundColor(Color("Navy"))
-      .font(.title)
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8))
+          .frame(width: 150, height: 50, alignment: .center)
+        HStack {
+          Image(systemName: "square.and.pencil")
+            .resizable()
+            .foregroundColor(Color("Green"))
+            .frame(width: 30, height: 30)
+          Text("Test")
+            .foregroundColor(Color("Green"))
+            .font(.title)
+        }
+      }
+      .frame(width: 150, height: 50, alignment: .center)
+    }
   }
 }
 
@@ -66,6 +92,7 @@ struct WordListView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   // @State private var isShowingDetailView = false
   @ObservedObject var viewModel: WordListViewModel
+  // @State private var action: Int? = 0
 
   @State var showPopup: Int = -1
   // var input as option 1~3
@@ -97,27 +124,30 @@ struct WordListView: View {
             .ignoresSafeArea()
 
           VStack(alignment: .center) {
-            Text("Words List")
+            Text("" + " Words List")
               .foregroundColor(.white)
+              .fontWeight(.heavy)
               .font(.title)
-              .padding(.vertical, 20)
+              .padding(.vertical, 15)
 
-            HStack {
-              NavigationLink(destination: WordLearnView()) {
+            HStack { // NavigationLazyView()
+              NavigationLink(destination: WordLearnView().navigationBarHidden(true)) {
                 LearnButton()
-                  .frame(width: 200, height: 100, alignment: .center)
               }
               .isDetailLink(false)
+
               Spacer()
-              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(wordlist: [WordInfo(word_id: 999, word: "시험중", meaning: "testing")]))) {
-                TestButton()
-                  .frame(width: 200, height: 100, alignment: .center)
-              }
-              .isDetailLink(false)
+
+              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(wordlist: [WordInfo(word_id: 999, word: "시험중", meaning: "testing")])).navigationBarHidden(true))
+                {
+                  TestButton()
+                }
+                .isDetailLink(false)
             }
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 30)
             Spacer()
-            Text("list here")
+              .frame(height: 40)
+            // Text("list here")
 
             WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
 
@@ -138,11 +168,11 @@ struct WordListView: View {
       .ignoresSafeArea()
       .navigationBarBackButtonHidden(true)
       .navigationBarItems(leading: self.backButton)
-      .navigationViewStyle(StackNavigationViewStyle())
+      // .navigationViewStyle(StackNavigationViewStyle())
 
       if showPopup != -1 {
         WordPopup(displayItem: $showPopup, viewModel: viewModel)
-          .padding(.top, -180)
+          .padding(.top, -120)
       }
     }
   }

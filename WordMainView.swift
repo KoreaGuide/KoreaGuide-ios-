@@ -21,39 +21,61 @@ struct WordMainView: View {
           .ignoresSafeArea()
 
         VStack {
+
           HStack {
             Text("ForWord")
               .foregroundColor(.white)
+              .fontWeight(.heavy)
               .font(.title3)
               .padding(.horizontal, 20)
+              
 
             Spacer()
           }
-
+          .padding(.vertical, 10)
+          
           HStack {
-            Text("Your Words")
+            Text("Welcome, " + "user")
               .foregroundColor(.white)
               .font(.title)
               .padding(.horizontal, 20)
             Spacer()
           }
-
-          HStack {
-            Text("Total Words : " + String(viewModel.wordlist.count))
+          HStack{
+            Text("Let's review your words!")
               .foregroundColor(.white)
-              .font(.title2)
+              .font(.title)
               .padding(.horizontal, 20)
             Spacer()
           }
-          .padding(.vertical, 20)
+          
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
+          HStack {
+            ZStack {
+              RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.white)
+                .opacity(0.8)
+                .frame(width: UIScreen.main.bounds.width - 60, height: 50, alignment:  .center)
+
+              VStack {
+                Text("Total Words : " + String(viewModel.wordlist.count))
+                  .foregroundColor(.black)
+                  .font(.title2)
+              }
+            }
+          }
+          .padding(20)
+          
+
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel()))
+          {
             AddedWordButton()
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
+          NavigationLink(destination: TodayWordView(viewModel: TodayWordViewModel(wordInfo: WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"))))
+          {
             LearningWordButton()
               .padding(.vertical, 10)
           }
@@ -72,7 +94,7 @@ struct WordMainView: View {
     .navigationBarTitle("")
     .navigationBarHidden(true)
     .ignoresSafeArea()
-    .navigationViewStyle(StackNavigationViewStyle())
+    //.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
@@ -83,13 +105,13 @@ struct AddedWordButton: View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment:  .center)
 
       VStack {
         Text("Added Word List")
           .foregroundColor(.white)
           .font(.title)
-        Text("number of words")
+        Text("number of words : ")
           .foregroundColor(.white)
       }
     }
@@ -101,13 +123,13 @@ struct LearningWordButton: View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment:  .center)
 
       VStack {
         Text("Learning Word List")
           .foregroundColor(.white)
           .font(.title)
-        Text("number of words")
+        Text("number of words : ")
           .foregroundColor(.white)
       }
     }
@@ -119,13 +141,13 @@ struct CompleteWordButton: View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment:  .center)
 
       VStack {
         Text("Complete Word List")
           .foregroundColor(.white)
           .font(.title)
-        Text("number of words")
+        Text("number of words : ")
           .foregroundColor(.white)
       }
     }

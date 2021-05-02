@@ -14,4 +14,9 @@ class WordMainViewModel: ObservableObject {
   init(wordlist: [WordInfo]){
     self.wordlist = wordlist
   }
+  
+  //init(){
+    //api/myWord/{id} **여기서 id는 user의 id (Integer),  "word_folder_id": 2
+    
+  //}
 }

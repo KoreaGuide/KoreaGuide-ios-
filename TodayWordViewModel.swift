@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class TodayWordViewModel: ObservableObject {
-  @Published var todayword: WordInfo
+  @Published var wordInfo: WordInfo
   
-  init(wordInfo: WordInfo){
-    self.todayword = wordInfo
+  init(wordInfo: WordInfo){ // api/home/  "word_id": 2,
+    self.wordInfo = wordInfo
   }
 }

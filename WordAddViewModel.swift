@@ -10,6 +10,7 @@ import Combine
 
 
 class WordBoxViewModel: ObservableObject {
+
   @Published var currentCount: Int
   @Published var wordInfo: WordInfo
   //@Published var added: Bool = false
@@ -23,6 +24,23 @@ class WordBoxViewModel: ObservableObject {
 
 
 class WordAddViewModel: ObservableObject {
+  var place_id: Int = 0
+  var user_id: Int = 0
+  init(place_id : Int, user_id: Int){
+    self.place_id = place_id
+    self.user_id = user_id
+    
+    //place detail call -> place title
+    
+    
+  }
+  
+  func add(word_id: Int) -> Void {
+    //api/myWord/{id} **여기서 id는 user의 id (Integer)
+    //"word_folder_id": 2,
+    //"word_id": 1
+  }
+  
   @Published var placeTitle: String = "place title place title"
   
   @Published var wordList: [WordInfo] =  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
