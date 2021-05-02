@@ -2,6 +2,30 @@ PODS:
   - Alamofire (5.4.3)
   - ExpyTableView (1.2.1)
   - GeoJSON (0.3.3)
+  - Google-Maps-iOS-Utils (3.9.0):
+    - Google-Maps-iOS-Utils/Clustering (= 3.9.0)
+    - Google-Maps-iOS-Utils/Geometry (= 3.9.0)
+    - Google-Maps-iOS-Utils/GeometryUtils (= 3.9.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 3.9.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 3.9.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (3.9.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (3.9.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/GeometryUtils (3.9.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (3.9.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (3.9.0):
+    - GoogleMaps
+  - GoogleMaps (4.2.0):
+    - GoogleMaps/Maps (= 4.2.0)
+  - GoogleMaps/Base (4.2.0)
+  - GoogleMaps/Maps (4.2.0):
+    - GoogleMaps/Base
   - IGListKit (3.0.0):
     - IGListKit/Default (= 3.0.0)
   - IGListKit/Default (3.0.0):
@@ -20,6 +44,8 @@ DEPENDENCIES:
   - Alamofire
   - ExpyTableView
   - GeoJSON
+  - Google-Maps-iOS-Utils (~> 3.9.0)
+  - GoogleMaps
   - IGListKit (~> 3.0.0)
   - JWTDecode (~> 2.4)
   - KRProgressHUD
@@ -31,6 +57,8 @@ SPEC REPOS:
     - Alamofire
     - ExpyTableView
     - GeoJSON
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - IGListKit
     - JWTDecode
     - KRActivityIndicatorView
@@ -42,6 +70,8 @@ SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   ExpyTableView: 19cf224c2ff04b1ec215ec52bc4ba6f81fa809ed
   GeoJSON: 92d886a3ee9e587b7410388456145eb4b71cdbfc
+  Google-Maps-iOS-Utils: ae3b4e74b2d734454be32cf62ba8d6ad7283e0c1
+  GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   JWTDecode: 480ca441ddbd5fbfb2abf17870af62f86436be58
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
@@ -49,6 +79,6 @@ SPEC CHECKSUMS:
   NMapsMap: e6dbea85c2c195c7532deb637a5e90fd70f94fed
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: ec6a2e92c88a1a6900fcf7467e4f974a74a52cab
+PODFILE CHECKSUM: 22c9d75408c32cb117aeed989b6b86f1cf06b9dc
 
 COCOAPODS: 1.10.1

@@ -180,3 +180,9 @@ struct placeRelatedWordModel: Codable {
     }
   }
 }
+
+struct properties: Codable {
+  let sgg_nm : String
+  let sgg_cd : String
+  let color : String
+}

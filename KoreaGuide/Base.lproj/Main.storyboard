@@ -363,20 +363,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZgJ-9B-Xbw" customClass="NMFMapView">
-                                <rect key="frame" x="87" y="352" width="240" height="128"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JAt-cv-Znw">
+                                <rect key="frame" x="20" y="105" width="366" height="701"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0ej-1G-tLp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="place" image="map" catalog="system" id="b1Y-Pd-M3O"/>
+                    <connections>
+                        <outlet property="mapView" destination="JAt-cv-Znw" id="h8d-RR-tXx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSQ-EJ-Gm6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2374" y="1778"/>
+            <point key="canvasLocation" x="2373.913043478261" y="1777.9017857142856"/>
         </scene>
         <!--word-->
         <scene sceneID="DOx-OY-4zz">

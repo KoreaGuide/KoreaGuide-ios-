@@ -5,7 +5,9 @@ target 'KoreaGuide' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   # Pods for KoreaGuide
+  pod 'Google-Maps-iOS-Utils', '~> 3.9.0'
   pod 'Alamofire'
+  pod 'GoogleMaps'
   pod 'GeoJSON'
   pod 'ExpyTableView'
   pod 'JWTDecode', '~> 2.4'

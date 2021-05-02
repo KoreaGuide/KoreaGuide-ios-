@@ -74,6 +74,8 @@
 		5E9CE53E2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
 		5E9CE53F2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
 		5E9CE5402611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
+		5ED6ADAB263EB4E8002F19E2 /* map.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5ED6ADAA263EB4E8002F19E2 /* map.geojson */; };
+		5ED6ADAD263EC141002F19E2 /* HangJeongDong_ver20210101.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */; };
 		5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
@@ -147,6 +149,8 @@
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
 		5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSectionController.swift; sourceTree = "<group>"; };
 		5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
+		5ED6ADAA263EB4E8002F19E2 /* map.geojson */ = {isa = PBXFileReference; lastKnownFileType = file; path = map.geojson; sourceTree = SOURCE_ROOT; };
+		5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */ = {isa = PBXFileReference; lastKnownFileType = file; path = HangJeongDong_ver20210101.geojson; sourceTree = SOURCE_ROOT; };
 		5EF5916B25EFA62800E07D88 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -309,6 +313,8 @@
 		5E2E281C25D7CC410067C41F /* KoreaGuide */ = {
 			isa = PBXGroup;
 			children = (
+				5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */,
+				5ED6ADAA263EB4E8002F19E2 /* map.geojson */,
 				5E2E281D25D7CC410067C41F /* AppDelegate.swift */,
 				5E2E281F25D7CC410067C41F /* SceneDelegate.swift */,
 				5E2E282325D7CC410067C41F /* Main.storyboard */,
@@ -410,6 +416,7 @@
 				5E2E281825D7CC410067C41F /* Resources */,
 				8E7E3B3D1D94A887A7F061B0 /* [CP] Embed Pods Frameworks */,
 				5EFC79BF26063B3C00B843FC /* ShellScript */,
+				BD0E62646C121C3C808BE5DD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -448,6 +455,7 @@
 				5E2E283825D7CC420067C41F /* Frameworks */,
 				5E2E283925D7CC420067C41F /* Resources */,
 				56EA2295D8901627327A2F56 /* [CP] Embed Pods Frameworks */,
+				BE542A5F672E42C220E64059 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -506,6 +514,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ED6ADAD263EC141002F19E2 /* HangJeongDong_ver20210101.geojson in Resources */,
+				5ED6ADAB263EB4E8002F19E2 /* map.geojson in Resources */,
 				5E2E282A25D7CC410067C41F /* LaunchScreen.storyboard in Resources */,
 				5E2E282725D7CC410067C41F /* Assets.xcassets in Resources */,
 				5E2E282525D7CC410067C41F /* Main.storyboard in Resources */,
@@ -578,6 +588,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD0E62646C121C3C808BE5DD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide/Pods-KoreaGuide-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE542A5F672E42C220E64059 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C0B7D65E3CFFB242711E52C7 /* [CP] Check Pods Manifest.lock */ = {
