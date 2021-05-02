@@ -26,9 +26,8 @@ struct WordMainView: View {
             Text("ForWord")
               .foregroundColor(.white)
               .fontWeight(.heavy)
-              .font(.title3)
               .padding(.horizontal, 20)
-              
+              .font(Font.custom("Bangla MN", size: 20))
 
             Spacer()
           }
@@ -37,15 +36,16 @@ struct WordMainView: View {
           HStack {
             Text("Welcome, " + "user")
               .foregroundColor(.white)
-              .font(.title)
+              .font(Font.custom("Bangla MN", size: 30))
               .padding(.horizontal, 20)
             Spacer()
           }
           HStack{
             Text("Let's review your words!")
               .foregroundColor(.white)
-              .font(.title)
+              .font(Font.custom("Bangla MN", size: 20))
               .padding(.horizontal, 20)
+              
             Spacer()
           }
           
@@ -60,7 +60,8 @@ struct WordMainView: View {
               VStack {
                 Text("Total Words : " + String(viewModel.wordlist.count))
                   .foregroundColor(.black)
-                  .font(.title2)
+                  .font(Font.custom("Bangla MN", size: 25))
+                  .padding(.top, 10)
               }
             }
           }
@@ -81,7 +82,7 @@ struct WordMainView: View {
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel())) {
+          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel(place_id: 0, user_id: 0))) {
             CompleteWordButton()
               .padding(.vertical, 10)
           }
@@ -110,9 +111,11 @@ struct AddedWordButton: View {
       VStack {
         Text("Added Word List")
           .foregroundColor(.white)
-          .font(.title)
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
         Text("number of words : ")
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
@@ -128,9 +131,11 @@ struct LearningWordButton: View {
       VStack {
         Text("Learning Word List")
           .foregroundColor(.white)
-          .font(.title)
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
         Text("number of words : ")
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
@@ -146,9 +151,11 @@ struct CompleteWordButton: View {
       VStack {
         Text("Complete Word List")
           .foregroundColor(.white)
-          .font(.title)
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
         Text("number of words : ")
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }

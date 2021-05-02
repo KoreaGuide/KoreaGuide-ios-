@@ -59,7 +59,8 @@ struct LearnButton: View {
             .frame(width: 30, height: 30)
           Text("Learn")
             .foregroundColor(Color("Green"))
-            .font(.title)
+            .font(Font.custom("Bangla MN", size: 25))
+            .padding(.top, 10)
         }
       }
       .frame(width: 150, height: 50, alignment: .center)
@@ -80,7 +81,8 @@ struct TestButton: View {
             .frame(width: 30, height: 30)
           Text("Test")
             .foregroundColor(Color("Green"))
-            .font(.title)
+            .font(Font.custom("Bangla MN", size: 25))
+            .padding(.top, 10)
         }
       }
       .frame(width: 150, height: 50, alignment: .center)
@@ -127,7 +129,7 @@ struct WordListView: View {
             Text("" + " Words List")
               .foregroundColor(.white)
               .fontWeight(.heavy)
-              .font(.title)
+              .font(Font.custom("Bangla MN", size: 25))
               .padding(.vertical, 15)
 
             HStack { // NavigationLazyView()

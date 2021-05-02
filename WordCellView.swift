@@ -27,11 +27,15 @@ struct WordCellView: View {
             Text(word.word)
               .foregroundColor(.black)
               .fontWeight(.heavy)
+              .font(Font.custom("Bangla MN", size: 20))
+              .padding(.top, 10)
           }
           HStack {
             Text(word.meaning)
               .foregroundColor(.black)
               .fontWeight(.regular)
+              .font(Font.custom("Bangla MN", size: 18))
+              .padding(.top, 10)
           }
 
           HStack {
@@ -47,7 +51,7 @@ struct WordCellView: View {
             }
             //.padding(.leading, 60)
           }
-          .padding(.top, 20)
+          .padding(.top, 10)
         }
        
       }

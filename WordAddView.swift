@@ -80,18 +80,19 @@ struct WordAddView: View {
           // place title
           Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
-            .font(.title2)
-
+            .font(Font.custom("Bangla MN", size: 20))
+            
           // label
           Section {
             Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
               .foregroundColor(.white)
-              .fontWeight(.bold)
-              .padding(.top, 5)
+              .fontWeight(.heavy)
+              .font(Font.custom("Bangla MN", size: 18))
+              
 
             ProgressBar(value: $viewModel.progressValue)
               .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
-              .padding(.vertical, 15)
+              .padding(.vertical, 5)
           }
 
           HStack {
@@ -169,10 +170,16 @@ struct WordBox: View {
 
           Text(viewModel.wordInfo.word)
             .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 20))
+            
           Text("pronun")
             .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
+            
           Text(viewModel.wordInfo.meaning)
             .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
+          
 
           Button(action: {
             viewModel.wordInfo.playing.toggle()
@@ -206,7 +213,7 @@ struct InOutButton: View {
       ZStack {
         RoundedRectangle(cornerRadius: 10)
           .fill(Color("Navy"))
-          .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+          .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
           Image(systemName: viewModel.wordInfo.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
@@ -216,6 +223,8 @@ struct InOutButton: View {
             .padding(.horizontal, 5)
           Text(viewModel.wordInfo.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
+            .font(Font.custom("Bangla MN", size: 18))
+            .padding(.top, 10)
         }
       }
 
@@ -236,10 +245,14 @@ struct WordAddFinishView: View {
     HStack {
       Button(action: {}, label: {
         Text("Let's go back to place page")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
       })
         .padding(.bottom, 20)
       Button(action: {}, label: {
         Text("Let's go to check the words")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
       })
         .padding(.bottom, 20)
     }

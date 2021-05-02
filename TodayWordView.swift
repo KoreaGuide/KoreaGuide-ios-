@@ -41,7 +41,7 @@ struct TodayWordView: View {
             Text("Word of Today")
               .foregroundColor(.white)
               .fontWeight(.heavy)
-              .font(.title)
+              .font(Font.custom("Bangla MN", size: 30))
             Spacer()
           }
           .padding(.horizontal, 20)
@@ -53,19 +53,23 @@ struct TodayWordView: View {
           HStack {
             Text(viewModel.wordInfo.word)
               .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 25))
+              .padding(.top, 10)
             Spacer()
           }
           .padding(.horizontal, 20)
           HStack {
             Text(viewModel.wordInfo.meaning)
               .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 25))
+              .padding(.top, 10)
             Spacer()
           }
           .padding(.horizontal, 20)
 
           
           Spacer()
-            .frame(height: 100)
+            .frame(height: 50)
           
           
           // add button
@@ -75,7 +79,8 @@ struct TodayWordView: View {
             Text("Related Places")
               .foregroundColor(.white)
               .fontWeight(.semibold)
-              .font(.title2)
+              .font(Font.custom("Bangla MN", size: 25))
+              .padding(.top, 10)
             Image(systemName: "chevron.right.2")
               .resizable()
               .frame(width: 20, height: 20, alignment: .center)
@@ -91,7 +96,8 @@ struct TodayWordView: View {
               ForEach(0 ..< 10) {
                 Text("  Item \($0)  ")
                   .foregroundColor(.white)
-                  .font(.title2)
+                  .font(Font.custom("Bangla MN", size: 20))
+                  .padding(.top, 10)
                   .frame(height: 50)
                   .background(RoundedRectangle(cornerRadius: 10)
                     .fill(Color("Navy")))
@@ -102,6 +108,9 @@ struct TodayWordView: View {
           .padding(.bottom, 10)
           
           TodayInOutButton(viewModel: viewModel)
+          
+          Spacer()
+            .frame(height: 180)
         }
       }
     }
@@ -127,7 +136,7 @@ struct TodayInOutButton: View {
       ZStack {
         RoundedRectangle(cornerRadius: 10)
           .fill(Color("Navy"))
-          .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+          .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
           Image(systemName: viewModel.wordInfo.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
@@ -137,6 +146,8 @@ struct TodayInOutButton: View {
             .padding(.horizontal, 5)
           Text(viewModel.wordInfo.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
+            .font(Font.custom("Bangla MN", size: 18))
+            .padding(.top, 10)
         }
       }
 
