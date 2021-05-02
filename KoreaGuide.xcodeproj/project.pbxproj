@@ -76,6 +76,7 @@
 		5E9CE5402611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */; };
 		5ED6ADAB263EB4E8002F19E2 /* map.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5ED6ADAA263EB4E8002F19E2 /* map.geojson */; };
 		5ED6ADAD263EC141002F19E2 /* HangJeongDong_ver20210101.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */; };
+		5ED6ADB1263ED86F002F19E2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6ADB0263ED86E002F19E2 /* UIColorExtension.swift */; };
 		5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
 		5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5916B25EFA62800E07D88 /* homeViewController.swift */; };
@@ -149,8 +150,9 @@
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
 		5E9CE52D2611E79D0072E5CD /* PlaceDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSectionController.swift; sourceTree = "<group>"; };
 		5E9CE53D2611EA270072E5CD /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
-		5ED6ADAA263EB4E8002F19E2 /* map.geojson */ = {isa = PBXFileReference; lastKnownFileType = file; path = map.geojson; sourceTree = SOURCE_ROOT; };
-		5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */ = {isa = PBXFileReference; lastKnownFileType = file; path = HangJeongDong_ver20210101.geojson; sourceTree = SOURCE_ROOT; };
+		5ED6ADAA263EB4E8002F19E2 /* map.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = map.geojson; sourceTree = SOURCE_ROOT; };
+		5ED6ADAC263EC141002F19E2 /* HangJeongDong_ver20210101.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = HangJeongDong_ver20210101.geojson; sourceTree = SOURCE_ROOT; };
+		5ED6ADB0263ED86E002F19E2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		5EF5916B25EFA62800E07D88 /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +208,7 @@
 				5E192E2925FD095100864789 /* PasswordEncoder.swift */,
 				5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */,
 				5E0CAF1326176E7000B5B3FD /* UITextFieldExtension.swift */,
+				5ED6ADB0263ED86E002F19E2 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,
+				5ED6ADB1263ED86F002F19E2 /* UIColorExtension.swift in Sources */,
 				5E9CE53E2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
 				5E637962260F683700900192 /* HomeViewModel.swift in Sources */,

@@ -37,18 +37,20 @@ class mapViewController: UIViewController {
     for item in geoJson {
       if let feature = item as? MKGeoJSONFeature {
         do {
-          print("@@")
           let data = try JSONDecoder().decode(properties.self, from: feature.properties!)
+          for geo in feature.geometry {
+            if let polygon = geo as? MKPolygon {
+              polygon.title = data.color
+              polygon.subtitle = data.sgg_nm
+              overlays.append(polygon) // overlay 타입으로 변환
+            } else if let multiPolygon = geo as? MKMultiPolygon {
+              multiPolygon.title = data.color
+              multiPolygon.subtitle = data.sgg_nm
+              overlays.append(multiPolygon)
+            }
+          }
         } catch {
           fatalError()
-        }
-        
-        for geo in feature.geometry {
-          if let polygon = geo as? MKPolygon {
-            overlays.append(polygon) // overlay 타입으로 변환
-          } else if let multiPolygon = geo as? MKMultiPolygon {
-            overlays.append(multiPolygon)
-          }
         }
       }
     }
@@ -71,13 +73,15 @@ class mapViewController: UIViewController {
   final class MapCoordinator: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
       if let polygon = overlay as? MKPolygon {
+        print(polygon.title!)
         let renderer = MKPolygonRenderer(polygon: polygon)
-        renderer.fillColor = UIColor.red
+        renderer.fillColor = UIColor(hex: polygon.title!)
         renderer.strokeColor = UIColor.black
         return renderer
       } else if let polygon = overlay as? MKMultiPolygon {
         let renderer = MKMultiPolygonRenderer(multiPolygon: polygon)
-        renderer.fillColor = UIColor.red
+        print(polygon.title!)
+        renderer.fillColor = UIColor(hex: polygon.title!)
         renderer.strokeColor = UIColor.black
         return renderer
       }
