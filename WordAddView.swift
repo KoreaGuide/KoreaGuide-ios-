@@ -5,6 +5,7 @@
 //  Created by 임선호 on 2021/04/14.
 //
 
+import AVKit
 import Combine
 import Foundation
 import SwiftUI
@@ -81,14 +82,13 @@ struct WordAddView: View {
           Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
-            
+
           // label
           Section {
             Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 18))
-              
 
             ProgressBar(value: $viewModel.progressValue)
               .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
@@ -147,6 +147,7 @@ struct WordAddView: View {
 
 struct WordBox: View {
   @ObservedObject var viewModel: WordBoxViewModel
+  @State var audioPlayer: AVAudioPlayer!
   // @State var added: Bool = false
   // @State var playing: Bool = false
 
@@ -171,25 +172,29 @@ struct WordBox: View {
           Text(viewModel.wordInfo.word)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
-            
+
           Text("pronun")
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
-            
+
           Text(viewModel.wordInfo.meaning)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
-          
 
           Button(action: {
             viewModel.wordInfo.playing.toggle()
-            //
+            self.audioPlayer.play()
+            // self.audioPlayer.pause()
           }, label: {
             Image(systemName: viewModel.wordInfo.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
               .resizable()
               .frame(width: 30, height: 30, alignment: .center)
               .foregroundColor(Color.orange)
           })
+            .onAppear {
+            //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
+              //self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+            }
             .padding(.bottom, 20)
         }
       }

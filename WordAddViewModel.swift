@@ -19,6 +19,8 @@ class WordBoxViewModel: ObservableObject {
   init(currentCount: Int, wordInfo: WordInfo) {
     self.currentCount = currentCount
     self.wordInfo = wordInfo
+    
+  
   }
 }
 
@@ -32,6 +34,10 @@ class WordAddViewModel: ObservableObject {
     
     //place detail call -> place title
     
+    WordApiCaller.placeRelatedWords(place_id: 0, page_num: 0) { status in
+    
+    
+    }
     
   }
   

@@ -10,8 +10,14 @@ import Combine
 
 class TodayWordViewModel: ObservableObject {
   @Published var wordInfo: WordInfo
+  var word_id: Int = 0
   
   init(wordInfo: WordInfo){ // api/home/  "word_id": 2,
     self.wordInfo = wordInfo
+    
+    WordApiCaller.homeRead() { result in
+      self.word_id = result?.data.word_id ?? 0
+      
+    }
   }
 }
