@@ -7,7 +7,18 @@
 
 import Foundation
 
-struct TodayWord{
+struct TodayWordModel: Codable{
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: RawWord
+  
+  var added: Bool = false
+  var folder: Int = 0
+  var playing: Bool = false
+}
+
+struct TodayWord {
   let word_id: Int
   let word_kor: String
   let word_eng: String
@@ -21,7 +32,7 @@ struct TodayWord{
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
-  
+
   init(word: RawWord) {
     word_id = word.word_id
     word_kor = word.word_kor
@@ -62,6 +73,20 @@ struct AddingWord {
     image = word.image
   }
 }
+
+struct MainWordCountModel: Codable {
+  let result_code: Int
+  let data: WordFolderInfo
+  struct WordFolderInfo: Codable {
+    let my_word_folder_id: Int
+    let now_word_count: Int
+  }
+}
+
+struct MainWordCount{
+  
+}
+//word list 총 개수 등
 
 struct LearningWord {
   let word_id: Int
@@ -116,29 +141,28 @@ struct RawWord: Codable {
 }
 
 /*
-struct TodayWordModel: Codable {
-  enum CodingKeys: String, CodingKey {
-    case word_id
-  }
+ struct TodayWordModel: Codable {
+   enum CodingKeys: String, CodingKey {
+     case word_id
+   }
 
-  let word_id: Int // home read
+   let word_id: Int // home read
 
-  // let wordInfo: WordInfo // myWordRead
+   // let wordInfo: WordInfo // myWordRead
 
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    word_id = try container.decode(Int.self, forKey: CodingKeys.word_id)
-  }
-}
-
+   init(from decoder: Decoder) throws {
+     let container = try decoder.container(keyedBy: CodingKeys.self)
+     word_id = try container.decode(Int.self, forKey: CodingKeys.word_id)
+   }
+ }
+ */
 struct WordOfPlaceModel: Codable {
   let result_code: Int
   let data: WordOfPlaceList
-  
+
   struct WordOfPlaceList: Codable {
     let user_id: Int
     let place_id: Int
     let word_list: [RawWord]
   }
 }
-*/

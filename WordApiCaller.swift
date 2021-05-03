@@ -17,7 +17,7 @@ final class WordApiCaller {
   enum Router: URLRequestConvertible {
     case homeRead
     case myWordCreate(word_id: String)
-    case myWordRead
+    case oneWordRead
     case myWordDelete(word_id: String)
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
@@ -33,8 +33,8 @@ final class WordApiCaller {
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .post, defaultHeaders)
-        case .myWordRead: // 이거 어케함
-          return ("/api/myWord/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
+        case .oneWordRead: // 이거 어케함
+          return ("/api/word/", ["": ""], .get, defaultHeaders)
         case let .myWordDelete(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .delete, defaultHeaders)
         }
@@ -149,8 +149,8 @@ final class WordApiCaller {
       }
   }
 
-  static func myWordRead(callback: @escaping (Int?) -> Void) {
-    AF.request(Router.myWordRead)
+  static func oneWordRead(callback: @escaping (TodayWordModel?) -> Void) {
+    AF.request(Router.oneWordRead)
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -164,8 +164,8 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(signUpModel.self, from: data)
-          callback(result.result_code)
+          let result = try decoder.decode(TodayWordModel.self, from: data)
+          callback(result)
         } catch {
           callback(nil)
         }

@@ -53,7 +53,7 @@ class WordAddViewModel: ObservableObject {
     self.place_id = place_id
   }
   
-  func getter() {
+  func setting() {
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: self.place_id) { result in
       let status = Int(result!.result_code)

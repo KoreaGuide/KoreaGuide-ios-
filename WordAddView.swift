@@ -71,7 +71,7 @@ struct WordAddView: View {
 
         VStack {
           // place title
-          Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
+          Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 

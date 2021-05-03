@@ -9,11 +9,15 @@ import Combine
 import Foundation
 
 class WordMainViewModel: ObservableObject {
-  @Published var wordlist: [WordInfo]
-
-  init(wordlist: [WordInfo]) {
-    self.wordlist = wordlist
-
+  @Published var added_word_info: MainWordCountModel
+  @Published var learning_word_info: MainWordCountModel
+  @Published var complete_word_info: MainWordCountModel
+  
+  init() {
+    
+  }
+  
+  
     /*
      WordApiCaller.myWordRead() { status in
        let status = Int(result!.result_code)
@@ -28,8 +32,3 @@ class WordMainViewModel: ObservableObject {
     */
   }
 
-  // init(){
-  // api/myWord/{id} **여기서 id는 user의 id (Integer),  "word_folder_id": 2
-
-  // }
-}
