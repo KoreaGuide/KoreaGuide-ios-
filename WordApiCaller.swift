@@ -18,6 +18,7 @@ final class WordApiCaller {
     case homeRead
     case myWordCreate(word_id: String)
     case oneWordRead
+    case folderWordRead(word_folder_id: Int)
     case myWordDelete(word_id: String)
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
@@ -35,6 +36,8 @@ final class WordApiCaller {
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .post, defaultHeaders)
         case .oneWordRead: // 이거 어케함
           return ("/api/word/", ["": ""], .get, defaultHeaders)
+        case .folderWordRead:
+          return ("/api/myWord/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
         case let .myWordDelete(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .delete, defaultHeaders)
         }
@@ -172,6 +175,29 @@ final class WordApiCaller {
       }
   }
 
+  static func folderWordRead(word_folder_id: Int, callback: @escaping (MainWordCountModel?) -> Void) {
+    AF.request(Router.folderWordRead(word_folder_id: word_folder_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(MainWordCountModel.self, from: data)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
+  
   static func myWordDelete(word_id: String, callback: @escaping (Int?) -> Void) {
     AF.request(Router.myWordDelete(word_id: word_id))
       .responseJSON { response in

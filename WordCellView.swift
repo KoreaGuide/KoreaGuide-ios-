@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct WordCellView: View {
-  @Binding var word: WordInfo
+  @Binding var word: RawWord
 
   // @State var cancellable = Set<AnyCancellable>()
 
@@ -24,14 +24,14 @@ struct WordCellView: View {
 
         VStack {
           HStack {
-            Text(word.word)
+            Text(word.word_kor)
               .foregroundColor(.black)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 20))
               .padding(.top, 10)
           }
           HStack {
-            Text(word.meaning)
+            Text(word.word_eng)
               .foregroundColor(.black)
               .fontWeight(.regular)
               .font(Font.custom("Bangla MN", size: 18))

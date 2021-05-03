@@ -10,10 +10,10 @@ import Combine
 
 
 class WordTestSelectViewModel: ObservableObject {
-  @Published var wordlist: [WordInfo]
+  @Published var word_list: [TestWord]
   
   
-  init(wordlist: [WordInfo]){
-    self.wordlist = wordlist
+  init(wordlist: [TestWord]){
+    self.word_list = wordlist
   }
 }

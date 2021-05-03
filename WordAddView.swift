@@ -106,7 +106,7 @@ struct WordAddView: View {
             })
 
             // box
-            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.word_list[viewModel.currentWordCount]))
 
             // right
             Button(action: {
@@ -125,7 +125,7 @@ struct WordAddView: View {
           }
 
           Spacer().frame(height: 30)
-          InOutButton(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+          InOutButton(viewModel: viewModel)
           Spacer()
         }
       }
@@ -161,24 +161,28 @@ struct WordBox: View {
 
           Spacer().frame(height: 10)
 
-          Text(viewModel.wordInfo.word)
+          Text(viewModel.word.word_kor)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 
-          Text("pronun")
+          Text(viewModel.word.pronunciation_eng)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
-          Text(viewModel.wordInfo.meaning)
+          Text(viewModel.word.word_eng)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
-
+          
+          Text(viewModel.word.meaning_eng1)
+            .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
+          
           Button(action: {
-            viewModel.wordInfo.playing.toggle()
+            viewModel.word.playing.toggle()
             self.audioPlayer.play()
             // self.audioPlayer.pause()
           }, label: {
-            Image(systemName: viewModel.wordInfo.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
+            Image(systemName: viewModel.word.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
               .resizable()
               .frame(width: 30, height: 30, alignment: .center)
               .foregroundColor(Color.orange)
@@ -196,15 +200,17 @@ struct WordBox: View {
 }
 
 struct InOutButton: View {
-  @ObservedObject var viewModel: WordBoxViewModel
+  @ObservedObject var viewModel: WordAddViewModel
 
   var body: some View {
+    //TODO 수정
     Button(action: {
-      viewModel.wordInfo.added.toggle()
-      if viewModel.wordInfo.added == true {
-        // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
+      viewModel.addButton.toggle()
+      if viewModel.addButton == true {
+     viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
       } else {
-        // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
+        viewModel.added_word_id_list = viewModel.added_word_id_list
+          .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word_id }
       }
     }, label: {
       ZStack {
@@ -213,12 +219,12 @@ struct InOutButton: View {
           .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
-          Image(systemName: viewModel.wordInfo.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
+          Image(systemName: viewModel.word_list[viewModel.currentWordCount].added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
             .resizable()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color.orange)
             .padding(.horizontal, 5)
-          Text(viewModel.wordInfo.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
+          Text(viewModel.word_list[viewModel.currentWordCount].added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
             .font(Font.custom("Bangla MN", size: 18))
             .padding(.top, 10)
@@ -234,7 +240,7 @@ struct WordAddFinishView: View {
   @ObservedObject var viewModel: WordAddViewModel
 
   var body: some View {
-    Text(viewModel.placeTitle)
+    Text(viewModel.place_title)
 
     Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
 

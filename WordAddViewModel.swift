@@ -12,8 +12,9 @@ import SwiftUI
 class WordBoxViewModel: ObservableObject {
   @Published var currentCount: Int
   @Published var word: AddingWord
-  @Published var added: Bool = false
-  @Published var playing: Bool = false
+  
+  
+  //@Published var playing: Bool = false
 
   init(currentCount: Int, word: AddingWord) {
     self.currentCount = currentCount
@@ -28,6 +29,8 @@ class WordAddViewModel: ObservableObject {
 
   var word_list: [AddingWord] = []
 
+  @Published var addButton: Bool = false
+  
   @Published var added_word_id_list: [Int] = []
   @Published var removed_word_id_list: [Int] = []
   

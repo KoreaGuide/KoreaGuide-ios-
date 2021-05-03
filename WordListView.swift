@@ -19,19 +19,19 @@ struct WordPopup: View {
 
         VStack {
           HStack {
-            Text(viewModel.wordlist[displayItem].word)
+            //Text(viewModel.word_list[displayItem].word)
           }
           .padding(10)
           HStack {
-            Text(viewModel.wordlist[displayItem].word)
+            //Text(viewModel.word_list[displayItem].word)
           }
           .padding(10)
           HStack {
-            Text(viewModel.wordlist[displayItem].word)
+           // Text(viewModel.word_list[displayItem].word)
           }
           .padding(10)
           HStack {
-            Text(viewModel.wordlist[displayItem].word)
+           // Text(viewModel.word_list[displayItem].word)
           }
           .padding(10)
         }

@@ -15,6 +15,12 @@ struct TodayWordView: View {
   var backButton: some View {
     // 뒤로가기
     Button(action: {
+      if viewModel.word!.added == true {
+        
+      }
+      else{
+        
+      }
       self.presentationMode.wrappedValue.dismiss()
     }, label: {
       Image(systemName: "chevron.left.square")
@@ -37,7 +43,7 @@ struct TodayWordView: View {
           .ignoresSafeArea()
 
         VStack {
-          HStack{
+          HStack {
             Text("Word of Today")
               .foregroundColor(.white)
               .fontWeight(.heavy)
@@ -45,13 +51,13 @@ struct TodayWordView: View {
             Spacer()
           }
           .padding(.horizontal, 20)
-          
+
           Image("mae")
             .resizable()
             .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .center)
             .padding(.vertical, 10)
           HStack {
-            Text(viewModel.wordInfo.word)
+            Text(viewModel.word!.word_kor)
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.top, 10)
@@ -59,7 +65,15 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 20)
           HStack {
-            Text(viewModel.wordInfo.meaning)
+            Text(viewModel.word!.pronunciation_eng)
+              .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 25))
+              .padding(.top, 10)
+            Spacer()
+          }
+          .padding(.horizontal, 20)
+          HStack {
+            Text(viewModel.word!.meaning_eng1)
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.top, 10)
@@ -67,15 +81,10 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 20)
 
-          
-          Spacer()
-            .frame(height: 50)
-          
-          
           // add button
           // close button
 
-          HStack{
+          HStack {
             Text("Related Places")
               .foregroundColor(.white)
               .fontWeight(.semibold)
@@ -85,11 +94,11 @@ struct TodayWordView: View {
               .resizable()
               .frame(width: 20, height: 20, alignment: .center)
               .foregroundColor(.white)
-              
+
             Spacer()
           }
           .padding(.horizontal, 20)
-          
+
           // List
           ScrollView(.horizontal) {
             HStack(spacing: 20) {
@@ -106,9 +115,9 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 20)
           .padding(.bottom, 10)
-          
+
           TodayInOutButton(viewModel: viewModel)
-          
+
           Spacer()
             .frame(height: 180)
         }
@@ -126,8 +135,8 @@ struct TodayInOutButton: View {
 
   var body: some View {
     Button(action: {
-      viewModel.wordInfo.added.toggle()
-      if viewModel.wordInfo.added == true {
+      viewModel.word!.added.toggle()
+      if viewModel.word!.added == true {
         // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
       } else {
         // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
@@ -139,12 +148,12 @@ struct TodayInOutButton: View {
           .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
-          Image(systemName: viewModel.wordInfo.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
+          Image(systemName: viewModel.word!.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
             .resizable()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color.orange)
             .padding(.horizontal, 5)
-          Text(viewModel.wordInfo.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
+          Text(viewModel.word!.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
             .font(Font.custom("Bangla MN", size: 18))
             .padding(.top, 10)

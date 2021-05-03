@@ -56,7 +56,7 @@ struct WordTestSelectView: View {
             .foregroundColor(.white)
             .padding(10)
 
-          Text("Number of Words : " + String(viewModel.wordlist.count))
+          Text("Number of Words : " + String(viewModel.word_list.count))
             .background(Rectangle()
                           .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
                           .foregroundColor(Color.white.opacity(0.8)))
