@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct WordMainView: View {
-  @ObservedObject var viewModel: WordMainViewModel = WordMainViewModel()
+  @ObservedObject var viewModel: WordMainViewModel = WordMainViewModel(wordlist: [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")])
   
   var body: some View {
     NavigationView {
@@ -58,7 +58,7 @@ struct WordMainView: View {
                 .frame(width: UIScreen.main.bounds.width - 60, height: 50, alignment:  .center)
 
               VStack {
-                Text("Total Words : " + String(""))
+                Text("Total Words : " + String(viewModel.wordlist.count))
                   .foregroundColor(.black)
                   .font(Font.custom("Bangla MN", size: 25))
                   .padding(.top, 10)
@@ -82,7 +82,7 @@ struct WordMainView: View {
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel(place_id: 0))) {
+          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel(place_id: 0, user_id: 0))) {
             CompleteWordButton()
               .padding(.vertical, 10)
           }

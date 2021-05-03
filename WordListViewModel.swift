@@ -14,10 +14,28 @@ class WordListViewModel: ObservableObject {
   @Published var selectedWord: WordInfo?
   @Published var didSelectWord: Bool = false
   @Published var word_id: Int = 0
-  /*
-  init(){
-    WordApiCaller.Router.myWordRead() { result in
-      
-    }*/
-  }
   
+  
+  private var cancellable: Set<AnyCancellable> = []
+
+  private var didSelectWordPublisher: AnyPublisher<Bool, Never> {
+    $selectedWord
+      .map { $0 != nil }
+      .eraseToAnyPublisher()
+  }
+
+  init() {
+    didSelectWordPublisher
+      .receive(on: RunLoop.main)
+      .assign(to: \.didSelectWord, on: self)
+      .store(in: &cancellable)
+
+    $selectedWord
+      .map {
+        if $0 != nil { return $0!.word_id } else { return 0 }
+      }
+      .receive(on: RunLoop.main)
+      .assign(to: \.word_id, on: self)
+      .store(in: &cancellable)
+  }
+}
