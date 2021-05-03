@@ -11,13 +11,13 @@ import Foundation
 import SwiftUI
 
 struct WordInfo {
-  let word_id: Int
-  let word: String // kor
-  let meaning: String // eng
+  var word_id: Int
+  var word: String // kor
+  var meaning: String // eng
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
-  let image = Image("mae")
+  var image = Image("mae")
 }
 
 // place word list
@@ -79,7 +79,7 @@ struct WordAddView: View {
 
         VStack {
           // place title
-          Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
+          Label(viewModel.place_title!, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 
@@ -114,7 +114,7 @@ struct WordAddView: View {
             })
 
             // box
-            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.response?.data.word_list[viewModel.currentWordCount]!))
 
             // right
             Button(action: {
@@ -133,8 +133,8 @@ struct WordAddView: View {
           }
 
           Spacer().frame(height: 30)
-          InOutButton(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
-          Spacer()
+          InOutButton(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.response?.data.word_list[viewModel.currentWordCount]!))
+          Spacer() // viewModel.wordList[viewModel.currentWordCount]
         }
       }
     }
@@ -169,7 +169,7 @@ struct WordBox: View {
 
           Spacer().frame(height: 10)
 
-          Text(viewModel.wordInfo.word)
+          Text(viewModel.wordInfo!.word)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 
@@ -177,23 +177,23 @@ struct WordBox: View {
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
-          Text(viewModel.wordInfo.meaning)
+          Text(viewModel.wordInfo!.meaning)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
           Button(action: {
-            viewModel.wordInfo.playing.toggle()
+            viewModel.wordInfo!.playing.toggle()
             self.audioPlayer.play()
             // self.audioPlayer.pause()
           }, label: {
-            Image(systemName: viewModel.wordInfo.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
+            Image(systemName: viewModel.wordInfo!.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
               .resizable()
               .frame(width: 30, height: 30, alignment: .center)
               .foregroundColor(Color.orange)
           })
             .onAppear {
-            //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
-              //self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+              //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
+              // self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
             }
             .padding(.bottom, 20)
         }
@@ -208,8 +208,8 @@ struct InOutButton: View {
 
   var body: some View {
     Button(action: {
-      viewModel.wordInfo.added.toggle()
-      if viewModel.wordInfo.added == true {
+      viewModel.wordInfo!.added.toggle()
+      if viewModel.wordInfo!.added == true {
         // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
       } else {
         // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
@@ -221,12 +221,12 @@ struct InOutButton: View {
           .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
-          Image(systemName: viewModel.wordInfo.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
+          Image(systemName: viewModel.wordInfo!.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
             .resizable()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color.orange)
             .padding(.horizontal, 5)
-          Text(viewModel.wordInfo.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
+          Text(viewModel.wordInfo!.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
             .font(Font.custom("Bangla MN", size: 18))
             .padding(.top, 10)
@@ -242,7 +242,7 @@ struct WordAddFinishView: View {
   @ObservedObject var viewModel: WordAddViewModel
 
   var body: some View {
-    Text(viewModel.placeTitle)
+    Text(viewModel.place_title!)
 
     Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
 

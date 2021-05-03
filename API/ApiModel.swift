@@ -164,7 +164,7 @@ struct placeRelatedWordModel: Codable {
     let user_id: Int
     let place_id: Int
     let pagination: pagination
-    let word_list: wordList
+    let word_list: [wordOfPlace]
 
     struct pagination: Codable {
       let total_pages: Int
@@ -172,11 +172,15 @@ struct placeRelatedWordModel: Codable {
       let current_page: Int
       let current_elements: Int
     }
-    struct wordList: Codable {
+    
+    struct wordOfPlace: Codable {
       let word_id: Int
       let word_kor: String
       let word_eng: String
       let word_status: String
+      let meaning_kor1: String
+      let meaning_eng1: String
+      let pronunciation_eng: String
       let word_image: String
       let word_audio: String
     }

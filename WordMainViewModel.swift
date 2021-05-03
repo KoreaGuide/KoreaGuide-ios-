@@ -9,24 +9,20 @@ import Combine
 import Foundation
 
 class WordMainViewModel: ObservableObject {
+  /*
   @Published var wordlist: [WordInfo]
-
+  var response: myWordReadModel
   init(wordlist: [WordInfo]) {
     self.wordlist = wordlist
 
-    /*
-     WordApiCaller.myWordRead() { status in
-       let status = Int(result!.result_code)
-       switch status {
-       case 200:
-         print("\(place_id) and \(index)")
-       default:
-         print("hello")
-       }
-     }
-    
-    */
-  }
+    WordApiCaller.myWordRead { result in
+      if Int(result?.result_code) == 200 {
+        self.response = result?.description
+        // let data = self.response!.data
+      }
+    }
+ */
+  
 
   // init(){
   // api/myWord/{id} **여기서 id는 user의 id (Integer),  "word_folder_id": 2
