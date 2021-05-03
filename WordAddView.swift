@@ -10,15 +10,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-struct WordInfo {
-  let word_id: Int
-  let word: String // kor
-  let meaning: String // eng
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
-  let image = Image("mae")
-}
+
 
 // place word list
 //  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]

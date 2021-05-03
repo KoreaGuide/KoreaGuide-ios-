@@ -9,15 +9,17 @@ import Foundation
 import Combine
 
 class TodayWordViewModel: ObservableObject {
-  @Published var wordInfo: WordInfo
+  //@Published var word: TodayWord
   var word_id: Int = 0
   
-  init(wordInfo: WordInfo){ // api/home/  "word_id": 2,
-    self.wordInfo = wordInfo
-    
+  init(word_id: Int){
+    self.word_id = word_id
+  }
+  init(){
     WordApiCaller.homeRead() { result in
       self.word_id = result?.data.word_id ?? 0
-      
     }
   }
+  
+  
 }

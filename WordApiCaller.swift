@@ -19,23 +19,16 @@ final class WordApiCaller {
     case myWordCreate(word_id: String)
     case myWordRead
     case myWordDelete(word_id: String)
-    // case placeDetailAllRead(place_id: Int)
-    // case placeDetailEngRead(place_id: Int)
-    // case placeDetailKorRead(place_id: Int)
-    case placeRelatedWords(place_id: Int, page_num: Int)
-    // case confirmEmail(key: String)
+    case placeDetailAllRead(place_id: Int)
+    case placeRelatedWords(place_id: Int)
+
     func asURLRequest() throws -> URLRequest {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
         switch self {
-        case let .placeRelatedWords(place_id, page_num):
-          return ("/api/place/word/\(place_id)?=page=\(page_num)", ["": ""], .get, defaultHeaders)
-       // case let .placeDetailKorRead(place_id):
-        //  return ("/api/place/detail/kor/\(place_id)", ["": ""], .get, defaultHeaders)
-        // case let .placeDetailEngRead(place_id):
-         // return ("/api/place/detail/eng/\(place_id)", ["": ""], .get, defaultHeaders)
-        // case let .placeDetailAllRead(place_id):
-        //  return ("/api/place/detail/\(place_id)", ["": ""], .get, defaultHeaders)
-
+        case let .placeRelatedWords(place_id):
+          return ("/api/place/word/\(place_id)", ["": ""], .get, defaultHeaders)
+        case let .placeDetailAllRead(place_id):
+          return ("/api/place/detail/\(place_id)", ["": ""], .get, defaultHeaders)
         case .homeRead:
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_id):
@@ -57,83 +50,36 @@ final class WordApiCaller {
     }
   }
 
-  /*
-    static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
-      AF.request(Router.placeDetailAllRead(place_id: place_id))
-        .responseJSON { response in
-          debugPrint(response)
-          switch response.result {
-          case .failure:
-            callback(nil)
-            return
-          case .success:
-            print("@@ success")
-            break
-          }
-          guard let data = response.data else {
-            print("@@")
-            return }
-          let decoder = JSONDecoder()
-          do {
-            let result = try decoder.decode(PlaceDetailModel.self, from: data)
-            print("@@")
-            print(result)
-            callback(result)
-          } catch {
-            print("@@@")
-            callback(nil)
-          }
+  static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
+    AF.request(Router.placeDetailAllRead(place_id: place_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          print("@@ success")
         }
-    }
-    static func placeDetailKorRead(place_id: Int, callback: @escaping (placeDetailKorModel?) -> Void) {
-      AF.request(Router.placeDetailKorRead(place_id: place_id))
-        .responseJSON { response in
-          debugPrint(response)
-          switch response.result {
-          case .failure:
-            callback(nil)
-            return
-          case .success:
-            break
-          }
-          guard let data = response.data else { return }
-          print(String(decoding: data, as: UTF8.self))
-          let decoder = JSONDecoder()
-          do {
-            let result = try decoder.decode(placeDetailKorModel.self, from: data)
-            print(result)
-            callback(result)
-          } catch {
-            callback(nil)
-          }
+        guard let data = response.data else {
+          print("@@")
+          return
         }
-    }
-    static func placeDetailEngRead(place_id: Int, callback: @escaping (placeDetailEngModel?) -> Void) {
-      AF.request(Router.placeDetailEngRead(place_id: place_id))
-        .responseJSON { response in
-          debugPrint(response)
-          switch response.result {
-          case .failure:
-            callback(nil)
-            return
-          case .success:
-            break
-          }
-          guard let data = response.data else { return }
-          print(String(decoding: data, as: UTF8.self))
-          let decoder = JSONDecoder()
-          do {
-            let result = try decoder.decode(placeDetailEngModel.self, from: data)
-            print(result)
-            callback(result)
-          } catch {
-            callback(nil)
-          }
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(PlaceDetailModel.self, from: data)
+          print("@@")
+          print(result)
+          callback(result)
+        } catch {
+          print("@@@")
+          callback(nil)
         }
-    }
-   */
-  static func placeRelatedWords(place_id: Int, page_num: Int, callback: @escaping (placeRelatedWordModel?) -> Void) {
-    AF.request(Router.placeRelatedWords(place_id: place_id, page_num: page_num))
+      }
+  }
+
+  static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceModel?) -> Void) {
+    AF.request(Router.placeRelatedWords(place_id: place_id))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -147,7 +93,7 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(placeRelatedWordModel.self, from: data)
+          let result = try decoder.decode(WordOfPlaceModel.self, from: data)
           print(result)
           callback(result)
         } catch {
