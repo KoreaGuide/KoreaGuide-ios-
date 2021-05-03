@@ -27,7 +27,7 @@ struct ProgressBar: View {
   @Binding var value: Float
 
   init(value: Binding<Float>) {
-    _value = value // beta 4
+    _value = value 
   }
 
   var body: some View {
@@ -192,6 +192,7 @@ struct WordBox: View {
               .foregroundColor(Color.orange)
           })
             .onAppear {
+              print("sound...")
             //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
               //self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
             }
