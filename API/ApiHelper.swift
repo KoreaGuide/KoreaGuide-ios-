@@ -82,16 +82,20 @@ final class ApiHelper {
           callback(nil)
           return
         case .success:
+          print("@@ success")
           break
         }
-        guard let data = response.data else { return }
-        print(String(decoding: data, as: UTF8.self))
+        guard let data = response.data else {
+          print("@@")
+          return }
         let decoder = JSONDecoder()
         do {
           let result = try decoder.decode(PlaceDetailModel.self, from: data)
+          print("@@")
           print(result)
           callback(result)
         } catch {
+          print("@@@")
           callback(nil)
         }
       }

@@ -6,13 +6,14 @@
 //
 
 import AVFoundation
+import AVKit
 import Foundation
 import IGListKit
-import AVKit
+import UIKit
 class HomeSectionController: ListBindingSectionController<Home>,
   ListBindingSectionControllerDataSource
 {
-  var player : AVPlayer?
+  var player: AVPlayer?
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     guard let home = object as? Home else {
       fatalError()
@@ -24,7 +25,7 @@ class HomeSectionController: ListBindingSectionController<Home>,
   }
 
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
-    print("1")
+    
     let identifier: String
     switch viewModel {
     case is CardViewModel:
@@ -50,7 +51,7 @@ class HomeSectionController: ListBindingSectionController<Home>,
     let height: CGFloat
     switch viewModel {
     case is CardViewModel:
-      height = 150
+      height = 300
 
     case is WordViewModel:
       height = 200
@@ -59,27 +60,22 @@ class HomeSectionController: ListBindingSectionController<Home>,
     }
     return CGSize(width: width, height: height)
   }
-  
-  override func didSelectItem(at index: Int) {
-    guard let selectedCell = collectionContext?.cellForItem(at: index, sectionController: self) as? CardCell else { return }
-    guard let place_id = selectedCell.place_id else { return }
-    ApiHelper.placeDetailAllRead(place_id: place_id) { result in
-      
-      let status = Int(result!.result_code)
-      switch status {
-      case 200:
-        print("\(place_id) and \(index)")
-      default:
-        print("hello")
-      }
-    }
-    
-  }
+
   override init() {
     super.init()
     dataSource = self
     inset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
     minimumLineSpacing = 20
+  }
+
+  override func didSelectItem(at index: Int) {
+    guard let selectedCell = collectionContext?.cellForItem(at: index, sectionController: self) as? CardCell else { return }
+    guard let place_id = selectedCell.place_id else { return }
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
+    postingVC.place_id = place_id
+    viewController?.navigationController?.pushViewController(postingVC, animated: true)
   }
 }
 
@@ -89,9 +85,8 @@ extension HomeSectionController: WordCellDelegate {
       fatalError()
     }
     let playerItem = AVPlayerItem(url: url)
-    self.player = AVPlayer(playerItem: playerItem)
-   
+    player = AVPlayer(playerItem: playerItem)
+
     player?.play()
-    
   }
 }
