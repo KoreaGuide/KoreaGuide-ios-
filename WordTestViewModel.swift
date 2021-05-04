@@ -11,8 +11,8 @@ import Combine
 class WordTestViewModel: ObservableObject {
   @Published var placeTitle: String = "place title place title"
   
-  @Published var wordList: [WordInfo] =  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
-  @Published var selectedWord: WordInfo?
+  @Published var wordList: [TestWord]?
+  @Published var selectedWord: TestWord?
   @Published var word_id: Int = 0
   @Published var didSelectWord: Bool = false
   

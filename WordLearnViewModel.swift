@@ -8,9 +8,9 @@
 import Foundation
 
 class WordLearnViewModel: ObservableObject {
-  @Published var todayword: WordInfo
+  @Published var todayword: LearningWord
   
-  init(wordInfo: WordInfo){
+  init(wordInfo: LearningWord){
     self.todayword = wordInfo
   }
 }

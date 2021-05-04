@@ -49,7 +49,7 @@ struct WordLearnView: View {
     .ignoresSafeArea()
     .navigationBarBackButtonHidden(true)
     .navigationBarItems(leading: self.backButton)
-    .navigationViewStyle(StackNavigationViewStyle())
+    //.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 

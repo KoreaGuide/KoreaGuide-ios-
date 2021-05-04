@@ -9,9 +9,64 @@ import Combine
 import Foundation
 import SwiftUI
 
+struct TopLabel: View {
+  var body: some View {
+    HStack {
+      Text("ForWord")
+        .foregroundColor(.white)
+        .fontWeight(.heavy)
+        .padding(.horizontal, 20)
+        .font(Font.custom("Bangla MN", size: 20))
+
+      Spacer()
+    }
+    .padding(.vertical, 10)
+
+    HStack {
+      Text("Welcome, " + String(UserDefaults.id!))
+        .foregroundColor(.white)
+        .font(Font.custom("Bangla MN", size: 30))
+        .padding(.horizontal, 20)
+      Spacer()
+    }
+    HStack {
+      Text("Let's review your words!")
+        .foregroundColor(.white)
+        .font(Font.custom("Bangla MN", size: 20))
+        .padding(.horizontal, 20)
+
+      Spacer()
+    }
+  }
+}
+
+struct TotalCountBox: View {
+  @ObservedObject var viewModel: WordMainViewModel
+ 
+  var body: some View {
+    HStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 10)
+          .foregroundColor(.white)
+          .opacity(0.8)
+          .frame(width: UIScreen.main.bounds.width - 60, height: 50, alignment: .center)
+
+        VStack {
+          Text("Total Words : " + String())
+            .foregroundColor(.black)
+            .font(Font.custom("Bangla MN", size: 25))
+            .padding(.top, 10)
+        }
+      }
+    }.padding(20)
+  }
+}
+
 struct WordMainView: View {
-  @ObservedObject var viewModel: WordMainViewModel = WordMainViewModel(wordlist: [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")])
+  @ObservedObject var viewModel: WordMainViewModel = WordMainViewModel()
+
   
+
   var body: some View {
     NavigationView {
       ZStack {
@@ -21,46 +76,22 @@ struct WordMainView: View {
           .ignoresSafeArea()
 
         VStack {
-          HStack {
-            Text("ForWord")
-              .foregroundColor(.white)
-              .font(.title3)
-              .padding(.horizontal, 20)
-
-            Spacer()
-          }
-
-          HStack {
-            Text("Your Words")
-              .foregroundColor(.white)
-              .font(.title)
-              .padding(.horizontal, 20)
-            Spacer()
-          }
-
-          HStack {
-            Text("Total Words : " + String(viewModel.wordlist.count))
-              .foregroundColor(.white)
-              .font(.title2)
-              .padding(.horizontal, 20)
-            Spacer()
-          }
-          .padding(.vertical, 20)
-
+          TopLabel()
+          TotalCountBox(viewModel: viewModel)
           NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
-            AddedWordButton()
+            AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
-            LearningWordButton()
+          NavigationLink(destination: TodayWordView(viewModel: TodayWordViewModel())) {
+            LearningWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel())) {
-            CompleteWordButton()
+          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel(place_id: 0))) {
+            CompleteWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
@@ -72,61 +103,70 @@ struct WordMainView: View {
     .navigationBarTitle("")
     .navigationBarHidden(true)
     .ignoresSafeArea()
-    .navigationViewStyle(StackNavigationViewStyle())
+    // .navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
 // .animation(.easeInOut)
 
 struct AddedWordButton: View {
+  @ObservedObject var viewModel: WordMainViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: .center)
 
       VStack {
         Text("Added Word List")
           .foregroundColor(.white)
-          .font(.title)
-        Text("number of words")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
+        Text("number of words : " + String((viewModel.added_word_info?.data.now_word_count)!))
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
 }
 
 struct LearningWordButton: View {
+  @ObservedObject var viewModel: WordMainViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: .center)
 
       VStack {
         Text("Learning Word List")
           .foregroundColor(.white)
-          .font(.title)
-        Text("number of words")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
+        Text("number of words : " + String((viewModel.learning_word_info?.data.now_word_count)!))
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
 }
 
 struct CompleteWordButton: View {
+  @ObservedObject var viewModel: WordMainViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .foregroundColor(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 100, alignment: .center)
 
       VStack {
         Text("Complete Word List")
           .foregroundColor(.white)
-          .font(.title)
-        Text("number of words")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
+        Text("number of words : " + String((viewModel.complete_word_info?.data.now_word_count)!))
           .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 20))
       }
     }
   }

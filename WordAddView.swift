@@ -5,19 +5,12 @@
 //  Created by 임선호 on 2021/04/14.
 //
 
+import AVKit
 import Combine
 import Foundation
 import SwiftUI
 
-struct WordInfo {
-  let word_id: Int
-  let word: String // kor
-  let meaning: String // eng
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
-  let image = Image("mae")
-}
+
 
 // place word list
 //  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
@@ -26,7 +19,7 @@ struct ProgressBar: View {
   @Binding var value: Float
 
   init(value: Binding<Float>) {
-    self._value = value // beta 4
+    _value = value // beta 4
   }
 
   var body: some View {
@@ -78,21 +71,25 @@ struct WordAddView: View {
 
         VStack {
           // place title
-          Label(viewModel.placeTitle, systemImage: "flag") // flag.fill
+          Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
-            .font(.title3)
+            .font(Font.custom("Bangla MN", size: 20))
 
           // label
-          Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
-            .foregroundColor(.white)
-            .padding(.top, 5)
+          Section {
+            Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
+              .foregroundColor(.white)
+              .fontWeight(.heavy)
+              .font(Font.custom("Bangla MN", size: 18))
 
-          ProgressBar(value: $viewModel.progressValue)
-            .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
-            .padding(.vertical, 20)
-          
+            ProgressBar(value: $viewModel.progressValue)
+              .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
+              .padding(.vertical, 5)
+          }
+
           HStack {
             // left
+
             Button(action: {
               if viewModel.currentWordCount > 0 {
                 viewModel.currentWordCount -= 1
@@ -109,7 +106,7 @@ struct WordAddView: View {
             })
 
             // box
-            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, wordInfo: viewModel.wordList[viewModel.currentWordCount]))
+            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.word_list[viewModel.currentWordCount]))
 
             // right
             Button(action: {
@@ -127,8 +124,9 @@ struct WordAddView: View {
             })
           }
 
+          Spacer().frame(height: 30)
+          InOutButton(viewModel: viewModel)
           Spacer()
-            .frame(height: 120, alignment: .center)
         }
       }
     }
@@ -141,58 +139,100 @@ struct WordAddView: View {
 
 struct WordBox: View {
   @ObservedObject var viewModel: WordBoxViewModel
+  @State var audioPlayer: AVAudioPlayer!
   // @State var added: Bool = false
   // @State var playing: Bool = false
 
   var body: some View {
-    ZStack {
-      RoundedRectangle(cornerRadius: 25)
-        .fill(Color("Navy"))
-        .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 5 * 3)
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 25)
+          .fill(Color("Navy"))
+          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
 
-      VStack {
-        // 1.circle
-        Button(action: {
-          viewModel.wordInfo.added.toggle()
-          if viewModel.wordInfo.added == true {
-            // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
-          } else {
-            // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
-          }
-        }, label: {
-          Image(systemName: viewModel.wordInfo.added ? "bookmark.fill" : "bookmark")
+        VStack {
+          // 1.circle
+
+          Image("mae") // viewModel.wordList[viewModel.currentWordCount].image
             .resizable()
-            .frame(width: 20, height: 30, alignment: .center)
-            .foregroundColor(Color.orange)
-        })
-          .padding(.bottom, 20)
+            .frame(width: 200, height: 200, alignment: .center)
+            .cornerRadius(10)
+            .padding(.vertical, 20)
 
-        Image("mae") // viewModel.wordList[viewModel.currentWordCount].image
-          .resizable()
-          .frame(width: 200, height: 200, alignment: .center)
-          .cornerRadius(10)
+          Spacer().frame(height: 10)
 
-        Spacer().frame(height: 30)
+          Text(viewModel.word.word_kor)
+            .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 20))
 
-        Text(viewModel.wordInfo.word)
-          .foregroundColor(.white)
-        Text("pronun")
-          .foregroundColor(.white)
-        Text(viewModel.wordInfo.meaning)
-          .foregroundColor(.white)
+          Text(viewModel.word.pronunciation_eng)
+            .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
 
-        Button(action: {
-          viewModel.wordInfo.playing.toggle()
-          //
-        }, label: {
-          Image(systemName: viewModel.wordInfo.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
+          Text(viewModel.word.word_eng)
+            .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
+          
+          Text(viewModel.word.meaning_eng1)
+            .foregroundColor(.white)
+            .font(Font.custom("Bangla MN", size: 18))
+          
+          Button(action: {
+            viewModel.word.playing.toggle()
+            self.audioPlayer.play()
+            // self.audioPlayer.pause()
+          }, label: {
+            Image(systemName: viewModel.word.playing ? "play.circle.fill" : "play.circle") // play.circle.fill
+              .resizable()
+              .frame(width: 30, height: 30, alignment: .center)
+              .foregroundColor(Color.orange)
+          })
+            .onAppear {
+            //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
+              //self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+            }
+            .padding(.bottom, 20)
+        }
+      }
+      .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+    }
+  }
+}
+
+struct InOutButton: View {
+  @ObservedObject var viewModel: WordAddViewModel
+
+  var body: some View {
+    //TODO 수정
+    Button(action: {
+      viewModel.addButton.toggle()
+      if viewModel.addButton == true {
+     viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
+      } else {
+        viewModel.added_word_id_list = viewModel.added_word_id_list
+          .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word_id }
+      }
+    }, label: {
+      ZStack {
+        RoundedRectangle(cornerRadius: 10)
+          .fill(Color("Navy"))
+          .frame(width: UIScreen.main.bounds.width - 80, height: 50)
+
+        HStack {
+          Image(systemName: viewModel.word_list[viewModel.currentWordCount].added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
             .resizable()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color.orange)
-        })
-          .padding(.bottom, 20)
+            .padding(.horizontal, 5)
+          Text(viewModel.word_list[viewModel.currentWordCount].added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
+            .foregroundColor(Color.orange)
+            .font(Font.custom("Bangla MN", size: 18))
+            .padding(.top, 10)
+        }
       }
-    }
+
+    })
+      .padding(.bottom, 20)
   }
 }
 
@@ -200,22 +240,22 @@ struct WordAddFinishView: View {
   @ObservedObject var viewModel: WordAddViewModel
 
   var body: some View {
-    Text(viewModel.placeTitle)
+    Text(viewModel.place_title)
 
     Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
 
     Text("You got " + String(3) + "words")
-    HStack{
-      Button(action: {
-        
-      }, label: {
-     Text("Let's go back to place page")
+    HStack {
+      Button(action: {}, label: {
+        Text("Let's go back to place page")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
       })
         .padding(.bottom, 20)
-      Button(action: {
-        
-      }, label: {
-     Text("Let's go to check the words")
+      Button(action: {}, label: {
+        Text("Let's go to check the words")
+          .font(Font.custom("Bangla MN", size: 25))
+          .padding(.top, 10)
       })
         .padding(.bottom, 20)
     }
