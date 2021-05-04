@@ -17,21 +17,27 @@ struct WordPopup: View {
       if self.displayItem != -1 {
         Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
-        VStack {
+        VStack (alignment: .leading){
           HStack {
-            //Text(viewModel.word_list[displayItem].word)
+            Text(viewModel.word_list[displayItem].word_kor)
+              .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.heavy)
           }
           .padding(10)
           HStack {
-            //Text(viewModel.word_list[displayItem].word)
+            Text(viewModel.word_list[displayItem].word_eng)
+              .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.bold)
           }
           .padding(10)
           HStack {
-           // Text(viewModel.word_list[displayItem].word)
+            Text(viewModel.word_list[displayItem].meaning_kor)
+              .font(Font.custom("Bangla MN", size: 20))
           }
           .padding(10)
           HStack {
-           // Text(viewModel.word_list[displayItem].word)
+            Text(viewModel.word_list[displayItem].meaning_eng)
+              .font(Font.custom("Bangla MN", size: 20))
           }
           .padding(10)
         }
@@ -90,13 +96,18 @@ struct TestButton: View {
   }
 }
 
+enum FolderName: String {
+  case Added
+  case Learning
+  case Complete
+}
+
 struct WordListView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-  // @State private var isShowingDetailView = false
   @ObservedObject var viewModel: WordListViewModel
-  // @State private var action: Int? = 0
 
   @State var showPopup: Int = -1
+  
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
@@ -126,7 +137,7 @@ struct WordListView: View {
             .ignoresSafeArea()
 
           VStack(alignment: .center) {
-            Text("" + " Words List")
+            Text("" + " Words List") //TODO
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 25))
@@ -140,34 +151,29 @@ struct WordListView: View {
 
               Spacer()
 
-              /*
-              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(wordlist: [WordInfo(word_id: 999, word: "시험중", meaning: "testing")])).navigationBarHidden(true))
+              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list)).navigationBarHidden(true))
                 {
                   TestButton()
                 }
                 .isDetailLink(false)
- */
             }
             .padding(.horizontal, 30)
             Spacer()
               .frame(height: 40)
-            // Text("list here")
+            
 
-            /*
-            WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
+            WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 
               let num = row * 2 + col
 
-              if (viewModel.wordlist.count > num) && (num >= 0) {
+              if (viewModel.word_list.count > num) && (num >= 0) {
                 Button(action: {
                   self.showPopup = num
                 }, label: {
-                  WordCellView(word: $viewModel.wordlist[num])
+                  WordCellView(viewModel: viewModel, index: num)
                 })
               }
             }
-            
-            */
           }
         }
       }
@@ -184,4 +190,3 @@ struct WordListView: View {
     }
   }
 }
-

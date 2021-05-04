@@ -10,11 +10,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-
-
-// place word list
-//  [WordInfo(word_id: 1, word: "첫번째 단어", meaning: "first word"), WordInfo(word_id: 2, word: "두번째 단어", meaning: "second word"), WordInfo(word_id: 3, word: "세번째 단어", meaning: "third word")]
-
 struct ProgressBar: View {
   @Binding var value: Float
 
@@ -161,19 +156,19 @@ struct WordBox: View {
 
           Spacer().frame(height: 10)
 
-          Text(viewModel.word.word_kor)
+          Text(viewModel.word.word.word_kor)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 
-          Text(viewModel.word.pronunciation_eng)
+          Text(viewModel.word.word.pronunciation_eng)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
-          Text(viewModel.word.word_eng)
+          Text(viewModel.word.word.word_eng)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
           
-          Text(viewModel.word.meaning_eng1)
+          Text(viewModel.word.word.meaning_eng1)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
           
@@ -207,10 +202,10 @@ struct InOutButton: View {
     Button(action: {
       viewModel.addButton.toggle()
       if viewModel.addButton == true {
-     viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
+        viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word.word_id)
       } else {
         viewModel.added_word_id_list = viewModel.added_word_id_list
-          .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word_id }
+          .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word.word_id }
       }
     }, label: {
       ZStack {

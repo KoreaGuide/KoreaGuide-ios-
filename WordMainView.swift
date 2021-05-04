@@ -78,7 +78,7 @@ struct WordMainView: View {
         VStack {
           TopLabel()
           TotalCountBox(viewModel: viewModel)
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel())) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 1, word_list_info: viewModel.added_word_info!))) {
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
@@ -122,7 +122,7 @@ struct AddedWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String((viewModel.added_word_info?.data.now_word_count)!))
+        Text("number of words : " + String(viewModel.added_word_info!.data.now_word_count))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -143,7 +143,7 @@ struct LearningWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String((viewModel.learning_word_info?.data.now_word_count)!))
+        Text("number of words : " + String(viewModel.learning_word_info!.data.now_word_count))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -164,7 +164,7 @@ struct CompleteWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String((viewModel.complete_word_info?.data.now_word_count)!))
+        Text("number of words : " + String(viewModel.complete_word_info!.data.now_word_count))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }

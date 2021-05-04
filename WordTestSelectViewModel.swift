@@ -10,10 +10,13 @@ import Combine
 
 
 class WordTestSelectViewModel: ObservableObject {
-  @Published var word_list: [TestWord]
+  @Published var word_folder_id: Int
+  @Published var word_list: [InMyListWord]
   
   
-  init(wordlist: [TestWord]){
-    self.word_list = wordlist
+  init(word_folder_id: Int, word_list: [InMyListWord]){
+    self.word_folder_id = word_folder_id
+    self.word_list = word_list
   }
+  
 }

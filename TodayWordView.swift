@@ -57,7 +57,7 @@ struct TodayWordView: View {
             .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .center)
             .padding(.vertical, 10)
           HStack {
-            Text(viewModel.word!.word_kor)
+            Text(viewModel.word?.word.word_kor ?? "")
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.top, 10)
@@ -65,7 +65,7 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 20)
           HStack {
-            Text(viewModel.word!.pronunciation_eng)
+            Text(viewModel.word?.word.pronunciation_eng ?? "")
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.top, 10)
@@ -73,7 +73,7 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 20)
           HStack {
-            Text(viewModel.word!.meaning_eng1)
+            Text(viewModel.word?.word.meaning_eng1 ?? "")
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.top, 10)

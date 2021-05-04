@@ -7,57 +7,35 @@
 
 import Foundation
 
-struct TodayWordModel: Codable{
+struct TodayWordModel: Codable {
   let result_code: Int
   let status: String
   let description: String
   let data: RawWord
-  
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
 }
 
 struct TodayWord {
-  let word_id: Int
-  let word_kor: String
-  let word_eng: String
-  let meaning_kor1: String
-  let meaning_kor2: String
-  let meaning_eng1: String
-  let meaning_eng2: String
-  let pronunciation_eng: String
-  let image: String
-
+  var word: RawWord
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
-
-  init(word: RawWord) {
-    word_id = word.word_id
-    word_kor = word.word_kor
-    word_eng = word.word_eng
-    meaning_kor1 = word.meaning_kor1
-    meaning_kor2 = word.meaning_kor2
-    meaning_eng1 = word.meaning_eng1
-    meaning_eng2 = word.meaning_eng2
-    pronunciation_eng = word.pronunciation_eng
-    image = word.image
-  }
 }
 
 struct WordOfPlaceModel: Codable {
   let result_code: Int
+  let status: String
+  let description: String
   let data: WordOfPlaceList
 
   struct WordOfPlaceList: Codable {
     let user_id: Int
     let place_id: Int
-    let word_list: [RawWord]
+    let word_list: [WordDetail]
   }
 }
 
-struct AddingWord {
+struct WordDetail: Codable {
+  let word_status: String
   let word_id: Int
   let word_kor: String
   let word_eng: String
@@ -65,92 +43,94 @@ struct AddingWord {
   let meaning_kor2: String
   let meaning_eng1: String
   let meaning_eng2: String
+
   let pronunciation_eng: String
-  let image: String
+  let pronunciation_kor: String
+  let word_image: String
+}
+
+/*
+ struct AddingWordList {
+   let word_list: [AddingWord]
+ }*/
+
+struct AddingWord {
+  let word: RawWord
 
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
 
   init(word: RawWord) {
-    word_id = word.word_id
-    word_kor = word.word_kor
-    word_eng = word.word_eng
-    meaning_kor1 = word.meaning_kor1
-    meaning_kor2 = word.meaning_kor2
-    meaning_eng1 = word.meaning_eng1
-    meaning_eng2 = word.meaning_eng2
-    pronunciation_eng = word.pronunciation_eng
-    image = word.image
+    self.word = word
   }
 }
 
-//word list 총 개수 등
-struct MainWordCountModel: Codable {
+// word list 총 개수 등
+struct MainWordListModel: Codable {
   let result_code: Int
+  let status: String
+  let description: String
   let data: WordFolderInfo
   struct WordFolderInfo: Codable {
     let my_word_folder_id: Int
     let now_word_count: Int
+    let my_word_list: [InMyListWord]
   }
 }
 
+struct InMyListWord: Codable {
+  let id: Int
+  let word_eng: String
+  let word_kor: String
+  let meaning_eng: String
+  let meaning_kor: String
+  let image: String
+  let my_word_status: String
+}
 
+struct DeleteResponse: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: AfterDeleteInto
+
+  struct AfterDeleteInto: Codable {
+    let user_id: Int
+    let my_word_folder_id: Int
+    let previous_word_count: Int
+    let now_word_count: Int
+  }
+}
+
+struct LearningWordList {
+  let word_list: [LearningWord]
+}
 
 struct LearningWord {
-  let word_id: Int
-  let word_kor: String
-  let word_eng: String
-  let meaning_kor1: String
-  let meaning_kor2: String
-  let meaning_eng1: String
-  let meaning_eng2: String
-  let pronunciation_eng: String
-  let image: String
+  let word: RawWord
 
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
 
   init(word: RawWord) {
-    word_id = word.word_id
-    word_kor = word.word_kor
-    word_eng = word.word_eng
-    meaning_kor1 = word.meaning_kor1
-    meaning_kor2 = word.meaning_kor2
-    meaning_eng1 = word.meaning_eng1
-    meaning_eng2 = word.meaning_eng2
-    pronunciation_eng = word.pronunciation_eng
-    image = word.image
+    self.word = word
   }
 }
 
+struct TestWordList {
+  let word_list: [TestWord]
+}
 
 struct TestWord {
-  let word_id: Int
-  let word_kor: String
-  let word_eng: String
-  let meaning_kor1: String
-  let meaning_kor2: String
-  let meaning_eng1: String
-  let meaning_eng2: String
-  let pronunciation_eng: String
-  let image: String
-
+  let word: RawWord
   var added: Bool = false
   var folder: Int = 0
   var playing: Bool = false
 
   init(word: RawWord) {
-    word_id = word.word_id
-    word_kor = word.word_kor
-    word_eng = word.word_eng
-    meaning_kor1 = word.meaning_kor1
-    meaning_kor2 = word.meaning_kor2
-    meaning_eng1 = word.meaning_eng1
-    meaning_eng2 = word.meaning_eng2
-    pronunciation_eng = word.pronunciation_eng
-    image = word.image
+    self.word = word
   }
 }
 
@@ -177,21 +157,3 @@ struct RawWord: Codable {
   let pronunciation_eng: String
   let image: String
 }
-
-/*
- struct TodayWordModel: Codable {
-   enum CodingKeys: String, CodingKey {
-     case word_id
-   }
-
-   let word_id: Int // home read
-
-   // let wordInfo: WordInfo // myWordRead
-
-   init(from decoder: Decoder) throws {
-     let container = try decoder.container(keyedBy: CodingKeys.self)
-     word_id = try container.decode(Int.self, forKey: CodingKeys.word_id)
-   }
- }
- */
-

@@ -10,9 +10,8 @@ import Foundation
 import SwiftUI
 
 struct WordCellView: View {
-  @Binding var word: RawWord
-
-  // @State var cancellable = Set<AnyCancellable>()
+  @ObservedObject var viewModel: WordListViewModel
+  @State var index: Int
 
   var body: some View {
     VStack {
@@ -24,14 +23,14 @@ struct WordCellView: View {
 
         VStack {
           HStack {
-            Text(word.word_kor)
+            Text(viewModel.word_list[index].word_kor)
               .foregroundColor(.black)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 20))
               .padding(.top, 10)
           }
           HStack {
-            Text(word.word_eng)
+            Text(viewModel.word_list[index].word_eng)
               .foregroundColor(.black)
               .fontWeight(.regular)
               .font(Font.custom("Bangla MN", size: 18))
@@ -40,20 +39,26 @@ struct WordCellView: View {
 
           HStack {
             Button {
-              //TODO : delete
-              //api/myWord/{id} **여기서 id는 user의 id (Integer), "word_folder_id": 2,
-              //"word_id":5
+              WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[index].id) {
+                result in
+                let status = Int(result!.result_code)
+                switch status {
+                case 200:
+                  print("----- my word delete api done")
+                default:
+                  print("----- my word delete api error")
+                }
+              }
             } label: {
               Image(systemName: "trash.circle")
                 .resizable()
-                .frame(width: 30 , height: 30, alignment: .center)
+                .frame(width: 30, height: 30, alignment: .center)
                 .foregroundColor(Color("Pink"))
             }
-            //.padding(.leading, 60)
+            // .padding(.leading, 60)
           }
           .padding(.top, 10)
         }
-       
       }
     }
     .padding(5)

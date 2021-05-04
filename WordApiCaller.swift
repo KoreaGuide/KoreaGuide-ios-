@@ -16,10 +16,10 @@ final class WordApiCaller {
   // static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
   enum Router: URLRequestConvertible {
     case homeRead
-    case myWordCreate(word_id: String)
-    case oneWordRead
+    case myWordCreate(word_id: Int)
+    case oneWordRead(word_id: Int)
     case folderWordRead(word_folder_id: Int)
-    case myWordDelete(word_id: String)
+    case myWordDelete(word_folder_id: Int, word_id: Int)
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
 
@@ -34,12 +34,12 @@ final class WordApiCaller {
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .post, defaultHeaders)
-        case .oneWordRead: // 이거 어케함
-          return ("/api/word/", ["": ""], .get, defaultHeaders)
-        case .folderWordRead:
-          return ("/api/myWord/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
-        case let .myWordDelete(word_id):
-          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .delete, defaultHeaders)
+        case let .oneWordRead(word_id):// 이거 어케함
+          return ("/api/word/\(word_id)", ["": ""], .get, defaultHeaders)
+        case let .folderWordRead(word_folder_id: word_folder_id):
+          return ("/api/myWord/\(word_folder_id)" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
+        case let .myWordDelete(word_folder_id, word_id):
+          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
         }
       }()
       let url = try "\(baseHostName)".asURL()
@@ -129,7 +129,7 @@ final class WordApiCaller {
       }
   }
 
-  static func myWordCreate(word_id: String, callback: @escaping (Int?) -> Void) {
+  static func myWordCreate(word_id: Int, callback: @escaping (Int?) -> Void) {
     AF.request(Router.myWordCreate(word_id: word_id))
       .responseJSON { response in
         debugPrint(response)
@@ -152,8 +152,8 @@ final class WordApiCaller {
       }
   }
 
-  static func oneWordRead(callback: @escaping (TodayWordModel?) -> Void) {
-    AF.request(Router.oneWordRead)
+  static func oneWordRead(word_id: Int, callback: @escaping (TodayWordModel?) -> Void) {
+    AF.request(Router.oneWordRead(word_id: word_id))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -175,7 +175,7 @@ final class WordApiCaller {
       }
   }
 
-  static func folderWordRead(word_folder_id: Int, callback: @escaping (MainWordCountModel?) -> Void) {
+  static func folderWordRead(word_folder_id: Int, callback: @escaping (MainWordListModel?) -> Void) {
     AF.request(Router.folderWordRead(word_folder_id: word_folder_id))
       .responseJSON { response in
         debugPrint(response)
@@ -190,7 +190,7 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(MainWordCountModel.self, from: data)
+          let result = try decoder.decode(MainWordListModel.self, from: data)
           callback(result)
         } catch {
           callback(nil)
@@ -198,8 +198,8 @@ final class WordApiCaller {
       }
   }
   
-  static func myWordDelete(word_id: String, callback: @escaping (Int?) -> Void) {
-    AF.request(Router.myWordDelete(word_id: word_id))
+  static func myWordDelete(word_folder_id: Int, word_id: Int, callback: @escaping (DeleteResponse?) -> Void) {
+    AF.request(Router.myWordDelete(word_folder_id: word_folder_id, word_id: word_id))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -213,8 +213,8 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(signUpModel.self, from: data)
-          callback(result.result_code)
+          let result = try decoder.decode(DeleteResponse.self, from: data)
+          callback(result)
         } catch {
           callback(nil)
         }
