@@ -140,17 +140,20 @@ struct WordListView: View {
 
               Spacer()
 
+              /*
               NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(wordlist: [WordInfo(word_id: 999, word: "시험중", meaning: "testing")])).navigationBarHidden(true))
                 {
                   TestButton()
                 }
                 .isDetailLink(false)
+ */
             }
             .padding(.horizontal, 30)
             Spacer()
               .frame(height: 40)
             // Text("list here")
 
+            /*
             WordGridView(rows: (viewModel.wordlist.count + 1) / 2, columns: 2) { row, col in
 
               let num = row * 2 + col
@@ -163,6 +166,8 @@ struct WordListView: View {
                 })
               }
             }
+            
+            */
           }
         }
       }
@@ -179,3 +184,4 @@ struct WordListView: View {
     }
   }
 }
+
