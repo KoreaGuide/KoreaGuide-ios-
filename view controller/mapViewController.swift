@@ -11,15 +11,16 @@ import GoogleMapsUtils
 import MapKit
 import SwiftUI
 import UIKit
-class mapViewController: UIViewController {
+class mapViewController: UIViewController, MapViewTouchDelegate{
   @IBOutlet var mapView: MyMapView!
   let coordinator = MapCoordinator()
-  weak var mapViewTouchDelegate: MapViewTouchDelegate?
-  
+  var target : MKOverlay?
   override func viewDidLoad() {
     super.viewDidLoad()
+    mapView.mapViewTouchDelegate = self
     mapView.delegate = coordinator
     mapView.addOverlays(parseGeoJson())
+    
   }
   
   func parseGeoJson() -> [MKOverlay] {
@@ -89,5 +90,41 @@ class mapViewController: UIViewController {
       }
       return MKOverlayRenderer(overlay: overlay)
     }
+  }
+  
+  
+  func polygonsTapped(polygons: [MKPolygon]) {
+    polygons.forEach{
+      let picker = UIColorPickerViewController()
+      picker.delegate = self
+      self.present(picker, animated: true, completion: nil)
+      target = $0
+    }
+  }
+  
+  func multiPolygonsTapped(multiPolygons: [MKMultiPolygon]) {
+    
+    multiPolygons.forEach{
+      let picker = UIColorPickerViewController()
+      picker.delegate = self
+      self.present(picker, animated: true, completion: nil)
+      target = $0
+    }
+  }
+}
+
+extension mapViewController: UIColorPickerViewControllerDelegate {
+  func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {    if let target = target as? MKPolygon {
+      target.title = viewController.selectedColor.toHexString(alpha: true)
+      mapView.addOverlay(target)
+      mapView.setNeedsDisplay()
+    }
+    if let target = target as? MKMultiPolygon {
+      target.title = viewController.selectedColor.toHexString(alpha: true)
+      mapView.addOverlay(target)
+      mapView.setNeedsDisplay()
+      
+    }
+    
   }
 }
