@@ -12,14 +12,16 @@ import MapKit
 import SwiftUI
 import UIKit
 class mapViewController: UIViewController {
-  @IBOutlet var mapView: MKMapView!
+  @IBOutlet var mapView: MyMapView!
   let coordinator = MapCoordinator()
+  weak var mapViewTouchDelegate: MapViewTouchDelegate?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     mapView.delegate = coordinator
     mapView.addOverlays(parseGeoJson())
   }
-
+  
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "map", ofType: "geojson") else {
       fatalError()
@@ -46,6 +48,7 @@ class mapViewController: UIViewController {
             } else if let multiPolygon = geo as? MKMultiPolygon {
               multiPolygon.title = data.color
               multiPolygon.subtitle = data.sgg_nm
+              
               overlays.append(multiPolygon)
             }
           }
@@ -80,7 +83,6 @@ class mapViewController: UIViewController {
         return renderer
       } else if let polygon = overlay as? MKMultiPolygon {
         let renderer = MKMultiPolygonRenderer(multiPolygon: polygon)
-        print(polygon.title!)
         renderer.fillColor = UIColor(hex: polygon.title!)
         renderer.strokeColor = UIColor.black
         return renderer
