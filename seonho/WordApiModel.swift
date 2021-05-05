@@ -27,12 +27,15 @@ struct WordOfPlaceModel: Codable {
   let description: String
   let data: WordOfPlaceInfo
 
-  struct WordOfPlaceInfo: Codable {
-    let place_id: Int
-    let user_id: Int
-    let word_list: [WordDetail]
-  }
 }
+
+struct WordOfPlaceInfo: Codable {
+  let user_id: Int
+  let place_id: Int
+  let word_list: [WordDetail]
+}
+
+
 struct WordDetail: Codable {
   let word_status: String
   let word_id: Int
@@ -46,6 +49,7 @@ struct WordDetail: Codable {
   let pronunciation_eng: String
   let pronunciation_kor: String
   let word_image: String
+  let word_audio: String
 }
 
 /*

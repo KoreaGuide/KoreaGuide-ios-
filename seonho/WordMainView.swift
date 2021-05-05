@@ -53,7 +53,7 @@ struct TotalCountBox: View {
           .frame(width: UIScreen.main.bounds.width - 60, height: 50, alignment: .center)
 
         VStack {
-          Text("Total Words : " + String(viewModel.totalCount))
+          Text("Total Words : " )//+ String(viewModel.totalCount))
             .foregroundColor(.black)
             .font(Font.custom("Bangla MN", size: 25))
             .padding(.top, 10)
@@ -77,7 +77,7 @@ struct WordMainView: View {
 
         VStack {
           TopLabel()
-          TotalCountBox(viewModel: viewModel)
+          //TotalCountBox(viewModel: viewModel)
 
           NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))) {
             AddedWordButton(viewModel: viewModel)

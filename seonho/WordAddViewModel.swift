@@ -62,13 +62,7 @@ class WordAddViewModel: ObservableObject {
 
     // place id -> related word list
     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-      let status = Int(result!.result_code)
-      switch status {
-      case 200:
-        self.word_list = result?.data.word_list ?? []
-      default:
-        print("----- place related words api error")
-      }
+      self.word_list = result?.word_list ?? []
     }
     totalWordCount = word_list.count
     
@@ -76,7 +70,7 @@ class WordAddViewModel: ObservableObject {
 
 
   func add(word_id: Int) {
-    WordApiCaller.myWordCreate(word_folder_id: 0, word_id: word_id) { result in
+    WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:
@@ -87,7 +81,7 @@ class WordAddViewModel: ObservableObject {
     }
 
     func remove(word_id: Int) {
-      WordApiCaller.myWordDelete(word_folder_id: 0, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {
@@ -98,7 +92,7 @@ class WordAddViewModel: ObservableObject {
         }
       }
 
-      WordApiCaller.myWordDelete(word_folder_id: 1, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {
@@ -109,7 +103,7 @@ class WordAddViewModel: ObservableObject {
         }
       }
 
-      WordApiCaller.myWordDelete(word_folder_id: 2, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {
