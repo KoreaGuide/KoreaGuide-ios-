@@ -38,6 +38,7 @@ struct WordLearnView: View {
         
         VStack {
           Text("learn view")
+            .font(Font.custom("Bangla MN", size: 18))
 
           Text("")
 
@@ -56,6 +57,7 @@ struct WordLearnView: View {
 struct WordLearnFinishView: View {
   var body: some View {
     Text("end of learning")
+      .font(Font.custom("Bangla MN", size: 18))
     // 뭘 보여주지... 잘햇다?
     // learn 도 기록이 되면 공부한 횟수라든가...
     // Button()

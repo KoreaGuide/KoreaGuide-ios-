@@ -16,7 +16,7 @@ final class WordApiCaller {
   // static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
   enum Router: URLRequestConvertible {
     case homeRead
-    case myWordCreate(word_id: Int)
+    case myWordCreate(word_folder_id: Int, word_id: Int)
     case oneWordRead(word_id: Int)
     case folderWordRead(word_folder_id: Int)
     case myWordDelete(word_folder_id: Int, word_id: Int)
@@ -33,8 +33,8 @@ final class WordApiCaller {
           return ("/api/place/detail/\(place_id)", ["": ""], .get, defaultHeaders)
         case .homeRead:
           return ("/api/home/", ["": ""], .get, defaultHeaders)
-        case let .myWordCreate(word_id):
-          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .post, defaultHeaders)
+        case let .myWordCreate(word_folder_id, word_id):
+          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id,"word_id": word_id]], .post, defaultHeaders)
         case let .oneWordRead(word_id):
           return ("/api/word/\(word_id)", ["": ""], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
@@ -133,8 +133,8 @@ final class WordApiCaller {
       }
   }
 
-  static func myWordCreate(word_id: Int, callback: @escaping (Int?) -> Void) {
-    AF.request(Router.myWordCreate(word_id: word_id))
+  static func myWordCreate(word_folder_id: Int, word_id: Int, callback: @escaping (AddResponse?) -> Void) {
+    AF.request(Router.myWordCreate(word_folder_id: word_folder_id, word_id: word_id))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -148,8 +148,8 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(signUpModel.self, from: data)
-          callback(result.result_code)
+          let result = try decoder.decode(AddResponse.self, from: data)
+          callback(result)
         } catch {
           callback(nil)
         }

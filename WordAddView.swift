@@ -72,7 +72,7 @@ struct WordAddView: View {
 
           // label
           Section {
-            Text(String(viewModel.currentWordCount + 1) + "  /  " + String(viewModel.totalWordCount))
+            Text(String(viewModel.currentWordCount) + "  /  " + String(viewModel.totalWordCount))
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 18))

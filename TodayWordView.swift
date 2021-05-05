@@ -16,7 +16,7 @@ struct TodayWordView: View {
     // 뒤로가기
     Button(action: {
       if viewModel.word!.added == true {
-        
+        viewModel.addWord()
       }
       else{
         

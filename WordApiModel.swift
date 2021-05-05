@@ -89,13 +89,25 @@ struct InMyListWord: Codable {
   let my_word_status: String
 }
 
+struct AddResponse: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: AfterAddInfo
+  struct AfterAddInfo: Codable {
+    let my_word_folder_id: Int
+    let previous_word_count: Int
+    let now_word_count: Int
+  }
+}
+
 struct DeleteResponse: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: AfterDeleteInto
+  let data: AfterDeleteInfo
 
-  struct AfterDeleteInto: Codable {
+  struct AfterDeleteInfo: Codable {
     let user_id: Int
     let my_word_folder_id: Int
     let previous_word_count: Int

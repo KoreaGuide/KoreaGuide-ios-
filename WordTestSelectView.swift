@@ -12,6 +12,7 @@ struct rowItem: View {
   var content: String
   var body: some View {
     Text(content)
+      .font(Font.custom("Bangla MN", size: 20))
       .fontWeight(.bold)
       .foregroundColor(.black)
       .frame(width: UIScreen.main.bounds.width - 40, height: 60, alignment: .center)
@@ -49,20 +50,24 @@ struct WordTestSelectView: View {
 
         VStack {
           Text("Let's see how much you're moving forward !")
+            .font(Font.custom("Bangla MN", size: 25))
             .foregroundColor(.white)
             .padding(.vertical, 20)
 
           Text("Words to test")
+            .font(Font.custom("Bangla MN", size: 20))
             .foregroundColor(.white)
             .padding(10)
 
           Text("Number of Words : " + String(viewModel.word_list.count))
+            .font(Font.custom("Bangla MN", size: 20))
             .background(Rectangle()
                           .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
                           .foregroundColor(Color.white.opacity(0.8)))
             .padding(40)
         
           Text("Select word test type !")
+            .font(Font.custom("Bangla MN", size: 20))
             .foregroundColor(.white)
             .fontWeight(.heavy)
             .padding(10)
