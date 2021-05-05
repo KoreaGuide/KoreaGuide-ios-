@@ -13,6 +13,7 @@ protocol MapViewTouchDelegate: AnyObject {
   func multiPolygonsTapped(multiPolygons: [MKMultiPolygon])
 }
 
+
 extension MKPolygon {
   func contain(coor: CLLocationCoordinate2D) -> Bool {
     let polygonRenderer = MKPolygonRenderer(polygon: self)
@@ -61,9 +62,11 @@ class MyMapView: MKMapView {
           }
         }
         if multiPolygons.count > 0 {
+          print(multiPolygons.count)
           mapViewTouchDelegate?.multiPolygonsTapped(multiPolygons: multiPolygons)
         }
         if polygons.count > 0 {
+          print(polygons.count)
           // Do stuff here like use a delegate:
           mapViewTouchDelegate?.polygonsTapped(polygons: polygons)
         }
