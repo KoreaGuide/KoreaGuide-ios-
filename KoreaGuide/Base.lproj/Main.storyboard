@@ -167,6 +167,16 @@
             </objects>
             <point key="canvasLocation" x="1424.6376811594205" y="115.84821428571428"/>
         </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="Q2W-ym-bGm">
+            <objects>
+                <hostingController id="o1G-bD-xbr" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pVa-bt-8ZL"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Vd-rW-I1m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="483" y="1788"/>
+        </scene>
         <!--home-->
         <scene sceneID="qTv-E9-Jlr">
             <objects>
@@ -231,6 +241,9 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhW-Aw-5wf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="358" height="175"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <connections>
+                                                                        <segue destination="o1G-bD-xbr" kind="show" destinationCreationSelector="ToTodayWordView:" id="Rm8-cE-NcV"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maa-to-cgS">
                                                                     <rect key="frame" x="10" y="73" width="338" height="29"/>
