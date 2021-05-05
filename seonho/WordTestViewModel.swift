@@ -18,14 +18,19 @@ class WordTestViewModel: ObservableObject {
   
   @Published var choice: Int = -1
   
-  var result: [(Int, Int, Bool)] = []
+  var result: [(Int, Int, Bool)] = [] // 순서, word id, correct or not
   
   @Published var didSelectWord: Bool = false
 
   @Published var totalWordCount: Int = 1 // 1~
-  @Published var currentWordCount: Int = 0 // 0~ -> index naming
-  @Published var progressValue: Float = 0.5
-
+  @Published var currentWordCount: Int = 0 {
+    willSet {
+      progressValue = Float(newValue) / Float(totalWordCount)
+    }
+  }
+  @Published var progressValue: Float = 0.0
+  @Published var finish: Bool = false
+  
   private var cancellable: Set<AnyCancellable> = []
 
   init(quiz_type: String, word_folder_id: Int) {
@@ -40,6 +45,7 @@ class WordTestViewModel: ObservableObject {
       switch status {
       case 200:
         self.test_word_info = result! as TestWordList
+        print("----- test word get api done")
       default:
         print("----- test word get api error")
       }

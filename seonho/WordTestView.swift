@@ -26,23 +26,30 @@ struct WordTestView: View {
   }
 
   var body: some View {
-    VStack {
-      Text(self.viewModel.quiz_type)
-        .font(Font.custom("Bangla MN", size: 18))
+    ZStack{
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
       
-      Text(String(self.viewModel.currentWordCount) + " / " + String(self.viewModel.totalWordCount))
-        .foregroundColor(.white)
-        .font(Font.custom("Bangla MN", size: 18))
+      VStack {
+        Text(self.viewModel.quiz_type)
+          .font(Font.custom("Bangla MN", size: 18))
+        
+        Text(String(self.viewModel.currentWordCount) + " / " + String(self.viewModel.totalWordCount))
+          .foregroundColor(.white)
+          .font(Font.custom("Bangla MN", size: 18))
 
-      // ProgressBar
-      progressBar
-        .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
+        // ProgressBar
+        progressBar
+          .frame(width: UIScreen.main.bounds.width - 100, height: 20, alignment: .center)
 
-      // test box...
-      Text("Match the meaning of the word!")
-        .font(Font.custom("Bangla MN", size: 18))
-      
-      MatchQuizView(viewModel: self.viewModel)
+        // test box...
+        Text("Match the meaning of the word!")
+          .font(Font.custom("Bangla MN", size: 18))
+        
+        MatchQuizView(viewModel: self.viewModel)
+      }
     }
   }
   

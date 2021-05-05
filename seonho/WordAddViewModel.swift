@@ -30,6 +30,8 @@ class WordAddViewModel: ObservableObject {
 
   @Published var addButton: Bool = false
 
+  var result: [(Int, Int, Bool)] = [] // 순서, word id, add or not
+  
   @Published var added_word_id_list: [Int] = []
   @Published var removed_word_id_list: [Int] = []
 
@@ -37,18 +39,9 @@ class WordAddViewModel: ObservableObject {
   // 1~ -> index naming
   @Published var currentWordCount: Int = 0 {
     willSet {
-      // currentWordCountForShow = newValue + 1
       progressValue = Float(newValue) / Float(totalWordCount)
     }
   }
-
-  /*
-   @Published var currentWordCountForShow: Int = 1 {
-     willSet {
-       progressValue = Float(newValue) / Float(totalWordCount)
-     }
-   }*/
-
   @Published var progressValue: Float = 0.0
 
   @Published var finish: Bool = false

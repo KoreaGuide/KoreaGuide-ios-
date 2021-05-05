@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+//destination: TodayWordView(viewModel: TodayWordViewModel()) 이런식으로 진입
+
 struct TodayWordView: View {
   @ObservedObject var viewModel: TodayWordViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>

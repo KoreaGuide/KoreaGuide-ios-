@@ -8,9 +8,15 @@
 import Foundation
 import IGListKit
 import UIKit
+import SwiftUI
+
 class placeDetailViewController: UIViewController, ListAdapterDataSource {
   @IBOutlet var collectionView: UICollectionView!
   @IBOutlet var LearnButton: UIButton!
+  
+  @IBSegueAction func ToAddWordView(_ coder: NSCoder) -> UIViewController? {
+    return UIHostingController(coder: coder, rootView: WordAddView( viewModel: WordAddViewModel(place_id: self.place_id!)))
+  }
   var res: PlaceDetailModel?
   var data = [ListDiffable]()
   var place_id: Int?
@@ -35,6 +41,7 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
       self.LearnButton.layer.borderColor = #colorLiteral(red: 0.4645748071, green: 0.5725829005, blue: 0.5960008502, alpha: 1)
       self.LearnButton.layer.cornerRadius = 22
       self.LearnButton.layer.backgroundColor = #colorLiteral(red: 0.3324496303, green: 0.3750489015, blue: 0.4744465351, alpha: 1)
+      
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self

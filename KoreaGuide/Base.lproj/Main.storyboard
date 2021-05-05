@@ -167,6 +167,16 @@
             </objects>
             <point key="canvasLocation" x="1424.6376811594205" y="115.84821428571428"/>
         </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="Q2W-ym-bGm">
+            <objects>
+                <hostingController id="o1G-bD-xbr" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pVa-bt-8ZL"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Vd-rW-I1m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="483" y="1788"/>
+        </scene>
         <!--home-->
         <scene sceneID="qTv-E9-Jlr">
             <objects>
@@ -231,6 +241,9 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhW-Aw-5wf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="358" height="175"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <connections>
+                                                                        <segue destination="o1G-bD-xbr" kind="show" destinationCreationSelector="ToTodayWordView:" id="Rm8-cE-NcV"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maa-to-cgS">
                                                                     <rect key="frame" x="10" y="73" width="338" height="29"/>
@@ -419,6 +432,15 @@
                     <view key="view" contentMode="scaleToFill" id="stM-kI-YnZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EFH-Wn-hVw">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="QDa-eX-H8X" kind="embed" destinationCreationSelector="ToWordMainView:" id="B2J-rj-PoQ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="x1I-YD-OXs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -426,7 +448,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuy-cM-09J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3406" y="1778"/>
+            <point key="canvasLocation" x="3405.7971014492755" y="1777.9017857142856"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="pvY-hF-QWu">
+            <objects>
+                <hostingController id="QDa-eX-H8X" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zbM-dS-fv6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3394" y="2490"/>
         </scene>
         <!--profile-->
         <scene sceneID="cEx-OS-yNl">
@@ -579,6 +609,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xWL-BC-3YR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2373.913043478261" y="900.66964285714278"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="wX6-tg-2L9">
+            <objects>
+                <hostingController id="mFZ-6j-8le" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="elo-iZ-a8B"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hDA-vU-dwk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="604" y="3123"/>
         </scene>
         <!--Place Detail View Controller-->
         <scene sceneID="Fut-ae-hL5">
@@ -796,6 +836,9 @@
                                 <state key="normal" title="Learn Related Words">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="mFZ-6j-8le" kind="show" identifier="ToAddWordView" destinationCreationSelector="ToAddWordView:" id="VdK-pG-0a4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Dd-vj-bWG"/>
