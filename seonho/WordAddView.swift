@@ -10,6 +10,8 @@ import Combine
 import Foundation
 import SwiftUI
 
+// destination: WordAddView(viewModel: WordAddViewModel(place_id: 0)) 이런식으로 진입
+
 struct ProgressBar: View {
   @Binding var value: Float
 

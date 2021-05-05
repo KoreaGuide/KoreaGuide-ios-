@@ -5,6 +5,9 @@
 //  Created by 임선호 on 2021/04/14.
 //
 
+//https://yagom.net/forums/topic/swiftui%EC%99%80-uikit-%ED%86%B5%ED%95%A9%ED%95%98%EA%B8%B0/
+// 연결 참고
+
 import Combine
 import Foundation
 import SwiftUI
@@ -14,16 +17,16 @@ struct TopLabel: View {
     HStack {
       Text("ForWord")
         .foregroundColor(.white)
-        .fontWeight(.heavy)
         .padding(.horizontal, 20)
         .font(Font.custom("Bangla MN", size: 20))
+        .fontWeight(.heavy)
 
       Spacer()
     }
     .padding(.vertical, 10)
 
     HStack {
-      Text("Welcome, " + String(UserDefaults.id!))
+      Text("Welcome, " + String(UserDefaults.id!)) // nickname으로 변경
         .foregroundColor(.white)
         .font(Font.custom("Bangla MN", size: 30))
         .padding(.horizontal, 20)
@@ -42,7 +45,7 @@ struct TopLabel: View {
 
 struct TotalCountBox: View {
   @ObservedObject var viewModel: WordMainViewModel
- 
+
   var body: some View {
     HStack {
       ZStack {
@@ -52,7 +55,7 @@ struct TotalCountBox: View {
           .frame(width: UIScreen.main.bounds.width - 60, height: 50, alignment: .center)
 
         VStack {
-          Text("Total Words : " + String())
+          Text("Total Words : " + String(viewModel.totalCount))
             .foregroundColor(.black)
             .font(Font.custom("Bangla MN", size: 25))
             .padding(.top, 10)
@@ -62,10 +65,9 @@ struct TotalCountBox: View {
   }
 }
 
+// word 탭 눌렀을때 진입 WordMainView()
 struct WordMainView: View {
-  @ObservedObject var viewModel: WordMainViewModel = WordMainViewModel()
-
-  
+  @ObservedObject var viewModel = WordMainViewModel()
 
   var body: some View {
     NavigationView {
@@ -78,19 +80,19 @@ struct WordMainView: View {
         VStack {
           TopLabel()
           TotalCountBox(viewModel: viewModel)
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 1, word_list_info: viewModel.added_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 0, word_list_info: viewModel.added_word_info!))) {
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: TodayWordView(viewModel: TodayWordViewModel())) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 1, word_list_info: viewModel.learning_word_info!))) {
             LearningWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordAddView(viewModel: WordAddViewModel(place_id: 0))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 2, word_list_info: viewModel.complete_word_info!))) {
             CompleteWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }

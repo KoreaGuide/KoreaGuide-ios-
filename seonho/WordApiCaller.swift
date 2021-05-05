@@ -36,9 +36,9 @@ final class WordApiCaller {
         case let .myWordCreate(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id,"word_id": word_id]], .post, defaultHeaders)
         case let .oneWordRead(word_id):
-          return ("/api/word/\(word_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/word/", ["data": ["word_id":word_id]], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
-          return ("/api/myWord/\(word_folder_id)" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
+          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id]], .get, defaultHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
           
@@ -75,11 +75,10 @@ final class WordApiCaller {
         let decoder = JSONDecoder()
         do {
           let result = try decoder.decode(PlaceDetailModel.self, from: data)
-          print("@@")
           print(result)
           callback(result)
         } catch {
-          print("@@@")
+
           callback(nil)
         }
       }

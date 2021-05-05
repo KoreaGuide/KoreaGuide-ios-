@@ -13,6 +13,10 @@ class WordMainViewModel: ObservableObject {
   @Published var learning_word_info: MainWordListModel?
   @Published var complete_word_info: MainWordListModel?
 
+  var totalCount{
+    return added_word_info.data.now_word_count + learning_word_info.data.now_word_count + complete_word_info.data.now_word_count 
+  }
+  
   func setting() {
     WordApiCaller.folderWordRead(word_folder_id: 1) { result in
       let status = Int(result!.result_code)
