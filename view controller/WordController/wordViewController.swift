@@ -9,9 +9,18 @@ import Foundation
 import UIKit
 import SwiftUI
 class wordViewController: UIViewController {
+  /*
+  @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
+    return UIHostingController(coder: coder, rootView: WordMainView())
+  }*/
+  @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
+    return UIHostingController(coder: coder, rootView: WordMainView())
+  }
+
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-//    // Do any additional setup after loading the view.
+
     let swiftUIView = UIHostingController(rootView: WordMainView())
     self.present(swiftUIView, animated: true, completion: nil)
   }

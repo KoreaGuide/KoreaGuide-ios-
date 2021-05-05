@@ -63,15 +63,19 @@ struct WordAddView: View {
       ZStack {
         Image("background")
           .resizable()
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .frame(width: UIScreen.main.bounds.width + 10, height: UIScreen.main.bounds.height, alignment: .center)
           .ignoresSafeArea()
 
         VStack {
+          Spacer()
+            .frame(height: 60)
+          
           // place title
           Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
-
+          Spacer()
+            .frame(height: 20)
           // label
           Section {
             Text(String(viewModel.currentWordCount) + "  /  " + String(viewModel.totalWordCount))
@@ -83,7 +87,8 @@ struct WordAddView: View {
               .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
               .padding(.vertical, 5)
           }
-
+          Spacer()
+            .frame(height: 40)
           HStack {
             // left
 
@@ -103,13 +108,48 @@ struct WordAddView: View {
             })
 
             // box
-            WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.word_list[viewModel.currentWordCount]))
+            if viewModel.currentWordCount == viewModel.totalWordCount {
+              VStack {
+                ZStack {
+                  RoundedRectangle(cornerRadius: 25)
+                    .fill(Color("Navy"))
+                    .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+
+                  VStack {
+                    Text(viewModel.place_title)
+                    Text("You got " + String(viewModel.added_word_id_list.count) + " words")
+                    HStack {
+                      Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                      }, label: {
+                        Text("Let's go back to place page")
+                          .font(Font.custom("Bangla MN", size: 15))
+                          .padding(.top, 10)
+                      })
+                        .padding(.bottom, 20)
+                      Button(action: {}, label: {
+                        Text("Let's go to check the words")
+                          .font(Font.custom("Bangla MN", size: 15))
+                          .padding(.top, 10)
+                      })
+                        .padding(.bottom, 20)
+                    }
+                  }
+                  .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+                }
+              }
+            } else {
+              WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.word_list[viewModel.currentWordCount]))
+            }
 
             // right
             Button(action: {
-              if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
+              if viewModel.currentWordCount < viewModel.totalWordCount {
                 viewModel.currentWordCount += 1
                 // self.progressValue = Float(viewModel.currentWordCount + 1) / Float(viewModel.totalWordCount)
+                if viewModel.currentWordCount == viewModel.totalWordCount {
+                  viewModel.finish = true
+                }
               }
 
             }, label: {
@@ -122,13 +162,18 @@ struct WordAddView: View {
           }
 
           Spacer().frame(height: 30)
-          InOutButton(viewModel: viewModel)
+
+          if viewModel.currentWordCount != viewModel.totalWordCount {
+            InOutButton(viewModel: viewModel)
+          }
+
           Spacer()
         }
       }
     }
     .navigationBarTitle("")
     .ignoresSafeArea()
+    .navigationBarHidden(true)
     .navigationBarBackButtonHidden(true)
     .navigationBarItems(leading: self.backButton)
   }
@@ -229,34 +274,5 @@ struct InOutButton: View {
 
     })
       .padding(.bottom, 20)
-  }
-}
-
-struct WordAddFinishView: View {
-  @ObservedObject var viewModel: WordAddViewModel
-
-  var body: some View {
-    Text(viewModel.place_title)
-
-    Rectangle() // 총 단어 개수, 담은 개수, 어쩌고
-
-    Text("You got " + String(3) + "words")
-    HStack {
-      Button(action: {}, label: {
-        Text("Let's go back to place page")
-          .font(Font.custom("Bangla MN", size: 25))
-          .padding(.top, 10)
-      })
-        .padding(.bottom, 20)
-      Button(action: {}, label: {
-        Text("Let's go to check the words")
-          .font(Font.custom("Bangla MN", size: 25))
-          .padding(.top, 10)
-      })
-        .padding(.bottom, 20)
-    }
-
-    // button 장소페이지로 돌아가기
-    // button 단어장으로 가기
   }
 }

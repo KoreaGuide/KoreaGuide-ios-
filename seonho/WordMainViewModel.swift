@@ -17,8 +17,8 @@ class WordMainViewModel: ObservableObject {
     return added_word_info!.data.now_word_count + learning_word_info!.data.now_word_count + complete_word_info!.data.now_word_count
   }
   
-  func setting() {
-    WordApiCaller.folderWordRead(word_folder_id: 1) { result in
+  init() {
+    WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 0) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:
@@ -28,7 +28,7 @@ class WordMainViewModel: ObservableObject {
       }
     }
 
-    WordApiCaller.folderWordRead(word_folder_id: 2) { result in
+    WordApiCaller.folderWordRead(word_folder_id: UserDefaults.learning_folder_id ?? 0) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:
@@ -38,7 +38,7 @@ class WordMainViewModel: ObservableObject {
       }
     }
 
-    WordApiCaller.folderWordRead(word_folder_id: 3) { result in
+    WordApiCaller.folderWordRead(word_folder_id: UserDefaults.complete_folder_id ?? 0) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:

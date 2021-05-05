@@ -80,19 +80,19 @@ struct WordMainView: View {
         VStack {
           TopLabel()
           TotalCountBox(viewModel: viewModel)
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 0, word_list_info: viewModel.added_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1, word_list_info: viewModel.added_word_info!))) {
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 1, word_list_info: viewModel.learning_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_list_info: viewModel.learning_word_info!))) {
             LearningWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: 2, word_list_info: viewModel.complete_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_list_info: viewModel.complete_word_info!))) {
             CompleteWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }

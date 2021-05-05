@@ -49,9 +49,6 @@ class WordAddViewModel: ObservableObject {
 
   init(place_id: Int) {
     self.place_id = place_id
-  }
-
-  func setting() {
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
@@ -74,14 +71,9 @@ class WordAddViewModel: ObservableObject {
       }
     }
     totalWordCount = word_list.count
-
-    $finish
-      .receive(on: RunLoop.main)
-      // .filter($0)
-      .sink { _ in
-      }
-      .store(in: &cancellable)
+    
   }
+
 
   func add(word_id: Int) {
     WordApiCaller.myWordCreate(word_folder_id: 0, word_id: word_id) { result in
