@@ -6,22 +6,24 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 class wordViewController: UIViewController {
   /*
-  @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
-    return UIHostingController(coder: coder, rootView: WordMainView())
-  }*/
-  @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
-    return UIHostingController(coder: coder, rootView: WordMainView())
-  }
+   @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
+     return UIHostingController(coder: coder, rootView: WordMainView())
+   }*/
 
-  
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let swiftUIView = UIHostingController(rootView: WordMainView())
-    self.present(swiftUIView, animated: true, completion: nil)
+    // let swiftUIView = UIHostingController(rootView: WordMainView())
+
+    let hostingController = UIHostingController(rootView: WordMainView())
+    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+    hostingController.view.frame = view.bounds
+
+    addChild(hostingController)
+    view.addSubview(hostingController.view)
   }
 }

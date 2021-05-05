@@ -13,26 +13,6 @@ import SwiftUI
 struct TodayWordView: View {
   @ObservedObject var viewModel: TodayWordViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
-  var backButton: some View {
-    // 뒤로가기
-    Button(action: {
-      if viewModel.word!.added == true {
-        viewModel.addWord()
-      } else {}
-      self.presentationMode.wrappedValue.dismiss()
-    }, label: {
-      Image(systemName: "chevron.left.square")
-        .resizable()
-        .scaledToFit()
-        .padding(.top, 15)
-        .padding(.trailing, 20)
-        .padding(.bottom, 10)
-        .frame(width: 50, height: 50, alignment: .center)
-        .foregroundColor(.white)
-    })
-  }
-
   var body: some View {
     NavigationView {
       ZStack {
@@ -44,16 +24,19 @@ struct TodayWordView: View {
         VStack {
           Spacer()
             .frame(height: 20)
-
           HStack {
-            Spacer()
+            Rectangle()
+              .foregroundColor(.white)
+              .frame(width: 50, height: 2, alignment: .center)
             Text(" Word of Today")
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 30))
-            Spacer()
+            Rectangle()
+              .foregroundColor(.white)
+              .frame(width: 50, height: 2, alignment: .center)
           }
-          .padding(.horizontal, 20)
+          .padding(.horizontal, 1)
 
           Image((viewModel.word?.word.image) ?? "mae") // image가 널
             .resizable()
@@ -137,11 +120,10 @@ struct TodayWordView: View {
         }
       }
     }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarBackButtonHidden(false)
+
+    //.navigationBarBackButtonHidden(true)
     .navigationBarHidden(true)
-    .navigationBarItems(leading: self.backButton)
+    //.navigationBarItems(leading: self.backButton)
   }
 }
 

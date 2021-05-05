@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 class WordListViewModel: ObservableObject {
-  var word_list_info: MainWordListModel
+ 
   var word_folder_id: Int
   @Published var word_list: [InMyListWord]
   @Published var index: Int = 0
@@ -21,10 +21,18 @@ class WordListViewModel: ObservableObject {
 
   private var cancellable: Set<AnyCancellable> = []
 
-  init(word_folder_id: Int, word_list_info: MainWordListModel) {
+  init(word_folder_id: Int) {
     self.word_folder_id = word_folder_id
-    self.word_list_info = word_list_info
-    word_list = word_list_info.data.my_word_list
+    self.word_list = []
+    WordApiCaller.folderWordRead(word_folder_id: word_folder_id){ result in
+      switch result?.result_code{
+      case 200:
+        self.word_list = result?.data.my_word_list ?? []
+      default:
+        print("---- folder word read api error")
+      }
+      
+    }
   }
 
   private var didSelectWordPublisher: AnyPublisher<Bool, Never> {

@@ -11,11 +11,11 @@ import SwiftUI
 
 class WordBoxViewModel: ObservableObject {
   @Published var currentCount: Int
-  @Published var word: AddingWord
+  @Published var word: WordDetail
 
-  // @Published var playing: Bool = false
+  @Published var playing: Bool = false
 
-  init(currentCount: Int, word: AddingWord) {
+  init(currentCount: Int, word: WordDetail) {
     self.currentCount = currentCount
     self.word = word
   }
@@ -26,7 +26,7 @@ class WordAddViewModel: ObservableObject {
   var place_title: String = ""
   var user_id: Int = UserDefaults.id!
 
-  var word_list: [AddingWord] = []
+  var word_list: [WordDetail] = []
 
   @Published var addButton: Bool = false
 
@@ -65,7 +65,7 @@ class WordAddViewModel: ObservableObject {
       let status = Int(result!.result_code)
       switch status {
       case 200:
-        self.word_list = result?.data.word_list as! [AddingWord]
+        self.word_list = result?.data.word_list ?? []
       default:
         print("----- place related words api error")
       }

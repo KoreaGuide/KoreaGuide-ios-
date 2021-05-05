@@ -31,12 +31,12 @@ struct WordPopup: View {
           }
           .padding(10)
           HStack {
-            Text(viewModel.word_list[displayItem].meaning_kor)
+            Text(viewModel.word_list[displayItem].meaning_kor1)
               .font(Font.custom("Bangla MN", size: 20))
           }
           .padding(10)
           HStack {
-            Text(viewModel.word_list[displayItem].meaning_eng)
+            Text(viewModel.word_list[displayItem].meaning_eng1)
               .font(Font.custom("Bangla MN", size: 20))
           }
           .padding(10)

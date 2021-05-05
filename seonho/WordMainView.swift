@@ -5,8 +5,6 @@
 //  Created by 임선호 on 2021/04/14.
 //
 
-//https://yagom.net/forums/topic/swiftui%EC%99%80-uikit-%ED%86%B5%ED%95%A9%ED%95%98%EA%B8%B0/
-// 연결 참고
 
 import Combine
 import Foundation
@@ -19,7 +17,7 @@ struct TopLabel: View {
         .foregroundColor(.white)
         .padding(.horizontal, 20)
         .font(Font.custom("Bangla MN", size: 20))
-        //.fontWeight(.heavy)
+      // .fontWeight(.heavy)
 
       Spacer()
     }
@@ -80,19 +78,20 @@ struct WordMainView: View {
         VStack {
           TopLabel()
           TotalCountBox(viewModel: viewModel)
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1, word_list_info: viewModel.added_word_info!))) {
+
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))) {
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_list_info: viewModel.learning_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2))) {
             LearningWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_list_info: viewModel.complete_word_info!))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3))) {
             CompleteWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
           }
@@ -124,7 +123,7 @@ struct AddedWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.added_word_info!.data.now_word_count))
+        Text("number of words : " + String(viewModel.added_word_info?.data.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -145,7 +144,7 @@ struct LearningWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.learning_word_info!.data.now_word_count))
+        Text("number of words : " + String(viewModel.learning_word_info?.data.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -166,7 +165,7 @@ struct CompleteWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.complete_word_info!.data.now_word_count))
+        Text("number of words : " + String(viewModel.complete_word_info?.data.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }

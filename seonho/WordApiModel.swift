@@ -53,6 +53,7 @@ struct WordDetail: Codable {
    let word_list: [AddingWord]
  }*/
 
+/*
 struct AddingWord {
   let word: RawWord
 
@@ -64,7 +65,7 @@ struct AddingWord {
     self.word = word
   }
 }
-
+*/
 // word list 총 개수 등
 struct MainWordListModel: Codable {
   let result_code: Int
@@ -82,9 +83,12 @@ struct InMyListWord: Codable {
   let id: Int
   let word_eng: String
   let word_kor: String
-  let meaning_eng: String
-  let meaning_kor: String
+  let meaning_eng1: String
+  let meaning_eng2: String
+  let meaning_kor1: String
   let image: String
+  var audio: String = ""
+  let pronunciation_eng: String
   let my_word_status: String
 }
 
