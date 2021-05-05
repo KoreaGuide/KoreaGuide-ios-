@@ -432,6 +432,15 @@
                     <view key="view" contentMode="scaleToFill" id="stM-kI-YnZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EFH-Wn-hVw">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="QDa-eX-H8X" kind="embed" destinationCreationSelector="ToWordMainView:" id="B2J-rj-PoQ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="x1I-YD-OXs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -439,7 +448,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuy-cM-09J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3406" y="1778"/>
+            <point key="canvasLocation" x="3405.7971014492755" y="1777.9017857142856"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="pvY-hF-QWu">
+            <objects>
+                <hostingController id="QDa-eX-H8X" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zbM-dS-fv6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3394" y="2490"/>
         </scene>
         <!--profile-->
         <scene sceneID="cEx-OS-yNl">

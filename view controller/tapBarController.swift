@@ -7,11 +7,15 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 //탭바가 있는 모든 vc는 이 클래스를 상속받는다.
 class TabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  @IBSegueAction func ToWordMainView(_ coder: NSCoder) -> UIViewController? {
+    return UIHostingController(coder: coder, rootView: WordMainView())
   }
   @IBAction func didTabButton(_ sender: Any)
   {
