@@ -119,18 +119,34 @@ struct LearningWord {
   }
 }
 
-struct TestWordList {
-  let word_list: [TestWord]
-}
+struct TestWordList: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: QuizList
 
-struct TestWord {
-  let word: RawWord
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
+  struct QuizList: Codable {
+    let quiz_type: String
+    let folder_id: Int
+    let quiz_list: [Quiz]
 
-  init(word: RawWord) {
-    self.word = word
+    struct Quiz: Codable {
+      let selected_word: TestWord
+      struct TestWord: Codable {
+        let id: Int
+        let word_kor: String
+        let word_eng: String
+        let image: String
+      }
+
+      let word_choice_list: [ChoiceWord]
+      struct ChoiceWord: Codable {
+        let id: Int
+        let word_kor: String
+        let word_eng: String
+        let meaning_kor1: String
+      }
+    }
   }
 }
 

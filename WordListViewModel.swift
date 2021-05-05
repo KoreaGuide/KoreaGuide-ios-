@@ -13,6 +13,7 @@ class WordListViewModel: ObservableObject {
   var word_list_info: MainWordListModel
   var word_folder_id: Int
   @Published var word_list: [InMyListWord]
+  @Published var index: Int = 0
 
   @Published var didSelectWord: Bool = false
   @Published var selectedWord: InMyListWord?
@@ -23,7 +24,7 @@ class WordListViewModel: ObservableObject {
   init(word_folder_id: Int, word_list_info: MainWordListModel) {
     self.word_folder_id = word_folder_id
     self.word_list_info = word_list_info
-    self.word_list = word_list_info.data.my_word_list
+    word_list = word_list_info.data.my_word_list
   }
 
   private var didSelectWordPublisher: AnyPublisher<Bool, Never> {

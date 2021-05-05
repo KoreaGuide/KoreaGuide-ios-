@@ -170,7 +170,7 @@ struct WordListView: View {
                 Button(action: {
                   self.showPopup = num
                 }, label: {
-                  WordCellView(viewModel: viewModel, index: num)
+                  WordCellView(viewModel: viewModel)
                 })
               }
             }

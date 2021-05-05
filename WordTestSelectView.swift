@@ -69,23 +69,24 @@ struct WordTestSelectView: View {
 
           // NavigationView {
           VStack (alignment: .leading){
-            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
+            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))) {
               rowItem(content: " 1. Match the meaning of the word ") // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
             }
             .background(Color.white.opacity(0.8))
             .padding(10)
-            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
+            
+            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))) {
               rowItem(content: " 2. Listen to the pronunciation \n and match the word ") // 한국어 발음 -> 영어 단어 or 영어 설명
             
             }
             .background(Color.white.opacity(0.8))
             .padding(10)
-            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
+            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))) {
               rowItem(content: " 3. Complete the spelling of words \n letter by letter ") // 영어 단어 or 영어 설명 -> 한국어 단어
             }
             .background(Color.white.opacity(0.8))
             .padding(10)
-            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel())) {
+            NavigationLink(destination: WordTestView(viewModel: WordTestViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))) {
               rowItem(content: " 4. Enter the corresponding word \n in Korean by typing ") // 영어 단어 or 영어 설명 -> 한국어 단어
             }
             .background(Color.white.opacity(0.8))

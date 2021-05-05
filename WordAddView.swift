@@ -254,6 +254,8 @@ struct WordAddFinishView: View {
       })
         .padding(.bottom, 20)
     }
+    
+    
     // button 장소페이지로 돌아가기
     // button 단어장으로 가기
   }

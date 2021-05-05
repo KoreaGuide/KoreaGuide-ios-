@@ -22,6 +22,7 @@ final class WordApiCaller {
     case myWordDelete(word_folder_id: Int, word_id: Int)
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
+    case testingWords(quiz_type:String, folder_id: Int)
 
     func asURLRequest() throws -> URLRequest {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
@@ -34,12 +35,15 @@ final class WordApiCaller {
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .post, defaultHeaders)
-        case let .oneWordRead(word_id):// 이거 어케함
+        case let .oneWordRead(word_id):
           return ("/api/word/\(word_id)", ["": ""], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
           return ("/api/myWord/\(word_folder_id)" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
+          
+        case let .testingWords(quiz_type, folder_id):
+          return ("/api/quiz/" + String(UserDefaults.id!), ["data": ["quiz_type": quiz_type, "folder_id":folder_id]], .get, defaultHeaders)
         }
       }()
       let url = try "\(baseHostName)".asURL()
@@ -220,4 +224,29 @@ final class WordApiCaller {
         }
       }
   }
+  
+  static func testingWords(quiz_type: String, folder_id: Int, callback: @escaping (TestWordList?) -> Void){
+    AF.request(Router.testingWords(quiz_type: quiz_type, folder_id: folder_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(TestWordList.self, from: data)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+    
+  }
+  
 }

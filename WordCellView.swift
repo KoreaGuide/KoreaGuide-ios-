@@ -11,7 +11,7 @@ import SwiftUI
 
 struct WordCellView: View {
   @ObservedObject var viewModel: WordListViewModel
-  @State var index: Int
+  //@State var index: Int
 
   var body: some View {
     VStack {
@@ -23,25 +23,25 @@ struct WordCellView: View {
 
         VStack {
           HStack {
-            Text(viewModel.word_list[index].word_kor)
+            Text(viewModel.word_list[viewModel.index].word_kor)
               .foregroundColor(.black)
-              .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.heavy)
               .padding(.top, 10)
           }
           HStack {
-            Text(viewModel.word_list[index].word_eng)
+            Text(viewModel.word_list[viewModel.index].word_eng)
               .foregroundColor(.black)
-              .fontWeight(.regular)
               .font(Font.custom("Bangla MN", size: 18))
+              .fontWeight(.regular)
               .padding(.top, 10)
           }
 
           HStack {
             Button {
-              WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[index].id) {
+              WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[viewModel.index].id) {
                 result in
-                let status = Int(result!.result_code)
+                let status = Int(result?.result_code ?? 500)
                 switch status {
                 case 200:
                   print("----- my word delete api done")
