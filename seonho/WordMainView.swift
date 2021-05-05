@@ -19,7 +19,7 @@ struct TopLabel: View {
         .foregroundColor(.white)
         .padding(.horizontal, 20)
         .font(Font.custom("Bangla MN", size: 20))
-        .fontWeight(.heavy)
+        //.fontWeight(.heavy)
 
       Spacer()
     }

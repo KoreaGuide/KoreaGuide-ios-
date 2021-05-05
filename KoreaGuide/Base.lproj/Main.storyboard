@@ -580,6 +580,16 @@
             </objects>
             <point key="canvasLocation" x="2373.913043478261" y="900.66964285714278"/>
         </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="wX6-tg-2L9">
+            <objects>
+                <hostingController id="mFZ-6j-8le" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="elo-iZ-a8B"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hDA-vU-dwk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="604" y="3123"/>
+        </scene>
         <!--Place Detail View Controller-->
         <scene sceneID="Fut-ae-hL5">
             <objects>
@@ -796,6 +806,9 @@
                                 <state key="normal" title="Learn Related Words">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="mFZ-6j-8le" kind="show" identifier="ToAddWordView" destinationCreationSelector="ToAddWordView:" id="VdK-pG-0a4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Dd-vj-bWG"/>

@@ -13,8 +13,8 @@ class WordMainViewModel: ObservableObject {
   @Published var learning_word_info: MainWordListModel?
   @Published var complete_word_info: MainWordListModel?
 
-  var totalCount{
-    return added_word_info.data.now_word_count + learning_word_info.data.now_word_count + complete_word_info.data.now_word_count 
+  var totalCount: Int {
+    return added_word_info!.data.now_word_count + learning_word_info!.data.now_word_count + complete_word_info!.data.now_word_count
   }
   
   func setting() {
