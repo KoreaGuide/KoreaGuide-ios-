@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
+class wordViewController: UIViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+//    // Do any additional setup after loading the view.
+//    let swiftUIView = UIHostingController(rootView: <#T##_#>)
+//    self.present(swiftUIView, animated: true, completion: nil)
+  }
+}

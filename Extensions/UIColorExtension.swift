@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 public extension UIColor {
   convenience init?(hex: String) {
     var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)

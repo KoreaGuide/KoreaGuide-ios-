@@ -10,10 +10,10 @@ import Foundation
 
 final class ApiHelper {
   static var baseHostName = "http://localhost:8080"
-  static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
-  static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
-  // static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
-  // static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+//  static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
+//  static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
+  static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
+  static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
 
   enum Router: URLRequestConvertible {
     case login(email: String, password: String) // 로그인
@@ -28,11 +28,14 @@ final class ApiHelper {
     case placeDetailEngRead(place_id: Int)
     case placeDetailKorRead(place_id: Int)
     case placeRelatedWords(place_id: Int, page_num: Int)
+    case placeListForRegionRead(region_id: Int)
     // case confirmEmail(key: String)
 
     func asURLRequest() throws -> URLRequest {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
         switch self {
+        case let .placeListForRegionRead(region_id):
+          return ("/api/place/region/\(String(describing: UserDefaults.id))/\(region_id)", ["": ""], .get, defaultHeaders)
         case let .placeRelatedWords(place_id, page_num):
           return ("/api/place/word/\(place_id)?=page=\(page_num)", ["": ""], .get, defaultHeaders)
         case let .placeDetailKorRead(place_id):
@@ -44,8 +47,9 @@ final class ApiHelper {
         case let .register(email, password, nickName):
           return ("/api/user", ["data": ["email": email, "password": password, "nickname": nickName]], .post, defaultHeaders)
         case let .login(email, password):
-          let loginHeader: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer no_value"]
-          return ("/api/user/login", ["data": ["email": email, "password": password]], .post, loginHeader)
+//          let loginHeader: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer no_value"]
+//          return ("/api/user/login", ["data": ["email": email, "password": password]], .post, loginHeader)
+          return ("/api/user/login", ["data": ["email": email, "password": password]], .post, defaultHeaders)
         case let .emailCheck(email):
           return ("/api/user/checkDuplicate", ["data": ["email": email]], .post, defaultHeaders)
         case .homeRead:
@@ -57,7 +61,7 @@ final class ApiHelper {
         case let .myWordDelete(word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .delete, defaultHeaders)
         case .regionListRead:
-          return ("/api/place/regionList", ["": ""], .get, defaultHeaders)
+          return ("/api/place/regionList/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
 
           // case let .confirmEmail(key):
           // return ("/api/user/checkDuplicate",["email": email, "pwd":password], .post, defaultHeaders)
@@ -73,6 +77,32 @@ final class ApiHelper {
       }
     }
   }
+
+  static func placeListForRegionRead(region_id: Int, callback: @escaping (placeListForRegionReadModel?) -> Void) {
+    AF.request(Router.placeListForRegionRead(region_id: region_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else {
+          return
+        }
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(placeListForRegionReadModel.self, from: data)
+          print(result)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
+
   static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
     AF.request(Router.placeDetailAllRead(place_id: place_id))
       .responseJSON { response in
@@ -82,24 +112,22 @@ final class ApiHelper {
           callback(nil)
           return
         case .success:
-          print("@@ success")
           break
         }
         guard let data = response.data else {
-          print("@@")
-          return }
+          return
+        }
         let decoder = JSONDecoder()
         do {
           let result = try decoder.decode(PlaceDetailModel.self, from: data)
-          print("@@")
           print(result)
           callback(result)
         } catch {
-          print("@@@")
           callback(nil)
         }
       }
   }
+
   static func placeDetailKorRead(place_id: Int, callback: @escaping (placeDetailKorModel?) -> Void) {
     AF.request(Router.placeDetailKorRead(place_id: place_id))
       .responseJSON { response in
@@ -123,6 +151,7 @@ final class ApiHelper {
         }
       }
   }
+
   static func placeDetailEngRead(place_id: Int, callback: @escaping (placeDetailEngModel?) -> Void) {
     AF.request(Router.placeDetailEngRead(place_id: place_id))
       .responseJSON { response in
@@ -146,6 +175,7 @@ final class ApiHelper {
         }
       }
   }
+
   static func placeRelatedWords(place_id: Int, page_num: Int, callback: @escaping (placeRelatedWordModel?) -> Void) {
     AF.request(Router.placeRelatedWords(place_id: place_id, page_num: page_num))
       .responseJSON { response in
@@ -169,9 +199,9 @@ final class ApiHelper {
         }
       }
   }
-  
+
   static func homeRead(callback: @escaping (homeReadModel?) -> Void) {
-      AF.request(Router.homeRead)
+    AF.request(Router.homeRead)
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -263,7 +293,7 @@ final class ApiHelper {
       }
   }
 
-  static func regionListRead(callback: @escaping (Int?) -> Void) {
+  static func regionListRead(callback: @escaping (RegionListReadModel?) -> Void) {
     AF.request(Router.regionListRead)
       .responseJSON { response in
         debugPrint(response)
@@ -278,8 +308,8 @@ final class ApiHelper {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(signUpModel.self, from: data)
-          callback(result.result_code)
+          let result = try decoder.decode(RegionListReadModel.self, from: data)
+          callback(result)
         } catch {
           callback(nil)
         }

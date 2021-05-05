@@ -7,7 +7,5 @@
 
 #ifndef Korean_guide_Bridging_Header_h
 #define Korean_guide_Bridging_Header_h
-#import <NMapViewerSDK/NMapView.h>
-#import <NMapViewerSDK/NMapLocationManager.h>
 
 #endif /* Korean_guide_Bridging_Header_h */

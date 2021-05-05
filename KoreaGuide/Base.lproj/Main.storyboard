@@ -415,7 +415,7 @@
         <!--word-->
         <scene sceneID="DOx-OY-4zz">
             <objects>
-                <viewController id="s4G-eF-uY8" sceneMemberID="viewController">
+                <viewController id="s4G-eF-uY8" customClass="wordViewController" customModule="KoreaGuide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="stM-kI-YnZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -181,6 +181,53 @@ struct placeRelatedWordModel: Codable {
   }
 }
 
+
+struct placeListForRegionReadModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data : placeListData
+}
+
+struct placeListData: Codable {
+  let user_id : Int
+  let region_id : Int
+  let region_color : String
+  let place_list : [place]
+}
+
+struct place : Codable {
+  let id : Int
+  let content_id : Int
+  let title : String
+  let address1 : String
+  let address2 : String
+  let first_image : String
+  let first_image2 : String
+  let map_x : String
+  let map_y : String
+  let overview : String
+}
+
+struct Region: Codable {
+  let id : Int
+  let areacode : Int
+  let areaname_kor : String
+  let areaname_eng : String
+  let color : String
+}
+struct RegionListReadModel : Codable {
+  let result_code : Int
+  let status : String
+  let description : String
+  let data : Data1
+  struct Data1: Codable {
+    let region_list : [Region]
+  }
+}
+
+
+
 struct properties: Codable {
   let sgg_nm : String
   let sgg_cd : String

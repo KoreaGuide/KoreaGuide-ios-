@@ -8,18 +8,68 @@
 import MapKit
 import SwiftUI
 import UIKit
-class mapViewController: UIViewController, MapViewTouchDelegate {
+class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelegate{
   @IBOutlet var mapView: MyMapView!
   let coordinator = MapCoordinator()
   var target: MKOverlay?
+  var placesInfo: [place] = []
+  var regionList: [Region] = []
   override func viewDidLoad() {
     super.viewDidLoad()
 
     mapView.mapViewTouchDelegate = self
     mapView.delegate = coordinator
     mapView.addOverlays(parseGeoJson())
-  }
 
+    ApiHelper.regionListRead {
+      result in
+      print(result!)
+      let status = result?.result_code
+      switch status {
+      case 200:
+        self.regionList = (result?.data.region_list)!
+      default:
+        fatalError()
+      }
+    }
+    regionList.forEach {
+      ApiHelper.placeListForRegionRead(region_id: $0.areacode) { result in
+        print(result!)
+        let status = result?.result_code
+        switch status {
+        case 200:
+          self.placesInfo.append(contentsOf: result!.data.place_list) 
+        case 204:
+          print("NO_CONTENT")
+        case 500:
+          print("region id 오류")
+        default:
+          print("알 수 없는 에러 발생")
+        }
+      }
+    }
+  }
+  func makePinAnnotation(place : place) {
+    let pin = MKPointAnnotation()
+    pin.title = place.title
+    pin.coordinate = CLLocationCoordinate2D(latitude: Double(place.map_x)!, longitude: Double(place.map_y)!)
+    mapView.addAnnotation(pin)
+  }
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+      guard annotation is MKPointAnnotation else { return nil }
+
+      let identifier = "Annotation"
+      var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+      if annotationView == nil {
+          annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+          annotationView!.canShowCallout = true
+      } else {
+          annotationView!.annotation = annotation
+      }
+
+      return annotationView
+  }
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "map", ofType: "geojson") else {
       fatalError()
@@ -60,8 +110,6 @@ class mapViewController: UIViewController, MapViewTouchDelegate {
 
   func setMapView() {
     mapView.isZoomEnabled = false
-    mapView.isScrollEnabled = false
-    mapView.isRotateEnabled = false
     mapView.mapType = .mutedStandard
   }
 
@@ -84,20 +132,38 @@ class mapViewController: UIViewController, MapViewTouchDelegate {
   }
 
   func polygonsTapped(polygons: [MKPolygon]) {
-    polygons.forEach {
-      let picker = UIColorPickerViewController()
-      picker.delegate = self
-      self.present(picker, animated: true, completion: nil)
-      target = $0
+    polygons.forEach { polygon in
+      let action = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+      let edit = UIAlertAction(title: "Edit map color", style: .default) { action in
+        let picker = UIColorPickerViewController()
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+        self.target = polygon
+      }
+      let search = UIAlertAction(title: "Search", style: .default) { action in
+        // 시점이동하고 줌 시키기.
+      }
+      action.addAction(search)
+      action.addAction(edit)
+      self.present(action, animated: true, completion: nil)
     }
   }
 
   func multiPolygonsTapped(multiPolygons: [MKMultiPolygon]) {
-    multiPolygons.forEach {
-      let picker = UIColorPickerViewController()
-      picker.delegate = self
-      self.present(picker, animated: true, completion: nil)
-      target = $0
+    multiPolygons.forEach { polygon in
+      let action = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+      let edit = UIAlertAction(title: "Edit map color", style: .default) { action in
+        let picker = UIColorPickerViewController()
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+        self.target = polygon
+      }
+      let search = UIAlertAction(title: "Search", style: .default) { action in
+        // 시점이동하고 줌 시키기.
+      }
+      action.addAction(search)
+      action.addAction(edit)
+      self.present(action, animated: true, completion: nil)
     }
   }
 }
