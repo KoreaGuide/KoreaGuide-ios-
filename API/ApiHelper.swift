@@ -29,6 +29,7 @@ final class ApiHelper {
     case placeDetailKorRead(place_id: Int)
     case placeRelatedWords(place_id: Int, page_num: Int)
     case placeListForRegionRead(region_id: Int)
+    case folderCreate(user_id: Int, folder_name: String)
     // case confirmEmail(key: String)
 
     func asURLRequest() throws -> URLRequest {
@@ -62,6 +63,9 @@ final class ApiHelper {
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_id": word_id]], .delete, defaultHeaders)
         case .regionListRead:
           return ("/api/place/regionList/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
+
+        case let .folderCreate(user_id: user_id, folder_name: folder_name):
+          return ("/api/myWordFolder", ["data": ["user_id": user_id, "folder_name": folder_name]], .post, defaultHeaders)
 
           // case let .confirmEmail(key):
           // return ("/api/user/checkDuplicate",["email": email, "pwd":password], .post, defaultHeaders)
@@ -390,6 +394,19 @@ final class ApiHelper {
           UserDefaults.created_at = login_info.data.created_at
           UserDefaults.token = login_info.data.token
           UserDefaults.week_attendance = login_info.data.week_attendance
+
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
+            UserDefaults.add_folder_id = result?.data.word_folder_id
+          }
+          
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
+           UserDefaults.learning_folder_id = result?.data.word_folder_id
+         }
+          
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
+           UserDefaults.complete_folder_id = result?.data.word_folder_id
+         }
+          
           print(login_info.data.token)
           callback(login_info.result_code)
         } catch {
@@ -400,6 +417,30 @@ final class ApiHelper {
           } catch {
             callback(nil)
           }
+        }
+      }
+  }
+
+  static func folderCreate(user_id: Int, folder_name: String, callback: @escaping (Folder?) -> Void) {
+    AF.request(Router.folderCreate(user_id: user_id, folder_name: folder_name))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(Folder.self, from: data)
+          print(result)
+          callback(result)
+        } catch {
+          callback(nil)
         }
       }
   }

@@ -11,11 +11,11 @@ import SwiftUI
 
 class WordBoxViewModel: ObservableObject {
   @Published var currentCount: Int
-  @Published var word: AddingWord
+  @Published var word: WordDetail
 
-  // @Published var playing: Bool = false
+  @Published var playing: Bool = false
 
-  init(currentCount: Int, word: AddingWord) {
+  init(currentCount: Int, word: WordDetail) {
     self.currentCount = currentCount
     self.word = word
   }
@@ -26,7 +26,7 @@ class WordAddViewModel: ObservableObject {
   var place_title: String = ""
   var user_id: Int = UserDefaults.id!
 
-  var word_list: [AddingWord] = []
+  var word_list: [WordDetail] = []
 
   @Published var addButton: Bool = false
 
@@ -49,9 +49,6 @@ class WordAddViewModel: ObservableObject {
 
   init(place_id: Int) {
     self.place_id = place_id
-  }
-
-  func setting() {
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
@@ -65,26 +62,15 @@ class WordAddViewModel: ObservableObject {
 
     // place id -> related word list
     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-      let status = Int(result!.result_code)
-      switch status {
-      case 200:
-        self.word_list = result?.data.word_list as! [AddingWord]
-      default:
-        print("----- place related words api error")
-      }
+      self.word_list = result?.word_list ?? []
     }
     totalWordCount = word_list.count
-
-    $finish
-      .receive(on: RunLoop.main)
-      // .filter($0)
-      .sink { _ in
-      }
-      .store(in: &cancellable)
+    
   }
 
+
   func add(word_id: Int) {
-    WordApiCaller.myWordCreate(word_folder_id: 0, word_id: word_id) { result in
+    WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:
@@ -95,7 +81,7 @@ class WordAddViewModel: ObservableObject {
     }
 
     func remove(word_id: Int) {
-      WordApiCaller.myWordDelete(word_folder_id: 0, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {
@@ -106,7 +92,7 @@ class WordAddViewModel: ObservableObject {
         }
       }
 
-      WordApiCaller.myWordDelete(word_folder_id: 1, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {
@@ -117,7 +103,7 @@ class WordAddViewModel: ObservableObject {
         }
       }
 
-      WordApiCaller.myWordDelete(word_folder_id: 2, word_id: word_id) {
+      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_id: word_id) {
         result in
         let status = Int(result?.result_code ?? 500)
         switch status {

@@ -10,10 +10,8 @@ import Foundation
 
 final class WordApiCaller {
   static var baseHostName = "http://localhost:8080"
-  static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
-  static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data", "Authorization": "Bearer \(UserDefaults.token ?? "no_value")"]
-  // static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
-  // static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+  static var defaultHeaders: HTTPHeaders = ["Content-Type": "application/json"]
+  static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
   enum Router: URLRequestConvertible {
     case homeRead
     case myWordCreate(word_folder_id: Int, word_id: Int)
@@ -22,28 +20,28 @@ final class WordApiCaller {
     case myWordDelete(word_folder_id: Int, word_id: Int)
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
-    case testingWords(quiz_type:String, folder_id: Int)
+    case testingWords(quiz_type: String, folder_id: Int)
 
     func asURLRequest() throws -> URLRequest {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
         switch self {
         case let .placeRelatedWords(place_id):
-          return ("/api/place/word/\(place_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/wordList/\(UserDefaults.id!)/\(place_id)", ["": ""], .get, defaultHeaders)
         case let .placeDetailAllRead(place_id):
-          return ("/api/place/detail/\(place_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/detail/\(UserDefaults.id!)/\(place_id)", ["": ""], .get, defaultHeaders)
         case .homeRead:
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_folder_id, word_id):
-          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id,"word_id": word_id]], .post, defaultHeaders)
+          return ("/api/myWord/\(UserDefaults.id!)", ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .post, defaultHeaders)
         case let .oneWordRead(word_id):
-          return ("/api/word/", ["data": ["word_id":word_id]], .get, defaultHeaders)
+          return ("/api/word/\(word_id)", ["":""], .get, defaultHeaders)
+          //return ("/api/word/", ["data" : ["word_id": word_id]], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
-          return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id]], .get, defaultHeaders)
+          return ("/api/myWordFolder/\(UserDefaults.id!)/\(word_folder_id)", ["":""], .get, formdataHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
-          
         case let .testingWords(quiz_type, folder_id):
-          return ("/api/quiz/" + String(UserDefaults.id!), ["data": ["quiz_type": quiz_type, "folder_id":folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)/\(quiz_type)/\(folder_id)", ["":""], .get, formdataHeaders)
         }
       }()
       let url = try "\(baseHostName)".asURL()
@@ -78,13 +76,12 @@ final class WordApiCaller {
           print(result)
           callback(result)
         } catch {
-
           callback(nil)
         }
       }
   }
 
-  static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceModel?) -> Void) {
+  static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceInfo?) -> Void) {
     AF.request(Router.placeRelatedWords(place_id: place_id))
       .responseJSON { response in
         debugPrint(response)
@@ -99,7 +96,7 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(WordOfPlaceModel.self, from: data)
+          let result = try decoder.decode(WordOfPlaceInfo.self, from: data)
           print(result)
           callback(result)
         } catch {
@@ -200,7 +197,7 @@ final class WordApiCaller {
         }
       }
   }
-  
+
   static func myWordDelete(word_folder_id: Int, word_id: Int, callback: @escaping (DeleteResponse?) -> Void) {
     AF.request(Router.myWordDelete(word_folder_id: word_folder_id, word_id: word_id))
       .responseJSON { response in
@@ -223,8 +220,8 @@ final class WordApiCaller {
         }
       }
   }
-  
-  static func testingWords(quiz_type: String, folder_id: Int, callback: @escaping (TestWordList?) -> Void){
+
+  static func testingWords(quiz_type: String, folder_id: Int, callback: @escaping (TestWordList?) -> Void) {
     AF.request(Router.testingWords(quiz_type: quiz_type, folder_id: folder_id))
       .responseJSON { response in
         debugPrint(response)
@@ -245,7 +242,5 @@ final class WordApiCaller {
           callback(nil)
         }
       }
-    
   }
-  
 }

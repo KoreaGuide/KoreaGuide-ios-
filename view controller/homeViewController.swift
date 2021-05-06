@@ -13,6 +13,7 @@ import SwiftUI
 class homeViewController: UIViewController, ListAdapterDataSource {
   @IBOutlet var collectionView: UICollectionView!
   var layout = UICollectionViewFlowLayout()
+  
   @IBSegueAction func ToTodayWordView(_ coder: NSCoder) -> UIViewController? {
     return UIHostingController(coder: coder, rootView: TodayWordView(viewModel: TodayWordViewModel()))
   }

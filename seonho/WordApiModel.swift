@@ -25,14 +25,16 @@ struct WordOfPlaceModel: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: WordOfPlaceList
+  let data: WordOfPlaceInfo
 
-  struct WordOfPlaceList: Codable {
-    let user_id: Int
-    let place_id: Int
-    let word_list: [WordDetail]
-  }
 }
+
+struct WordOfPlaceInfo: Codable {
+  let user_id: Int
+  let place_id: Int
+  let word_list: [WordDetail]
+}
+
 
 struct WordDetail: Codable {
   let word_status: String
@@ -47,6 +49,7 @@ struct WordDetail: Codable {
   let pronunciation_eng: String
   let pronunciation_kor: String
   let word_image: String
+  let word_audio: String
 }
 
 /*
@@ -54,6 +57,7 @@ struct WordDetail: Codable {
    let word_list: [AddingWord]
  }*/
 
+/*
 struct AddingWord {
   let word: RawWord
 
@@ -65,7 +69,7 @@ struct AddingWord {
     self.word = word
   }
 }
-
+*/
 // word list 총 개수 등
 struct MainWordListModel: Codable {
   let result_code: Int
@@ -83,9 +87,12 @@ struct InMyListWord: Codable {
   let id: Int
   let word_eng: String
   let word_kor: String
-  let meaning_eng: String
-  let meaning_kor: String
+  let meaning_eng1: String
+  let meaning_eng2: String
+  let meaning_kor1: String
   let image: String
+  var audio: String = ""
+  let pronunciation_eng: String
   let my_word_status: String
 }
 

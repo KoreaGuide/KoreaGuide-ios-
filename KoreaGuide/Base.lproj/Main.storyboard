@@ -242,7 +242,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="358" height="175"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <connections>
-                                                                        <segue destination="o1G-bD-xbr" kind="show" destinationCreationSelector="ToTodayWordView:" id="Rm8-cE-NcV"/>
+                                                                        <segue destination="o1G-bD-xbr" kind="presentation" destinationCreationSelector="ToTodayWordView:" id="Rm8-cE-NcV"/>
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maa-to-cgS">
@@ -437,7 +437,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="QDa-eX-H8X" kind="embed" destinationCreationSelector="ToWordMainView:" id="B2J-rj-PoQ"/>
+                                    <segue destination="QDa-eX-H8X" kind="embed" identifier="ToWordMainView" destinationCreationSelector="ToWordMainView:" id="B2J-rj-PoQ"/>
                                 </connections>
                             </containerView>
                         </subviews>

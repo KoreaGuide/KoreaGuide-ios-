@@ -16,6 +16,9 @@ extension UserDefaults {
     static let created_by = "create_by"
     static let week_attendance = "week_attendance"
     static let id = "id"
+    static let add_folder_id = "add_folder_id"
+    static let learning_folder_id = "learning_folder_id"
+    static let complete_folder_id = "complete_folder_id"
   }
   
   
@@ -53,5 +56,20 @@ extension UserDefaults {
   static var token: String? {
     get { return standard.string(forKey: Keys.token) }
     set { standard.set(newValue, forKey: Keys.token) }
+  }
+
+  static var add_folder_id: Int? {
+    get { return standard.integer(forKey: Keys.add_folder_id) }
+    set { standard.set(newValue, forKey: Keys.add_folder_id) }
+  }
+
+  static var learning_folder_id: Int? {
+    get { return standard.integer(forKey: Keys.learning_folder_id) }
+    set { standard.set(newValue, forKey: Keys.learning_folder_id) }
+  }
+
+  static var complete_folder_id: Int? {
+    get { return standard.integer(forKey: Keys.complete_folder_id) }
+    set { standard.set(newValue, forKey: Keys.complete_folder_id) }
   }
 }

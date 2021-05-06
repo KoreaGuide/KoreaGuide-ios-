@@ -8,34 +8,11 @@
 import Foundation
 import SwiftUI
 
-//destination: TodayWordView(viewModel: TodayWordViewModel()) 이런식으로 진입
+// destination: TodayWordView(viewModel: TodayWordViewModel()) 이런식으로 진입
 
 struct TodayWordView: View {
   @ObservedObject var viewModel: TodayWordViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
-  var backButton: some View {
-    // 뒤로가기
-    Button(action: {
-      if viewModel.word!.added == true {
-        viewModel.addWord()
-      }
-      else{
-        
-      }
-      self.presentationMode.wrappedValue.dismiss()
-    }, label: {
-      Image(systemName: "chevron.left.square")
-        .resizable()
-        .scaledToFit()
-        .padding(.top, 15)
-        .padding(.trailing, 20)
-        .padding(.bottom, 10)
-        .frame(width: 50, height: 50, alignment: .center)
-        .foregroundColor(.white)
-    })
-  }
-
   var body: some View {
     NavigationView {
       ZStack {
@@ -45,40 +22,59 @@ struct TodayWordView: View {
           .ignoresSafeArea()
 
         VStack {
+          Spacer()
+            .frame(height: 20)
           HStack {
-            Text("Word of Today")
+            Rectangle()
+              .foregroundColor(.white)
+              .frame(width: 50, height: 2, alignment: .center)
+            Text(" Word of Today")
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 30))
-            Spacer()
+            Rectangle()
+              .foregroundColor(.white)
+              .frame(width: 50, height: 2, alignment: .center)
           }
-          .padding(.horizontal, 20)
+          .padding(.horizontal, 1)
 
-          Image("mae")
+          Image((viewModel.word?.word.image) ?? "mae") // image가 널
             .resizable()
-            .frame(width: UIScreen.main.bounds.width, height: 100, alignment: .center)
-            .padding(.vertical, 10)
+            .frame(width: 300, height: 200, alignment: .center)
+            .padding(.vertical, 5)
           HStack {
-            Text(viewModel.word?.word.word_kor ?? "")
-              .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 25))
-              .padding(.top, 10)
+            VStack(alignment: .leading) {
+              Text("Word : " + (viewModel.word?.word.word_kor ?? ""))
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 25))
+                .padding(.top, 10)
+                .padding(.trailing, 10)
+              Text("Pronunciation : " + (viewModel.word?.word.pronunciation_eng ?? ""))
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 25))
+                .padding(.top, 10)
+            }
             Spacer()
           }
           .padding(.horizontal, 20)
           HStack {
-            Text(viewModel.word?.word.pronunciation_eng ?? "")
-              .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 25))
-              .padding(.top, 10)
-            Spacer()
-          }
-          .padding(.horizontal, 20)
-          HStack {
-            Text(viewModel.word?.word.meaning_eng1 ?? "")
-              .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 25))
-              .padding(.top, 10)
+            VStack(alignment: .leading) {
+              Text("Meaning in Korean : ")
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 20))
+
+              Text(viewModel.word?.word.meaning_kor1 ?? "")
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 20))
+
+              Text("Meaning in English : ")
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 20))
+
+              Text(viewModel.word?.word.meaning_eng1 ?? "")
+                .foregroundColor(.white)
+                .font(Font.custom("Bangla MN", size: 20))
+            }
             Spacer()
           }
           .padding(.horizontal, 20)
@@ -90,11 +86,11 @@ struct TodayWordView: View {
             Text("Related Places")
               .foregroundColor(.white)
               .fontWeight(.semibold)
-              .font(Font.custom("Bangla MN", size: 25))
+              .font(Font.custom("Bangla MN", size: 18))
               .padding(.top, 10)
             Image(systemName: "chevron.right.2")
               .resizable()
-              .frame(width: 20, height: 20, alignment: .center)
+              .frame(width: 15, height: 15, alignment: .center)
               .foregroundColor(.white)
 
             Spacer()
@@ -105,11 +101,10 @@ struct TodayWordView: View {
           ScrollView(.horizontal) {
             HStack(spacing: 20) {
               ForEach(0 ..< 10) {
-                Text("  Item \($0)  ")
+                Text("  Place \($0)  ")
                   .foregroundColor(.white)
-                  .font(Font.custom("Bangla MN", size: 20))
-                  .padding(.top, 10)
-                  .frame(height: 50)
+                  .font(Font.custom("Bangla MN", size: 16))
+                  .frame(height: 40)
                   .background(RoundedRectangle(cornerRadius: 10)
                     .fill(Color("Navy")))
               }
@@ -121,14 +116,14 @@ struct TodayWordView: View {
           TodayInOutButton(viewModel: viewModel)
 
           Spacer()
-            .frame(height: 180)
+            .frame(height: 80)
         }
       }
     }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: self.backButton)
+
+    //.navigationBarBackButtonHidden(true)
+    .navigationBarHidden(true)
+    //.navigationBarItems(leading: self.backButton)
   }
 }
 
@@ -150,12 +145,12 @@ struct TodayInOutButton: View {
           .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
         HStack {
-          Image(systemName: viewModel.word!.added ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
+          Image(systemName: viewModel.word?.added ?? false ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
             .resizable()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color.orange)
             .padding(.horizontal, 5)
-          Text(viewModel.word!.added ? "Get it out of my vocabulary" : "Put it in my vocabulary")
+          Text(viewModel.word?.added ?? false ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
             .font(Font.custom("Bangla MN", size: 18))
             .padding(.top, 10)

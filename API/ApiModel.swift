@@ -45,6 +45,7 @@ struct home_keys: Codable {
   let word_image: String
   let word_audio: String
   let place_list: [HomeCard]
+  /*
   init(id: Int, word: String, word_id: Int, word_image: String, word_audio: String, place_list: [HomeCard]) {
     self.id = id
     self.word = word
@@ -52,6 +53,18 @@ struct home_keys: Codable {
     self.word_image = word_image
     self.word_audio = word_audio
     self.place_list = place_list
+  }*/
+}
+
+struct Folder: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: FolderInfo
+  struct FolderInfo: Codable{
+    let user_id: Int
+    let word_folder_id: Int
+    let folder_name: String
   }
 }
 
