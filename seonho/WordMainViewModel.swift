@@ -20,6 +20,7 @@ class WordMainViewModel: ObservableObject {
 
   init() {
     
+    /*
     WordApiCaller.userFolderRead { result in
       let status = Int(result!.result_code)
       switch status {
@@ -30,7 +31,7 @@ class WordMainViewModel: ObservableObject {
       default:
         print("----- folder word read api error")
       }
-    }
+    }*/
 
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 1) { result in
       let status = Int(result!.result_code)

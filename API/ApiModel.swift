@@ -48,6 +48,9 @@ struct login_keys: Codable {
   let last_login_at: String
   let week_attendance: Int
   let status: String
+  let add_folder_id: Int
+  let learning_folder_id: Int
+  let complete_folder_id: Int 
 }
 
 struct homeReadModel: Codable {

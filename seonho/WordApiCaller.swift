@@ -41,11 +41,11 @@ final class WordApiCaller {
           return ("/api/word/\(word_id)", ["":""], .get, defaultHeaders)
           //return ("/api/word/", ["data" : ["word_id": word_id]], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
-          return ("/api/myWord/\(UserDefaults.id!)/\(word_folder_id)", ["":""], .get, formdataHeaders)
+          return ("/api/myWord/\(UserDefaults.id!)/\(word_folder_id)", ["":""], .get, defaultHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
         case let .testingWords(quiz_type, folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)/\(quiz_type)/\(folder_id)", ["":""], .get, formdataHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)/\(quiz_type)/\(folder_id)", ["":""], .get, defaultHeaders)
         }
       }()
       let url = try "\(baseHostName)".asURL()

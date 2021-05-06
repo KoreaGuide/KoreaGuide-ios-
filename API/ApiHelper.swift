@@ -353,7 +353,7 @@ final class ApiHelper {
           }
 
           callback(result.result_code)
-          
+
         } catch {
           callback(nil)
         }
@@ -411,20 +411,9 @@ final class ApiHelper {
           UserDefaults.created_at = login_info.data.created_at
           // UserDefaults.token = login_info.data.token
           UserDefaults.week_attendance = login_info.data.week_attendance
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
-            UserDefaults.add_folder_id = result?.data.word_folder_id
-          }
-          
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
-           UserDefaults.learning_folder_id = result?.data.word_folder_id
-         }
-          
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
-           UserDefaults.complete_folder_id = result?.data.word_folder_id
-         }
-          
-          
-          print(login_info.data.token)
+          UserDefaults.add_folder_id = login_info.data.add_folder_id
+          UserDefaults.learning_folder_id = login_info.data.learning_folder_id
+          UserDefaults.complete_folder_id = login_info.data.complete_folder_id
           callback(login_info.result_code)
         } catch {
           do {
