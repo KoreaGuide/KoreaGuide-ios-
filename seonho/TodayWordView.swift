@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 // destination: TodayWordView(viewModel: TodayWordViewModel()) 이런식으로 진입
 
@@ -38,7 +39,7 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 1)
 
-          Image((viewModel.word?.word.image) ?? "mae") // image가 널
+          Image("egg") // image가 안나올수도
             .resizable()
             .frame(width: 300, height: 200, alignment: .center)
             .padding(.vertical, 5)
@@ -121,9 +122,9 @@ struct TodayWordView: View {
       }
     }
 
-    //.navigationBarBackButtonHidden(true)
+    // .navigationBarBackButtonHidden(true)
     .navigationBarHidden(true)
-    //.navigationBarItems(leading: self.backButton)
+    // .navigationBarItems(leading: self.backButton)
   }
 }
 
@@ -134,9 +135,9 @@ struct TodayInOutButton: View {
     Button(action: {
       viewModel.word!.added.toggle()
       if viewModel.word!.added == true {
-        // viewModel.added_word_id_list.append(viewModel.wordList[viewModel.currentWordCount].word_id)
+        viewModel.addWord()
       } else {
-        // viewModel.added_word_id_list = viewModel.added_word_id_list.filter { $0 != viewModel.wordList[viewModel.currentWordCount].word_id }
+        viewModel.removeWord()
       }
     }, label: {
       ZStack {

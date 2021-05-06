@@ -86,7 +86,7 @@ struct MainWordListModel: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: WordFolderInfo
+  let data: WordFolderInfo?
   struct WordFolderInfo: Codable {
     let my_word_folder_id: Int
     let now_word_count: Int

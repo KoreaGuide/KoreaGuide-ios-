@@ -27,32 +27,11 @@ class WordListViewModel: ObservableObject {
     WordApiCaller.folderWordRead(word_folder_id: word_folder_id){ result in
       switch result?.result_code{
       case 200:
-        self.word_list = result?.data.my_word_list ?? []
+        self.word_list = result?.data?.my_word_list ?? []
       default:
         print("---- folder word read api error")
       }
       
     }
   }
-
-  private var didSelectWordPublisher: AnyPublisher<Bool, Never> {
-    $selectedWord
-      .map { $0 != nil }
-      .eraseToAnyPublisher()
-  }
-
-  /*
-      didSelectWordPublisher
-        .receive(on: RunLoop.main)
-        .assign(to: \.didSelectWord, on: self)
-        .store(in: &cancellable)
-
-      $selectedWord
-        .map {
-          if $0 != nil { return $0!.word_id } else { return 0 }
-        }
-        .receive(on: RunLoop.main)
-        .assign(to: \.word_id, on: self)
-        .store(in: &cancellable)
-   */
 }

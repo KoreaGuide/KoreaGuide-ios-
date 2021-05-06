@@ -150,7 +150,7 @@ struct WordAddView: View {
                 }
               }
             } else {
-              WordBox(viewModel: WordBoxViewModel(currentCount: viewModel.currentWordCount, word: viewModel.word_list[viewModel.currentWordCount]))
+              WordBox(viewModel: viewModel)
             }
 
             // right
@@ -191,10 +191,10 @@ struct WordAddView: View {
 }
 
 struct WordBox: View {
-  @ObservedObject var viewModel: WordBoxViewModel
+  @ObservedObject var viewModel: WordAddViewModel
   @State var audioPlayer: AVAudioPlayer!
   // @State var added: Bool = false
-  // @State var playing: Bool = false
+  @State var playing: Bool = false
 
   var body: some View {
     VStack {
@@ -205,7 +205,7 @@ struct WordBox: View {
 
         VStack {
           // 1.circle
-          Image(viewModel.word.word_image)
+          Image(viewModel.word_list[viewModel.currentWordCount].word_image)
             .resizable()
             .frame(width: 200, height: 200, alignment: .center)
             .cornerRadius(10)
@@ -213,28 +213,28 @@ struct WordBox: View {
 
           Spacer().frame(height: 10)
 
-          Text(viewModel.word.word_kor)
+          Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 20))
 
-          Text(viewModel.word.pronunciation_eng)
+          Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
-          Text(viewModel.word.word_eng)
+          Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
-          Text(viewModel.word.meaning_eng1)
+          Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
 
           Button(action: {
-            viewModel.playing.toggle()
+            self.playing.toggle()
             self.audioPlayer.play()
             // self.audioPlayer.pause()
           }, label: {
-            Image(systemName: viewModel.playing ? "play.circle.fill" : "play.circle")
+            Image(systemName: self.playing ? "play.circle.fill" : "play.circle")
               .resizable()
               .frame(width: 30, height: 30, alignment: .center)
               .foregroundColor(Color.orange)

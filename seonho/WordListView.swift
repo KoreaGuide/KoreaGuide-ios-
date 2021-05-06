@@ -17,7 +17,7 @@ struct WordPopup: View {
       if self.displayItem != -1 {
         Color.black.opacity(displayItem != -1 ? 0.3 : 0).edgesIgnoringSafeArea(.all)
 
-        VStack (alignment: .leading){
+        VStack(alignment: .leading) {
           HStack {
             Text(viewModel.word_list[displayItem].word_kor)
               .font(Font.custom("Bangla MN", size: 20))
@@ -107,7 +107,7 @@ struct WordListView: View {
   @ObservedObject var viewModel: WordListViewModel
 
   @State var showPopup: Int = -1
-  
+
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
@@ -127,6 +127,7 @@ struct WordListView: View {
     })
   }
 
+  @State var isLearnView = false
   var body: some View {
     ZStack {
       NavigationView {
@@ -137,17 +138,20 @@ struct WordListView: View {
             .ignoresSafeArea()
 
           VStack(alignment: .center) {
-            Text("" + " Words List") //TODO
+            Text("" + " Words List") // TODO:
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.vertical, 15)
 
             HStack { // NavigationLazyView()
-              NavigationLink(destination: WordLearnView().navigationBarHidden(true)) {
+              NavigationLink(destination: WordLearnView().navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
+
+              Button(action: {
+                self.isLearnView = true
+              }, label: {
                 LearnButton()
-              }
-              .isDetailLink(false)
+              })
 
               Spacer()
 
@@ -155,18 +159,22 @@ struct WordListView: View {
                 {
                   TestButton()
                 }
-                .isDetailLink(false)
             }
             .padding(.horizontal, 30)
             Spacer()
               .frame(height: 40)
-            
 
             WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 
               let num = row * 2 + col
 
-              if (viewModel.word_list.count > num) && (num >= 0) {
+              if viewModel.word_list.count == 0 {
+                Text("This folder is empty.")
+                  .foregroundColor(.white)
+                  .fontWeight(.heavy)
+                  .font(Font.custom("Bangla MN", size: 25))
+                  .padding(.vertical, 15)
+              } else if (viewModel.word_list.count > num) && (num >= 0) {
                 Button(action: {
                   self.showPopup = num
                 }, label: {

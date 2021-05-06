@@ -34,7 +34,18 @@ class TodayWordViewModel: ObservableObject {
   }
 
   func addWord() {
-    WordApiCaller.myWordCreate(word_folder_id: 0, word_id: word_id) { result in
+    WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 0, word_id: word_id) { result in
+      let status = Int(result!.result_code)
+      switch status {
+      case 200:
+        print("----- today word add api done")
+      default:
+        print("----- today word add api error")
+      }
+    }
+  }
+  func removeWord() {
+    WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 0, word_id: word_id) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:

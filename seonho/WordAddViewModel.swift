@@ -13,7 +13,7 @@ class WordBoxViewModel: ObservableObject {
   @Published var currentCount: Int
   @Published var word: WordDetail
 
-  @Published var playing: Bool = false
+  //@State var playing: Bool = false
 
   init(currentCount: Int, word: WordDetail) {
     self.currentCount = currentCount
@@ -26,7 +26,7 @@ class WordAddViewModel: ObservableObject {
   var place_title: String = ""
   var user_id: Int = UserDefaults.id!
 
-  var word_list: [WordDetail] = []
+  @Published var word_list: [WordDetail] = []
 
   @Published var addButton: Bool = false
 
@@ -62,7 +62,13 @@ class WordAddViewModel: ObservableObject {
 
     // place id -> related word list
     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-      self.word_list = result?.word_list ?? []
+      self.word_list = result?.data.word_list ?? []
+      print("---------------word list ")
+      
+      print(self.word_list[0].word_kor)
+      print("---------------word list ")
+      print(self.word_list.count)
+      print("---------------word list ")
     }
     totalWordCount = word_list.count
     

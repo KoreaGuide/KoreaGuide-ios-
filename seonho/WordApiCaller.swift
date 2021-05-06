@@ -109,7 +109,7 @@ final class WordApiCaller {
       }
   }
 
-  static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceInfo?) -> Void) {
+  static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceModel?) -> Void) {
     AF.request(Router.placeRelatedWords(place_id: place_id))
       .responseJSON { response in
         debugPrint(response)
@@ -124,7 +124,7 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(WordOfPlaceInfo.self, from: data)
+          let result = try decoder.decode(WordOfPlaceModel.self, from: data)
           print(result)
           callback(result)
         } catch {

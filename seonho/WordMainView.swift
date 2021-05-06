@@ -123,7 +123,7 @@ struct AddedWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.added_word_info?.data.now_word_count ?? 0))
+        Text("number of words : " + String(viewModel.added_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -144,7 +144,7 @@ struct LearningWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.learning_word_info?.data.now_word_count ?? 0))
+        Text("number of words : " + String(viewModel.learning_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
@@ -165,7 +165,7 @@ struct CompleteWordButton: View {
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
-        Text("number of words : " + String(viewModel.complete_word_info?.data.now_word_count ?? 0))
+        Text("number of words : " + String(viewModel.complete_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
           .font(Font.custom("Bangla MN", size: 20))
       }
