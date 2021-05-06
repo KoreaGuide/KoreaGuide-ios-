@@ -65,7 +65,7 @@ final class ApiHelper {
           return ("/api/place/regionList/" + String(UserDefaults.id!), ["": ""], .get, defaultHeaders)
 
         case let .folderCreate(user_id: user_id, folder_name: folder_name):
-          return ("/api/myWordFolder", ["data": ["user_id": user_id, "folder_name": folder_name]], .post, defaultHeaders)
+          return ("/api/myWordFolder/", ["data": ["user_id": user_id, "folder_name": folder_name]], .post, defaultHeaders)
 
           // case let .confirmEmail(key):
           // return ("/api/user/checkDuplicate",["email": email, "pwd":password], .post, defaultHeaders)
@@ -340,7 +340,7 @@ final class ApiHelper {
 
           UserDefaults.id = result.data.id
 
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "ADDED") { result in
             UserDefaults.add_folder_id = result?.data.word_folder_id
           }
 
@@ -411,7 +411,17 @@ final class ApiHelper {
           UserDefaults.created_at = login_info.data.created_at
           // UserDefaults.token = login_info.data.token
           UserDefaults.week_attendance = login_info.data.week_attendance
-
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
+            UserDefaults.add_folder_id = result?.data.word_folder_id
+          }
+          
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
+           UserDefaults.learning_folder_id = result?.data.word_folder_id
+         }
+          
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
+           UserDefaults.complete_folder_id = result?.data.word_folder_id
+         }
           
           
           print(login_info.data.token)
