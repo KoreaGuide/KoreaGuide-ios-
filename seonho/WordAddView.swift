@@ -38,10 +38,11 @@ struct ProgressBar: View {
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-  
   @ObservedObject var viewModel: WordAddViewModel
   // @State var progressValue: Float = 0.0
- 
+  @State var audioPlayer: AVAudioPlayer!
+  // @State var added: Bool = false
+  @State var playing: Bool = false
 
   var backButton: some View {
     // 뒤로가기
@@ -66,6 +67,9 @@ struct WordAddView: View {
           .resizable()
           .frame(width: UIScreen.main.bounds.width + 10, height: UIScreen.main.bounds.height, alignment: .center)
           .ignoresSafeArea()
+          .onAppear(){
+            viewModel.setwordlist()
+          }
 
         VStack(alignment: .center) {
           Spacer()
@@ -122,10 +126,10 @@ struct WordAddView: View {
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
                       .foregroundColor(.white)
-                    
+
                     Spacer()
                       .frame(height: 40)
-                    
+
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -151,13 +155,63 @@ struct WordAddView: View {
                 }
               }
             } else {
-              WordBox(viewModel: self.viewModel)
+              VStack {
+                ZStack {
+                  RoundedRectangle(cornerRadius: 25)
+                    .fill(Color("Navy"))
+                    .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+
+                  VStack {
+                    // 1.circle
+                    Image(viewModel.word_list[viewModel.currentWordCount].word_image)
+                      .resizable()
+                      .frame(width: 200, height: 200, alignment: .center)
+                      .cornerRadius(10)
+                      .padding(.vertical, 20)
+
+                    Spacer().frame(height: 10)
+
+                    Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
+                      .foregroundColor(.white)
+                      .font(Font.custom("Bangla MN", size: 20))
+
+                    Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
+                      .foregroundColor(.white)
+                      .font(Font.custom("Bangla MN", size: 18))
+
+                    Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
+                      .foregroundColor(.white)
+                      .font(Font.custom("Bangla MN", size: 18))
+
+                    Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
+                      .foregroundColor(.white)
+                      .font(Font.custom("Bangla MN", size: 18))
+
+                    Button(action: {
+                      self.playing.toggle()
+                      //self.audioPlayer.play()
+                      // self.audioPlayer.pause()
+                    }, label: {
+                      Image(systemName: self.playing ? "play.circle.fill" : "play.circle")
+                        .resizable()
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .foregroundColor(Color.orange)
+                    })
+                      .onAppear {
+                        //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
+                        // self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+                      }
+                      .padding(.bottom, 20)
+                  }
+                }
+                .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+              }
             }
 
             // right
             if viewModel.currentWordCount != viewModel.totalWordCount {
               Button(action: {
-                if viewModel.currentWordCount < viewModel.totalWordCount {
+                if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
                   viewModel.currentWordCount += 1
                   if viewModel.currentWordCount == viewModel.totalWordCount {
                     viewModel.finish = true
@@ -180,6 +234,7 @@ struct WordAddView: View {
           }
 
           Spacer()
+            .frame(height: 60)
         }
       }
     }
@@ -260,6 +315,8 @@ struct InOutButton: View {
     Button(action: {
       viewModel.addButton.toggle()
       if viewModel.addButton == true {
+        viewModel.add(word_id: viewModel.word_list[viewModel.currentWordCount].word_id)
+        
         viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
       } else {
         viewModel.added_word_id_list = viewModel.added_word_id_list

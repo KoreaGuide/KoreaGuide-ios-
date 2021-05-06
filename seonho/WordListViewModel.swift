@@ -24,7 +24,7 @@ class WordListViewModel: ObservableObject {
   init(word_folder_id: Int) {
     self.word_folder_id = word_folder_id
     self.word_list = []
-    WordApiCaller.folderWordRead(word_folder_id: word_folder_id){ result in
+    WordApiCaller.folderWordRead(word_folder_id: word_folder_id) { result in
       switch result?.result_code{
       case 200:
         self.word_list = result?.data?.my_word_list ?? []
