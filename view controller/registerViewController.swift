@@ -109,6 +109,7 @@ class registerViewController: UIViewController {
 
           case 201:
             self.defaultAlert(title: "알람", message: "계정이 생성되었습니다.") { _ in
+              
               self.dismiss(animated: true, completion: nil)
             }
           default:

@@ -15,6 +15,7 @@ final class WordApiCaller {
   enum Router: URLRequestConvertible {
     case homeRead
     case myWordCreate(word_folder_id: Int, word_id: Int)
+    case userFolderRead
     case oneWordRead(word_id: Int)
     case folderWordRead(word_folder_id: Int)
     case myWordDelete(word_folder_id: Int, word_id: Int)
@@ -33,11 +34,14 @@ final class WordApiCaller {
           return ("/api/home/", ["": ""], .get, defaultHeaders)
         case let .myWordCreate(word_folder_id, word_id):
           return ("/api/myWord/\(UserDefaults.id!)", ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .post, defaultHeaders)
+        case .userFolderRead:
+          return ("/api/myWordFolder/\(UserDefaults.id!)", ["": ""], .get, defaultHeaders)
+        
         case let .oneWordRead(word_id):
           return ("/api/word/\(word_id)", ["":""], .get, defaultHeaders)
           //return ("/api/word/", ["data" : ["word_id": word_id]], .get, defaultHeaders)
         case let .folderWordRead(word_folder_id: word_folder_id):
-          return ("/api/myWordFolder/\(UserDefaults.id!)/\(word_folder_id)", ["":""], .get, formdataHeaders)
+          return ("/api/myWord/\(UserDefaults.id!)/\(word_folder_id)", ["":""], .get, formdataHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
         case let .testingWords(quiz_type, folder_id):
@@ -55,6 +59,30 @@ final class WordApiCaller {
     }
   }
 
+  static func userFolderRead(callback: @escaping (AllFolderInfo?) -> Void) {
+    AF.request(Router.homeRead)
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(AllFolderInfo.self, from: data)
+          print(result)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
+  
   static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
     AF.request(Router.placeDetailAllRead(place_id: place_id))
       .responseJSON { response in

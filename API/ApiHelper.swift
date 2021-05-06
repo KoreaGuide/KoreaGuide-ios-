@@ -336,7 +336,22 @@ final class ApiHelper {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(signUpModel.self, from: data)
+          let result = try decoder.decode(RegisterResult.self, from: data)
+
+          UserDefaults.id = result.data.id
+
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
+            UserDefaults.add_folder_id = result?.data.word_folder_id
+          }
+
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
+            UserDefaults.learning_folder_id = result?.data.word_folder_id
+          }
+
+          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
+            UserDefaults.complete_folder_id = result?.data.word_folder_id
+          }
+
           callback(result.result_code)
         } catch {
           callback(nil)
@@ -386,29 +401,18 @@ final class ApiHelper {
         do {
           // >???
           let login_info = try decoder.decode(loginModel.self, from: data)
+          print("----------")
           print(login_info)
-          ApiHelper.defaultHeaders["Authorization"] = "Bearer \(login_info.data.token)"
+          // ApiHelper.defaultHeaders["Authorization"] = "Bearer \(login_info.data.token)"
           UserDefaults.id = login_info.data.id
           UserDefaults.email = login_info.data.email
           UserDefaults.created_by = login_info.data.created_by
           UserDefaults.created_at = login_info.data.created_at
-          UserDefaults.token = login_info.data.token
+          // UserDefaults.token = login_info.data.token
           UserDefaults.week_attendance = login_info.data.week_attendance
 
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
-            UserDefaults.add_folder_id = result?.data.word_folder_id
-          }
-          
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
-           UserDefaults.learning_folder_id = result?.data.word_folder_id
-         }
-          
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
-           UserDefaults.complete_folder_id = result?.data.word_folder_id
-         }
-          
-          print(login_info.data.token)
-          callback(login_info.result_code)
+          // print(login_info.data.token)
+          callback(200)
         } catch {
           do {
             let failure_info = try decoder.decode(signUpModel.self, from: data)
@@ -433,10 +437,12 @@ final class ApiHelper {
           break
         }
         guard let data = response.data else { return }
+        print("-----------")
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
           let result = try decoder.decode(Folder.self, from: data)
+          print("-----------")
           print(result)
           callback(result)
         } catch {
