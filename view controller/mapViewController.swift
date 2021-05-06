@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 import UIKit
-class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelegate{
+class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelegate {
   @IBOutlet var mapView: MyMapView!
   let coordinator = MapCoordinator()
   var target: MKOverlay?
@@ -16,59 +16,68 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
   var regionList: [Region] = []
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    mapView = MyMapView(frame: view.frame)
+    view.addSubview(mapView)
     mapView.mapViewTouchDelegate = self
-    mapView.delegate = coordinator
+    mapView.delegate = self
     mapView.addOverlays(parseGeoJson())
+    mapView.addAnnotations(makePins())
+    
+  }
 
-    ApiHelper.regionListRead {
-      result in
-      print(result!)
-      let status = result?.result_code
-      switch status {
-      case 200:
-        self.regionList = (result?.data.region_list)!
-      default:
-        fatalError()
+  func makePins() -> [MKPointAnnotation] {
+    var pins = [MKPointAnnotation]()
+    UserDefaults.placeInfo.forEach {
+      let pin = MKPointAnnotation()
+      pin.title = $0.title
+      if $0.map_y != "null" {
+        pin.coordinate = CLLocationCoordinate2D(latitude: Double($0.map_y)!, longitude: Double($0.map_x)!)
+        pin.subtitle = String($0.id)
+        pins.append(pin)
+        
       }
     }
-    regionList.forEach {
-      ApiHelper.placeListForRegionRead(region_id: $0.areacode) { result in
-        print(result!)
-        let status = result?.result_code
-        switch status {
-        case 200:
-          self.placesInfo.append(contentsOf: result!.data.place_list) 
-        case 204:
-          print("NO_CONTENT")
-        case 500:
-          print("region id 오류")
-        default:
-          print("알 수 없는 에러 발생")
-        }
-      }
+
+    return pins
+  }
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    if let polygon = overlay as? MKPolygon {
+      print(polygon.title!)
+      let renderer = MKPolygonRenderer(polygon: polygon)
+      renderer.fillColor = UIColor(hex: polygon.title!)
+      renderer.strokeColor = UIColor.black
+      return renderer
+    } else if let polygon = overlay as? MKMultiPolygon {
+      let renderer = MKMultiPolygonRenderer(multiPolygon: polygon)
+      renderer.fillColor = UIColor(hex: polygon.title!)
+      renderer.strokeColor = UIColor.black
+      return renderer
     }
+    return MKOverlayRenderer(overlay: overlay)
   }
-  func makePinAnnotation(place : place) {
-    let pin = MKPointAnnotation()
-    pin.title = place.title
-    pin.coordinate = CLLocationCoordinate2D(latitude: Double(place.map_x)!, longitude: Double(place.map_y)!)
-    mapView.addAnnotation(pin)
-  }
+
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-      guard annotation is MKPointAnnotation else { return nil }
+    guard annotation is MKPointAnnotation else { return nil }
 
-      let identifier = "Annotation"
-      var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+    let identifier = annotation.title!
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier!)
+    if annotationView == nil {
+      annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      annotationView!.canShowCallout = true
+      let pinImage = UIImage(named: "marker")
+      annotationView!.image = pinImage
+    } else {
+      annotationView!.annotation = annotation
+    }
 
-      if annotationView == nil {
-          annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-          annotationView!.canShowCallout = true
-      } else {
-          annotationView!.annotation = annotation
-      }
-
-      return annotationView
+    return annotationView
+  }
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
+    postingVC.place_id = Int((view.annotation?.subtitle)!!)
+    navigationController?.pushViewController(postingVC, animated: true)
   }
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "map", ofType: "geojson") else {
@@ -114,21 +123,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
   }
 
   final class MapCoordinator: NSObject, MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-      if let polygon = overlay as? MKPolygon {
-        print(polygon.title!)
-        let renderer = MKPolygonRenderer(polygon: polygon)
-        renderer.fillColor = UIColor(hex: polygon.title!)
-        renderer.strokeColor = UIColor.black
-        return renderer
-      } else if let polygon = overlay as? MKMultiPolygon {
-        let renderer = MKMultiPolygonRenderer(multiPolygon: polygon)
-        renderer.fillColor = UIColor(hex: polygon.title!)
-        renderer.strokeColor = UIColor.black
-        return renderer
-      }
-      return MKOverlayRenderer(overlay: overlay)
-    }
+    
   }
 
   func polygonsTapped(polygons: [MKPolygon]) {
@@ -143,8 +138,10 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
       let search = UIAlertAction(title: "Search", style: .default) { action in
         // 시점이동하고 줌 시키기.
       }
+      let cancle = UIAlertAction(title: "Cancle", style: .cancel)
       action.addAction(search)
       action.addAction(edit)
+      action.addAction(cancle)
       self.present(action, animated: true, completion: nil)
     }
   }
@@ -161,8 +158,10 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
       let search = UIAlertAction(title: "Search", style: .default) { action in
         // 시점이동하고 줌 시키기.
       }
+      let cancle = UIAlertAction(title: "Cancle", style: .cancel)
       action.addAction(search)
       action.addAction(edit)
+      action.addAction(cancle)
       self.present(action, animated: true, completion: nil)
     }
   }

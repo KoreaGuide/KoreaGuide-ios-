@@ -50,11 +50,36 @@ class homeViewController: UIViewController, ListAdapterDataSource {
       default:
         self.defaultAlert(title: "알람", message: "서버 장애가 발생하였습니다. ", callback: nil)
       }
-      
-    
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self
+    ApiHelper.regionListRead {
+      result in
+      print(result!)
+      let status = result?.result_code
+      switch status {
+      case 200:
+        result?.data.region_list.forEach {
+          ApiHelper.placeListForRegionRead(region_id: $0.areacode) { result1 in
+            print(result1!)
+            let status = result1?.result_code
+            switch status {
+            case 200:
+              UserDefaults.placeInfo.append(contentsOf: result1!.data.place_list)
+              print(UserDefaults.placeInfo.count)
+            case 204:
+              print("NO_CONTENT")
+            case 500:
+              print("region id 오류")
+            default:
+              print("알 수 없는 에러 발생")
+            }
+          }
+        }
+      default:
+        fatalError()
+      }
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {

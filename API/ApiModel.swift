@@ -198,10 +198,8 @@ struct placeListData: Codable {
 
 struct place : Codable {
   let id : Int
-  let content_id : Int
   let title : String
   let address1 : String
-  let address2 : String
   let first_image : String
   let first_image2 : String
   let map_x : String

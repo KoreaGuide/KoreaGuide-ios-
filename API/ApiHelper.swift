@@ -35,15 +35,15 @@ final class ApiHelper {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
         switch self {
         case let .placeListForRegionRead(region_id):
-          return ("/api/place/region/\(String(describing: UserDefaults.id))/\(region_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/region/\(String(describing: UserDefaults.id!))/\(region_id)", ["": ""], .get, defaultHeaders)
         case let .placeRelatedWords(place_id, page_num):
           return ("/api/place/word/\(place_id)?=page=\(page_num)", ["": ""], .get, defaultHeaders)
         case let .placeDetailKorRead(place_id):
-          return ("/api/place/detail/kor/\(place_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/detail/kor/\(String(describing: UserDefaults.id!))/\(place_id)", ["": ""], .get, defaultHeaders)
         case let .placeDetailEngRead(place_id):
-          return ("/api/place/detail/eng/\(place_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/detail/eng/\(String(describing: UserDefaults.id!))/\(place_id)", ["": ""], .get, defaultHeaders)
         case let .placeDetailAllRead(place_id):
-          return ("/api/place/detail/\(place_id)", ["": ""], .get, defaultHeaders)
+          return ("/api/place/detail/\(String(UserDefaults.id!))/\(place_id)", ["": ""], .get, defaultHeaders)
         case let .register(email, password, nickName):
           return ("/api/user", ["data": ["email": email, "password": password, "nickname": nickName]], .post, defaultHeaders)
         case let .login(email, password):
