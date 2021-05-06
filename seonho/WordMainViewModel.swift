@@ -14,11 +14,24 @@ class WordMainViewModel: ObservableObject {
   @Published var complete_word_info: MainWordListModel?
 
   /*
-  var totalCount: Int {
-    return added_word_info!.data.now_word_count + learning_word_info!.data.now_word_count + complete_word_info!.data.now_word_count
-  }*/
-  
+   var totalCount: Int {
+     return added_word_info!.data.now_word_count + learning_word_info!.data.now_word_count + complete_word_info!.data.now_word_count
+   }*/
+
   init() {
+    
+    WordApiCaller.userFolderRead { result in
+      let status = Int(result!.result_code)
+      switch status {
+      case 200:
+        UserDefaults.add_folder_id = result?.data[0].word_folder_id
+        UserDefaults.learning_folder_id = result?.data[1].word_folder_id
+        UserDefaults.complete_folder_id = result?.data[2].word_folder_id
+      default:
+        print("----- folder word read api error")
+      }
+    }
+
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 1) { result in
       let status = Int(result!.result_code)
       switch status {

@@ -24,7 +24,7 @@ struct TopLabel: View {
     .padding(.vertical, 10)
 
     HStack {
-      Text("Welcome, " + String(UserDefaults.id!)) // nickname으로 변경
+      Text("Welcome, ") // + String(UserDefaults.id!) // nickname으로 변경
         .foregroundColor(.white)
         .font(Font.custom("Bangla MN", size: 30))
         .padding(.horizontal, 20)

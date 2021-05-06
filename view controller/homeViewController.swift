@@ -39,6 +39,8 @@ class homeViewController: UIViewController, ListAdapterDataSource {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+   
+    
     ApiHelper.homeRead { result in
       self.res = result
       let status = Int(self.res!.result_code)

@@ -7,6 +7,19 @@
 
 import Foundation
 
+struct AllFolderInfo: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: [OneFolderInfo]
+  struct OneFolderInfo: Codable{
+    let word_folder_id: Int
+    let folder_name: String
+    let word_count: Int
+  }
+}
+
+
 struct TodayWordModel: Codable {
   let result_code: Int
   let status: String
@@ -26,7 +39,6 @@ struct WordOfPlaceModel: Codable {
   let status: String
   let description: String
   let data: WordOfPlaceInfo
-
 }
 
 struct WordOfPlaceInfo: Codable {
@@ -34,7 +46,6 @@ struct WordOfPlaceInfo: Codable {
   let place_id: Int
   let word_list: [WordDetail]
 }
-
 
 struct WordDetail: Codable {
   let word_status: String
@@ -49,7 +60,7 @@ struct WordDetail: Codable {
   let pronunciation_eng: String
   let pronunciation_kor: String
   let word_image: String
-  let word_audio: String
+  let word_audio: String?
 }
 
 /*
