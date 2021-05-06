@@ -338,6 +338,7 @@ final class ApiHelper {
         do {
           let result = try decoder.decode(signUpModel.self, from: data)
           callback(result.result_code)
+          
         } catch {
           callback(nil)
         }
@@ -395,17 +396,7 @@ final class ApiHelper {
           UserDefaults.token = login_info.data.token
           UserDefaults.week_attendance = login_info.data.week_attendance
 
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Added") { result in
-            UserDefaults.add_folder_id = result?.data.word_folder_id
-          }
           
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Learning") { result in
-           UserDefaults.learning_folder_id = result?.data.word_folder_id
-         }
-          
-          ApiHelper.folderCreate(user_id: UserDefaults.id ?? 0, folder_name: "Complete") { result in
-           UserDefaults.complete_folder_id = result?.data.word_folder_id
-         }
           
           print(login_info.data.token)
           callback(login_info.result_code)

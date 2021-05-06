@@ -24,7 +24,7 @@ struct loginModel: Codable {
     let nickname: String
     let created_at: String
     let created_by: String
-    let token: String
+    let token: String?
     let last_login_at: String
     let week_attendance: Int
     let status: String

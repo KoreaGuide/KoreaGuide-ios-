@@ -14,6 +14,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
   var target: MKOverlay?
   var placesInfo: [place] = []
   var regionList: [Region] = []
+  var postingVC : placeDetailViewController?
   override func viewDidLoad() {
     super.viewDidLoad()
     mapView = MyMapView(frame: view.frame)
@@ -22,7 +23,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     mapView.delegate = self
     mapView.addOverlays(parseGeoJson())
     mapView.addAnnotations(makePins())
-    
+    mapView.isUserInteractionEnabled = true
   }
 
   func makePins() -> [MKPointAnnotation] {
@@ -77,7 +78,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
     postingVC.place_id = Int((view.annotation?.subtitle)!!)
-    navigationController?.pushViewController(postingVC, animated: true)
+    self.postingVC = postingVC
   }
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "map", ofType: "geojson") else {
@@ -157,6 +158,9 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
       }
       let search = UIAlertAction(title: "Search", style: .default) { action in
         // 시점이동하고 줌 시키기.
+        if self.postingVC != nil {
+          self.navigationController?.pushViewController(self.postingVC!, animated: true)
+        }
       }
       let cancle = UIAlertAction(title: "Cancle", style: .cancel)
       action.addAction(search)
