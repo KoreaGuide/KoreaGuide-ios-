@@ -108,7 +108,7 @@ struct WordAddView: View {
               })
             }
             // box
-            if viewModel.currentWordCount == viewModel.totalWordCount {
+            if viewModel.currentWordCount == viewModel.word_list.count - 1 {
               VStack {
                 ZStack {
                   RoundedRectangle(cornerRadius: 25)

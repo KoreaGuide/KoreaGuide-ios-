@@ -66,6 +66,7 @@ class WordAddViewModel: ObservableObject {
       print("---------------word list ")
       
       print(self.word_list[0].word_kor)
+      print(self.word_list[1].word_kor)
       print("---------------word list ")
       print(self.word_list.count)
       print("---------------word list ")
