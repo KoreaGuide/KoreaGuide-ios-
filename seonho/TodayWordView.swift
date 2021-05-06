@@ -39,7 +39,7 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 1)
 
-          Image("egg") // image가 안나올수도
+          Image("") // image가 안나올수도
             .resizable()
             .frame(width: 300, height: 200, alignment: .center)
             .padding(.vertical, 5)

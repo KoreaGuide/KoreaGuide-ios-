@@ -9,18 +9,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-class WordBoxViewModel: ObservableObject {
-  @Published var currentCount: Int
-  @Published var word: WordDetail
-
-  //@State var playing: Bool = false
-
-  init(currentCount: Int, word: WordDetail) {
-    self.currentCount = currentCount
-    self.word = word
-  }
-}
-
 class WordAddViewModel: ObservableObject {
   var place_id: Int = 0
   var place_title: String = ""

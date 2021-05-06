@@ -38,9 +38,10 @@ struct ProgressBar: View {
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  
   @ObservedObject var viewModel: WordAddViewModel
   // @State var progressValue: Float = 0.0
-  // @State private var cancellable: AnyCancellable?
+ 
 
   var backButton: some View {
     // 뒤로가기
@@ -150,7 +151,7 @@ struct WordAddView: View {
                 }
               }
             } else {
-              WordBox(viewModel: viewModel)
+              WordBox(viewModel: self.viewModel)
             }
 
             // right
