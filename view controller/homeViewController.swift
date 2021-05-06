@@ -47,7 +47,7 @@ class homeViewController: UIViewController, ListAdapterDataSource {
 
       switch status {
       case 200:
-        self.data.append(Home(cards: [CardViewModel(card: self.res!.data.place_list[0]), CardViewModel(card: self.res!.data.place_list[1]), CardViewModel(card: self.res!.data.place_list[2])], word: WordViewModel(word_id: self.res!.data.word_id, word: self.res!.data.word, word_image: self.res!.data.word_image, word_audio: "https://drive.google.com/file/d/1jVKirdapm-7WP2UMXewi7IOypji_w8qK/view?usp=sharing")))
+        self.data.append(Home(cards: [CardViewModel(card: self.res!.data.place_list[0]), CardViewModel(card: self.res!.data.place_list[1]), CardViewModel(card: self.res!.data.place_list[2])], word: WordViewModel(word_id: self.res!.data.word_id, word: self.res!.data.word, word_image: self.res!.data.word_image, word_audio: self.res!.data.word_audio)))
 
         self.adapter.performUpdates(animated: true, completion: nil)
       default:

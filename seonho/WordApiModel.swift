@@ -111,7 +111,7 @@ struct AddResponse: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: AfterAddInfo
+  let data: AfterAddInfo?
   struct AfterAddInfo: Codable {
     let my_word_folder_id: Int
     let previous_word_count: Int

@@ -74,6 +74,10 @@ class loginViewController: UIViewController {
         self.idTextField.text = ""
         self.passwordTextField.text = ""
         self.performSegue(withIdentifier: "home", sender: self)
+      case 204 :
+        self.idTextField.text = ""
+        self.passwordTextField.text = ""
+        self.performSegue(withIdentifier: "home", sender: self)
       case 3:
         self.defaultAlert(title: "경고", message: "이메일 인증 전입니다.", callback: nil)
       default:

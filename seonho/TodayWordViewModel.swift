@@ -39,6 +39,8 @@ class TodayWordViewModel: ObservableObject {
       switch status {
       case 200:
         print("----- today word add api done")
+      case 204:
+        print("@@@")
       default:
         print("----- today word add api error")
       }

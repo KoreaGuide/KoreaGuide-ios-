@@ -157,7 +157,7 @@ struct WordAddView: View {
             // right
             if viewModel.currentWordCount != viewModel.totalWordCount {
               Button(action: {
-                if viewModel.currentWordCount < viewModel.totalWordCount {
+                if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
                   viewModel.currentWordCount += 1
                   if viewModel.currentWordCount == viewModel.totalWordCount {
                     viewModel.finish = true
@@ -206,6 +206,7 @@ struct WordBox: View {
 
         VStack {
           // 1.circle
+          
           Image(viewModel.word_list[viewModel.currentWordCount].word_image)
             .resizable()
             .frame(width: 200, height: 200, alignment: .center)

@@ -32,11 +32,10 @@ final class MapCell: UICollectionViewCell, CLLocationManagerDelegate {
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestWhenInUseAuthorization()
     myMap.showsUserLocation = true
-
-    locationManager.startUpdatingLocation()
+    let regionRadius: CLLocationDistance = 1000
     setAnnotation(latitudeValue: CLLocationDegrees(map_y!), longitudeValue: CLLocationDegrees(map_x!), delta: 0.01, title: address!, subtitle: "")
-
-    locationManager.stopUpdatingLocation()
+    let coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(map_y!), longitude: CLLocationDegrees(map_x!)), latitudinalMeters: 800, longitudinalMeters: 800)
+    myMap.setRegion(coordinateRegion, animated: true)
   }
 
   // 위도와 경도, 스팬(영역 폭)을 입력받아 지도에 표시
