@@ -38,10 +38,9 @@ struct ProgressBar: View {
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-  
+
   @ObservedObject var viewModel: WordAddViewModel
   // @State var progressValue: Float = 0.0
- 
 
   var backButton: some View {
     // 뒤로가기
@@ -68,17 +67,17 @@ struct WordAddView: View {
           .ignoresSafeArea()
 
         VStack(alignment: .center) {
-          Spacer()
-            .frame(height: 60)
+         
 
           // place title
           Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 18))
             .multilineTextAlignment(.center)
-            .frame(width: 280, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
+            //.multilineAlignment(.center)
           Spacer()
-            .frame(height: 20)
+            .frame(height: 10)
           // label
           Section {
             Text(String(viewModel.currentWordCount) + "  /  " + String(viewModel.totalWordCount))
@@ -122,10 +121,10 @@ struct WordAddView: View {
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
                       .foregroundColor(.white)
-                    
+
                     Spacer()
                       .frame(height: 40)
-                    
+
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -206,18 +205,15 @@ struct WordBox: View {
 
         VStack {
           // 1.circle
-          
-          Image(viewModel.word_list[viewModel.currentWordCount].word_image)
-            .resizable()
+
+          ImageView(withURL: viewModel.word_list[viewModel.currentWordCount].word_image)
             .frame(width: 200, height: 200, alignment: .center)
             .cornerRadius(10)
-            .padding(.vertical, 20)
-
-          Spacer().frame(height: 10)
+            .padding(.top, 20)
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 20))
+            .font(Font.custom("Bangla MN", size: 18))
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
@@ -225,11 +221,15 @@ struct WordBox: View {
 
           Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+            .font(Font.custom("Bangla MN", size: 14))
+            .multilineTextAlignment(.leading)
+            .lineLimit(4)
 
           Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+            .font(Font.custom("Bangla MN", size: 14))
+            .multilineTextAlignment(.leading)
+            .lineLimit(4)
 
           Button(action: {
             self.playing.toggle()
@@ -247,8 +247,9 @@ struct WordBox: View {
             }
             .padding(.bottom, 20)
         }
+        .padding(.horizontal, 10)
       }
-      .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+      .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 80)
     }
   }
 }

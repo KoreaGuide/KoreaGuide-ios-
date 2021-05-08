@@ -43,9 +43,9 @@ struct TodayWordView: View {
 
       
           ImageView(withURL: viewModel.word?.word.image ?? "")
-            //.resizable()
-            //.frame(width: 300, height: 200, alignment: .center)
-            //.padding(.vertical, 5)
+            .frame(width: 300, height: 200, alignment: .center)
+            .padding(.vertical, 5)
+           
           HStack {
             VStack(alignment: .leading) {
               Text("Word : " + (viewModel.word?.word.word_kor ?? ""))

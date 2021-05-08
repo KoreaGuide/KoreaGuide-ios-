@@ -20,29 +20,33 @@ struct WordPopup: View {
         VStack(alignment: .leading) {
           HStack {
             Text(viewModel.word_list[displayItem].word_kor)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 18))
               .fontWeight(.heavy)
           }
-          .padding(10)
           HStack {
             Text(viewModel.word_list[displayItem].word_eng)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 18))
               .fontWeight(.bold)
           }
-          .padding(10)
+          
           HStack {
             Text(viewModel.word_list[displayItem].meaning_kor1)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 14))
+              .multilineTextAlignment(.leading)
+              .lineLimit(4)
           }
-          .padding(10)
           HStack {
             Text(viewModel.word_list[displayItem].meaning_eng1)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 14))
+              .multilineTextAlignment(.leading)
+              .lineLimit(4)
           }
-          .padding(10)
+          
         }
         .frame(width: 240, height: 240, alignment: .center)
+        .padding(.horizontal, 20)
         .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
+        
       }
     }
     .ignoresSafeArea()
@@ -178,7 +182,7 @@ struct WordListView: View {
                 Button(action: {
                   self.showPopup = num
                 }, label: {
-                  WordCellView(viewModel: viewModel)
+                  WordCellView(viewModel: viewModel, index: num)
                 })
               }
             }

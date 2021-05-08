@@ -13,7 +13,7 @@ class WordListViewModel: ObservableObject {
  
   var word_folder_id: Int
   @Published var word_list: [InMyListWord]
-  @Published var index: Int = 0
+  //@Published var index: Int = 0
 
   @Published var didSelectWord: Bool = false
   @Published var selectedWord: InMyListWord?
@@ -28,6 +28,8 @@ class WordListViewModel: ObservableObject {
       switch result?.result_code{
       case 200:
         self.word_list = result?.data?.my_word_list ?? []
+        print("---- folder word read api done")
+        //print(result?.data?.my_word_list ?? [])
       default:
         print("---- folder word read api error")
       }

@@ -21,7 +21,7 @@ struct TopLabel: View {
 
       Spacer()
     }
-    .padding(.vertical, 10)
+    .padding(.bottom, 10)
 
     HStack {
       Text("Welcome, ") // + String(UserDefaults.id!) // nickname으로 변경
@@ -79,6 +79,9 @@ struct WordMainView: View {
           TopLabel()
           //TotalCountBox(viewModel: viewModel)
 
+          Spacer()
+            .frame(height: 50)
+          
           NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))) {
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 10)
@@ -96,6 +99,10 @@ struct WordMainView: View {
               .padding(.vertical, 10)
           }
           .isDetailLink(false)
+          
+          Spacer()
+            .frame(height: 30)
+          
         }
         .padding(.bottom, 20)
       }
