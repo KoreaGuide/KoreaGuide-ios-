@@ -14,6 +14,8 @@ import UIKit
 struct TodayWordView: View {
   @ObservedObject var viewModel: TodayWordViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+  
+  
   var body: some View {
     NavigationView {
       ZStack {
@@ -39,10 +41,11 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 1)
 
-          Image("외벽") // image가 안나올수도
-            .resizable()
-            .frame(width: 300, height: 200, alignment: .center)
-            .padding(.vertical, 5)
+      
+          ImageView(withURL: viewModel.word?.word.image ?? "")
+            //.resizable()
+            //.frame(width: 300, height: 200, alignment: .center)
+            //.padding(.vertical, 5)
           HStack {
             VStack(alignment: .leading) {
               Text("Word : " + (viewModel.word?.word.word_kor ?? ""))
