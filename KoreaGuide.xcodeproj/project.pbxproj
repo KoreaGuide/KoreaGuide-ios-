@@ -133,6 +133,9 @@
 		5EF7BC922643092900544FB6 /* WordAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF7BC572642DB1000544FB6 /* WordAddView.swift */; };
 		5EF7BC932643092900544FB6 /* WordLearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF7BC5E2642DB1000544FB6 /* WordLearnView.swift */; };
 		5EF7BC942643092900544FB6 /* TodayWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF7BC5C2642DB1000544FB6 /* TodayWordView.swift */; };
+		886865872649881D000DD079 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886865862649881D000DD079 /* ImageLoader.swift */; };
+		886865882649881D000DD079 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886865862649881D000DD079 /* ImageLoader.swift */; };
+		886865892649881D000DD079 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886865862649881D000DD079 /* ImageLoader.swift */; };
 		8869AE4226432E6E002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4326432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4426432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
@@ -233,6 +236,7 @@
 		5EF7BC5F2642DB1000544FB6 /* WordTestSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTestSelectView.swift; sourceTree = "<group>"; };
 		5EF7BC602642DB2500544FB6 /* Assets_seonho.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets_seonho.xcassets; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
+		886865862649881D000DD079 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8894A0662649606200F8EC89 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		912ABAFDBABC5D660D0B92C1 /* Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 				5EF7BC5E2642DB1000544FB6 /* WordLearnView.swift */,
 				5EF7BC5F2642DB1000544FB6 /* WordTestSelectView.swift */,
 				8894A0662649606200F8EC89 /* BackButton.swift */,
+				886865862649881D000DD079 /* ImageLoader.swift */,
 			);
 			path = seonho;
 			sourceTree = SOURCE_ROOT;
@@ -810,6 +815,7 @@
 				5EF7BC692643092800544FB6 /* WordApiModel.swift in Sources */,
 				5E637962260F683700900192 /* HomeViewModel.swift in Sources */,
 				5E0CAF3D2618B1DF00B5B3FD /* placeViewController.swift in Sources */,
+				886865872649881D000DD079 /* ImageLoader.swift in Sources */,
 				5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */,
 				5EF7BC752643092800544FB6 /* WordLearnView.swift in Sources */,
 				5ED6ADB32640076E002F19E2 /* MapViewExtension.swift in Sources */,
@@ -848,6 +854,7 @@
 				5EF7BC822643092900544FB6 /* TodayWordViewModel.swift in Sources */,
 				5E0CAF3E2618B1DF00B5B3FD /* placeViewController.swift in Sources */,
 				5EF7BC832643092900544FB6 /* WordAddView.swift in Sources */,
+				886865882649881D000DD079 /* ImageLoader.swift in Sources */,
 				5E0CAF2926189F4800B5B3FD /* tapBarController.swift in Sources */,
 				5EF7BC7B2643092900544FB6 /* WordTestViewModel.swift in Sources */,
 				5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */,
@@ -890,6 +897,7 @@
 				5EF7BC912643092900544FB6 /* TodayWordViewModel.swift in Sources */,
 				5E0CAF3F2618B1DF00B5B3FD /* placeViewController.swift in Sources */,
 				5EF7BC922643092900544FB6 /* WordAddView.swift in Sources */,
+				886865892649881D000DD079 /* ImageLoader.swift in Sources */,
 				5E0CAF2A26189F4800B5B3FD /* tapBarController.swift in Sources */,
 				5EF7BC8A2643092900544FB6 /* WordTestViewModel.swift in Sources */,
 				5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */,

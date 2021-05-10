@@ -12,32 +12,48 @@ struct WordLearnView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordLearnViewModel
 
-
   var body: some View {
-    //NavigationView {
-      ZStack {
-        Image("background")
-          .resizable()
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-          .ignoresSafeArea()
+    // NavigationView {
+    ZStack {
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
 
-        VStack {
-          BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
-          
-          Text("learn view")
-            .font(Font.custom("Bangla MN", size: 18))
+      VStack {
+        BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+
+        Text("learn view")
+          .font(Font.custom("Bangla MN", size: 18))
+        if viewModel.word_list.count == 0 {
+          EmptyLearnBox()
+        } else {
           LearnBox(viewModel: viewModel)
-          Text("")
-
-          // WordBox(viewModel: viewModel)
         }
+
+        Text("")
+
+        // WordBox(viewModel: viewModel)
       }
-    //}
-    //.navigationBarTitle("")
-    //.ignoresSafeArea()
-    //.navigationBarBackButtonHidden(true)
-    //.navigationBarItems(leading: self.backButton)
+    }
+    // }
+    // .navigationBarTitle("")
+    // .ignoresSafeArea()
+    // .navigationBarBackButtonHidden(true)
+    // .navigationBarItems(leading: self.backButton)
     // .navigationViewStyle(StackNavigationViewStyle())
+  }
+}
+
+struct EmptyLearnBox: View {
+  var body: some View {
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 25)
+          .fill(Color("Navy"))
+          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+      }
+    }
   }
 }
 

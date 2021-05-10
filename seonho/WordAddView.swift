@@ -227,8 +227,7 @@ struct WordBox: View {
         LazyVStack {
           // 1.circle
 
-          Image(viewModel.word_list[viewModel.currentWordCount].word_image)
-            .resizable()
+          ImageView(withURL: viewModel.word_list[viewModel.currentWordCount].word_image)
             .frame(width: 200, height: 200, alignment: .center)
             .cornerRadius(10)
             .padding(.vertical, 20)

@@ -39,10 +39,10 @@ struct TodayWordView: View {
           }
           .padding(.horizontal, 1)
 
-          Image("외벽") // image가 안나올수도
-            .resizable()
+          ImageView(withURL: viewModel.word?.word.image ?? "")
             .frame(width: 300, height: 200, alignment: .center)
             .padding(.vertical, 5)
+          
           HStack {
             VStack(alignment: .leading) {
               Text("Word : " + (viewModel.word?.word.word_kor ?? ""))
