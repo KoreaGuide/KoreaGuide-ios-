@@ -13,11 +13,9 @@ class TodayWordViewModel: ObservableObject {
   @Published var word_id: Int = -1
 
   init() {
-    // self.word_id = word_id
-
     WordApiCaller.homeRead { result in
       self.word_id = result?.data.word_id ?? 1
-      
+
       WordApiCaller.oneWordRead(word_id: result?.data.word_id ?? 0) { result in
         let status = Int(result!.result_code)
         switch status {
@@ -27,10 +25,7 @@ class TodayWordViewModel: ObservableObject {
           print("----- one word read api error")
         }
       }
-      
     }
-
- 
   }
 
   func addWord() {
@@ -46,6 +41,7 @@ class TodayWordViewModel: ObservableObject {
       }
     }
   }
+
   func removeWord() {
     WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 0, word_id: word_id) { result in
       let status = Int(result!.result_code)

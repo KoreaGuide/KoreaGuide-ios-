@@ -22,7 +22,8 @@ struct TopLabel: View {
       Spacer()
     }
     .padding(.vertical, 10)
-
+    Spacer()
+      .frame(height: 40)
     HStack {
       Text("Welcome, ") // + String(UserDefaults.id!) // nickname으로 변경
         .foregroundColor(.white)
@@ -77,27 +78,35 @@ struct WordMainView: View {
 
         VStack {
           TopLabel()
+          Spacer()
+            .frame(height: 40)
           //TotalCountBox(viewModel: viewModel)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1)).navigationBarTitle("")
+                          .navigationBarHidden(true)) {
             AddedWordButton(viewModel: viewModel)
-              .padding(.vertical, 10)
+              .padding(.vertical, 15)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2)).navigationBarTitle("")
+                          .navigationBarHidden(true)) {
             LearningWordButton(viewModel: viewModel)
-              .padding(.vertical, 10)
+              .padding(.vertical, 15)
           }
           .isDetailLink(false)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3))) {
+          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3)).navigationBarTitle("")
+                          .navigationBarHidden(true)) {
             CompleteWordButton(viewModel: viewModel)
-              .padding(.vertical, 10)
+              .padding(.vertical, 15)
           }
           .isDetailLink(false)
+          
+          Spacer()
+            .frame(height: 40)
         }
-        .padding(.bottom, 20)
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }
       .ignoresSafeArea()
     }
