@@ -38,10 +38,9 @@ struct ProgressBar: View {
 
 struct WordAddView: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-  
+
   @ObservedObject var viewModel: WordAddViewModel
   // @State var progressValue: Float = 0.0
- 
 
   var backButton: some View {
     // 뒤로가기
@@ -122,10 +121,10 @@ struct WordAddView: View {
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
                       .foregroundColor(.white)
-                    
+
                     Spacer()
                       .frame(height: 40)
-                    
+
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -151,7 +150,11 @@ struct WordAddView: View {
                 }
               }
             } else {
-              WordBox(viewModel: self.viewModel)
+              if viewModel.word_list.count == 0 {
+                EmptyWordBox()
+              } else {
+                WordBox(viewModel: self.viewModel)
+              }
             }
 
             // right
@@ -176,7 +179,12 @@ struct WordAddView: View {
           Spacer().frame(height: 30)
 
           if viewModel.currentWordCount != viewModel.totalWordCount {
-            InOutButton(viewModel: viewModel)
+            if viewModel.word_list.count == 0 {
+              EmptyView()
+            }
+            else{
+              InOutButton(viewModel: viewModel)
+            }
           }
 
           Spacer()
@@ -188,6 +196,18 @@ struct WordAddView: View {
     .navigationBarHidden(true)
     .navigationBarBackButtonHidden(true)
     .navigationBarItems(leading: self.backButton)
+  }
+}
+
+struct EmptyWordBox: View {
+  var body: some View {
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 25)
+          .fill(Color("Navy"))
+          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+      }
+    }
   }
 }
 
@@ -204,9 +224,9 @@ struct WordBox: View {
           .fill(Color("Navy"))
           .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
 
-        VStack {
+        LazyVStack {
           // 1.circle
-          
+
           Image(viewModel.word_list[viewModel.currentWordCount].word_image)
             .resizable()
             .frame(width: 200, height: 200, alignment: .center)

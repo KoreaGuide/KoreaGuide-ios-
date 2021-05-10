@@ -15,12 +15,14 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
   @IBOutlet var LearnButton: UIButton!
   
   @IBSegueAction func ToAddWordView(_ coder: NSCoder) -> UIViewController? {
-    return UIHostingController(coder: coder, rootView: WordAddView( viewModel: self.viewModel ?? WordAddViewModel(place_id: self.place_id!)))
+    return UIHostingController(coder: coder, rootView: WordAddView( viewModel: self.viewModel ))
   }
   var res: PlaceDetailModel?
   var data = [ListDiffable]()
   var place_id: Int?
-  var viewModel: WordAddViewModel?
+  var viewModel: WordAddViewModel {
+    WordAddViewModel(place_id: self.place_id!)
+  }
   
   lazy var adapter: ListAdapter = {
     ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -44,7 +46,7 @@ class placeDetailViewController: UIViewController, ListAdapterDataSource {
       self.LearnButton.layer.cornerRadius = 22
       self.LearnButton.layer.backgroundColor = #colorLiteral(red: 0.3324496303, green: 0.3750489015, blue: 0.4744465351, alpha: 1)
       
-      self.viewModel = WordAddViewModel(place_id: self.place_id!)
+      //self.viewModel = WordAddViewModel(place_id: self.place_id!)
     }
     adapter.collectionView = collectionView
     adapter.dataSource = self
