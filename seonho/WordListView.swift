@@ -33,11 +33,15 @@ struct WordPopup: View {
           HStack {
             Text(viewModel.word_list[displayItem].meaning_kor1)
               .font(Font.custom("Bangla MN", size: 20))
+              .multilineTextAlignment(.leading)
+              .lineLimit(4)
           }
           .padding(10)
           HStack {
             Text(viewModel.word_list[displayItem].meaning_eng1)
               .font(Font.custom("Bangla MN", size: 20))
+              .multilineTextAlignment(.leading)
+              .lineLimit(4)
           }
           .padding(10)
         }
@@ -102,6 +106,22 @@ enum FolderName: String {
   case Complete
 }
 
+struct BackButton: View {
+  var tapAction: () -> Void = {}
+  var body: some View {
+    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
+      Button(action: {
+        tapAction()
+      }, label: {
+        Image(systemName: "chevron.left.square")
+          .resizable()
+          .frame(width: 30, height: 30, alignment: .center)
+          .foregroundColor(.white)
+      })
+    }
+  }
+}
+
 struct WordListView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordListViewModel
@@ -111,90 +131,75 @@ struct WordListView: View {
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
-  var backButton: some View {
-    // 뒤로가기
-    Button(action: {
-      self.presentationMode.wrappedValue.dismiss()
-    }, label: {
-      Image(systemName: "chevron.left.square")
-        .resizable()
-        .scaledToFit()
-        .padding(.top, 15)
-        .padding(.trailing, 20)
-        .padding(.bottom, 10)
-        .frame(width: 50, height: 50, alignment: .center)
-        .foregroundColor(.white)
-    })
-  }
-
   @State var isLearnView = false
+  @State var isTestView = false
+
   var body: some View {
-    ZStack {
-      NavigationView {
-        ZStack {
-          Image("center_bg")
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-            .ignoresSafeArea()
+    NavigationView {
+      ZStack {
+        Image("center_bg")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
 
-          VStack(alignment: .center) {
-            Text("" + " Words List") // TODO:
-              .foregroundColor(.white)
-              .fontWeight(.heavy)
-              .font(Font.custom("Bangla MN", size: 25))
-              .padding(.vertical, 15)
+        VStack(alignment: .center) {
+          HStack {
+            BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+          }
+          Text("" + " Words List") // TODO:
+            .foregroundColor(.white)
+            .fontWeight(.heavy)
+            .font(Font.custom("Bangla MN", size: 25))
+            .padding(.vertical, 15)
 
-            HStack { // NavigationLazyView()
-              NavigationLink(destination: WordLearnView().navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
+          HStack { // NavigationLazyView()
+            NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel()).navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
+            Button(action: {
+              self.isLearnView = true
+            }, label: {
+              LearnButton()
+            })
 
-              Button(action: {
-                self.isLearnView = true
-              }, label: {
-                LearnButton()
-              })
-
-              Spacer()
-
-              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list)).navigationBarHidden(true))
-                {
-                  TestButton()
-                }
-            }
-            .padding(.horizontal, 30)
             Spacer()
-              .frame(height: 40)
+            NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list)).navigationBarHidden(true), isActive: $isTestView) { EmptyView() }
+            Button(action: {
+              self.isTestView = true
+            }, label: {
+              TestButton()
+            })
+          }
+          .padding(.horizontal, 30)
+          Spacer()
+            .frame(height: 40)
 
-            WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
+          WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 
-              let num = row * 2 + col
+            let num = row * 2 + col
 
-              if viewModel.word_list.count == 0 {
-                Text("This folder is empty.")
-                  .foregroundColor(.white)
-                  .fontWeight(.heavy)
-                  .font(Font.custom("Bangla MN", size: 25))
-                  .padding(.vertical, 15)
-              } else if (viewModel.word_list.count > num) && (num >= 0) {
-                Button(action: {
-                  self.showPopup = num
-                }, label: {
-                  WordCellView(viewModel: viewModel)
-                })
-              }
+            if viewModel.word_list.count == 0 {
+              Text("This folder is empty.")
+                .foregroundColor(.white)
+                .fontWeight(.heavy)
+                .font(Font.custom("Bangla MN", size: 25))
+                .padding(.vertical, 15)
+            } else if (viewModel.word_list.count > num) && (num >= 0) {
+              Button(action: {
+                self.showPopup = num
+              }, label: {
+                WordCellView(viewModel: viewModel)
+              })
             }
           }
         }
-      }
-      .navigationBarTitle("")
-      .ignoresSafeArea()
-      .navigationBarBackButtonHidden(true)
-      .navigationBarItems(leading: self.backButton)
-      // .navigationViewStyle(StackNavigationViewStyle())
-
-      if showPopup != -1 {
-        WordPopup(displayItem: $showPopup, viewModel: viewModel)
-          .padding(.top, -120)
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        if showPopup != -1 {
+          WordPopup(displayItem: $showPopup, viewModel: viewModel)
+            .padding(.top, -120)
+            .ignoresSafeArea()
+        }
       }
     }
+    .navigationBarTitle("")
+    .navigationBarHidden(true)
   }
 }
