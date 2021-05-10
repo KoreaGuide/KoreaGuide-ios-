@@ -128,6 +128,7 @@ struct WordAddView: View {
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
+                        // viewModel.wordAddAndDelete()
                       }, label: {
                         Text("Let's go back to place page")
                           .font(Font.custom("Bangla MN", size: 15))
@@ -181,8 +182,7 @@ struct WordAddView: View {
           if viewModel.currentWordCount != viewModel.totalWordCount {
             if viewModel.word_list.count == 0 {
               EmptyView()
-            }
-            else{
+            } else {
               InOutButton(viewModel: viewModel)
             }
           }
@@ -281,6 +281,7 @@ struct InOutButton: View {
       viewModel.addButton.toggle()
       if viewModel.addButton == true {
         viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
+        // viewModel.add(word_id: viewModel.word_list[viewModel.currentWordCount].word_id)
       } else {
         viewModel.added_word_id_list = viewModel.added_word_id_list
           .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word_id }

@@ -14,15 +14,15 @@ class WordAddViewModel: ObservableObject {
   var place_title: String = ""
   var user_id: Int = UserDefaults.id!
 
-  @Published var word_list: [WordDetail]{
-    willSet{
-      self.totalWordCount = newValue.count
+  @Published var word_list: [WordDetail] {
+    willSet {
+      totalWordCount = newValue.count
     }
   }
 
   @Published var addButton: Bool = false
 
-  var result: [(Int, Int, Bool)] = [] // 순서, word id, add or not
+  var results: [(Int, Int, Bool)] = [] // 순서, word id, add or not
 
   @Published var added_word_id_list: [Int] = []
   @Published var removed_word_id_list: [Int] = []
@@ -42,7 +42,7 @@ class WordAddViewModel: ObservableObject {
 
   init(place_id: Int) {
     self.place_id = place_id
-    self.word_list = []
+    word_list = []
     print("----- WordAddViewModel init")
     // place id -> related word list
     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
@@ -55,7 +55,7 @@ class WordAddViewModel: ObservableObject {
 //      print(self.word_list.count)
       print("---------------word list ")
     }
-    //totalWordCount = word_list.count
+    // totalWordCount = word_list.count
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
@@ -66,13 +66,13 @@ class WordAddViewModel: ObservableObject {
         print("----- place detail all read api error")
       }
     }
-    
-    //WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-    //  self.word_list = result?.data.word_list ?? []
-    //}
   }
 
-
+  func wordAddAndDelete() {
+    // ForEach(added_word_id_list, id: \.self) { word_id in
+    //  self.add(word_id: word_id)
+    // }
+  }
 
   func add(word_id: Int) {
     WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) { result in
@@ -84,39 +84,39 @@ class WordAddViewModel: ObservableObject {
         print("----- today word add api error")
       }
     }
+  }
 
-    func remove(word_id: Int) {
-      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) {
-        result in
-        let status = Int(result?.result_code ?? 500)
-        switch status {
-        case 200:
-          print("----- my word delete api done")
-        default:
-          print("----- my word delete api error")
-        }
+  func remove(word_id: Int) {
+    WordApiCaller.myWordDelete(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) {
+      result in
+      let status = Int(result?.result_code ?? 500)
+      switch status {
+      case 200:
+        print("----- my word delete api done")
+      default:
+        print("----- my word delete api error")
       }
+    }
 
-      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_id: word_id) {
-        result in
-        let status = Int(result?.result_code ?? 500)
-        switch status {
-        case 200:
-          print("----- my word delete api done")
-        default:
-          print("----- my word delete api error")
-        }
+    WordApiCaller.myWordDelete(word_folder_id: UserDefaults.learning_folder_id ?? 2, word_id: word_id) {
+      result in
+      let status = Int(result?.result_code ?? 500)
+      switch status {
+      case 200:
+        print("----- my word delete api done")
+      default:
+        print("----- my word delete api error")
       }
+    }
 
-      WordApiCaller.myWordDelete(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_id: word_id) {
-        result in
-        let status = Int(result?.result_code ?? 500)
-        switch status {
-        case 200:
-          print("----- my word delete api done")
-        default:
-          print("----- my word delete api error")
-        }
+    WordApiCaller.myWordDelete(word_folder_id: UserDefaults.complete_folder_id ?? 3, word_id: word_id) {
+      result in
+      let status = Int(result?.result_code ?? 500)
+      switch status {
+      case 200:
+        print("----- my word delete api done")
+      default:
+        print("----- my word delete api error")
       }
     }
   }

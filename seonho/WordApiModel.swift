@@ -119,24 +119,7 @@ struct WordDetail: Codable {
   let word_audio: String?
 }
 
-/*
- struct AddingWordList {
-   let word_list: [AddingWord]
- }*/
 
-/*
-struct AddingWord {
-  let word: RawWord
-
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
-
-  init(word: RawWord) {
-    self.word = word
-  }
-}
-*/
 // word list 총 개수 등
 struct MainWordListModel: Codable {
   let result_code: Int
