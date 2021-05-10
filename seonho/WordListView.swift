@@ -165,7 +165,7 @@ struct WordListView: View {
           WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 
             let num = row * 2 + col
-
+            
             if viewModel.word_list.count == 0 {
               Text("This folder is empty.")
                 .foregroundColor(.white)
@@ -176,7 +176,7 @@ struct WordListView: View {
               Button(action: {
                 self.showPopup = num
               }, label: {
-                WordCellView(viewModel: viewModel)
+                WordCellView(viewModel: viewModel, index: num)
               })
             }
           }
