@@ -70,16 +70,16 @@ struct MatchQuizView: View {
         Text(self.viewModel.quiz_type)
           .font(Font.custom("Bangla MN", size: 18))
         
-        Image(self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].selected_word.image)
+        Image(self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.image)
         
-        Text(self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].selected_word.word_kor)
+        Text(self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor)
           .font(Font.custom("Bangla MN", size: 20))
         
         
         Button(action: {
           self.viewModel.choice = 1
         }, label: {
-          Text("1. " + (self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].word_choice_list[0].word_eng) )
+          Text("1. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[0].word_eng) )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -93,7 +93,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 2
         }, label: {
-          Text("2. " + (self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].word_choice_list[1].word_eng) )
+          Text("2. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[1].word_eng) )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -106,7 +106,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 3
         }, label: {
-          Text("3. " + (self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].word_choice_list[2].word_eng))
+          Text("3. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[2].word_eng))
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -120,7 +120,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 4
         }, label: {
-          Text("4. " + (self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].word_choice_list[3].word_eng) )
+          Text("4. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[3].word_eng) )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -132,13 +132,13 @@ struct MatchQuizView: View {
         
         
         Button(action: {
-          if self.viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice {
-            let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].selected_word.id, true)
+          if self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice {
+            let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
             
             viewModel.result.append(tuple)
           }
           else{
-            let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.data.quiz_list[viewModel.currentWordCount].selected_word.id, false)
+            let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, false)
             viewModel.result.append(tuple)
           }
           

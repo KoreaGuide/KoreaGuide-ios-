@@ -21,7 +21,7 @@ class WordMainViewModel: ObservableObject {
   init() {
 
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 1) { result in
-      let status = Int(result!.result_code)
+      let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
         self.added_word_info = result
@@ -31,7 +31,7 @@ class WordMainViewModel: ObservableObject {
     }
 
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.learning_folder_id ?? 2) { result in
-      let status = Int(result!.result_code)
+      let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
         self.learning_word_info = result
@@ -41,7 +41,7 @@ class WordMainViewModel: ObservableObject {
     }
 
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.complete_folder_id ?? 0) { result in
-      let status = Int(result!.result_code)
+      let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
         self.complete_word_info = result

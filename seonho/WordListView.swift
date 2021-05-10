@@ -153,7 +153,7 @@ struct WordListView: View {
             .padding(.vertical, 15)
 
           HStack { // NavigationLazyView()
-            NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel()).navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
+            NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel(word_folder_id: viewModel.word_folder_id)).navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
             Button(action: {
               self.isLearnView = true
             }, label: {

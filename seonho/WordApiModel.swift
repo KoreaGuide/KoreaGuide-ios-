@@ -7,6 +7,62 @@
 
 import Foundation
 
+struct WordFolderLearnModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: LearningFolderInfo
+}
+
+struct LearningFolderInfo: Codable{
+  let folder_id: Int
+  let folder_name: String
+  let word_list: [LearnWord]
+}
+
+struct LearnWord: Codable {
+  let id: Int
+  let word_eng: String
+  let word_kor: String
+  let meaning_eng1: String
+  let meaning_eng2: String
+  let meaning_kor1: String
+  let image: String
+  let pronunciation_eng: String
+  let my_word_status: String
+}
+
+struct WordFolderTestModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: TestWordInfo
+}
+
+struct TestWordInfo: Codable {
+  let quiz_type: String
+  let folder_id: Int
+  let quiz_list: [Quiz]
+
+  struct Quiz: Codable {
+    let selected_word: TestWord
+    struct TestWord: Codable {
+      let id: Int
+      let word_kor: String
+      let word_eng: String
+      let image: String
+    }
+
+    let word_choice_list: [ChoiceWord]
+    struct ChoiceWord: Codable {
+      let id: Int
+      let word_kor: String
+      let word_eng: String
+      let meaning_kor1: String
+    }
+  }
+}
+
 struct AllFolderInfo: Codable {
   let result_code: Int
   let status: String
@@ -133,52 +189,9 @@ struct DeleteResponse: Codable {
   }
 }
 
-struct LearningWordList {
-  let word_list: [LearningWord]
-}
 
-struct LearningWord {
-  let word: RawWord
 
-  var added: Bool = false
-  var folder: Int = 0
-  var playing: Bool = false
 
-  init(word: RawWord) {
-    self.word = word
-  }
-}
-
-struct TestWordList: Codable {
-  let result_code: Int
-  let status: String
-  let description: String
-  let data: QuizList
-
-  struct QuizList: Codable {
-    let quiz_type: String
-    let folder_id: Int
-    let quiz_list: [Quiz]
-
-    struct Quiz: Codable {
-      let selected_word: TestWord
-      struct TestWord: Codable {
-        let id: Int
-        let word_kor: String
-        let word_eng: String
-        let image: String
-      }
-
-      let word_choice_list: [ChoiceWord]
-      struct ChoiceWord: Codable {
-        let id: Int
-        let word_kor: String
-        let word_eng: String
-        let meaning_kor1: String
-      }
-    }
-  }
-}
 
 struct RawWord: Codable {
   enum CodingKeys: String, CodingKey {

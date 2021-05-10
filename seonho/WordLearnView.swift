@@ -68,7 +68,7 @@ struct LearnBox: View {
         VStack {
           // 1.circle
 
-          Image(viewModel.word_list[viewModel.currentWordCount].word_image)
+          Image(viewModel.word_list[viewModel.currentWordCount].image)
             .resizable()
             .frame(width: 200, height: 200, alignment: .center)
             .cornerRadius(10)
