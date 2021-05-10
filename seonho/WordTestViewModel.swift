@@ -13,9 +13,9 @@ class WordTestViewModel: ObservableObject {
   @Published var word_folder_id: Int
 
   @Published var test_word_info: TestWordInfo?
-  // @Published var test_word_list: [Quiz]?
-  // @Published var selectedWord: TestWord?
-
+  
+  
+  
   @Published var choice: Int = -1
 
   var result: [(Int, Int, Bool)] = [] // 순서, word id, correct or not
@@ -37,15 +37,14 @@ class WordTestViewModel: ObservableObject {
   init(quiz_type: String, word_folder_id: Int) {
     self.quiz_type = quiz_type
     self.word_folder_id = word_folder_id
-  }
-
-  func setting() {
+    
     WordApiCaller.testingWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
 
       let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
         self.test_word_info = result?.data
+        print(result?.data.quiz_list as Any)
         print("----- test word get api done")
       default:
         print("----- test word get api error")
@@ -53,5 +52,7 @@ class WordTestViewModel: ObservableObject {
         self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
       }
     }
+    
   }
+
 }

@@ -106,21 +106,7 @@ enum FolderName: String {
   case Complete
 }
 
-struct BackButton: View {
-  var tapAction: () -> Void = {}
-  var body: some View {
-    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-      Button(action: {
-        tapAction()
-      }, label: {
-        Image(systemName: "chevron.left.square")
-          .resizable()
-          .frame(width: 30, height: 30, alignment: .center)
-          .foregroundColor(.white)
-      })
-    }
-  }
-}
+
 
 struct WordListView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -153,7 +139,9 @@ struct WordListView: View {
             .padding(.vertical, 15)
 
           HStack { // NavigationLazyView()
-            NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel(word_folder_id: viewModel.word_folder_id)).navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
+            NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel(word_folder_id: viewModel.word_folder_id))
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
             Button(action: {
               self.isLearnView = true
             }, label: {
@@ -161,7 +149,9 @@ struct WordListView: View {
             })
 
             Spacer()
-            NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list)).navigationBarHidden(true), isActive: $isTestView) { EmptyView() }
+            NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list))
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true), isActive: $isTestView) { EmptyView() }
             Button(action: {
               self.isTestView = true
             }, label: {

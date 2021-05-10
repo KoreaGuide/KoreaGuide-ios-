@@ -14,7 +14,7 @@ class WordAddViewModel: ObservableObject {
   var place_title: String = ""
   var user_id: Int = UserDefaults.id!
 
-  @Published var word_list: [WordDetail] = []{
+  @Published var word_list: [WordDetail]{
     willSet{
       self.totalWordCount = newValue.count
     }
@@ -42,6 +42,8 @@ class WordAddViewModel: ObservableObject {
 
   init(place_id: Int) {
     self.place_id = place_id
+    self.word_list = []
+    print("----- WordAddViewModel init")
     // place id -> related word list
     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
       self.word_list = result?.data.word_list ?? []
@@ -53,7 +55,7 @@ class WordAddViewModel: ObservableObject {
 //      print(self.word_list.count)
       print("---------------word list ")
     }
-    totalWordCount = word_list.count
+    //totalWordCount = word_list.count
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
@@ -64,41 +66,13 @@ class WordAddViewModel: ObservableObject {
         print("----- place detail all read api error")
       }
     }
+    
+    //WordApiCaller.placeRelatedWords(place_id: place_id) { result in
+    //  self.word_list = result?.data.word_list ?? []
+    //}
   }
 
-  func setwordlist() {
-    WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-      self.word_list = result?.data.word_list ?? []
-    }
-  }
 
-  /*
-   func setting(){
-     self.place_id = place_id
-     // place detail call -> place title
-     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
-       let status = Int(result!.result_code)
-       switch status {
-       case 200:
-         self.place_title = result?.data.title ?? ""
-       default:
-         print("----- place detail all read api error")
-       }
-     }
-
-     // place id -> related word list
-     WordApiCaller.placeRelatedWords(place_id: place_id) { result in
-       self.word_list = result?.data.word_list ?? []
-       print("---------------word list ")
-
-       print(self.word_list[0].word_kor)
-       print(self.word_list[1].word_kor)
-       print("---------------word list ")
-       print(self.word_list.count)
-       print("---------------word list ")
-     }
-     totalWordCount = word_list.count
-   }*/
 
   func add(word_id: Int) {
     WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) { result in

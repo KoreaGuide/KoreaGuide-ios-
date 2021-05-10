@@ -136,6 +136,9 @@
 		8869AE4226432E6E002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4326432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4426432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
+		8894A0672649606200F8EC89 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8894A0662649606200F8EC89 /* BackButton.swift */; };
+		8894A0682649606200F8EC89 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8894A0662649606200F8EC89 /* BackButton.swift */; };
+		8894A0692649606200F8EC89 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8894A0662649606200F8EC89 /* BackButton.swift */; };
 		AE4656D132686AF9B5E030D2 /* Pods_KoreaGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */; };
 		F8A41B9B75C50AAC472803C1 /* Pods_KoreaGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A2424760EB8E205C1C30A /* Pods_KoreaGuide.framework */; };
 /* End PBXBuildFile section */
@@ -230,6 +233,7 @@
 		5EF7BC5F2642DB1000544FB6 /* WordTestSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTestSelectView.swift; sourceTree = "<group>"; };
 		5EF7BC602642DB2500544FB6 /* Assets_seonho.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets_seonho.xcassets; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
+		8894A0662649606200F8EC89 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		912ABAFDBABC5D660D0B92C1 /* Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-KoreaGuide-KoreaGuideUITests/Pods-KoreaGuide-KoreaGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9A8803102ECE03FCE1C6C4A0 /* Pods_KoreaGuide_KoreaGuideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuide_KoreaGuideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -481,6 +485,7 @@
 				5EF7BC5D2642DB1000544FB6 /* WordApiCaller.swift */,
 				5EF7BC5E2642DB1000544FB6 /* WordLearnView.swift */,
 				5EF7BC5F2642DB1000544FB6 /* WordTestSelectView.swift */,
+				8894A0662649606200F8EC89 /* BackButton.swift */,
 			);
 			path = seonho;
 			sourceTree = SOURCE_ROOT;
@@ -794,6 +799,7 @@
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF7BC742643092800544FB6 /* WordAddView.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
+				8894A0672649606200F8EC89 /* BackButton.swift in Sources */,
 				5EF7BC6F2643092800544FB6 /* WordTestSelectView.swift in Sources */,
 				5EF7BC622643091D00544FB6 /* WordListView.swift in Sources */,
 				5E192E3025FF6C1500864789 /* SwipeNavigationController.swift in Sources */,
@@ -847,6 +853,7 @@
 				5EF5916D25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E9CE52F2611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5EF7BC802643092900544FB6 /* WordTestView.swift in Sources */,
+				8894A0682649606200F8EC89 /* BackButton.swift in Sources */,
 				5E63799E260F760500900192 /* CardCell.swift in Sources */,
 				5EF7BC632643091E00544FB6 /* WordListView.swift in Sources */,
 				5E11D99825DA31E600356166 /* startViewController.swift in Sources */,
@@ -888,6 +895,7 @@
 				5EF5916E25EFA62800E07D88 /* homeViewController.swift in Sources */,
 				5E9CE5302611E79D0072E5CD /* PlaceDetailSectionController.swift in Sources */,
 				5EF7BC8F2643092900544FB6 /* WordTestView.swift in Sources */,
+				8894A0692649606200F8EC89 /* BackButton.swift in Sources */,
 				5E63799F260F760500900192 /* CardCell.swift in Sources */,
 				5EF7BC642643091E00544FB6 /* WordListView.swift in Sources */,
 				5E11D99925DA31E600356166 /* startViewController.swift in Sources */,

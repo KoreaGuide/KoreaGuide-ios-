@@ -12,24 +12,9 @@ struct WordLearnView: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordLearnViewModel
 
-  var backButton: some View {
-    // 뒤로가기
-    Button(action: {
-      self.presentationMode.wrappedValue.dismiss()
-    }, label: {
-      Image(systemName: "chevron.left.square")
-        .resizable()
-        .scaledToFit()
-        .padding(.top, 15)
-        .padding(.trailing, 20)
-        .padding(.bottom, 10)
-        .frame(width: 50, height: 50, alignment: .center)
-        .foregroundColor(.white)
-    })
-  }
 
   var body: some View {
-    NavigationView {
+    //NavigationView {
       ZStack {
         Image("background")
           .resizable()
@@ -37,6 +22,8 @@ struct WordLearnView: View {
           .ignoresSafeArea()
 
         VStack {
+          BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+          
           Text("learn view")
             .font(Font.custom("Bangla MN", size: 18))
           LearnBox(viewModel: viewModel)
@@ -45,11 +32,11 @@ struct WordLearnView: View {
           // WordBox(viewModel: viewModel)
         }
       }
-    }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: self.backButton)
+    //}
+    //.navigationBarTitle("")
+    //.ignoresSafeArea()
+    //.navigationBarBackButtonHidden(true)
+    //.navigationBarItems(leading: self.backButton)
     // .navigationViewStyle(StackNavigationViewStyle())
   }
 }

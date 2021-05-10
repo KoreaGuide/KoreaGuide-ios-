@@ -10,7 +10,8 @@ import SwiftUI
 
 struct WordTestView: View {
   @ObservedObject var viewModel: WordTestViewModel
-
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+  
   var progressBar: some View {
     GeometryReader { geometry in
       ZStack(alignment: .leading) {
@@ -33,6 +34,11 @@ struct WordTestView: View {
         .ignoresSafeArea()
       
       VStack {
+        HStack {
+          BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+        }
+        
+        
         Text(self.viewModel.quiz_type)
           .font(Font.custom("Bangla MN", size: 18))
         
@@ -47,6 +53,7 @@ struct WordTestView: View {
         // test box...
         Text("Match the meaning of the word!")
           .font(Font.custom("Bangla MN", size: 18))
+          .foregroundColor(.white)
         
         MatchQuizView(viewModel: self.viewModel)
       }
@@ -67,19 +74,19 @@ struct MatchQuizView: View {
       //background
       
       VStack{
-        Text(self.viewModel.quiz_type)
-          .font(Font.custom("Bangla MN", size: 18))
+        //Text(self.viewModel.quiz_type)
+        //  .font(Font.custom("Bangla MN", size: 18))
         
-        Image(self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.image)
+        Image(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
         
-        Text(self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor)
+        Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
           .font(Font.custom("Bangla MN", size: 20))
         
         
         Button(action: {
           self.viewModel.choice = 1
         }, label: {
-          Text("1. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[0].word_eng) )
+          Text("1. " + (self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].word_choice_list[0].word_eng ?? "") )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -93,7 +100,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 2
         }, label: {
-          Text("2. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[1].word_eng) )
+          Text("2. " + (self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].word_choice_list[1].word_eng ?? "") )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -106,7 +113,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 3
         }, label: {
-          Text("3. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[2].word_eng))
+          Text("3. " + (self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].word_choice_list[2].word_eng ?? ""))
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -120,7 +127,7 @@ struct MatchQuizView: View {
         Button(action: {
           self.viewModel.choice = 4
         }, label: {
-          Text("4. " + (self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[3].word_eng) )
+          Text("4. " + (self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].word_choice_list[3].word_eng ?? "") )
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
@@ -149,7 +156,9 @@ struct MatchQuizView: View {
             .font(Font.custom("Bangla MN", size: 25))
             .fontWeight(.bold)
             .foregroundColor(.black)
-            .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 20)
+                          .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
+                          .foregroundColor(viewModel.choice == -1 ? Color.gray : Color.green))
         })
         .background(Color.white.opacity(0.8))
         .padding(10)
