@@ -13,35 +13,71 @@ struct WordLearnView: View {
   @ObservedObject var viewModel: WordLearnViewModel
 
   var body: some View {
-    // NavigationView {
-    ZStack {
-      Image("background")
-        .resizable()
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-        .ignoresSafeArea()
+    VStack {
+      ZStack {
+        Image("background")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
 
-      VStack {
-        BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+        VStack {
+          HStack {
+            BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+            Spacer()
+          }
+          .padding(.horizontal, 20)
 
-        Text("learn view")
-          .font(Font.custom("Bangla MN", size: 18))
-        if viewModel.word_list.count == 0 {
-          EmptyLearnBox()
-        } else {
-          LearnBox(viewModel: viewModel)
+          Spacer()
+            .frame(height: 80)
+
+          // Text("learn view")
+          //  .font(Font.custom("Bangla MN", size: 18))
+          HStack{
+            // left
+            if 1 < viewModel.totalWordCount {
+              Button(action: {
+                if viewModel.currentWordCount > 0 {
+                  viewModel.currentWordCount -= 1
+                }
+
+              }, label: {
+                Image(systemName: "chevron.left.circle")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 30, height: 30, alignment: .center)
+                  .foregroundColor(viewModel.currentWordCount == 0 ? .gray : .white)
+              })
+              .disabled(viewModel.currentWordCount == 0 )
+            }
+            
+            if viewModel.word_list.count == 0 {
+              EmptyLearnBox()
+            } else {
+              LearnBox(viewModel: viewModel)
+            }
+            // right
+            if 1 < viewModel.totalWordCount {
+              Button(action: {
+                if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
+                  viewModel.currentWordCount += 1
+                }
+              }, label: {
+                Image(systemName: "chevron.right.circle")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 30, height: 30, alignment: .center)
+                  .foregroundColor(viewModel.currentWordCount == viewModel.totalWordCount - 1 ? .gray : .white)
+              })
+              .disabled(viewModel.currentWordCount == viewModel.totalWordCount - 1 )
+              
+            }
+          }
+          
+          Spacer()
+            .frame(height: 60)
         }
-
-        Text("")
-
-        // WordBox(viewModel: viewModel)
-      }
-    }
-    // }
-    // .navigationBarTitle("")
-    // .ignoresSafeArea()
-    // .navigationBarBackButtonHidden(true)
-    // .navigationBarItems(leading: self.backButton)
-    // .navigationViewStyle(StackNavigationViewStyle())
+      }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
 }
 
@@ -66,34 +102,44 @@ struct LearnBox: View {
       ZStack {
         RoundedRectangle(cornerRadius: 25)
           .fill(Color("Navy"))
-          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 100)
 
         VStack {
           // 1.circle
 
-          Image(viewModel.word_list[viewModel.currentWordCount].image)
-            .resizable()
+          ImageView(withURL: viewModel.word_list[viewModel.currentWordCount].image)
             .frame(width: 200, height: 200, alignment: .center)
             .cornerRadius(10)
-            .padding(.vertical, 20)
+            .padding(.top, 20)
 
-          Spacer().frame(height: 10)
+          Spacer().frame(height: 5)
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 20))
+            .fontWeight(.bold)
+            .font(Font.custom("Bangla MN", size: 16))
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+            .font(Font.custom("Bangla MN", size: 16))
 
-          Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
-            .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
-
-          Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
-            .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+          VStack(alignment: .leading) {
+            Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
+              .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 14))
+              .lineLimit(6)
+              .multilineTextAlignment(.leading)
+            
+          }
+          VStack(alignment: .leading) {
+            Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
+              .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 14))
+              .lineLimit(6)
+              .multilineTextAlignment(.leading)
+          }
+          
+          Spacer()
 
           Button(action: {
             self.playing.toggle()
@@ -111,9 +157,10 @@ struct LearnBox: View {
             }
             .padding(.bottom, 20)
         }
+        .padding(.horizontal, 20)
       }
-      .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
-    }
+      .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 100)
+    } .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 100)
   }
 }
 

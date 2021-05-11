@@ -18,12 +18,7 @@ class WordLearnViewModel: ObservableObject {
       totalWordCount = newValue.count
     }
   }
-
-  // @Published var addButton: Bool = false
-
-  // var result: [(Int, Int, Bool)] = [] // 순서, word id, add or not
-
-  // @Published var added_word_id_list: [Int] = []
+  
   @Published var removed_word_id_list: [Int] = []
 
   @Published var totalWordCount: Int = 1
@@ -31,8 +26,18 @@ class WordLearnViewModel: ObservableObject {
   @Published var currentWordCount: Int = 0 {
     willSet {
       progressValue = Float(newValue) / Float(totalWordCount)
+      self.currentWordCountforShow = newValue + 1
+      
+      if (newValue == self.totalWordCount - 1) && (self.currentWordCount < newValue) {
+        self.currentWordCountforShow = self.totalWordCount
+      }
+      else if (newValue == self.totalWordCount - 2) && (self.currentWordCount > newValue){
+        self.currentWordCountforShow = newValue + 1
+      }
+      
     }
   }
+  @Published var currentWordCountforShow: Int = 0
 
   @Published var progressValue: Float = 0.0
 

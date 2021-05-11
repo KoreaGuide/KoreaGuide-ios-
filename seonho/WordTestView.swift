@@ -195,6 +195,253 @@ struct MatchQuizView: View {
   }
 }
 
+struct WordMatchTestView: View {
+  @ObservedObject var viewModel: WordTestViewModel
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+  var body: some View {
+    ZStack {
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
+
+      VStack {
+        HStack{
+          ZStack{
+            HStack {
+              BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+            HStack (alignment: .bottom){
+              Spacer()
+              Text("     Match the meaning of the word!")
+                .font(Font.custom("Bangla MN", size: 18))
+                .foregroundColor(.white)
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+          }
+        }
+        .padding(.bottom, 10)
+        
+        HStack (alignment: .center){
+          // ProgressBar
+          CircularProgressBar(progress: $viewModel.progressValue)
+            .frame(width: 80, height: 80)
+          Spacer()
+            .frame(width: 20)
+          VStack {
+            ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+              .frame(width: 200, height: 200)
+
+            Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+              .font(Font.custom("Bangla MN", size: 22))
+              .fontWeight(.heavy)
+              .foregroundColor(.white)
+          }
+        }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 10)
+//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
+//        CircularProgressBar(progress: $viewModel.progressValue)
+//        .frame(width: 100, height: 100)
+
+        // test box...
+        MatchQuizView(viewModel: self.viewModel)
+      }
+    }
+  }
+
+  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
+}
+
+struct WordListenTestView: View {
+  @ObservedObject var viewModel: WordTestViewModel
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+  var body: some View {
+    ZStack {
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
+
+      VStack {
+        HStack{
+          ZStack{
+            HStack {
+              BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+            HStack (alignment: .bottom){
+              Spacer()
+              Text("     Listen to the pronunciation and match the word!")
+                .font(Font.custom("Bangla MN", size: 16))
+                .foregroundColor(.white)
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+          }
+        }
+        .padding(.bottom, 10)
+        
+        HStack (alignment: .center){
+          // ProgressBar
+          CircularProgressBar(progress: $viewModel.progressValue)
+            .frame(width: 80, height: 80)
+          Spacer()
+            .frame(width: 20)
+          VStack {
+            Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+              .font(Font.custom("Bangla MN", size: 22))
+              .fontWeight(.heavy)
+              .foregroundColor(.white)
+            
+            
+          }
+        }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 10)
+//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
+//        CircularProgressBar(progress: $viewModel.progressValue)
+//        .frame(width: 100, height: 100)
+
+        // test box...
+        MatchQuizView(viewModel: self.viewModel)
+      }
+    }
+  }
+
+  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
+}
+
+struct WordSpellingEasyTestView: View {
+  @ObservedObject var viewModel: WordTestViewModel
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+  var body: some View {
+    ZStack {
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
+
+      VStack {
+        HStack{
+          ZStack{
+            HStack {
+              BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+            HStack (alignment: .bottom){
+              Spacer()
+              Text("     Complete the spelling of words letter by letter!")
+                .font(Font.custom("Bangla MN", size: 16))
+                .foregroundColor(.white)
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+          }
+        }
+        .padding(.bottom, 10)
+        
+        HStack (alignment: .center){
+          // ProgressBar
+          CircularProgressBar(progress: $viewModel.progressValue)
+            .frame(width: 80, height: 80)
+          Spacer()
+            .frame(width: 20)
+          VStack {
+            ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+              .frame(width: 200, height: 200)
+
+            Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+              .font(Font.custom("Bangla MN", size: 22))
+              .fontWeight(.heavy)
+              .foregroundColor(.white)
+          }
+        }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 10)
+//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
+//        CircularProgressBar(progress: $viewModel.progressValue)
+//        .frame(width: 100, height: 100)
+
+        // test box...
+        MatchQuizView(viewModel: self.viewModel)
+      }
+    }
+  }
+
+  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
+}
+
+struct WordSpellingHardTestView: View {
+  @ObservedObject var viewModel: WordTestViewModel
+  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+  var body: some View {
+    ZStack {
+      Image("background")
+        .resizable()
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .ignoresSafeArea()
+
+      VStack {
+        HStack{
+          ZStack{
+            HStack {
+              BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+            HStack (alignment: .bottom){
+              Spacer()
+              Text("     Enter the corresponding word in Korean by typing!")
+                .font(Font.custom("Bangla MN", size: 16))
+                .foregroundColor(.white)
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+          }
+        }
+        .padding(.bottom, 10)
+        
+        HStack (alignment: .center){
+          // ProgressBar
+          CircularProgressBar(progress: $viewModel.progressValue)
+            .frame(width: 80, height: 80)
+          Spacer()
+            .frame(width: 20)
+          VStack {
+            ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+              .frame(width: 200, height: 200)
+
+            Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+              .font(Font.custom("Bangla MN", size: 22))
+              .fontWeight(.heavy)
+              .foregroundColor(.white)
+          }
+        }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 10)
+//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
+//        CircularProgressBar(progress: $viewModel.progressValue)
+//        .frame(width: 100, height: 100)
+
+        // test box...
+        MatchQuizView(viewModel: self.viewModel)
+      }
+    }
+  }
+
+  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
+}
+
 struct WordTestFinishView: View {
   var body: some View {
     VStack {
