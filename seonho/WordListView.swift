@@ -114,6 +114,8 @@ struct WordListView: View {
   @State var isTestView = false
   @State var toMainView = false
 
+  
+  
   var body: some View {
     VStack {
       NavigationView {
@@ -205,7 +207,7 @@ struct WordListView: View {
           .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
           if viewModel.showPopup != -1 {
             WordPopup(popupWordId: $viewModel.showPopup, viewModel: viewModel, popupWord: viewModel.getWordById(finding_word_id: viewModel.showPopup))
-              .padding(.top, -120)
+              .padding(.top, -50)
               .ignoresSafeArea()
           }
         }
