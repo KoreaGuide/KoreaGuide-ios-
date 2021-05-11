@@ -68,10 +68,10 @@ class WordAddViewModel: ObservableObject {
     }
   }
 
-  func wordAddAndDelete() {
-    // ForEach(added_word_id_list, id: \.self) { word_id in
-    //  self.add(word_id: word_id)
-    // }
+  func wordAdd() {
+    for id in added_word_id_list {
+      self.add(word_id: id)
+    }
   }
 
   func add(word_id: Int) {
@@ -79,9 +79,9 @@ class WordAddViewModel: ObservableObject {
       let status = Int(result!.result_code)
       switch status {
       case 200:
-        print("----- today word add api done")
+        print("----- place related word add api done")
       default:
-        print("----- today word add api error")
+        print("----- place related word add api error")
       }
     }
   }

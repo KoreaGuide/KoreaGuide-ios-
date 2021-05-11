@@ -131,7 +131,7 @@ struct WordListView: View {
 
         VStack(alignment: .center) {
           Spacer()
-            .frame(height: 50)
+            .frame(height: 10)
           HStack {
             BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
             Spacer()
@@ -166,7 +166,7 @@ struct WordListView: View {
           }
           .padding(.horizontal, 30)
           Spacer()
-            .frame(height: 40)
+            .frame(height: 20)
 
           WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 
@@ -186,6 +186,7 @@ struct WordListView: View {
               })
             }
           }
+          .padding(.bottom, 120)
          
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

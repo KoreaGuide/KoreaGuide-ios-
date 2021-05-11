@@ -115,6 +115,7 @@ struct WordAddView: View {
                   RoundedRectangle(cornerRadius: 25)
                     .fill(Color("Navy"))
                     .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+                    
 
                   VStack {
                     // Text(viewModel.place_title)
@@ -129,7 +130,7 @@ struct WordAddView: View {
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
-                        // viewModel.wordAddAndDelete()
+                        viewModel.wordAdd()
                       }, label: {
                         Text("Let's go back to place page")
                           .font(Font.custom("Bangla MN", size: 15))
@@ -148,9 +149,11 @@ struct WordAddView: View {
                         .padding(.bottom, 20)
                     }
                   }
+                  .onAppear { viewModel.wordAdd()}
                   .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
                 }
               }
+              
             } else {
               if viewModel.word_list.count == 0 {
                 EmptyWordBox()
@@ -227,9 +230,9 @@ struct WordBox: View {
 
         VStack {
           ImageView(withURL: viewModel.word_list[viewModel.currentWordCount].word_image)
-            .frame(width: 200, height: 180, alignment: .center)
+            .frame(width: 200, height: 160, alignment: .center)
             .cornerRadius(10)
-            .padding(.top, 15)
+            .padding(.top, 20)
             
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
