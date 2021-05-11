@@ -36,7 +36,9 @@ struct WordTestView: View {
       VStack {
         HStack {
           BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+          Spacer()
         }
+        .padding(.horizontal, 20)
         
         
         Text(self.viewModel.quiz_type)
@@ -163,6 +165,8 @@ struct MatchQuizView: View {
         .background(Color.white.opacity(0.8))
         .padding(10)
         
+        Spacer()
+          .frame(height: 20)
         
       }
     }

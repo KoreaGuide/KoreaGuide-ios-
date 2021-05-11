@@ -49,10 +49,10 @@ struct WordTestSelectView: View {
           .multilineTextAlignment(.center)
           .lineLimit(3)
 
-        Text("Number of Words : " + String(viewModel.word_list.count))
-          .font(Font.custom("Bangla MN", size: 20))
+        Text("Number of Words to Test: " + String(viewModel.word_list.count))
+          .font(Font.custom("Bangla MN", size: 14))
           .background(Rectangle()
-            .frame(width: 240, height: 50, alignment: .bottom)
+            .frame(width: 240, height: 50, alignment: .top)
             .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
 

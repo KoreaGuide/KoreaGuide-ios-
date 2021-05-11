@@ -68,7 +68,7 @@ struct LearnButton: View {
             .padding(.top, 10)
         }
       }
-      .frame(width: 150, height: 50, alignment: .center)
+      .frame(width: UIScreen.main.bounds.width / 23 * 10, height: 50, alignment: .center)
     }
   }
 }
@@ -90,7 +90,7 @@ struct TestButton: View {
             .padding(.top, 10)
         }
       }
-      .frame(width: 150, height: 50, alignment: .center)
+      .frame(width: UIScreen.main.bounds.width / 23 * 10, height: 50, alignment: .center)
     }
   }
 }
@@ -114,8 +114,6 @@ struct WordListView: View {
   @State var isTestView = false
   @State var toMainView = false
 
-  
-  
   var body: some View {
     VStack {
       NavigationView {
@@ -165,7 +163,7 @@ struct WordListView: View {
                 TestButton()
               })
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 18)
             Spacer()
               .frame(height: 20)
 
