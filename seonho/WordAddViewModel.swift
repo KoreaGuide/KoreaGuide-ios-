@@ -28,14 +28,26 @@ class WordAddViewModel: ObservableObject {
   @Published var currentWordCount: Int = 0 {
     willSet {
       progressValue = Float(newValue) / Float(totalWordCount)
-      self.currentWordCountforShow += 1
+      self.currentWordCountforShow = newValue + 1
+      
+      if (newValue == self.totalWordCount - 1) && (self.currentWordCount < newValue) {
+        self.currentWordCountforShow = self.totalWordCount
+      }
+      else if (newValue == self.totalWordCount - 2) && (self.currentWordCount > newValue){
+        self.currentWordCountforShow = newValue + 1
+      }
+      
     }
   }
   @Published var currentWordCountforShow: Int = 0
 
   @Published var progressValue: Float = 0.0
 
-  @Published var finish: Bool = false
+  @Published var finish: Bool = false{
+    willSet{
+      self.currentWordCountforShow = self.totalWordCount
+    }
+  }
   
   @State var count = 0
   @State var existcount = 0

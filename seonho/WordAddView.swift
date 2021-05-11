@@ -103,7 +103,7 @@ struct WordAddView: View {
 
                   VStack {
                     // Text(viewModel.place_title)
-                    Text("You got " + String(viewModel.added_word_id_list.count) + (viewModel.added_word_id_list.count <= 1 ? " word" : " words"))
+                    Text("You got " + String(viewModel.added_word_id_list.count) + (viewModel.added_word_id_list.count <= 1 ? " word." : " words!"))
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
                       .foregroundColor(.white)
@@ -138,7 +138,7 @@ struct WordAddView: View {
               }
             } else {
               // left
-              if viewModel.currentWordCount != viewModel.totalWordCount {
+              if 1 < viewModel.totalWordCount {
                 Button(action: {
                   if viewModel.currentWordCount > 0 {
                     viewModel.currentWordCount -= 1
@@ -165,7 +165,7 @@ struct WordAddView: View {
               }
 
               // right
-              if viewModel.currentWordCount != viewModel.totalWordCount {
+              if 1 < viewModel.totalWordCount {
                 Button(action: {
                   if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
                     viewModel.currentWordCount += 1
