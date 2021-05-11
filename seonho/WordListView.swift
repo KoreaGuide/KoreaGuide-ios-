@@ -121,6 +121,7 @@ struct WordListView: View {
   @State var isTestView = false
 
   var body: some View {
+    VStack {
     NavigationView {
       ZStack {
         Image("center_bg")
@@ -129,16 +130,21 @@ struct WordListView: View {
           .ignoresSafeArea()
 
         VStack(alignment: .center) {
+          Spacer()
+            .frame(height: 50)
           HStack {
             BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+            Spacer()
           }
+          .padding(.horizontal, 20)
+          
           Text("" + " Words List") // TODO:
             .foregroundColor(.white)
             .fontWeight(.heavy)
             .font(Font.custom("Bangla MN", size: 25))
             .padding(.vertical, 15)
 
-          HStack { // NavigationLazyView()
+          HStack {
             NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel(word_folder_id: viewModel.word_folder_id))
                             .navigationBarTitle("")
                             .navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
@@ -180,6 +186,7 @@ struct WordListView: View {
               })
             }
           }
+         
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         if showPopup != -1 {
@@ -188,8 +195,10 @@ struct WordListView: View {
             .ignoresSafeArea()
         }
       }
+    }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     .navigationBarTitle("")
     .navigationBarHidden(true)
+    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
 }

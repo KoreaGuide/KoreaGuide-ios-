@@ -12,6 +12,7 @@ import SwiftUI
 struct WordCellView: View {
   @ObservedObject var viewModel: WordListViewModel
   @State var index: Int
+  @State var showingDeleteAlert: Bool = false
 
   var body: some View {
     VStack {
@@ -39,21 +40,31 @@ struct WordCellView: View {
 
           HStack {
             Button {
-              WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[self.index].id) {
-                result in
-                let status = Int(result?.result_code ?? 500)
-                switch status {
-                case 200:
-                  print("----- my word delete api done")
-                default:
-                  print("----- my word delete api error")
-                }
-              }
+              self.showingDeleteAlert = true
+
             } label: {
               Image(systemName: "trash.circle")
                 .resizable()
                 .frame(width: 30, height: 30, alignment: .center)
                 .foregroundColor(Color("Pink"))
+                .alert(isPresented: self.$showingDeleteAlert) {
+                  Alert(title: Text("..."), message: Text("..."), primaryButton: .destructive(Text("Delete")) {
+                    WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[self.index].id) {
+                      result in
+                      let status = Int(result?.result_code ?? 500)
+                      switch status {
+                      case 200:
+                        print("----- my word delete api done")
+                        viewModel.word_list.remove(at: self.index)
+                      default:
+                        print("----- my word delete api error")
+                      }
+                    }
+                    self.showingDeleteAlert = false
+                  }, secondaryButton: .cancel {
+                    self.showingDeleteAlert = false
+                  })
+                }
             }
             // .padding(.leading, 60)
           }

@@ -68,7 +68,7 @@ struct WordAddView: View {
 
         VStack(alignment: .center) {
           Spacer()
-            .frame(height: 60)
+            .frame(height: 10)
 
           // place title
           Label(viewModel.place_title, systemImage: "flag") // flag.fill
@@ -77,7 +77,7 @@ struct WordAddView: View {
             .multilineTextAlignment(.center)
             .frame(width: 280, alignment: .center)
           Spacer()
-            .frame(height: 20)
+            .frame(height: 10)
           // label
           Section {
             Text(String(viewModel.currentWordCount) + "  /  " + String(viewModel.totalWordCount))
@@ -90,7 +90,8 @@ struct WordAddView: View {
               .padding(.vertical, 5)
           }
           Spacer()
-            .frame(height: 40)
+            .frame(height: 20)
+          
           HStack {
             // left
             if viewModel.currentWordCount != viewModel.totalWordCount {
@@ -224,32 +225,36 @@ struct WordBox: View {
           .fill(Color("Navy"))
           .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
 
-        LazyVStack {
-          // 1.circle
-
+        VStack {
           ImageView(withURL: viewModel.word_list[viewModel.currentWordCount].word_image)
-            .frame(width: 200, height: 200, alignment: .center)
+            .frame(width: 200, height: 180, alignment: .center)
             .cornerRadius(10)
-            .padding(.vertical, 20)
-
-          Spacer().frame(height: 10)
+            .padding(.top, 15)
+            
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 20))
+            .fontWeight(.bold)
+            .font(Font.custom("Bangla MN", size: 16))
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+            .font(Font.custom("Bangla MN", size: 16))
 
-          Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
-            .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+          VStack (alignment: .leading) {
+            Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
+              .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 14))
+              .lineLimit(4)
+              .multilineTextAlignment(.leading)
 
-          Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
-            .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
-
+            Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
+              .foregroundColor(.white)
+              .font(Font.custom("Bangla MN", size: 14))
+              .lineLimit(4)
+              .multilineTextAlignment(.leading)
+          }
+          Spacer()
           Button(action: {
             self.playing.toggle()
             self.audioPlayer.play()
@@ -264,11 +269,12 @@ struct WordBox: View {
               //  let sound = Bundle.main.path(forResource: "1", ofType: "mp3")
               // self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
             }
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
         }
+        .padding(.horizontal, 14)
       }
       .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
-    }
+    }.frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
   }
 }
 
