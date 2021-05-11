@@ -11,7 +11,7 @@ import SwiftUI
 
 struct WordCellView: View {
   @ObservedObject var viewModel: WordListViewModel
-  @State var index: Int // 이걸 viewmodel로 옮겨야함
+  // @State var index: Int // 이걸 viewmodel로 옮겨야함
   @State var showingDeleteAlert: Bool = false
 
   var body: some View {
@@ -24,14 +24,14 @@ struct WordCellView: View {
 
         VStack {
           HStack {
-            Text(viewModel.word_list[self.index].word_kor)
+            Text(viewModel.word_list[viewModel.index].word_kor)
               .foregroundColor(.black)
               .font(Font.custom("Bangla MN", size: 20))
               .fontWeight(.heavy)
               .padding(.top, 10)
           }
           HStack {
-            Text(viewModel.word_list[self.index].word_eng)
+            Text(viewModel.word_list[viewModel.index].word_eng)
               .foregroundColor(.black)
               .font(Font.custom("Bangla MN", size: 18))
               .fontWeight(.regular)
@@ -48,14 +48,71 @@ struct WordCellView: View {
                 .frame(width: 30, height: 30, alignment: .center)
                 .foregroundColor(Color("Pink"))
                 .alert(isPresented: self.$showingDeleteAlert) {
-                  Alert(title: Text("Delete Word"), message: Text("Would you like to take \'" + viewModel.word_list[self.index].word_kor + "\' \nout of your vocabulary?"), primaryButton: .destructive(Text("Delete")) {
-                    WordApiCaller.myWordDelete(word_folder_id: viewModel.word_folder_id, word_id: viewModel.word_list[self.index].id) {
+                  Alert(title: Text("Delete Word"), message: Text("Would you like to take \'" + viewModel.word_list[viewModel.index].word_kor + "\' \nout of your vocabulary?"), primaryButton: .destructive(Text("Delete")) {
+                    viewModel.deleteWord(delete_word_id: viewModel.word_list[viewModel.index].id)
+                    self.showingDeleteAlert = false
+                  }, secondaryButton: .cancel {
+                    self.showingDeleteAlert = false
+                  })
+                }
+            }
+            // .padding(.leading, 60)
+          }
+          .padding(.top, 10)
+        }
+      }
+    }
+    .padding(5)
+  }
+}
+
+struct WordGridCellView: View {
+  @State var word: InMyListWord
+  @State var folder_id: Int
+  // @State var index: Int // 이걸 viewmodel로 옮겨야함
+  @State var showingDeleteAlert: Bool = false
+
+  var body: some View {
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 20)
+          .frame(width: UIScreen.main.bounds.width / 2 - 30, height: UIScreen.main.bounds.width / 2 - 30)
+          .foregroundColor(.white)
+          .opacity(0.8)
+
+        VStack {
+          HStack {
+            Text(word.word_kor)
+              .foregroundColor(.black)
+              .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.heavy)
+              .padding(.top, 10)
+          }
+          HStack {
+            Text(word.word_eng)
+              .foregroundColor(.black)
+              .font(Font.custom("Bangla MN", size: 18))
+              .fontWeight(.regular)
+              .padding(.top, 10)
+          }
+
+          HStack {
+            Button {
+              self.showingDeleteAlert = true
+
+            } label: {
+              Image(systemName: "trash.circle")
+                .resizable()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(Color("Pink"))
+                .alert(isPresented: self.$showingDeleteAlert) {
+                  Alert(title: Text("Delete Word"), message: Text("Would you like to take \'" + word.word_kor + "\' \nout of your vocabulary?"), primaryButton: .destructive(Text("Delete")) {
+                    WordApiCaller.myWordDelete(word_folder_id: folder_id, word_id: word.id) {
                       result in
                       let status = Int(result?.result_code ?? 500)
                       switch status {
                       case 200:
                         print("----- my word delete api done")
-                        viewModel.word_list.remove(at: self.index)
                       default:
                         print("----- my word delete api error")
                       }
@@ -73,6 +130,27 @@ struct WordCellView: View {
       }
     }
     .padding(5)
+  }
+}
+
+struct WordLazyGridView: View {
+  @ObservedObject var viewModel: WordListViewModel
+
+  let coloumns = [
+    GridItem(.fixed(UIScreen.main.bounds.width / 23 * 10), spacing: UIScreen.main.bounds.width / 23 * 1),
+    GridItem(.fixed(UIScreen.main.bounds.width / 23 * 10), spacing: UIScreen.main.bounds.width / 23 * 1),
+  ]
+
+  var body: some View {
+    LazyVGrid(columns: coloumns, spacing: 15) {
+      ForEach(viewModel.word_list, id: \.self) { word in
+        WordGridCellView(word: word, folder_id: viewModel.word_folder_id)
+          .onTapGesture {
+            viewModel.showPopup = word.id
+          }
+      }
+      .onAppear {}
+    }.padding(.horizontal, UIScreen.main.bounds.width / 23 * 1)
   }
 }
 

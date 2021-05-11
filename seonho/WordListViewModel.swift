@@ -13,12 +13,16 @@ class WordListViewModel: ObservableObject {
  
   var word_folder_id: Int
   @Published var word_list: [InMyListWord]
+  
   @Published var index: Int = 0
 
   @Published var didSelectWord: Bool = false
   @Published var selectedWord: InMyListWord?
+  
   @Published var word_id: Int = 0
 
+  @Published var showPopup: Int = -1
+  
   private var cancellable: Set<AnyCancellable> = []
 
   init(word_folder_id: Int) {
@@ -33,5 +37,32 @@ class WordListViewModel: ObservableObject {
       }
       
     }
+  }
+  
+  func deleteWord(delete_word_id: Int){
+    WordApiCaller.myWordDelete(word_folder_id: self.word_folder_id , word_id: delete_word_id) {
+      result in
+      let status = Int(result?.result_code ?? 500)
+      switch status {
+      case 200:
+        print("----- my word delete api done")
+      default:
+        print("----- my word delete api error")
+      }
+    }
+    
+    WordApiCaller.folderWordRead(word_folder_id: word_folder_id){ result in
+      switch result?.result_code{
+      case 200:
+        self.word_list = result?.data?.my_word_list ?? []
+      default:
+        print("---- folder word read api error")
+      }
+      
+    }
+  }
+  
+  func getWordById(finding_word_id: Int) -> InMyListWord {
+    return self.word_list.filter { $0.id == finding_word_id }[0]
   }
 }

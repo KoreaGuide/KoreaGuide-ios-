@@ -14,7 +14,7 @@ struct WordFolderLearnModel: Codable {
   let data: LearningFolderInfo
 }
 
-struct LearningFolderInfo: Codable{
+struct LearningFolderInfo: Codable {
   let folder_id: Int
   let folder_name: String
   let word_list: [LearnWord]
@@ -68,13 +68,12 @@ struct AllFolderInfo: Codable {
   let status: String
   let description: String
   let data: [OneFolderInfo]
-  struct OneFolderInfo: Codable{
+  struct OneFolderInfo: Codable {
     let word_folder_id: Int
     let folder_name: String
     let word_count: Int
   }
 }
-
 
 struct TodayWordModel: Codable {
   let result_code: Int
@@ -119,7 +118,6 @@ struct WordDetail: Codable {
   let word_audio: String?
 }
 
-
 // word list 총 개수 등
 struct MainWordListModel: Codable {
   let result_code: Int
@@ -133,7 +131,9 @@ struct MainWordListModel: Codable {
   }
 }
 
-struct InMyListWord: Codable {
+struct InMyListWord: Codable, Hashable, Identifiable {
+  let private_id = UUID()
+
   let id: Int
   let word_eng: String
   let word_kor: String
@@ -171,10 +171,6 @@ struct DeleteResponse: Codable {
     let now_word_count: Int
   }
 }
-
-
-
-
 
 struct RawWord: Codable {
   enum CodingKeys: String, CodingKey {
