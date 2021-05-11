@@ -23,29 +23,24 @@ struct WordPopup: View {
               .font(Font.custom("Bangla MN", size: 20))
               .fontWeight(.heavy)
           }
-          .padding(10)
+         
           HStack {
             Text(viewModel.word_list[displayItem].word_eng)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 18))
               .fontWeight(.bold)
           }
-          .padding(10)
-          HStack {
-            Text(viewModel.word_list[displayItem].meaning_kor1)
-              .font(Font.custom("Bangla MN", size: 20))
-              .multilineTextAlignment(.leading)
-              .lineLimit(4)
-          }
-          .padding(10)
+      
           HStack {
             Text(viewModel.word_list[displayItem].meaning_eng1)
-              .font(Font.custom("Bangla MN", size: 20))
+              .font(Font.custom("Bangla MN", size: 16))
               .multilineTextAlignment(.leading)
-              .lineLimit(4)
+              .lineLimit(6)
           }
-          .padding(10)
+         
         }
-        .frame(width: 240, height: 240, alignment: .center)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 5)
+        .frame(width: 270, height: 240, alignment: .center)
         .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
       }
     }
@@ -119,7 +114,8 @@ struct WordListView: View {
 
   @State var isLearnView = false
   @State var isTestView = false
-
+@State var toMainView = false
+  
   var body: some View {
     VStack {
     NavigationView {
@@ -133,10 +129,15 @@ struct WordListView: View {
           Spacer()
             .frame(height: 10)
           HStack {
-            BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+            BackButton(tapAction: { self.toMainView = true
+              print("----- back button tapped")
+            })
             Spacer()
           }
           .padding(.horizontal, 20)
+          NavigationLink(destination: WordMainView()
+                          .navigationBarTitle("")
+                          .navigationBarHidden(true), isActive: $toMainView) { EmptyView() }
           
           Text("" + " Words List") // TODO:
             .foregroundColor(.white)
@@ -196,10 +197,12 @@ struct WordListView: View {
             .ignoresSafeArea()
         }
       }
-    }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     .navigationBarTitle("")
     .navigationBarHidden(true)
+    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    }
+    
     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
 }
