@@ -44,7 +44,8 @@ class WordTestViewModel: ObservableObject {
       switch status {
       case 200:
         self.test_word_info = result?.data
-        print(result?.data.quiz_list as Any)
+        print(result?.data.quiz_list[0].selected_word)
+        print(result?.data.quiz_list[0].word_choice_list)
         print("----- test word get api done")
       default:
         print("----- test word get api error")
