@@ -20,24 +20,26 @@ class WordAddViewModel: ObservableObject {
     }
   }
 
-  @Published var addButton: Bool = false
-
-  var results: [(Int, Int, Bool)] = [] // 순서, word id, add or not
-
   @Published var added_word_id_list: [Int] = []
-  @Published var removed_word_id_list: [Int] = []
-
+  @Published var added_word_bool_list: [Bool] = []
+  
   @Published var totalWordCount: Int = 1
   // 1~ -> index naming
   @Published var currentWordCount: Int = 0 {
     willSet {
       progressValue = Float(newValue) / Float(totalWordCount)
+      self.currentWordCountforShow += 1
     }
   }
+  @Published var currentWordCountforShow: Int = 0
 
   @Published var progressValue: Float = 0.0
 
   @Published var finish: Bool = false
+  
+  @State var count = 0
+  @State var existcount = 0
+  
   private var cancellable: Set<AnyCancellable> = []
 
   init(place_id: Int) {
@@ -55,7 +57,7 @@ class WordAddViewModel: ObservableObject {
 //      print(self.word_list.count)
       print("---------------word list ")
     }
-    // totalWordCount = word_list.count
+    totalWordCount = word_list.count
     // place detail call -> place title
     WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
@@ -66,12 +68,38 @@ class WordAddViewModel: ObservableObject {
         print("----- place detail all read api error")
       }
     }
+    
+    self.added_word_bool_list.reserveCapacity(100)
+
+    for _ in 0..<100 {
+      self.added_word_bool_list.append(false)
+    }
+    
   }
 
   func wordAdd() {
-    for id in added_word_id_list {
-      self.add(word_id: id)
+   
+    for word_id in added_word_id_list {
+      WordApiCaller.myWordCreate(word_folder_id: UserDefaults.add_folder_id ?? 1, word_id: word_id) { result in
+        let status = Int(result!.result_code)
+        switch status {
+        case 200:
+          self.count = self.count + 1
+          print("----- place related word add api done")
+        case 409:
+          self.existcount = self.existcount + 1
+          print("----- place related word add api already exists")
+        default:
+          print("----- place related word add api error")
+        }
+      }
     }
+   
+    print("-----total added words count" + String(added_word_id_list.count))
+    
+    self.progressValue = 1.0
+
+  
   }
 
   func add(word_id: Int) {

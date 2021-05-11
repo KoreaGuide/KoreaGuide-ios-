@@ -80,7 +80,7 @@ struct WordAddView: View {
             .frame(height: 10)
           // label
           Section {
-            Text(String(viewModel.currentWordCount) + "  /  " + String(viewModel.totalWordCount))
+            Text(String(viewModel.currentWordCountforShow) + "  /  " + String(viewModel.totalWordCount))
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 18))
@@ -91,35 +91,19 @@ struct WordAddView: View {
           }
           Spacer()
             .frame(height: 20)
-          
-          HStack {
-            // left
-            if viewModel.currentWordCount != viewModel.totalWordCount {
-              Button(action: {
-                if viewModel.currentWordCount > 0 {
-                  viewModel.currentWordCount -= 1
-                }
 
-              }, label: {
-                Image(systemName: "chevron.left.circle")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 30, height: 30, alignment: .center)
-                  .foregroundColor(.white)
-              })
-            }
+          HStack {
             // box
-            if viewModel.currentWordCount == viewModel.word_list.count - 1 {
+            if viewModel.finish == true {
               VStack {
                 ZStack {
                   RoundedRectangle(cornerRadius: 25)
                     .fill(Color("Navy"))
                     .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
-                    
 
                   VStack {
                     // Text(viewModel.place_title)
-                    Text("You got " + String(viewModel.added_word_id_list.count) + " words")
+                    Text("You got " + String(viewModel.added_word_id_list.count) + (viewModel.added_word_id_list.count <= 1 ? " word" : " words"))
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
                       .foregroundColor(.white)
@@ -130,61 +114,82 @@ struct WordAddView: View {
                     VStack {
                       Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
-                        viewModel.wordAdd()
+
                       }, label: {
-                        Text("Let's go back to place page")
+                        Text("  Let's go back to place page  ")
                           .font(Font.custom("Bangla MN", size: 15))
                           .foregroundColor(Color("Navy"))
                           .padding(5)
                           .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
                       })
                         .padding(.bottom, 20)
-                      Button(action: {}, label: {
-                        Text("Let's go to check the words")
-                          .font(Font.custom("Bangla MN", size: 15))
-                          .foregroundColor(Color("Navy"))
-                          .padding(5)
-                          .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
-                      })
-                        .padding(.bottom, 20)
+//                      Button(action: {}, label: {
+//                        Text("Let's go to check the words")
+//                          .font(Font.custom("Bangla MN", size: 15))
+//                          .foregroundColor(Color("Navy"))
+//                          .padding(5)
+//                          .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
+//                      })
+//                        .padding(.bottom, 20)
                     }
                   }
-                  .onAppear { viewModel.wordAdd()}
                   .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
                 }
               }
-              
             } else {
-              if viewModel.word_list.count == 0 {
-                EmptyWordBox()
-              } else {
-                WordBox(viewModel: self.viewModel)
-              }
-            }
-
-            // right
-            if viewModel.currentWordCount != viewModel.totalWordCount {
-              Button(action: {
-                if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
-                  viewModel.currentWordCount += 1
-                  if viewModel.currentWordCount == viewModel.totalWordCount {
-                    viewModel.finish = true
+              // left
+              if viewModel.currentWordCount != viewModel.totalWordCount {
+                Button(action: {
+                  if viewModel.currentWordCount > 0 {
+                    viewModel.currentWordCount -= 1
                   }
+
+                }, label: {
+                  Image(systemName: "chevron.left.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .foregroundColor(viewModel.currentWordCount == 0 ? .gray : .white)
+                })
+                .disabled(viewModel.currentWordCount == 0 )
+              }
+
+              if viewModel.currentWordCount == viewModel.word_list.count - 1 {
+                AddEndBox(viewModel: viewModel)
+              } else {
+                if viewModel.word_list.count == 0 {
+                  EmptyWordBox()
+                } else {
+                  WordBox(viewModel: self.viewModel)
                 }
-              }, label: {
-                Image(systemName: "chevron.right.circle")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 30, height: 30, alignment: .center)
-                  .foregroundColor(.white)
-              })
+              }
+
+              // right
+              if viewModel.currentWordCount != viewModel.totalWordCount {
+                Button(action: {
+                  if viewModel.currentWordCount < viewModel.totalWordCount - 1 {
+                    viewModel.currentWordCount += 1
+                  }
+                }, label: {
+                  Image(systemName: "chevron.right.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .foregroundColor(viewModel.currentWordCount == viewModel.totalWordCount - 1 ? .gray : .white)
+                })
+                .disabled(viewModel.currentWordCount == viewModel.totalWordCount - 1 )
+                
+              }
             }
           }
 
           Spacer().frame(height: 30)
 
-          if viewModel.currentWordCount != viewModel.totalWordCount {
+          if viewModel.finish == false {
             if viewModel.word_list.count == 0 {
+              EmptyView()
+            }
+            else if viewModel.currentWordCount == viewModel.totalWordCount - 1 {
               EmptyView()
             } else {
               InOutButton(viewModel: viewModel)
@@ -215,6 +220,54 @@ struct EmptyWordBox: View {
   }
 }
 
+struct AddEndBox: View {
+  @ObservedObject var viewModel: WordAddViewModel
+
+  var body: some View {
+    VStack {
+      ZStack {
+        RoundedRectangle(cornerRadius: 25)
+          .fill(Color("Navy"))
+          .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+
+        VStack {
+          Text("End of \nplace related words \nadding.")
+            .font(Font.custom("Bangla MN", size: 20))
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+
+          Spacer()
+            .frame(height: 120)
+
+          VStack {
+            Button(action: {
+              viewModel.wordAdd()
+              viewModel.currentWordCountforShow = viewModel.totalWordCount
+              viewModel.finish = true
+
+            }, label: {
+              VStack(alignment: .center) {
+                Text("Finish and Save")
+                  .font(Font.custom("Bangla MN", size: 18))
+                  .fontWeight(.bold)
+                  .foregroundColor(Color.orange)
+                Image(systemName: "cursor.rays")
+                  .resizable()
+                  .foregroundColor(Color.orange)
+                  .frame(width: 30, height: 30, alignment: .center)
+              }
+
+            })
+              .padding(.bottom, 20)
+          }
+        }
+        .padding(.horizontal, 20)
+      }
+    }
+    .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
+  }
+}
+
 struct WordBox: View {
   @ObservedObject var viewModel: WordAddViewModel
   @State var audioPlayer: AVAudioPlayer!
@@ -233,7 +286,6 @@ struct WordBox: View {
             .frame(width: 200, height: 160, alignment: .center)
             .cornerRadius(10)
             .padding(.top, 20)
-            
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
@@ -244,7 +296,7 @@ struct WordBox: View {
             .foregroundColor(.white)
             .font(Font.custom("Bangla MN", size: 16))
 
-          VStack (alignment: .leading) {
+          VStack(alignment: .leading) {
             Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
               .foregroundColor(.white)
               .font(Font.custom("Bangla MN", size: 14))
@@ -287,34 +339,74 @@ struct InOutButton: View {
   var body: some View {
     // TODO: 수정
     Button(action: {
-      viewModel.addButton.toggle()
-      if viewModel.addButton == true {
+      viewModel.added_word_bool_list[viewModel.currentWordCount].toggle()
+      if viewModel.added_word_bool_list[viewModel.currentWordCount] == true {
         viewModel.added_word_id_list.append(viewModel.word_list[viewModel.currentWordCount].word_id)
-        // viewModel.add(word_id: viewModel.word_list[viewModel.currentWordCount].word_id)
       } else {
         viewModel.added_word_id_list = viewModel.added_word_id_list
           .filter { $0 != viewModel.word_list[viewModel.currentWordCount].word_id }
       }
     }, label: {
-      ZStack {
-        RoundedRectangle(cornerRadius: 10)
-          .fill(Color("Navy"))
-          .frame(width: UIScreen.main.bounds.width - 80, height: 50)
+      if viewModel.word_list[viewModel.currentWordCount].word_status != "NO_STATUS" {
+        ZStack {
+          RoundedRectangle(cornerRadius: 10)
+            .fill(Color("Navy"))
+            .frame(width: UIScreen.main.bounds.width - 80, height: 50)
 
-        HStack {
-          Image(systemName: viewModel.word_list[viewModel.currentWordCount].word_status != "NO_STATUS" ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
-            .resizable()
-            .frame(width: 30, height: 30, alignment: .center)
-            .foregroundColor(Color.orange)
-            .padding(.horizontal, 5)
-          Text(viewModel.word_list[viewModel.currentWordCount].word_status != "NO_STATUS" ? "Get it out of my vocabulary" : "Put it in my vocabulary")
-            .foregroundColor(Color.orange)
-            .font(Font.custom("Bangla MN", size: 18))
-            .padding(.top, 10)
+          HStack {
+            Image(systemName: "tray.fill")
+              .resizable()
+              .frame(width: 30, height: 30, alignment: .center)
+              .foregroundColor(Color.gray)
+              .padding(.horizontal, 5)
+            Text("Already in my word list")
+              .foregroundColor(Color.gray)
+              .font(Font.custom("Bangla MN", size: 18))
+              .padding(.top, 10)
+          }
+        }
+      } else {
+        if viewModel.added_word_bool_list[viewModel.currentWordCount] == true {
+          ZStack {
+            RoundedRectangle(cornerRadius: 10)
+              .fill(Color("Navy"))
+              .frame(width: UIScreen.main.bounds.width - 80, height: 50)
+
+            HStack {
+              Image(systemName: "tray.and.arrow.up.fill")
+                .resizable()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(Color.orange)
+                .padding(.horizontal, 5)
+              Text("Take out the word you put in")
+                .foregroundColor(Color.orange)
+                .font(Font.custom("Bangla MN", size: 18))
+                .padding(.top, 10)
+            }
+          }
+        } else {
+          ZStack {
+            RoundedRectangle(cornerRadius: 10)
+              .fill(Color("Navy"))
+              .frame(width: UIScreen.main.bounds.width - 80, height: 50)
+
+            HStack {
+              Image(systemName: "tray.and.arrow.down.fill")
+                .resizable()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(Color.orange)
+                .padding(.horizontal, 5)
+              Text("Put it in my vocabulary")
+                .foregroundColor(Color.orange)
+                .font(Font.custom("Bangla MN", size: 18))
+                .padding(.top, 10)
+            }
+          }
         }
       }
 
     })
+      .disabled(viewModel.word_list[viewModel.currentWordCount].word_status != "NO_STATUS")
       .padding(.bottom, 20)
   }
 }
