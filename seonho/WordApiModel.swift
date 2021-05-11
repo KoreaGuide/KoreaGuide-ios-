@@ -32,7 +32,7 @@ struct LearnWord: Codable {
   let my_word_status: String
 }
 
-struct WordFolderTestModel: Codable {
+struct WordFolderMatchTestModel: Codable {
   let result_code: Int
   let status: String
   let description: String
@@ -59,6 +59,59 @@ struct TestWordInfo: Codable {
       let word_kor: String
       let word_eng: String
       let meaning_kor1: String
+    }
+  }
+}
+
+struct WordFolderEasySpellingTestModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: EasySpellingTestWordInfo
+}
+
+
+struct EasySpellingTestWordInfo: Codable {
+  let quiz_type: String
+  let folder_id: Int
+  let quiz_list: [Quiz]
+
+  struct Quiz: Codable {
+    let selected_word: TestWord
+    struct TestWord: Codable {
+      let id: Int
+      let word_kor: String
+      let word_eng: String
+      let image: String
+    }
+
+    let alphabet_choice_list: [AlphabetChoice]
+    struct AlphabetChoice: Codable {
+      let alphabet: String
+    }
+  }
+}
+
+struct WordFolderHardSpellingTestModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+  let data: HardSpellingTestWordInfo
+}
+
+
+struct HardSpellingTestWordInfo: Codable {
+  let quiz_type: String
+  let folder_id: Int
+  let quiz_list: [Quiz]
+
+  struct Quiz: Codable {
+    let selected_word: TestWord
+    struct TestWord: Codable {
+      let id: Int
+      let word_kor: String
+      let word_eng: String
+      let image: String
     }
   }
 }

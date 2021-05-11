@@ -14,14 +14,21 @@ final class WordApiCaller {
   static var formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
   enum Router: URLRequestConvertible {
     case homeRead
+
     case myWordCreate(word_folder_id: Int, word_id: Int)
     case userFolderRead
     case oneWordRead(word_id: Int)
     case folderWordRead(word_folder_id: Int)
+
     case myWordDelete(word_folder_id: Int, word_id: Int)
+
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
-    case testingWords(quiz_type: String, folder_id: Int)
+
+    case testingMatchWords(quiz_type: String, folder_id: Int)
+    case testingEasySpellingWords(folder_id: Int)
+    case testingHardSpellingWords(folder_id: Int)
+
     case learningWords(word_folder_id: Int)
 
     func asURLRequest() throws -> URLRequest {
@@ -45,8 +52,12 @@ final class WordApiCaller {
           return ("/api/myWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
-        case let .testingWords(quiz_type, folder_id):
+        case let .testingMatchWords(quiz_type, folder_id):
           return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .post, defaultHeaders)
+        case let .testingEasySpellingWords(folder_id):
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .post, defaultHeaders)
+        case let .testingHardSpellingWords(folder_id):
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
         case let .learningWords(word_folder_id):
           return ("api/myWordFolder/learnWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
         }
@@ -252,8 +263,8 @@ final class WordApiCaller {
       }
   }
 
-  static func testingWords(quiz_type: String, folder_id: Int, callback: @escaping (WordFolderTestModel?) -> Void) {
-    AF.request(Router.testingWords(quiz_type: quiz_type, folder_id: folder_id))
+  static func testingMatchWords(quiz_type: String, folder_id: Int, callback: @escaping (WordFolderMatchTestModel?) -> Void) {
+    AF.request(Router.testingMatchWords(quiz_type: quiz_type, folder_id: folder_id))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {
@@ -267,7 +278,53 @@ final class WordApiCaller {
         print(String(decoding: data, as: UTF8.self))
         let decoder = JSONDecoder()
         do {
-          let result = try decoder.decode(WordFolderTestModel.self, from: data)
+          let result = try decoder.decode(WordFolderMatchTestModel.self, from: data)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
+
+  static func testingEasySpellingWords(folder_id: Int, callback: @escaping (WordFolderEasySpellingTestModel?) -> Void) {
+    AF.request(Router.testingEasySpellingWords(folder_id: folder_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(WordFolderEasySpellingTestModel.self, from: data)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
+
+  static func testinHardSpellingWords(folder_id: Int, callback: @escaping (WordFolderHardSpellingTestModel?) -> Void) {
+    AF.request(Router.testingHardSpellingWords(folder_id: folder_id))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(WordFolderHardSpellingTestModel.self, from: data)
           callback(result)
         } catch {
           callback(nil)

@@ -13,6 +13,8 @@ class WordTestViewModel: ObservableObject {
   @Published var word_folder_id: Int
 
   @Published var test_word_info: TestWordInfo?
+  @Published var test_easy_spelling_word_info: EasySpellingTestWordInfo?
+  @Published var test_hard_spelling_word_info: HardSpellingTestWordInfo?
 
   @Published var choice: Int = -1
 
@@ -36,19 +38,80 @@ class WordTestViewModel: ObservableObject {
     self.quiz_type = quiz_type
     self.word_folder_id = word_folder_id
 
-    WordApiCaller.testingWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
+    switch quiz_type {
+    case "MATCH":
+      WordApiCaller.testingMatchWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
 
-      let status = Int(result?.result_code ?? 0)
-      switch status {
-      case 200:
-        self.test_word_info = result?.data
-        // print(result?.data.quiz_list[0].selected_word)
-        // print(result?.data.quiz_list[0].word_choice_list)
-        print("----- test word get api done")
-      default:
-        print("----- test word get api error")
+        let status = Int(result?.result_code ?? 0)
+        switch status {
+        case 200:
+          self.test_word_info = result?.data
+          // print(result?.data.quiz_list[0].selected_word)
+          // print(result?.data.quiz_list[0].word_choice_list)
+          print("----- test word get api done")
+        default:
+          print("----- test word get api error")
+        }
+        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
       }
-      self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+    case "LISTEN":
+      WordApiCaller.testingMatchWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
+
+        let status = Int(result?.result_code ?? 0)
+        switch status {
+        case 200:
+          self.test_word_info = result?.data
+          // print(result?.data.quiz_list[0].selected_word)
+          // print(result?.data.quiz_list[0].word_choice_list)
+          print("----- test word get api done")
+        default:
+          print("----- test word get api error")
+        }
+        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+      }
+    case "SPELLING_E":
+      WordApiCaller.testingEasySpellingWords(folder_id: word_folder_id) { result in
+        let status = Int(result?.result_code ?? 0)
+        switch status {
+        case 200:
+          self.test_easy_spelling_word_info = result?.data
+          // print(result?.data.quiz_list[0].selected_word)
+          // print(result?.data.quiz_list[0].word_choice_list)
+          print("----- test word get api done")
+        default:
+          print("----- test word get api error")
+        }
+        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+      }
+    case "SPELLING_H":
+      WordApiCaller.testinHardSpellingWords(folder_id: word_folder_id) { result in
+        let status = Int(result?.result_code ?? 0)
+        switch status {
+        case 200:
+          self.test_hard_spelling_word_info = result?.data
+          // print(result?.data.quiz_list[0].selected_word)
+          // print(result?.data.quiz_list[0].word_choice_list)
+          print("----- test word get api done")
+        default:
+          print("----- test word get api error")
+        }
+        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+      }
+    default:
+      WordApiCaller.testingMatchWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
+
+        let status = Int(result?.result_code ?? 0)
+        switch status {
+        case 200:
+          self.test_word_info = result?.data
+          // print(result?.data.quiz_list[0].selected_word)
+          // print(result?.data.quiz_list[0].word_choice_list)
+          print("----- test word get api done")
+        default:
+          print("----- test word get api error")
+        }
+        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+      }
     }
   }
 }
