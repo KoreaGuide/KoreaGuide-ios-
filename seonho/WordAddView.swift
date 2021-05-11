@@ -31,6 +31,7 @@ struct ProgressBar: View {
           .frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
           .foregroundColor(Color(UIColor.systemBlue))
           .animation(.linear)
+          .transition(.slide)
       }.cornerRadius(45.0)
     }
   }
@@ -80,7 +81,7 @@ struct WordAddView: View {
             .frame(height: 10)
           // label
           Section {
-            Text(String(viewModel.currentWordCountforShow) + "  /  " + String(viewModel.totalWordCount))
+            Text(viewModel.finish ? "Finish!" : (String(viewModel.currentWordCountforShow) + "  /  " + String(viewModel.totalWordCount)))
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 18))
@@ -102,7 +103,6 @@ struct WordAddView: View {
                     .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
 
                   VStack {
-                    // Text(viewModel.place_title)
                     Text("You got " + String(viewModel.added_word_id_list.count) + (viewModel.added_word_id_list.count <= 1 ? " word." : " words!"))
                       .font(Font.custom("Bangla MN", size: 20))
                       .fontWeight(.bold)
@@ -123,14 +123,6 @@ struct WordAddView: View {
                           .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
                       })
                         .padding(.bottom, 20)
-//                      Button(action: {}, label: {
-//                        Text("Let's go to check the words")
-//                          .font(Font.custom("Bangla MN", size: 15))
-//                          .foregroundColor(Color("Navy"))
-//                          .padding(5)
-//                          .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
-//                      })
-//                        .padding(.bottom, 20)
                     }
                   }
                   .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height / 2 + 40)
