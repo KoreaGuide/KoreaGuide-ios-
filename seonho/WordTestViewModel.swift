@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class WordTestViewModel: ObservableObject {
+class WordTestSceneViewModel: ObservableObject {
   @Published var quiz_type: String
   @Published var word_folder_id: Int
 

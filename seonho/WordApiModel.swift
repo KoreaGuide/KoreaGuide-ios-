@@ -116,6 +116,12 @@ struct HardSpellingTestWordInfo: Codable {
   }
 }
 
+struct WordResultPostModel: Codable {
+  let result_code: Int
+  let status: String
+  let description: String
+}
+
 struct AllFolderInfo: Codable {
   let result_code: Int
   let status: String

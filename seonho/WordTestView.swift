@@ -38,8 +38,8 @@ struct CircularProgressBar: View {
   }
 }
 
-struct WordTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+struct WordTestScene: View {
+  @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
   var body: some View {
@@ -87,12 +87,10 @@ struct WordTestView: View {
         }
         .padding(.horizontal, 10)
         .padding(.bottom, 10)
-//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
-//        CircularProgressBar(progress: $viewModel.progressValue)
-//        .frame(width: 100, height: 100)
+
 
         // test box...
-        MatchQuizView(viewModel: self.viewModel)
+        MatchAnswerView(viewModel: self.viewModel)
       }
     }
   }
@@ -100,8 +98,8 @@ struct WordTestView: View {
   // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
 }
 
-struct MatchQuizView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+struct MatchAnswerView: View {
+  @ObservedObject var viewModel: WordTestSceneViewModel
   var body: some View {
     ZStack {
       // background
@@ -197,7 +195,7 @@ struct MatchQuizView: View {
 }
 
 struct WordMatchTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+  @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
   var body: some View {
@@ -250,8 +248,8 @@ struct WordMatchTestView: View {
 //        CircularProgressBar(progress: $viewModel.progressValue)
 //        .frame(width: 100, height: 100)
 
-          // test box...
-          MatchQuizView(viewModel: self.viewModel)
+          
+          MatchAnswerView(viewModel: self.viewModel)
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -260,7 +258,7 @@ struct WordMatchTestView: View {
 }
 
 struct WordListenTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+  @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @State var audioPlayer: AVAudioPlayer!
   @State var playing: Bool = false
@@ -322,7 +320,7 @@ struct WordListenTestView: View {
           .padding(.bottom, 10)
           Spacer()
             .frame(height: 50)
-          MatchQuizView(viewModel: self.viewModel)
+          MatchAnswerView(viewModel: self.viewModel)
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -332,7 +330,7 @@ struct WordListenTestView: View {
 }
 
 struct WordSpellingEasyTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+  @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @State var audioPlayer: AVAudioPlayer!
   @State var playing: Bool = false
@@ -389,12 +387,9 @@ struct WordSpellingEasyTestView: View {
           }
           .padding(.horizontal, 10)
           .padding(.bottom, 10)
-//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
-//        CircularProgressBar(progress: $viewModel.progressValue)
-//        .frame(width: 100, height: 100)
 
-          // test box...
-          EasySpellingQuizView(viewModel: self.viewModel)
+
+          EasySpellingAnswerView(viewModel: self.viewModel)
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -403,8 +398,8 @@ struct WordSpellingEasyTestView: View {
   // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
 }
 
-struct EasySpellingQuizView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+struct EasySpellingAnswerView: View {
+  @ObservedObject var viewModel: WordTestSceneViewModel
   var body: some View {
     VStack {
       ZStack {
@@ -472,7 +467,7 @@ struct EasySpellingQuizView: View {
                 .frame(width: 30, height: 30, alignment: .center)
 
             })
-              .background(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 5 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -485,7 +480,7 @@ struct EasySpellingQuizView: View {
                 .frame(width: 30, height: 30, alignment: .center)
 
             })
-              .background(self.viewModel.choice == 2 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 6 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -497,7 +492,7 @@ struct EasySpellingQuizView: View {
                 .foregroundColor(.black)
                 .frame(width: 30, height: 30, alignment: .center)
             })
-              .background(self.viewModel.choice == 3 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 7 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -509,7 +504,7 @@ struct EasySpellingQuizView: View {
                 .foregroundColor(.black)
                 .frame(width: 30, height: 30, alignment: .center)
             })
-              .background(self.viewModel.choice == 4 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 8 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
           }
           HStack {
@@ -523,7 +518,7 @@ struct EasySpellingQuizView: View {
                 .frame(width: 30, height: 30, alignment: .center)
 
             })
-              .background(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 9 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -536,7 +531,7 @@ struct EasySpellingQuizView: View {
                 .frame(width: 30, height: 30, alignment: .center)
 
             })
-              .background(self.viewModel.choice == 2 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 10 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -548,7 +543,7 @@ struct EasySpellingQuizView: View {
                 .foregroundColor(.black)
                 .frame(width: 30, height: 30, alignment: .center)
             })
-              .background(self.viewModel.choice == 3 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 11 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
 
             Button(action: {
@@ -560,7 +555,7 @@ struct EasySpellingQuizView: View {
                 .foregroundColor(.black)
                 .frame(width: 30, height: 30, alignment: .center)
             })
-              .background(self.viewModel.choice == 4 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+              .background(self.viewModel.choice == 12 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
               .padding(5)
           }
           Spacer()
@@ -599,9 +594,11 @@ struct EasySpellingQuizView: View {
 }
 
 struct WordSpellingHardTestView: View {
-  @ObservedObject var viewModel: WordTestViewModel
+  @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
+  @State var answer: String = ""
+  
   var body: some View {
     VStack {
       ZStack {
@@ -649,12 +646,9 @@ struct WordSpellingHardTestView: View {
           }
           .padding(.horizontal, 10)
           .padding(.bottom, 10)
-//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
-//        CircularProgressBar(progress: $viewModel.progressValue)
-//        .frame(width: 100, height: 100)
 
-          // test box...
-          MatchQuizView(viewModel: self.viewModel)
+          TextField(answer, text: $answer)
+          
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -663,7 +657,7 @@ struct WordSpellingHardTestView: View {
   // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
 }
 
-struct WordTestFinishView: View {
+struct WordTestResultView: View {
   var body: some View {
     VStack {
       Text("finish")

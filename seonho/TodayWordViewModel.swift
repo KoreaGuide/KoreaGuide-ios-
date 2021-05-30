@@ -47,10 +47,25 @@ class TodayWordViewModel: ObservableObject {
       let status = Int(result!.result_code)
       switch status {
       case 200:
-        print("----- today word add api done")
+        print("----- today word remove api done")
       default:
-        print("----- today word add api error")
+        print("----- today word remove api error")
       }
     }
   }
+  
+  func getRelatedPlaces() {
+    WordApiCaller.oneWordRead(word_id: word_id) { result in
+      let status = Int(result!.result_code)
+      switch status {
+      case 200:
+        print("----- today word related places api done")
+      default:
+        print("----- today word related places api error")
+      }
+      
+      
+    }
+  }
+  
 }
