@@ -46,7 +46,9 @@ struct WordAddView: View {
   var backButton: some View {
     // 뒤로가기
     Button(action: {
-      self.presentationMode.wrappedValue.dismiss()
+      //self.presentationMode.wrappedValue.dismiss()
+      viewModel.wordAdd()
+      viewModel.finish = true
     }, label: {
       Image(systemName: "chevron.left.square")
         .resizable()
@@ -60,7 +62,7 @@ struct WordAddView: View {
   }
 
   var body: some View {
-    NavigationView {
+    //NavigationView {
       ZStack {
         Image("background")
           .resizable()
@@ -69,8 +71,12 @@ struct WordAddView: View {
 
         VStack(alignment: .center) {
           Spacer()
-            .frame(height: 10)
-
+            .frame(height: 15)
+          HStack{
+            backButton
+            Spacer()
+          }
+          .padding(.leading, 20)
           // place title
           Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
@@ -191,12 +197,15 @@ struct WordAddView: View {
           Spacer()
         }
       }
-    }
-    .navigationBarTitle("")
-    .ignoresSafeArea()
-    .navigationBarHidden(true)
-    .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: self.backButton)
+      .ignoresSafeArea()
+      .navigationBarTitle("")
+      .navigationBarHidden(true)
+    //}
+    //.navigationBarTitle("")
+    //.ignoresSafeArea()
+    //.navigationBarHidden(true)
+    //.navigationBarBackButtonHidden(true)
+    //.navigationBarItems(leading: self.backButton)
   }
 }
 
@@ -402,3 +411,4 @@ struct InOutButton: View {
       .padding(.bottom, 20)
   }
 }
+
