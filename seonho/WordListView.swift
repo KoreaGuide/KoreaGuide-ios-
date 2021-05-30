@@ -155,8 +155,7 @@ struct WordListScene: View {
           .ignoresSafeArea()
 
         VStack(alignment: .center) {
-          Spacer()
-            .frame(height: 60)
+          
           HStack {
             BackButton(tapAction: {
               //self.viewModel.didTapBackButton = true
@@ -166,6 +165,7 @@ struct WordListScene: View {
             Spacer()
           }
           .padding(.horizontal, 20)
+          .padding(.top, 80)
 
           WordListNavigationLinks(viewModel: viewModel)
           

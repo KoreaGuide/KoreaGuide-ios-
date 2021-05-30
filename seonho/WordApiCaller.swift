@@ -63,11 +63,11 @@ final class WordApiCaller {
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
 
         case let .testingMatchWords(quiz_type, folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .post, defaultHeaders)
         case let .testingEasySpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .post, defaultHeaders)
         case let .testingHardSpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
 
         case let .testResultPost(word_id, original_folder_id, final_folder_id, result_status):
           return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": ["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]], .post, defaultHeaders)

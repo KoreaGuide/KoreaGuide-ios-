@@ -38,65 +38,6 @@ struct CircularProgressBar: View {
   }
 }
 
-struct WordTestScene: View {
-  @ObservedObject var viewModel: WordTestSceneViewModel
-  @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
-  var body: some View {
-    ZStack {
-      Image("background")
-        .resizable()
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-        .ignoresSafeArea()
-
-      VStack {
-        HStack {
-          ZStack {
-            HStack {
-              BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
-              Spacer()
-            }
-            .padding(.horizontal, 20)
-            HStack(alignment: .bottom) {
-              Spacer()
-              Text("     Match the meaning of the word!")
-                .font(Font.custom("Bangla MN", size: 18))
-                .foregroundColor(.white)
-              Spacer()
-            }
-            .padding(.horizontal, 20)
-          }
-        }
-        .padding(.bottom, 10)
-
-        HStack(alignment: .center) {
-          // ProgressBar
-          CircularProgressBar(progress: $viewModel.progressValue)
-            .frame(width: 80, height: 80)
-          Spacer()
-            .frame(width: 20)
-          VStack {
-            ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
-              .frame(width: 200, height: 200)
-
-            Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
-              .font(Font.custom("Bangla MN", size: 22))
-              .fontWeight(.heavy)
-              .foregroundColor(.white)
-          }
-        }
-        .padding(.horizontal, 10)
-        .padding(.bottom, 10)
-
-
-        // test box...
-        MatchAnswerView(viewModel: self.viewModel)
-      }
-    }
-  }
-
-  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
-}
 
 struct MatchAnswerView: View {
   @ObservedObject var viewModel: WordTestSceneViewModel
@@ -233,20 +174,17 @@ struct WordMatchTestView: View {
             Spacer()
               .frame(width: 20)
             VStack {
-              ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
-                .frame(width: 200, height: 200)
+//              ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+//                .frame(width: 200, height: 200)
 
               Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
-                .font(Font.custom("Bangla MN", size: 22))
+                .font(Font.custom("Bangla MN", size: 30))
                 .fontWeight(.heavy)
                 .foregroundColor(.white)
             }
           }
           .padding(.horizontal, 10)
           .padding(.bottom, 10)
-//        // ProgressBar#imageLiteral(resourceName: "simulator_screenshot_2ED0AF66-9D6C-485C-9F48-BF8EC5DADAF8.png")
-//        CircularProgressBar(progress: $viewModel.progressValue)
-//        .frame(width: 100, height: 100)
 
           
           MatchAnswerView(viewModel: self.viewModel)
@@ -292,12 +230,12 @@ struct WordListenTestView: View {
           .padding(.bottom, 10)
           Spacer()
             .frame(height: 70)
-          HStack(alignment: .center) {
+          HStack {
             // ProgressBar
             CircularProgressBar(progress: $viewModel.progressValue)
               .frame(width: 80, height: 80)
             Spacer()
-              .frame(width: 100)
+              
             VStack(alignment: .center) {
               Text(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
                 .font(Font.custom("Bangla MN", size: 22))
@@ -316,7 +254,7 @@ struct WordListenTestView: View {
               })
             }
           }
-          .padding(.horizontal, 10)
+          .padding(.horizontal, 20)
           .padding(.bottom, 10)
           Spacer()
             .frame(height: 50)
@@ -655,6 +593,14 @@ struct WordSpellingHardTestView: View {
   }
 
   // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
+}
+
+struct WordCorrectOrNotView: View {
+  var body: some View {
+    VStack {
+      Text("finish")
+    }
+  }
 }
 
 struct WordTestResultView: View {
