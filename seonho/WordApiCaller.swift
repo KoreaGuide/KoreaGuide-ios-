@@ -16,11 +16,15 @@ final class WordApiCaller {
     case homeRead
 
     case myWordCreate(word_folder_id: Int, word_id: Int)
+    case myWordDelete(word_folder_id: Int, word_id: Int)
+    
     case userFolderRead
+    
     case oneWordRead(word_id: Int)
+    
     case folderWordRead(word_folder_id: Int)
 
-    case myWordDelete(word_folder_id: Int, word_id: Int)
+    
 
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
@@ -28,6 +32,8 @@ final class WordApiCaller {
     case testingMatchWords(quiz_type: String, folder_id: Int)
     case testingEasySpellingWords(folder_id: Int)
     case testingHardSpellingWords(folder_id: Int)
+
+    case testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String)
 
     case learningWords(word_folder_id: Int)
 
@@ -40,24 +46,32 @@ final class WordApiCaller {
           return ("/api/place/detail/\(UserDefaults.id!)/\(place_id)", ["": ""], .get, defaultHeaders)
         case .homeRead:
           return ("/api/home/", ["": ""], .get, defaultHeaders)
-        case let .myWordCreate(word_folder_id, word_id):
-          return ("/api/myWord/\(UserDefaults.id!)", ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .post, defaultHeaders)
+        
         case .userFolderRead:
           return ("/api/myWordFolder/\(UserDefaults.id!)", ["": ""], .get, defaultHeaders)
 
         case let .oneWordRead(word_id):
           return ("/api/word/\(word_id)", ["": ""], .get, defaultHeaders)
         // return ("/api/word/", ["data" : ["word_id": word_id]], .get, defaultHeaders)
+        
         case let .folderWordRead(word_folder_id):
           return ("/api/myWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
+        
+        case let .myWordCreate(word_folder_id, word_id):
+          return ("/api/myWord/\(UserDefaults.id!)", ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .post, defaultHeaders)
         case let .myWordDelete(word_folder_id, word_id):
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
+
         case let .testingMatchWords(quiz_type, folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .post, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .get, defaultHeaders)
         case let .testingEasySpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .post, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .get, defaultHeaders)
         case let .testingHardSpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .get, defaultHeaders)
+
+        case let .testResultPost(word_id, original_folder_id, final_folder_id, result_status):
+          return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": ["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]], .post, defaultHeaders)
+
         case let .learningWords(word_folder_id):
           return ("api/myWordFolder/learnWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
         }
@@ -171,6 +185,7 @@ final class WordApiCaller {
       }
   }
 
+  //add specific word to user word folder
   static func myWordCreate(word_folder_id: Int, word_id: Int, callback: @escaping (AddResponse?) -> Void) {
     AF.request(Router.myWordCreate(word_folder_id: word_folder_id, word_id: word_id))
       .responseJSON { response in
@@ -328,6 +343,20 @@ final class WordApiCaller {
           callback(result)
         } catch {
           callback(nil)
+        }
+      }
+  }
+
+  static func testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String, callback: @escaping (WordResultPostModel?) -> Void) {
+    AF.request(Router.testResultPost(word_id: word_id, original_folder_id: original_folder_id, final_folder_id: final_folder_id, result_status: result_status))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
         }
       }
   }

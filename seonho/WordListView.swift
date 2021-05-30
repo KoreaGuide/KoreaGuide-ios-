@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
+import SwiftUI 
 
 struct WordPopup: View {
   @Binding var popupWordId: Int
