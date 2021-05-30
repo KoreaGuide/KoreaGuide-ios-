@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-class WordTestSelectViewModel: ObservableObject {
+class WordTestSelectSceneViewModel: ObservableObject {
   @Published var word_folder_id: Int
   @Published var word_list: [InMyListWord]
   

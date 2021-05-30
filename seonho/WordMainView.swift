@@ -64,14 +64,14 @@ struct TotalCountBox: View {
   }
 }
 
-// word 탭 눌렀을때 진입 WordMainView()
-struct WordMainView: View {
-  @ObservedObject var viewModel = WordMainViewModel()
+// word 탭 눌렀을때 진입 WordMainScene()
+struct WordMainScene: View {
+  @ObservedObject var viewModel = WordMainSceneViewModel()
 
   var body: some View {
     NavigationView {
       ZStack {
-        Image("left_bg")
+        Image("background")
           .resizable()
           .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
           .ignoresSafeArea()

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import SwiftUI
 
-class WordListViewModel: ObservableObject {
+class WordListSceneViewModel: ObservableObject {
  
   var word_folder_id: Int
   @Published var word_list: [InMyListWord]
@@ -22,6 +22,10 @@ class WordListViewModel: ObservableObject {
   @Published var word_id: Int = 0
 
   @Published var showPopup: Int = -1
+  
+  @Published var didTapLearnButton = false
+  @Published var didTapTestButton = false
+  @Published var didTapBackButton = false
   
   private var cancellable: Set<AnyCancellable> = []
 

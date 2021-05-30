@@ -101,85 +101,107 @@ enum FolderName: String {
   case Complete
 }
 
-struct WordListView: View {
+struct WordListNavigationLinks: View {
+  @ObservedObject var viewModel: WordListSceneViewModel
+  var body: some View {
+    VStack {
+      NavigationLink(destination: NavigationLazyView(
+        WordMainScene()
+          .navigationBarTitle("")
+          .navigationBarHidden(true)
+      ), isActive: $viewModel.didTapBackButton) {
+        EmptyView()
+      }.isDetailLink(false)
+
+      NavigationLink(destination: NavigationLazyView(
+        WordLearnScene(viewModel: WordLearnSceneViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list))
+          .navigationBarTitle("")
+          .navigationBarHidden(true)
+      ), isActive: $viewModel.didTapLearnButton) {
+        EmptyView()
+
+      }.isDetailLink(false)
+
+      NavigationLink(destination: NavigationLazyView(
+        WordTestSelectScene(viewModel: WordTestSelectSceneViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list))
+          .navigationBarTitle("")
+          .navigationBarHidden(true)
+      ), isActive: $viewModel.didTapTestButton) {
+        EmptyView()
+
+      }.isDetailLink(false)
+    }
+  }
+}
+
+struct WordListScene: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-  @ObservedObject var viewModel: WordListViewModel
+  @ObservedObject var viewModel: WordListSceneViewModel
 
   // @State var showPopup: Int = -1
 
   // var input as option 1~3
   // @ObservedObject var navigation: Navigation
 
-  @State var isLearnView = false
-  @State var isTestView = false
-  @State var toMainView = false
-
   var body: some View {
     VStack {
-      NavigationView {
-        ZStack {
-          Image("center_bg")
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-            .ignoresSafeArea()
+      // NavigationView {
+      ZStack {
+        Image("background")
+          .resizable()
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+          .ignoresSafeArea()
 
-          VStack(alignment: .center) {
+        VStack(alignment: .center) {
+          Spacer()
+            .frame(height: 10)
+          HStack {
+            BackButton(tapAction: { self.viewModel.didTapBackButton = true
+              print("----- back button tapped")
+            })
             Spacer()
-              .frame(height: 10)
-            HStack {
-              BackButton(tapAction: { self.toMainView = true
-                print("----- back button tapped")
-              })
-              Spacer()
-            }
-            .padding(.horizontal, 20)
-            NavigationLink(destination: WordMainView()
-              .navigationBarTitle("")
-              .navigationBarHidden(true), isActive: $toMainView) { EmptyView() }
+          }
+          .padding(.horizontal, 20)
 
-            Text("" + " Words List") // TODO:
+          Text("" + " Words List") // TODO:
+            .foregroundColor(.white)
+            .fontWeight(.heavy)
+            .font(Font.custom("Bangla MN", size: 25))
+            .padding(.vertical, 15)
+
+          HStack {
+            Button(action: {
+              self.viewModel.didTapLearnButton = true
+            }, label: {
+              LearnButton()
+            })
+
+            Spacer()
+
+            Button(action: {
+              self.viewModel.didTapTestButton = true
+            }, label: {
+              TestButton()
+            })
+          }
+          .padding(.horizontal, 18)
+          Spacer()
+            .frame(height: 20)
+
+          if viewModel.word_list.count == 0 {
+            Text("This folder is empty.")
               .foregroundColor(.white)
               .fontWeight(.heavy)
               .font(Font.custom("Bangla MN", size: 25))
               .padding(.vertical, 15)
-
-            HStack {
-              NavigationLink(destination: WordLearnView(viewModel: WordLearnViewModel(word_folder_id: viewModel.word_folder_id))
-                .navigationBarTitle("")
-                .navigationBarHidden(true), isActive: $isLearnView) { EmptyView() }
-              Button(action: {
-                self.isLearnView = true
-              }, label: {
-                LearnButton()
-              })
-
-              Spacer()
-              NavigationLink(destination: WordTestSelectView(viewModel: WordTestSelectViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list))
-                .navigationBarTitle("")
-                .navigationBarHidden(true), isActive: $isTestView) { EmptyView() }
-              Button(action: {
-                self.isTestView = true
-              }, label: {
-                TestButton()
-              })
-            }
-            .padding(.horizontal, 18)
             Spacer()
-              .frame(height: 20)
-
-            if viewModel.word_list.count == 0 {
-              Text("This folder is empty.")
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
-                .font(Font.custom("Bangla MN", size: 25))
-                .padding(.vertical, 15)
-            } else {
-              ScrollView(.vertical) {
-                WordLazyGridView(viewModel: viewModel)
-                  .padding(.bottom, 120)
-              }
-              .frame(width: UIScreen.main.bounds.width, height: 600)
+          } else {
+            ScrollView(.vertical) {
+              WordLazyGridView(viewModel: viewModel)
+                .padding(.bottom, 120)
             }
+            .frame(width: UIScreen.main.bounds.width, height: 600)
+          }
 
 //          WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
 //
@@ -201,18 +223,18 @@ struct WordListView: View {
 //            }
 //          }
 //          .padding(.bottom, 120)
-          }
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-          if viewModel.showPopup != -1 {
-            WordPopup(popupWordId: $viewModel.showPopup, viewModel: viewModel, popupWord: viewModel.getWordById(finding_word_id: viewModel.showPopup))
-              .padding(.top, -50)
-              .ignoresSafeArea()
-          }
+        }
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        if viewModel.showPopup != -1 {
+          WordPopup(popupWordId: $viewModel.showPopup, viewModel: viewModel, popupWord: viewModel.getWordById(finding_word_id: viewModel.showPopup))
+            .padding(.top, -50)
+            .ignoresSafeArea()
         }
       }
-      .navigationBarTitle("")
-      .navigationBarHidden(true)
-      .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+      // }
+      // .navigationBarTitle("")
+      // .navigationBarHidden(true)
+      // .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
 
     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)

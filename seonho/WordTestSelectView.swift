@@ -20,15 +20,22 @@ struct rowItem: View {
   }
 }
 
-struct WordTestSelectView: View {
-  @ObservedObject var viewModel: WordTestSelectViewModel
+//struct WordTestSelectNavigationLinks: View {
+//  @ObservedObject var viewModel: WordTestSelectSceneViewModel
+//  var body: some View{
+//
+//  }
+//}
+
+struct WordTestSelectScene: View {
+  @ObservedObject var viewModel: WordTestSelectSceneViewModel
 
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
   var body: some View {
     // NavigationView {
     ZStack {
-      Image("right_bg")
+      Image("background")
         .resizable()
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
         .ignoresSafeArea()

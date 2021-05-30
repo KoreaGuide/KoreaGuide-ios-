@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class WordMainViewModel: ObservableObject {
+class WordMainSceneViewModel: ObservableObject {
   @Published var added_word_info: MainWordListModel?
   @Published var learning_word_info: MainWordListModel?
   @Published var complete_word_info: MainWordListModel?
