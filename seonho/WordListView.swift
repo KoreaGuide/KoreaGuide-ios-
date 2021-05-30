@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WordPopup: View {
   @Binding var popupWordId: Int
-  @ObservedObject var viewModel: WordListViewModel
+  @ObservedObject var viewModel: WordListSceneViewModel
   @State var popupWord: InMyListWord
 
   var body: some View {
@@ -105,16 +105,18 @@ struct WordListNavigationLinks: View {
   @ObservedObject var viewModel: WordListSceneViewModel
   var body: some View {
     VStack {
-      NavigationLink(destination: NavigationLazyView(
-        WordMainScene()
-          .navigationBarTitle("")
-          .navigationBarHidden(true)
-      ), isActive: $viewModel.didTapBackButton) {
-        EmptyView()
-      }.isDetailLink(false)
+      
+//      NavigationLink(destination: NavigationLazyView(
+//        WordMainScene()
+//          .navigationBarTitle("")
+//          .navigationBarHidden(true)
+//      ), isActive: $viewModel.didTapBackButton) {
+//        EmptyView()
+//      }.isDetailLink(false)
 
+      //, word_list: viewModel.word_list
       NavigationLink(destination: NavigationLazyView(
-        WordLearnScene(viewModel: WordLearnSceneViewModel(word_folder_id: viewModel.word_folder_id, word_list: viewModel.word_list))
+        WordLearnScene(viewModel: WordLearnSceneViewModel(word_folder_id: viewModel.word_folder_id))
           .navigationBarTitle("")
           .navigationBarHidden(true)
       ), isActive: $viewModel.didTapLearnButton) {
@@ -154,15 +156,19 @@ struct WordListScene: View {
 
         VStack(alignment: .center) {
           Spacer()
-            .frame(height: 10)
+            .frame(height: 60)
           HStack {
-            BackButton(tapAction: { self.viewModel.didTapBackButton = true
+            BackButton(tapAction: {
+              //self.viewModel.didTapBackButton = true
+              self.presentationMode.wrappedValue.dismiss()
               print("----- back button tapped")
             })
             Spacer()
           }
           .padding(.horizontal, 20)
 
+          WordListNavigationLinks(viewModel: viewModel)
+          
           Text("" + " Words List") // TODO:
             .foregroundColor(.white)
             .fontWeight(.heavy)
@@ -175,9 +181,7 @@ struct WordListScene: View {
             }, label: {
               LearnButton()
             })
-
             Spacer()
-
             Button(action: {
               self.viewModel.didTapTestButton = true
             }, label: {
@@ -187,7 +191,6 @@ struct WordListScene: View {
           .padding(.horizontal, 18)
           Spacer()
             .frame(height: 20)
-
           if viewModel.word_list.count == 0 {
             Text("This folder is empty.")
               .foregroundColor(.white)

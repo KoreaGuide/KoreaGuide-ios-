@@ -43,7 +43,7 @@ struct TopLabel: View {
 }
 
 struct TotalCountBox: View {
-  @ObservedObject var viewModel: WordMainViewModel
+  @ObservedObject var viewModel: WordMainSceneViewModel
 
   var body: some View {
     HStack {
@@ -64,6 +64,38 @@ struct TotalCountBox: View {
   }
 }
 
+struct WordMainNavigationLinks : View {
+  @ObservedObject var viewModel: WordMainSceneViewModel
+  var body: some View{
+    NavigationLink(destination: NavigationLazyView(
+                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
+    ), isActive: $viewModel.didTapAddedWord) {
+      EmptyView()
+    }
+    .isDetailLink(false)
+
+    NavigationLink(destination: NavigationLazyView(
+                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2))
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
+    ), isActive: $viewModel.didTapLearningWord) {
+      EmptyView()
+    }
+    .isDetailLink(false)
+
+    NavigationLink(destination: NavigationLazyView(
+                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3)).navigationBarTitle("")
+                    .navigationBarHidden(true)
+    ), isActive: $viewModel.didTapCompleteWord) {
+      EmptyView()
+    }
+    .isDetailLink(false)
+  }
+}
+
+
 // word 탭 눌렀을때 진입 WordMainScene()
 struct WordMainScene: View {
   @ObservedObject var viewModel = WordMainSceneViewModel()
@@ -82,26 +114,27 @@ struct WordMainScene: View {
             .frame(height: 40)
           //TotalCountBox(viewModel: viewModel)
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1)).navigationBarTitle("")
-                          .navigationBarHidden(true)) {
+          WordMainNavigationLinks(viewModel: viewModel)
+          
+          
             AddedWordButton(viewModel: viewModel)
               .padding(.vertical, 15)
-          }
-          .isDetailLink(false)
-
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2)).navigationBarTitle("")
-                          .navigationBarHidden(true)) {
+              .onTapGesture {
+                viewModel.didTapAddedWord = true
+              }
+          
             LearningWordButton(viewModel: viewModel)
               .padding(.vertical, 15)
-          }
-          .isDetailLink(false)
+              .onTapGesture {
+                viewModel.didTapLearningWord = true
+              }
 
-          NavigationLink(destination: WordListView(viewModel: WordListViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3)).navigationBarTitle("")
-                          .navigationBarHidden(true)) {
+     
             CompleteWordButton(viewModel: viewModel)
               .padding(.vertical, 15)
-          }
-          .isDetailLink(false)
+              .onTapGesture {
+                viewModel.didTapCompleteWord = true
+              }
           
           Spacer()
             .frame(height: 40)
@@ -120,7 +153,7 @@ struct WordMainScene: View {
 // .animation(.easeInOut)
 
 struct AddedWordButton: View {
-  @ObservedObject var viewModel: WordMainViewModel
+  @ObservedObject var viewModel: WordMainSceneViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
@@ -141,7 +174,7 @@ struct AddedWordButton: View {
 }
 
 struct LearningWordButton: View {
-  @ObservedObject var viewModel: WordMainViewModel
+  @ObservedObject var viewModel: WordMainSceneViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
@@ -162,7 +195,7 @@ struct LearningWordButton: View {
 }
 
 struct CompleteWordButton: View {
-  @ObservedObject var viewModel: WordMainViewModel
+  @ObservedObject var viewModel: WordMainSceneViewModel
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)

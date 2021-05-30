@@ -8,9 +8,9 @@ import AVKit
 import Foundation
 import SwiftUI
 
-struct WordLearnView: View {
+struct WordLearnScene: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-  @ObservedObject var viewModel: WordLearnViewModel
+  @ObservedObject var viewModel: WordLearnSceneViewModel
 
   var body: some View {
     VStack {
@@ -94,7 +94,7 @@ struct EmptyLearnBox: View {
 }
 
 struct LearnBox: View {
-  @ObservedObject var viewModel: WordLearnViewModel
+  @ObservedObject var viewModel: WordLearnSceneViewModel
   @State var audioPlayer: AVAudioPlayer!
   @State var playing: Bool = false
   var body: some View {

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class WordLearnViewModel: ObservableObject {
+class WordLearnSceneViewModel: ObservableObject {
   var word_folder_id: Int = 0
   var word_folder_name: String = ""
   var user_id: Int = UserDefaults.id!

@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct WordCellView: View {
-  @ObservedObject var viewModel: WordListViewModel
+  @ObservedObject var viewModel: WordListSceneViewModel
   // @State var index: Int // 이걸 viewmodel로 옮겨야함
   @State var showingDeleteAlert: Bool = false
 
@@ -134,7 +134,7 @@ struct WordGridCellView: View {
 }
 
 struct WordLazyGridView: View {
-  @ObservedObject var viewModel: WordListViewModel
+  @ObservedObject var viewModel: WordListSceneViewModel
 
   let coloumns = [
     GridItem(.fixed(UIScreen.main.bounds.width / 23 * 10), spacing: UIScreen.main.bounds.width / 23 * 1),

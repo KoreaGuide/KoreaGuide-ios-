@@ -19,7 +19,7 @@ class wordViewController: UIViewController {
 
     // let swiftUIView = UIHostingController(rootView: WordMainView())
 
-    let hostingController = UIHostingController(rootView: WordMainView())
+    let hostingController = UIHostingController(rootView: WordMainScene())
     hostingController.view.translatesAutoresizingMaskIntoConstraints = false
     hostingController.view.frame = view.bounds
 
