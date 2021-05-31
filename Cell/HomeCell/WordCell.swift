@@ -14,6 +14,7 @@ final class WordCell: UICollectionViewCell {
   @IBOutlet var today: UILabel!
   @IBOutlet var button: UIButton!
   var word_audio: String = ""
+  var word_id: String = ""
   weak var delegate: WordCellDelegate?
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? WordViewModel else { return }
@@ -25,6 +26,7 @@ final class WordCell: UICollectionViewCell {
     layer.cornerRadius = 30
     word_image.alpha = 0.6
     today.text = "Word of today"
+    word_id = String(viewModel.word_id)
   }
 
   override func awakeFromNib() {

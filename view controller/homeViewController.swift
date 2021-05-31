@@ -39,11 +39,32 @@ class homeViewController: UIViewController, ListAdapterDataSource {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-   
+    
+//    guard let path = Bundle.main.path(forResource: "mapJson", ofType: "geojson") else {
+//      fatalError()
+//    }
+//    let url = URL(fileURLWithPath: path)
+//    do {
+//      let data = try Data(contentsOf: url)
+//
+//      ApiHelper.uploadFile(geoJsonMap: data) {
+//        if $0 {
+//          print("Sibal")
+//        }
+//      }
+//    } catch {
+//      fatalError()
+//    }
+//    
+//    ApiHelper.downloadFile {
+//      if $0 {
+//        print("sibal")
+//      }
+//    }
     
     ApiHelper.homeRead { result in
       self.res = result
-      let status = Int(self.res!.result_code)
+      let status = Int(self.res?.result_code ?? 201)
 
       switch status {
       case 200:
@@ -58,8 +79,7 @@ class homeViewController: UIViewController, ListAdapterDataSource {
     adapter.dataSource = self
     ApiHelper.regionListRead {
       result in
-      print(result!)
-      let status = result?.result_code
+      let status = result?.result_code ?? 501
       switch status {
       case 200:
         result?.data.region_list.forEach {
@@ -80,7 +100,7 @@ class homeViewController: UIViewController, ListAdapterDataSource {
           }
         }
       default:
-        fatalError()
+        print("알 수 없는 에러 ")
       }
     }
   }

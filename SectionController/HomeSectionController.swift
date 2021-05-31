@@ -13,7 +13,7 @@ import UIKit
 class HomeSectionController: ListBindingSectionController<Home>,
   ListBindingSectionControllerDataSource
 {
-  var player: AVPlayer?
+  var soundEffect: AVAudioPlayer?
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
     guard let home = object as? Home else {
       fatalError()
@@ -25,7 +25,6 @@ class HomeSectionController: ListBindingSectionController<Home>,
   }
 
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
-    
     let identifier: String
     switch viewModel {
     case is CardViewModel:
@@ -71,7 +70,7 @@ class HomeSectionController: ListBindingSectionController<Home>,
   override func didSelectItem(at index: Int) {
     guard let selectedCell = collectionContext?.cellForItem(at: index, sectionController: self) as? CardCell else { return }
     guard let place_id = selectedCell.place_id else { return }
-    
+
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
     postingVC.place_id = place_id
@@ -81,12 +80,18 @@ class HomeSectionController: ListBindingSectionController<Home>,
 
 extension HomeSectionController: WordCellDelegate {
   func didTap(cell: WordCell) {
-    guard let url = URL(string: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3") else {
-      fatalError()
+    let url = Bundle.main.url(forResource: cell.word_id, withExtension: "mp3")
+    if let url = url {
+      do {
+        soundEffect = try AVAudioPlayer(contentsOf: url)
+        guard let sound = soundEffect else {
+          return
+        }
+        sound.prepareToPlay()
+        sound.play()
+      } catch {
+        print(error.localizedDescription)
+      }
     }
-    let playerItem = AVPlayerItem(url: url)
-    player = AVPlayer(playerItem: playerItem)
-
-    player?.play()
   }
 }

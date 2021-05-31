@@ -30,11 +30,26 @@ final class ApiHelper {
     case placeRelatedWords(place_id: Int, page_num: Int)
     case placeListForRegionRead(region_id: Int)
     case folderCreate(user_id: Int, folder_name: String)
+    case myMapRead
+    case myMapWishRead
+    case myMapHaveBeenRead
+    case myMapCreate(place_id:Int ,status: String,diary: String?)
+    case myMapDelete(place_id: Int)
     // case confirmEmail(key: String)
 
     func asURLRequest() throws -> URLRequest {
       let result: (path: String, parameters: Parameters, method: HTTPMethod, headers: HTTPHeaders) = {
         switch self {
+        case let .myMapDelete(place_id):
+          return ("/api/myMap/\(UserDefaults.id!)",["data":["place_id":place_id]],.delete,defaultHeaders)
+        case let .myMapCreate(place_id, status,diary):
+          return ("/api/myMap/\(UserDefaults.id!)",["data":["place_id":place_id,"place_status":status,"diary":diary ?? ""]],.post,defaultHeaders)
+        case .myMapRead:
+          return ("/api/myMap/all/\(UserDefaults.id!)",["":""],.get,defaultHeaders)
+        case .myMapWishRead:
+          return ("/api/myMap/wish/\(UserDefaults.id!)",["":""],.get,defaultHeaders)
+        case .myMapHaveBeenRead:
+          return ("/api/myMap/haveBeen/\(UserDefaults.id!)",["":""],.get,defaultHeaders)
         case let .placeListForRegionRead(region_id):
           return ("/api/place/region/\(String(describing: UserDefaults.id!))/\(region_id)", ["": ""], .get, defaultHeaders)
         case let .placeRelatedWords(place_id, page_num):
@@ -80,6 +95,80 @@ final class ApiHelper {
         return try JSONEncoding.default.encode(urlRequest, with: result.parameters)
       }
     }
+  }
+  static func uploadFile(geoJsonMap: Data, callback: @escaping (Bool) -> Void) {
+    let url = "http://localhost:8080/api/myMap/upload/\(UserDefaults.id ?? 0)"
+    let formdataHeaders: HTTPHeaders = ["Content-Type": "multipart/form-data"]
+    AF.upload(multipartFormData: { multiPart in
+      multiPart.append(geoJsonMap, withName: "file")
+    }, to: url, headers: formdataHeaders)
+      .uploadProgress(queue: .main, closure: {
+        progress in
+        print("Upload Progress: \(progress.fractionCompleted)")
+      })
+      .responseJSON(completionHandler: { response in
+        debugPrint(response)
+        guard let data = response.data else {
+          return
+        }
+        print(String(decoding: data, as: UTF8.self))
+        switch response.result {
+        case .failure:
+          callback(false)
+        case .success:
+          callback(true)
+        }
+      })
+  }
+//  static func downloadFile(callback: @escaping (Bool) -> Void ){
+//    
+//      let url = "http://localhost:8080/api/myMap/download/\(UserDefaults.id ?? 0)"
+//      
+//    let destination: DownloadRequest.Destination = { _, _ in
+//             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+//             .userDomainMask, true)[0]
+//             let documentsURL = URL(fileURLWithPath: documentsPath, isDirectory: true)
+//             let fileURL = documentsURL.appendingPathComponent("mapJson.geojson")
+//
+//             return (fileURL, [.removePreviousFile, .createIntermediateDirectories]) }
+//    AF.download(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders, interceptor: nil, requestModifier: nil, to: destination).downloadProgress {
+//      progress in
+//      
+//    }.response(completionHandler: { response in
+//      debugPrint(response)
+//      switch response.result {
+//      case .failure:
+//        callback(false)
+//      case .success:
+//        UserDefaults.mapJson = response.fileURL
+//        callback(true)
+//      }
+//    })
+//  }
+  
+  static func myMapCreate(place_id: Int,status: PlaceStatus,diary: String?,callback: @escaping (response_my_map_create?) -> Void) {
+    AF.request(Router.myMapCreate(place_id: place_id, status: status.rawValue, diary: diary))
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else {
+          return
+        }
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(response_my_map_create.self, from: data)
+          print(result)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
   }
 
   static func placeListForRegionRead(region_id: Int, callback: @escaping (placeListForRegionReadModel?) -> Void) {

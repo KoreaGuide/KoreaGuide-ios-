@@ -14,7 +14,8 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
   var target: MKOverlay?
   var placesInfo: [place] = []
   var regionList: [Region] = []
-  var postingVC : placeDetailViewController?
+  var postingVC: placeDetailViewController?
+  var mapJson: [MKGeoJSONObject]?
   override func viewDidLoad() {
     super.viewDidLoad()
     mapView = MyMapView(frame: view.frame)
@@ -35,12 +36,12 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
         pin.coordinate = CLLocationCoordinate2D(latitude: Double($0.map_y)!, longitude: Double($0.map_x)!)
         pin.subtitle = String($0.id)
         pins.append(pin)
-        
       }
     }
 
     return pins
   }
+
   func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
     if let polygon = overlay as? MKPolygon {
       print(polygon.title!)
@@ -73,15 +74,16 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
 
     return annotationView
   }
-  
+
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
     postingVC.place_id = Int((view.annotation?.subtitle)!!)
     self.postingVC = postingVC
   }
+
   func parseGeoJson() -> [MKOverlay] {
-    guard let path = Bundle.main.path(forResource: "map", ofType: "geojson") else {
+    guard let path = Bundle.main.path(forResource: "mapJson", ofType: "geojson") else {
       fatalError()
     }
     let url = URL(fileURLWithPath: path)
@@ -89,6 +91,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     do {
       let data = try Data(contentsOf: url)
       geoJson = try MKGeoJSONDecoder().decode(data)
+      mapJson = geoJson
     } catch {
       fatalError()
     }
@@ -99,14 +102,12 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
           let data = try JSONDecoder().decode(properties.self, from: feature.properties!)
           for geo in feature.geometry {
             if let polygon = geo as? MKPolygon {
-              polygon.title = data.color
-              polygon.subtitle = data.sgg_nm
+              polygon.title = getColor(code: data.sgg_cd)
+              polygon.subtitle = data.sgg_cd
               overlays.append(polygon) // overlay 타입으로 변환
             } else if let multiPolygon = geo as? MKMultiPolygon {
-              multiPolygon.title = data.color
-
-              multiPolygon.subtitle = data.sgg_nm
-
+              multiPolygon.title = getColor(code: data.sgg_cd)
+              multiPolygon.subtitle = data.sgg_cd
               overlays.append(multiPolygon)
             }
           }
@@ -123,8 +124,22 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     mapView.mapType = .mutedStandard
   }
 
-  final class MapCoordinator: NSObject, MKMapViewDelegate {
-    
+  final class MapCoordinator: NSObject, MKMapViewDelegate {}
+
+  func changeColor(ssg_cd: String, color: String) {
+    for item in mapJson! {
+      if let feature = item as? MKGeoJSONFeature {
+        do {
+          var data = try JSONDecoder().decode(properties.self, from: feature.properties!)
+          if data.sgg_cd == ssg_cd {
+            data.color = color
+          }
+
+        } catch {
+          fatalError()
+        }
+      }
+    }
   }
 
   func polygonsTapped(polygons: [MKPolygon]) {
@@ -175,11 +190,13 @@ extension mapViewController: UIColorPickerViewControllerDelegate {
   func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
     if let target = target as? MKPolygon {
       target.title = viewController.selectedColor.toHexString(alpha: true)
+      setColor(code: target.subtitle!, color: viewController.selectedColor.toHexString(alpha: true) ?? "#ffffffff")
       mapView.addOverlay(target)
       mapView.setNeedsDisplay()
     }
     if let target = target as? MKMultiPolygon {
       target.title = viewController.selectedColor.toHexString(alpha: true)
+      setColor(code: target.subtitle!, color: viewController.selectedColor.toHexString(alpha: true) ?? "#ffffffff")
       mapView.addOverlay(target)
       mapView.setNeedsDisplay()
     }

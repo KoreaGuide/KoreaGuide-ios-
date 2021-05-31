@@ -16,7 +16,7 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
     guard let placeDetail = object as? PlaceDetail else {
       return []
     }
-    let result: [ListDiffable] = [placeDetail.header, placeDetail.image, placeDetail.posting, placeDetail.map]
+    let result: [ListDiffable] = [ placeDetail.image, placeDetail.posting, placeDetail.map]
     return result
   }
 
@@ -48,7 +48,7 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
     }
     return cell
   }
-
+  
   func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, sizeForViewModel viewModel: Any, at index: Int) -> CGSize {
     guard let width = collectionContext?.containerSize.width else {
       fatalError()
@@ -72,5 +72,7 @@ class PlaceDetailSectionController: ListBindingSectionController<PlaceDetail>,
 extension PlaceDetailSectionController: HeaderCellDelegate {
   func didTab(cell: PlaceHeaderCell) {
     viewController?.navigationController?.popViewController(animated: true)
+  }
+  func didTapBookMark(cell: PlaceHeaderCell) {
   }
 }

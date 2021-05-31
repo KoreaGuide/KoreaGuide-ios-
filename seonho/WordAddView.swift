@@ -303,8 +303,21 @@ struct WordBox: View {
           }
           Spacer()
           Button(action: {
-            self.playing.toggle()
-            self.audioPlayer.play()
+            
+            let url = Bundle.main.url(forResource:String( self.viewModel.word_list[viewModel.currentWordCount].word_id), withExtension: "mp3")
+            if let url = url {
+              do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                guard let sound = audioPlayer else {
+                  return
+                }
+                self.playing.toggle()
+                sound.prepareToPlay()
+                sound.play()
+              } catch {
+                print(error.localizedDescription)
+              }
+            }
             // self.audioPlayer.pause()
           }, label: {
             Image(systemName: self.playing ? "play.circle.fill" : "play.circle")

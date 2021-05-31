@@ -32,6 +32,8 @@ final class PlaceDetail: ListDiffable {
 }
 final class PlaceDetailHeaderViewModel: ListDiffable {
   let place_title: String
+  var place_status : PlaceStatus
+  let place_id : Int
   func diffIdentifier() -> NSObjectProtocol {
     return "PlaceDetailHeader" as NSObjectProtocol
   }
@@ -42,12 +44,14 @@ final class PlaceDetailHeaderViewModel: ListDiffable {
   }
 
   init(placeDetail: PlaceDetailModel) {
+    self.place_id = placeDetail.data.id
     self.place_title = placeDetail.data.title
+    self.place_status = placeDetail.data.place_status
   }
 }
 
 final class PostingAll: ListDiffable {
-  let place_status: String
+  let place_status: PlaceStatus
   let title: String
   let address: String
   let first_image: String

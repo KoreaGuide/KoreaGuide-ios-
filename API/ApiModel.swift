@@ -118,10 +118,10 @@ struct PlaceDetailModel: Codable {
   let result_code: Int
   let status: String
   let description: String
-  let data: placeDetailAll
+  var data: placeDetailAll
   struct placeDetailAll: Codable {
     let user_id: Int
-    let place_status: String
+    var place_status: PlaceStatus
     let id: Int
     let title: String
     let area_code: Int
@@ -264,5 +264,55 @@ struct RegionListReadModel : Codable {
 struct properties: Codable {
   let sgg_nm : String
   let sgg_cd : String
-  let color : String
+  var color : String
+}
+
+
+struct response_my_map_all_read : Codable {
+  let result_code : Int
+  let status : String
+  let description : String
+  let data : PlaceList
+}
+struct PlaceList: Codable {
+  let user_id : Int
+  let place_count : Int
+  let place_list : [PlaceModel]
+}
+
+struct PlaceModel: Codable {
+  let my_map_id: Int
+  let place_id : Int
+  let place_status: String
+  let title : String
+  let content_id : Int?
+  let address1 : String?
+  let first_image : String?
+  let map_x : String?
+  let map_y : String?
+  let overview_english : String?
+  let diary : String?
+}
+
+struct response_my_map_create : Codable {
+  let result_code : Int
+  let status : String
+  let description : String
+  let data : myMapCreateModel
+}
+
+struct myMapCreateModel : Codable {
+  let user_id : Int
+  let place_list: [PlaceModel]
+}
+
+struct response_my_map_delete : Codable {
+  let result_code : Int
+  let status : String
+  let description : String
+  let data : PlaceDeleteModel
+}
+struct PlaceDeleteModel : Codable {
+  let user_id : Int
+  let place_count : Int
 }
