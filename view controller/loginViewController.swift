@@ -26,6 +26,7 @@ class loginViewController: UIViewController {
     passwordTextField.attributedPlaceholder = NSAttributedString(string: "Enter password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     passwordTextField.backgroundColor = .clear
     passwordTextField.addLeftPadding()
+    //================여기부터
     ApiHelper.login(email: "bibi@gmail.com", password: "bibi1234") { status in
       print(status ?? -1)
       switch status {
@@ -50,6 +51,7 @@ class loginViewController: UIViewController {
         return
       }
     }
+    //===================여기까지
     // Do any additional setup after loading the view.
   }
 
