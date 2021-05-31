@@ -31,6 +31,8 @@ class WordTestSceneViewModel: ObservableObject {
 
   @Published var progressValue: Float = 0.0
   @Published var finish: Bool = false
+  
+  @Published var showPopup: Bool = false
 
   private var cancellable: Set<AnyCancellable> = []
 

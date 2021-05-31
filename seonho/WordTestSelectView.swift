@@ -17,6 +17,7 @@ struct rowItem: View {
       .foregroundColor(.black)
       .frame(width: UIScreen.main.bounds.width - 40, height: 60, alignment: .center)
       .multilineTextAlignment(TextAlignment.center)
+      .padding(.top, 5)
   }
 }
 

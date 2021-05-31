@@ -9,6 +9,50 @@ import AVKit
 import Foundation
 import SwiftUI
 
+struct CorrectOrNotPopup: View {
+  // @Binding var popupWordId: Int
+  @ObservedObject var viewModel: WordTestSceneViewModel
+
+  @State var isCorrect: Bool
+
+  var body: some View {
+    ZStack {
+      if viewModel.showPopup == true {
+        Color.black.opacity(viewModel.showPopup == true ? 0.3 : 0).edgesIgnoringSafeArea(.all)
+
+        VStack(alignment: .leading) {
+          VStack {
+            Image(isCorrect ? "checkmark.square" : "xmark.square")
+              .foregroundColor(isCorrect ? Color("Green") : Color("Pink"))
+
+            Text(isCorrect ? "Correct!" : "")
+              .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.heavy)
+          }
+
+          HStack {
+            Button(action: {
+              viewModel.showPopup = false
+            }, label: {
+              Text("Keep going!")
+                .font(Font.custom("Bangla MN", size: 16))
+                .foregroundColor(.black)
+            })
+          }
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 5)
+        .frame(width: 200, height: 200, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 27).fill(Color.white.opacity(1)))
+      }
+    }
+    .ignoresSafeArea()
+    .onTapGesture {
+      viewModel.showPopup = false
+    }
+  }
+}
+
 struct CircularProgressBar: View {
   @Binding var progress: Float
 
@@ -42,12 +86,7 @@ struct MatchAnswerView: View {
   @ObservedObject var viewModel: WordTestSceneViewModel
   var body: some View {
     ZStack {
-      // background
-
       VStack {
-        // Text(self.viewModel.quiz_type)
-        //  .font(Font.custom("Bangla MN", size: 18))
-
         Button(action: {
           self.viewModel.choice = 1
         }, label: {
@@ -55,10 +94,12 @@ struct MatchAnswerView: View {
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
-            .frame(width: UIScreen.main.bounds.width - 40, height: 40, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width - 40, height: 50, alignment: .center)
             .multilineTextAlignment(TextAlignment.center)
+            .padding(.top, 5)
         })
-          .background(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8)))
           .padding(5)
 
         Button(action: {
@@ -68,10 +109,12 @@ struct MatchAnswerView: View {
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
-            .frame(width: UIScreen.main.bounds.width - 40, height: 40, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width - 40, height: 50, alignment: .center)
             .multilineTextAlignment(TextAlignment.center)
+            .padding(.top, 5)
         })
-          .background(self.viewModel.choice == 2 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8)))
           .padding(5)
 
         Button(action: {
@@ -81,10 +124,12 @@ struct MatchAnswerView: View {
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
-            .frame(width: UIScreen.main.bounds.width - 40, height: 40, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width - 40, height: 50, alignment: .center)
             .multilineTextAlignment(TextAlignment.center)
+            .padding(.top, 5)
         })
-          .background(self.viewModel.choice == 3 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8)))
           .padding(5)
 
         Button(action: {
@@ -94,10 +139,12 @@ struct MatchAnswerView: View {
             .font(Font.custom("Bangla MN", size: 20))
             .fontWeight(.bold)
             .foregroundColor(.black)
-            .frame(width: UIScreen.main.bounds.width - 40, height: 40, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width - 40, height: 50, alignment: .center)
             .multilineTextAlignment(TextAlignment.center)
+            .padding(.top, 5)
         })
-          .background(self.viewModel.choice == 4 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+            .foregroundColor(self.viewModel.choice == 1 ? Color.gray.opacity(0.5) : Color.white.opacity(0.8)))
           .padding(5)
 
         Spacer()
@@ -115,13 +162,14 @@ struct MatchAnswerView: View {
 
           viewModel.choice = -1
           viewModel.currentWordCount += 1
+          viewModel.showPopup = true
         }, label: {
           Text(" Submit ")
             .font(Font.custom("Bangla MN", size: 25))
             .fontWeight(.bold)
             .foregroundColor(viewModel.choice == -1 ? .white : .black)
             .background(RoundedRectangle(cornerRadius: 20)
-              .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
+              .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .bottom)
               .foregroundColor(viewModel.choice == -1 ? Color.gray : Color.green))
         })
           .background(Color.white.opacity(0.8))
@@ -171,7 +219,7 @@ struct WordMatchTestView: View {
             CircularProgressBar(progress: $viewModel.progressValue)
               .frame(width: 80, height: 80)
             Spacer()
-              .frame(width: 20)
+
             VStack {
 //              ImageView(withURL: self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
 //                .frame(width: 200, height: 200)
@@ -182,13 +230,19 @@ struct WordMatchTestView: View {
                 .foregroundColor(.white)
             }
           }
-          .padding(.horizontal, 10)
+          .padding(.horizontal, 20)
           .padding(.bottom, 10)
 
           MatchAnswerView(viewModel: self.viewModel)
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+        if viewModel.showPopup == true {
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+            .padding(.top, -50)
+            .ignoresSafeArea()
+        }
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-    }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    }
   }
   // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
 }
@@ -259,6 +313,12 @@ struct WordListenTestView: View {
           MatchAnswerView(viewModel: self.viewModel)
 
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+        if viewModel.showPopup == true {
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+            .padding(.top, -50)
+            .ignoresSafeArea()
+        }
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
@@ -302,11 +362,11 @@ struct WordSpellingEasyTestView: View {
           VStack(alignment: .center) {
             ImageView(withURL: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
               .frame(width: 150, height: 150)
-            
-              Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_eng ?? "")
-                .font(Font.custom("Bangla MN", size: 20))
-                .fontWeight(.bold)
-                .foregroundColor(.white)
+
+            Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_eng ?? "")
+              .font(Font.custom("Bangla MN", size: 20))
+              .fontWeight(.bold)
+              .foregroundColor(.white)
 //              HStack{
 //                Text("1")
 //                  .font(Font.custom("Bangla MN", size: 20))
@@ -327,10 +387,17 @@ struct WordSpellingEasyTestView: View {
           .padding(.horizontal, 20)
           .padding(.bottom, 20)
 
-          // viewModel.test_easy_spelling_word_info?.quiz_list.
+          EasySpellingAnswerView(viewModel: self.viewModel, word_kor_answer: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
 
-          EasySpellingAnswerView(viewModel: self.viewModel)
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+        // TODO:
+        if viewModel.showPopup == true {
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+            .padding(.top, -50)
+            .ignoresSafeArea()
+        }
+
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
@@ -341,6 +408,10 @@ struct WordSpellingEasyTestView: View {
 struct EasySpellingAnswerView: View {
   @ObservedObject var viewModel: WordTestSceneViewModel
 
+  @State var word_kor_answer: String
+
+  @State var chosen_answer: [String] = []
+
   let fontSize: CGFloat = 22
 
   var body: some View {
@@ -348,12 +419,10 @@ struct EasySpellingAnswerView: View {
       ZStack {
         // background
         VStack {
-
           HStack {
-            ForEach(0 ..< (viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor.count ?? 0)) { i in
-              // Text("")
-              //RoundedRectangle(cornerRadius: 10)
-              Text("1")
+            ForEach(0 ..< word_kor_answer.count) { i in
+
+              Text(chosen_answer[i])
                 .font(Font.custom("Bangla MN", size: 20))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
@@ -560,6 +629,8 @@ struct EasySpellingAnswerView: View {
 
             viewModel.choice = -1
             viewModel.currentWordCount += 1
+            viewModel.showPopup = true
+
           }, label: {
             Text(" Submit ")
               .font(Font.custom("Bangla MN", size: 25))
@@ -586,7 +657,7 @@ struct WordSpellingHardTestView: View {
 
   @State var audioPlayer: AVAudioPlayer!
   @State var playing: Bool = false
-  
+
   @State var answer: String = ""
 
   var body: some View {
@@ -650,6 +721,8 @@ struct WordSpellingHardTestView: View {
 
           TextField("Enter your answer", text: $answer)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: 200)
+            .padding(.vertical, 20)
 
           Button(action: {
             print("Input : \(answer)")
@@ -665,7 +738,7 @@ struct WordSpellingHardTestView: View {
             }
 
             viewModel.currentWordCount += 1
-
+            viewModel.showPopup = true
           }, label: {
             Text(" Submit ")
               .font(Font.custom("Bangla MN", size: 25))
@@ -679,6 +752,13 @@ struct WordSpellingHardTestView: View {
             .padding(10)
 
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+        if viewModel.showPopup == true {
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == self.answer)
+            .padding(.top, -50)
+            .ignoresSafeArea()
+        }
+
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
