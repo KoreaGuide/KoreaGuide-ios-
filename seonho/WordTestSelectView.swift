@@ -58,7 +58,7 @@ struct WordTestSelectScene: View {
 
         Text("Number of Words to Test: " + String(viewModel.word_list.count))
           .font(Font.custom("Bangla MN", size: 14))
-          .background(Rectangle()
+          .background(RoundedRectangle(cornerRadius: 10)
             .frame(width: 240, height: 50, alignment: .top)
             .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
@@ -76,29 +76,33 @@ struct WordTestSelectScene: View {
             .navigationBarHidden(true)) {
             rowItem(content: " 1. Match the meaning of the word ") // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
           }
-          .background(Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
 
-          NavigationLink(destination: WordListenTestView(viewModel: WordTestSceneViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))
+          NavigationLink(destination: WordListenTestView(viewModel: WordTestSceneViewModel(quiz_type: "LISTEN", word_folder_id: viewModel.word_folder_id))
             .navigationBarTitle("")
             .navigationBarHidden(true)) {
             rowItem(content: " 2. Listen to the pronunciation \n and match the word ") // 한국어 발음 -> 영어 단어 or 영어 설명
           }
-          .background(Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
-          NavigationLink(destination: WordSpellingEasyTestView(viewModel: WordTestSceneViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))
+          NavigationLink(destination: WordSpellingEasyTestView(viewModel: WordTestSceneViewModel(quiz_type: "SPELLING_E", word_folder_id: viewModel.word_folder_id))
             .navigationBarTitle("")
             .navigationBarHidden(true)) {
             rowItem(content: " 3. Complete the spelling of words \n letter by letter ") // 영어 단어 or 영어 설명 -> 한국어 단어
           }
-          .background(Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
-          NavigationLink(destination: WordSpellingHardTestView(viewModel: WordTestSceneViewModel(quiz_type: "MATCH", word_folder_id: viewModel.word_folder_id))
+          NavigationLink(destination: WordSpellingHardTestView(viewModel: WordTestSceneViewModel(quiz_type: "SPELLING_H", word_folder_id: viewModel.word_folder_id))
             .navigationBarTitle("")
             .navigationBarHidden(true)) {
             rowItem(content: " 4. Enter the corresponding word \n in Korean by typing ") // 영어 단어 or 영어 설명 -> 한국어 단어
           }
-          .background(Color.white.opacity(0.8))
+          .background(RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(Color.white.opacity(0.8)))
           .padding(10)
         }
         .background(Color.clear)

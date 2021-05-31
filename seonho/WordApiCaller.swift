@@ -111,31 +111,30 @@ final class WordApiCaller {
       }
   }
 
-  static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
-    AF.request(Router.placeDetailAllRead(place_id: place_id))
-      .responseJSON { response in
-        debugPrint(response)
-        switch response.result {
-        case .failure:
-          callback(nil)
-          return
-        case .success:
-          print("@@ success")
-        }
-        guard let data = response.data else {
-          print("@@")
-          return
-        }
-        let decoder = JSONDecoder()
-        do {
-          let result = try decoder.decode(PlaceDetailModel.self, from: data)
-          print(result)
-          callback(result)
-        } catch {
-          callback(nil)
-        }
-      }
-  }
+//  static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
+//    AF.request(Router.placeDetailAllRead(place_id: place_id))
+//      .responseJSON { response in
+//        debugPrint(response)
+//        switch response.result {
+//        case .failure:
+//          callback(nil)
+//          return
+//        case .success:
+//          break
+//        }
+//        guard let data = response.data else {
+//          return
+//        }
+//        let decoder = JSONDecoder()
+//        do {
+//          let result = try decoder.decode(PlaceDetailModel.self, from: data)
+//          print(result)
+//          callback(result)
+//        } catch {
+//          callback(nil)
+//        }
+//      }
+//  }
 
   static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceModel?) -> Void) {
     AF.request(Router.placeRelatedWords(place_id: place_id))

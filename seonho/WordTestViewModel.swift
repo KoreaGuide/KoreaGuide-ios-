@@ -34,6 +34,10 @@ class WordTestSceneViewModel: ObservableObject {
 
   private var cancellable: Set<AnyCancellable> = []
 
+  func getSpellingCount() -> Int {
+    return  self.test_easy_spelling_word_info?.quiz_list[currentWordCount].selected_word.word_kor.count ?? 0
+  }
+  
   init(quiz_type: String, word_folder_id: Int) {
     self.quiz_type = quiz_type
     self.word_folder_id = word_folder_id
