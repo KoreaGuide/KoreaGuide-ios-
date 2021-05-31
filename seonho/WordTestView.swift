@@ -41,12 +41,14 @@ struct CorrectOrNotPopup: View {
         Color.black.opacity(viewModel.showPopup == true ? 0.3 : 0)
           .edgesIgnoringSafeArea(.all)
 
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
           VStack {
-            Image(isCorrect == true ? "checkmark.square" : "xmark.square")
+            Image(systemName: isCorrect == true ? "checkmark.square" : "xmark.square")
+              .resizable()
               .foregroundColor(isCorrect ? Color("Green") : Color("Pink"))
+              .frame(width: 40, height: 40)
 
-            Text(isCorrect == true ? "Correct!" : "")
+            Text(isCorrect == true ? "Correct!" : "Don't give up!")
               .font(Font.custom("Bangla MN", size: 20))
               .fontWeight(.heavy)
           }
@@ -54,6 +56,10 @@ struct CorrectOrNotPopup: View {
           HStack {
             Button(action: {
               viewModel.showPopup = false
+
+              viewModel.choice = -1
+              viewModel.answer = ""
+
               viewModel.currentWordCount += 1
               if isCorrect == true {
                 viewModel.correctCount += 1
@@ -76,6 +82,10 @@ struct CorrectOrNotPopup: View {
     .ignoresSafeArea()
     .onTapGesture {
       viewModel.showPopup = false
+
+      viewModel.choice = -1
+      viewModel.answer = ""
+
       viewModel.currentWordCount += 1
       if isCorrect == true {
         viewModel.correctCount += 1
@@ -185,7 +195,7 @@ struct MatchAnswerKorView: View {
             .frame(height: 20)
 
           Button(action: {
-            if self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice {
+            if self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[viewModel.choice - 1].id {
               let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
 
               viewModel.result.append(tuple)
@@ -194,7 +204,7 @@ struct MatchAnswerKorView: View {
               viewModel.result.append(tuple)
             }
 
-            viewModel.choice = -1
+            // viewModel.choice = -1
             // viewModel.currentWordCount += 1
             viewModel.showPopup = true
 
@@ -270,14 +280,13 @@ struct WordMatchTestView: View {
           HStack {
             ZStack {
               HStack {
-                if viewModel.endOfTest == true && viewModel.currentWordCount < viewModel.totalWordCount {
-                  Spacer()
-                  .frame(height: 30)
-                }
-                else{
+                if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
                   BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                } else {
+                  Spacer()
+                    .frame(height: 30)
                 }
-                
+
                 Spacer()
               }
               .padding(.horizontal, 20)
@@ -337,7 +346,9 @@ struct WordMatchTestView: View {
             MatchAnswerKorView(viewModel: self.viewModel)
           } else if viewModel.endOfTest == true {
             WordTestResultView(viewModel: viewModel)
-            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss()
+              viewModel.postTestResult()
+            })
             Spacer()
               .frame(height: 50)
           }
@@ -345,7 +356,7 @@ struct WordMatchTestView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
         if viewModel.showPopup == true {
-          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[viewModel.choice - 1].id)
             .padding(.top, -50)
             .ignoresSafeArea()
         }
@@ -425,7 +436,7 @@ struct MatchAnswerEngView: View {
             .frame(height: 20)
 
           Button(action: {
-            if self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice {
+            if self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[viewModel.choice - 1].id {
               let tuple = (viewModel.currentWordCount, viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
 
               viewModel.result.append(tuple)
@@ -434,7 +445,7 @@ struct MatchAnswerEngView: View {
               viewModel.result.append(tuple)
             }
 
-            viewModel.choice = -1
+            // viewModel.choice = -1
             // viewModel.currentWordCount += 1
             viewModel.showPopup = true
 
@@ -474,15 +485,17 @@ struct WordListenTestView: View {
           .ignoresSafeArea()
 
         VStack {
+          Spacer()
+            .frame(height: 20)
+
           HStack {
             ZStack {
               HStack {
-                if viewModel.endOfTest == true && viewModel.currentWordCount < viewModel.totalWordCount {
-                  Spacer()
-                  .frame(height: 30)
-                }
-                else{
+                if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
                   BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                } else {
+                  Spacer()
+                    .frame(height: 30)
                 }
                 Spacer()
               }
@@ -490,7 +503,7 @@ struct WordListenTestView: View {
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("Listen to the pronunciation \nand match the word!")
-                  .font(Font.custom("Bangla MN", size: 16))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -498,9 +511,10 @@ struct WordListenTestView: View {
               .padding(.horizontal, 20)
             }
           }
-          .padding(.bottom, 10)
+          .padding(.vertical, 10)
+
           Spacer()
-            .frame(height: 70)
+            .frame(height: 50)
           HStack {
             // ProgressBar
             CircularProgressBar(progress: $viewModel.progressValue)
@@ -524,7 +538,7 @@ struct WordListenTestView: View {
                     .frame(width: 50, height: 50, alignment: .center)
                     .foregroundColor(Color.orange)
                 })
-                .padding(.horizontal, 40)
+                  .padding(.horizontal, 40)
               }
             } else {
               Text("Finish!")
@@ -541,7 +555,9 @@ struct WordListenTestView: View {
             MatchAnswerEngView(viewModel: self.viewModel)
           } else if viewModel.endOfTest == true {
             WordTestResultView(viewModel: viewModel)
-            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss()
+              viewModel.postTestResult()
+            })
             Spacer()
               .frame(height: 50)
           }
@@ -549,7 +565,7 @@ struct WordListenTestView: View {
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
         if viewModel.showPopup == true {
-          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.test_word_info!.quiz_list[viewModel.currentWordCount].word_choice_list[viewModel.choice - 1].id)
             .padding(.top, -50)
             .ignoresSafeArea()
         }
@@ -576,14 +592,19 @@ struct WordSpellingEasyTestView: View {
           HStack {
             ZStack {
               HStack {
-                BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
+                  BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                } else {
+                  Spacer()
+                    .frame(height: 30)
+                }
                 Spacer()
               }
 
               HStack(alignment: .bottom) {
                 Spacer()
-                Text("Complete the spelling of words \nletter by letter!")
-                  .font(Font.custom("Bangla MN", size: 16))
+                Text("Complete the spelling of \nwords letter by letter!")
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -621,7 +642,17 @@ struct WordSpellingEasyTestView: View {
           .padding(.horizontal, 20)
           .padding(.bottom, 20)
 
-          EasySpellingAnswerView(viewModel: self.viewModel, word_kor_answer: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+          if viewModel.currentWordCount < viewModel.totalWordCount {
+            EasySpellingAnswerView(viewModel: self.viewModel, word_kor_answer: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
+
+          } else if viewModel.endOfTest == true {
+            WordTestResultView(viewModel: viewModel)
+            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss()
+              viewModel.postTestResult()
+            })
+            Spacer()
+              .frame(height: 50)
+          }
 
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
@@ -654,17 +685,17 @@ struct EasySpellingAnswerView: View {
         // background
         VStack {
           HStack {
-            ForEach(0 ..< word_kor_answer.count) { i in
-
-              Text(chosen_answer[i])
-                .font(Font.custom("Bangla MN", size: 20))
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .frame(width: 50, height: 50, alignment: .center)
-                .padding(.top, 10)
-                .background(RoundedRectangle(cornerRadius: 10)
-                  .foregroundColor(Color.white.opacity(0.8)))
-            }
+//            ForEach(0 ..< word_kor_answer.count) { i in
+//
+//              Text(chosen_answer[i])
+//                .font(Font.custom("Bangla MN", size: 20))
+//                .fontWeight(.bold)
+//                .foregroundColor(.white)
+//                .frame(width: 50, height: 50, alignment: .center)
+//                .padding(.top, 10)
+//                .background(RoundedRectangle(cornerRadius: 10)
+//                  .foregroundColor(Color.white.opacity(0.8)))
+//            }
           }
 
           HStack {
@@ -867,7 +898,7 @@ struct EasySpellingAnswerView: View {
               viewModel.result.append(tuple)
             }
 
-            viewModel.choice = -1
+            // viewModel.choice = -1
             // viewModel.currentWordCount += 1
             viewModel.showPopup = true
 
@@ -875,10 +906,11 @@ struct EasySpellingAnswerView: View {
             Text(" Submit ")
               .font(Font.custom("Bangla MN", size: 25))
               .fontWeight(.bold)
+              .padding(.top, 10)
               .foregroundColor(viewModel.choice == -1 ? .white : .black)
               .background(RoundedRectangle(cornerRadius: 20)
                 .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
-                .foregroundColor(viewModel.choice == -1 ? Color.gray : Color.green))
+                .foregroundColor(viewModel.choice == -1 ? Color.gray : Color("Green")))
           })
             .background(Color.white.opacity(0.8))
             .padding(10)
@@ -895,10 +927,10 @@ struct WordSpellingHardTestView: View {
   @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
-  @State var audioPlayer: AVAudioPlayer!
-  @State var playing: Bool = false
+  // @State var audioPlayer: AVAudioPlayer!
+  // @State var playing: Bool = false
 
-  @State var answer: String = ""
+  // @State var answer: String = ""
 
   var body: some View {
     VStack {
@@ -912,14 +944,19 @@ struct WordSpellingHardTestView: View {
           HStack {
             ZStack {
               HStack {
-                BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
+                  BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
+                } else {
+                  Spacer()
+                    .frame(height: 30)
+                }
                 Spacer()
               }
               .padding(.horizontal, 20)
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("Enter the corresponding word \nin Korean by typing!")
-                  .font(Font.custom("Bangla MN", size: 16))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -929,72 +966,93 @@ struct WordSpellingHardTestView: View {
           }
           .padding(.bottom, 10)
 
+          Spacer()
+            .frame(height: 60)
+
+          
+
           HStack(alignment: .center) {
             // ProgressBar
             CircularProgressBar(progress: $viewModel.progressValue)
               .frame(width: 80, height: 80)
             Spacer()
-              .frame(width: 20)
-            VStack {
-              ImageView(withURL: self.viewModel.test_hard_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
-                .frame(width: 150, height: 150)
+              .frame(width: 60)
 
-              Text(self.viewModel.test_hard_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
-                .font(Font.custom("Bangla MN", size: 22))
-                .fontWeight(.heavy)
-                .foregroundColor(.white)
+            if viewModel.currentWordCount < viewModel.totalWordCount {
+              VStack {
+                ImageView(withURL: self.viewModel.test_hard_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+                  .frame(width: 150, height: 150)
 
-              Button(action: {
-                self.playing.toggle()
-                self.audioPlayer.play()
-                // self.audioPlayer.pause()
-              }, label: {
-                Image(systemName: self.playing ? "play.circle.fill" : "play.circle")
-                  .resizable()
-                  .frame(width: 30, height: 30, alignment: .center)
-                  .foregroundColor(Color.orange)
-              })
+                Text(self.viewModel.test_hard_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_eng ?? "")
+                  .font(Font.custom("Bangla MN", size: 22))
+                  .fontWeight(.heavy)
+                  .foregroundColor(.white)
+              }
+            } else {
+              VStack {
+                Spacer()
+                Text("Finish!")
+                  .font(Font.custom("Bangla MN", size: 30))
+                  .fontWeight(.heavy)
+                  .foregroundColor(.white)
+                  .padding(.vertical, 10)
+              }
+              .frame(height: 100)
             }
           }
           .padding(.horizontal, 10)
           .padding(.bottom, 10)
 
-          TextField("Enter your answer", text: $answer)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(width: 200)
-            .padding(.vertical, 20)
+          if viewModel.currentWordCount < viewModel.totalWordCount {
+            TextField("Enter your answer", text: $viewModel.answer)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+              .frame(width: 200)
+              .padding(.vertical, 20)
 
-          Button(action: {
-            print("Input : \(answer)")
-            hideKeyboard()
+            Button(action: {
+              print("Input : \(viewModel.answer)")
+              hideKeyboard()
 
-            if self.viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == self.answer {
-              let tuple = (viewModel.currentWordCount, viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
+              if self.viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == viewModel.answer {
+                let tuple = (viewModel.currentWordCount, viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
 
-              viewModel.result.append(tuple)
-            } else {
-              let tuple = (viewModel.currentWordCount, viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, false)
-              viewModel.result.append(tuple)
-            }
+                viewModel.result.append(tuple)
+              } else {
+                let tuple = (viewModel.currentWordCount, viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, false)
+                viewModel.result.append(tuple)
+              }
 
-            // viewModel.currentWordCount += 1
-            viewModel.showPopup = true
-          }, label: {
-            Text(" Submit ")
-              .font(Font.custom("Bangla MN", size: 25))
-              .fontWeight(.bold)
-              .foregroundColor(viewModel.choice == -1 ? .white : .black)
-              .background(RoundedRectangle(cornerRadius: 20)
-                .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
-                .foregroundColor(viewModel.choice == -1 ? Color.gray : Color.green))
-          })
-            .background(Color.white.opacity(0.8))
-            .padding(10)
+              // viewModel.currentWordCount += 1
+              viewModel.showPopup = true
+            }, label: {
+              Text(" Submit ")
+                .font(Font.custom("Bangla MN", size: 25))
+                .fontWeight(.bold)
+                .padding(.top, 10)
+                .foregroundColor(.white)
+                .background(RoundedRectangle(cornerRadius: 20)
+                  .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
+                  .foregroundColor(viewModel.answer == "" ? Color.gray : Color("Green")))
+            })
+              .disabled(viewModel.answer == "")
+              .background(Color.white.opacity(0.8))
+              .padding(10)
+
+            Spacer()
+              .frame(height: 120)
+          } else if viewModel.endOfTest == true {
+            WordTestResultView(viewModel: viewModel)
+            FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss()
+              viewModel.postTestResult()
+            })
+            Spacer()
+              .frame(height: 50)
+          }
 
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
         if viewModel.showPopup == true {
-          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == self.answer)
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_hard_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == viewModel.answer)
             .padding(.top, -50)
             .ignoresSafeArea()
         }
@@ -1002,8 +1060,6 @@ struct WordSpellingHardTestView: View {
       }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
-
-  // 한국어 단어, 사진 -> 영어 단어 or 영어 설명
 }
 
 #if canImport(UIKit)

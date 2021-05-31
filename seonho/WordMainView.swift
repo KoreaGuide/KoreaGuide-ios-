@@ -137,7 +137,7 @@ struct WordMainScene: View {
               }
           
           Spacer()
-            .frame(height: 40)
+            .frame(height: 80)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }
