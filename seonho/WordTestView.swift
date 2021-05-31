@@ -428,11 +428,15 @@ struct EasySpellingAnswerView: View {
                 .foregroundColor(.white)
                 .frame(width: 50, height: 50, alignment: .center)
                 .padding(.top, 10)
+                .background(RoundedRectangle(cornerRadius: 10)
+                  .foregroundColor(Color.white.opacity(0.8)))
             }
           }
 
           HStack {
             Button(action: {
+              self.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
+              
               self.viewModel.choice = 1
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
@@ -448,6 +452,8 @@ struct EasySpellingAnswerView: View {
               .padding(5)
 
             Button(action: {
+              self.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
+              
               self.viewModel.choice = 2
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[1] ?? "")
