@@ -24,8 +24,6 @@ final class WordApiCaller {
     
     case folderWordRead(word_folder_id: Int)
 
-    
-
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
 

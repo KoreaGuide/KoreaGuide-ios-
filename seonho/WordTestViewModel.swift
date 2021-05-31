@@ -26,18 +26,31 @@ class WordTestSceneViewModel: ObservableObject {
   @Published var currentWordCount: Int = 0 {
     willSet {
       progressValue = Float(newValue) / Float(totalWordCount)
+      if totalWordCount - 1 == newValue {
+        endOfTest = true
+      }
+      
     }
   }
 
+  @Published var correctCount: Int = 0
+  @Published var incorrectCount: Int = 0
+  
+  @Published var endOfTest: Bool = false
+
   @Published var progressValue: Float = 0.0
   @Published var finish: Bool = false
-  
+
   @Published var showPopup: Bool = false
 
   private var cancellable: Set<AnyCancellable> = []
 
   func getSpellingCount() -> Int {
-    return  self.test_easy_spelling_word_info?.quiz_list[currentWordCount].selected_word.word_kor.count ?? 0
+    return test_easy_spelling_word_info?.quiz_list[currentWordCount].selected_word.word_kor.count ?? 0
+  }
+
+  func postTestResult(){
+    //testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String)
   }
   
   init(quiz_type: String, word_folder_id: Int) {
@@ -87,7 +100,7 @@ class WordTestSceneViewModel: ObservableObject {
         default:
           print("----- test word get api error")
         }
-        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+        self.totalWordCount = self.test_easy_spelling_word_info?.quiz_list.count ?? 0
       }
     case "SPELLING_H":
       WordApiCaller.testinHardSpellingWords(folder_id: word_folder_id) { result in
@@ -101,7 +114,7 @@ class WordTestSceneViewModel: ObservableObject {
         default:
           print("----- test word get api error")
         }
-        self.totalWordCount = self.test_word_info?.quiz_list.count ?? 0
+        self.totalWordCount = self.test_hard_spelling_word_info?.quiz_list.count ?? 0
       }
     default:
       WordApiCaller.testingMatchWords(quiz_type: quiz_type, folder_id: word_folder_id) { result in
