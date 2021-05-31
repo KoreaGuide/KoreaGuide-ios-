@@ -71,7 +71,7 @@ class WordAddViewModel: ObservableObject {
     }
     totalWordCount = word_list.count
     // place detail call -> place title
-    WordApiCaller.placeDetailAllRead(place_id: place_id) { result in
+    ApiHelper.placeDetailAllRead(place_id: place_id) { result in
       let status = Int(result!.result_code)
       switch status {
       case 200:

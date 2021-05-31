@@ -67,6 +67,7 @@ struct WordCellView: View {
 }
 
 struct WordGridCellView: View {
+  @ObservedObject var viewModel: WordListSceneViewModel
   @State var word: InMyListWord
   @State var folder_id: Int
   // @State var index: Int // 이걸 viewmodel로 옮겨야함
@@ -107,16 +108,7 @@ struct WordGridCellView: View {
                 .foregroundColor(Color("Pink"))
                 .alert(isPresented: self.$showingDeleteAlert) {
                   Alert(title: Text("Delete Word"), message: Text("Would you like to take \'" + word.word_kor + "\' \nout of your vocabulary?"), primaryButton: .destructive(Text("Delete")) {
-                    WordApiCaller.myWordDelete(word_folder_id: folder_id, word_id: word.id) {
-                      result in
-                      let status = Int(result?.result_code ?? 500)
-                      switch status {
-                      case 200:
-                        print("----- my word delete api done")
-                      default:
-                        print("----- my word delete api error")
-                      }
-                    }
+                    viewModel.deleteWord(delete_word_id: word.id)
                     self.showingDeleteAlert = false
                   }, secondaryButton: .cancel {
                     self.showingDeleteAlert = false
@@ -144,7 +136,7 @@ struct WordLazyGridView: View {
   var body: some View {
     LazyVGrid(columns: coloumns, spacing: 15) {
       ForEach(viewModel.word_list, id: \.self) { word in
-        WordGridCellView(word: word, folder_id: viewModel.word_folder_id)
+        WordGridCellView(viewModel: viewModel, word: word, folder_id: viewModel.word_folder_id)
           .onTapGesture {
             viewModel.showPopup = word.id
           }

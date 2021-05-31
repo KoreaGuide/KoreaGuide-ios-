@@ -85,10 +85,7 @@ struct EasySpellingTestWordInfo: Codable {
       let image: String
     }
 
-    let alphabet_choice_list: [AlphabetChoice]
-    struct AlphabetChoice: Codable {
-      let alphabet: String
-    }
+    let alphabet_choice_list: [String]
   }
 }
 

@@ -155,8 +155,7 @@ struct WordListScene: View {
           .ignoresSafeArea()
 
         VStack(alignment: .center) {
-          Spacer()
-            .frame(height: 60)
+          
           HStack {
             BackButton(tapAction: {
               //self.viewModel.didTapBackButton = true
@@ -166,6 +165,7 @@ struct WordListScene: View {
             Spacer()
           }
           .padding(.horizontal, 20)
+          .padding(.top, 80)
 
           WordListNavigationLinks(viewModel: viewModel)
           
@@ -206,26 +206,6 @@ struct WordListScene: View {
             .frame(width: UIScreen.main.bounds.width, height: 600)
           }
 
-//          WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
-//
-//            let num = row * 2 + col
-//
-//            if viewModel.word_list.count == 0 {
-//              Text("This folder is empty.")
-//                .foregroundColor(.white)
-//                .fontWeight(.heavy)
-//                .font(Font.custom("Bangla MN", size: 25))
-//                .padding(.vertical, 15)
-//            } else if (viewModel.word_list.count > num) && (num >= 0) {
-//              Button(action: {
-//                self.showPopup = num
-//
-//              }, label: {
-//                WordCellView(viewModel: viewModel)
-//              })
-//            }
-//          }
-//          .padding(.bottom, 120)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         if viewModel.showPopup != -1 {

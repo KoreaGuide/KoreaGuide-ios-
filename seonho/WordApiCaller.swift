@@ -24,8 +24,6 @@ final class WordApiCaller {
     
     case folderWordRead(word_folder_id: Int)
 
-    
-
     case placeDetailAllRead(place_id: Int)
     case placeRelatedWords(place_id: Int)
 
@@ -63,11 +61,11 @@ final class WordApiCaller {
           return ("/api/myWord/" + String(UserDefaults.id!), ["data": ["word_folder_id": word_folder_id, "word_id": word_id]], .delete, defaultHeaders)
 
         case let .testingMatchWords(quiz_type, folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": quiz_type, "folder_id": folder_id]], .post, defaultHeaders)
         case let .testingEasySpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_E", "folder_id": folder_id]], .post, defaultHeaders)
         case let .testingHardSpellingWords(folder_id):
-          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .get, defaultHeaders)
+          return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
 
         case let .testResultPost(word_id, original_folder_id, final_folder_id, result_status):
           return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": ["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]], .post, defaultHeaders)
@@ -111,31 +109,30 @@ final class WordApiCaller {
       }
   }
 
-  static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
-    AF.request(Router.placeDetailAllRead(place_id: place_id))
-      .responseJSON { response in
-        debugPrint(response)
-        switch response.result {
-        case .failure:
-          callback(nil)
-          return
-        case .success:
-          print("@@ success")
-        }
-        guard let data = response.data else {
-          print("@@")
-          return
-        }
-        let decoder = JSONDecoder()
-        do {
-          let result = try decoder.decode(PlaceDetailModel.self, from: data)
-          print(result)
-          callback(result)
-        } catch {
-          callback(nil)
-        }
-      }
-  }
+//  static func placeDetailAllRead(place_id: Int, callback: @escaping (PlaceDetailModel?) -> Void) {
+//    AF.request(Router.placeDetailAllRead(place_id: place_id))
+//      .responseJSON { response in
+//        debugPrint(response)
+//        switch response.result {
+//        case .failure:
+//          callback(nil)
+//          return
+//        case .success:
+//          break
+//        }
+//        guard let data = response.data else {
+//          return
+//        }
+//        let decoder = JSONDecoder()
+//        do {
+//          let result = try decoder.decode(PlaceDetailModel.self, from: data)
+//          print(result)
+//          callback(result)
+//        } catch {
+//          callback(nil)
+//        }
+//      }
+//  }
 
   static func placeRelatedWords(place_id: Int, callback: @escaping (WordOfPlaceModel?) -> Void) {
     AF.request(Router.placeRelatedWords(place_id: place_id))
