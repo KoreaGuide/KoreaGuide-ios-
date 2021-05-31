@@ -26,6 +26,30 @@ class loginViewController: UIViewController {
     passwordTextField.attributedPlaceholder = NSAttributedString(string: "Enter password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     passwordTextField.backgroundColor = .clear
     passwordTextField.addLeftPadding()
+    ApiHelper.login(email: "bibi@gmail.com", password: "bibi1234") { status in
+      print(status ?? -1)
+      switch status {
+      case 500:
+        self.defaultAlert(title: "경고", message: "아이디가 없습니다.", callback: nil)
+      case 409:
+        self.defaultAlert(title: "경고", message: "비밀번호가 틀렸습니다.", callback: nil)
+      case 200:
+        // 성공
+        // 라벨 비워주기 (로그아웃 후 이 뷰로 돌아오므로)
+        self.idTextField.text = ""
+        self.passwordTextField.text = ""
+        self.performSegue(withIdentifier: "home", sender: self)
+      case 204 :
+        self.idTextField.text = ""
+        self.passwordTextField.text = ""
+        self.performSegue(withIdentifier: "home", sender: self)
+      case 3:
+        self.defaultAlert(title: "경고", message: "이메일 인증 전입니다.", callback: nil)
+      default:
+        print("알 수 없는 에러 발생")
+        return
+      }
+    }
     // Do any additional setup after loading the view.
   }
 
