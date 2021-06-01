@@ -2488,6 +2488,12 @@
 		8869AE4226432E6E002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4326432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
 		8869AE4426432E6F002190A7 /* Bangla MN.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 5E0CAF23261790BE00B5B3FD /* Bangla MN.ttc */; };
+		886C3A5E2666964B00B20F46 /* ProfileApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A5D2666964B00B20F46 /* ProfileApiCaller.swift */; };
+		886C3A5F2666964B00B20F46 /* ProfileApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A5D2666964B00B20F46 /* ProfileApiCaller.swift */; };
+		886C3A602666964B00B20F46 /* ProfileApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A5D2666964B00B20F46 /* ProfileApiCaller.swift */; };
+		886C3A622666975900B20F46 /* ProfileApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A612666975900B20F46 /* ProfileApiModel.swift */; };
+		886C3A632666975900B20F46 /* ProfileApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A612666975900B20F46 /* ProfileApiModel.swift */; };
+		886C3A642666975900B20F46 /* ProfileApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C3A612666975900B20F46 /* ProfileApiModel.swift */; };
 		887A1C8526632EBB000B117C /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887A1C8426632EBB000B117C /* NavigationLazyView.swift */; };
 		887A1C8626632EBB000B117C /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887A1C8426632EBB000B117C /* NavigationLazyView.swift */; };
 		887A1C8726632EBB000B117C /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887A1C8426632EBB000B117C /* NavigationLazyView.swift */; };
@@ -4934,6 +4940,8 @@
 		5EF7BC602642DB2500544FB6 /* Assets_seonho.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets_seonho.xcassets; sourceTree = "<group>"; };
 		5EFC79C026063CE300B843FC /* Korean_guide_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Korean_guide_Bridging_Header.h; sourceTree = "<group>"; };
 		886865862649881D000DD079 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		886C3A5D2666964B00B20F46 /* ProfileApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiCaller.swift; sourceTree = "<group>"; };
+		886C3A612666975900B20F46 /* ProfileApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiModel.swift; sourceTree = "<group>"; };
 		887A1C8426632EBB000B117C /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		8894A0662649606200F8EC89 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		8E648BB118B4A6BB28FC62DE /* Pods_KoreaGuideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KoreaGuideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5075,6 +5083,8 @@
 				5E804F14266623E40027C240 /* ColorPicker.swift */,
 				5E804F1626667FF10027C240 /* GridView.swift */,
 				5E804F18266681090027C240 /* ImagePlaceHolder.swift */,
+				886C3A5D2666964B00B20F46 /* ProfileApiCaller.swift */,
+				886C3A612666975900B20F46 /* ProfileApiModel.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -10217,6 +10227,7 @@
 				5EF7BC6B2643092800544FB6 /* WordListViewModel.swift in Sources */,
 				5E0CAF442618B1E400B5B3FD /* profileViewController.swift in Sources */,
 				5E804F1726667FF10027C240 /* GridView.swift in Sources */,
+				886C3A622666975900B20F46 /* ProfileApiModel.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF7BC742643092800544FB6 /* WordAddView.swift in Sources */,
@@ -10239,6 +10250,7 @@
 				886865872649881D000DD079 /* ImageLoader.swift in Sources */,
 				5E192E2A25FD095100864789 /* PasswordEncoder.swift in Sources */,
 				5EF7BC752643092800544FB6 /* WordLearnView.swift in Sources */,
+				886C3A5E2666964B00B20F46 /* ProfileApiCaller.swift in Sources */,
 				5ED6ADB32640076E002F19E2 /* MapViewExtension.swift in Sources */,
 				5E2E281E25D7CC410067C41F /* AppDelegate.swift in Sources */,
 				5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */,
@@ -10293,6 +10305,8 @@
 				5E11D98A25D979BB00356166 /* loginViewController.swift in Sources */,
 				5E2323E326650A540031E758 /* myPageViewController.swift in Sources */,
 				5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */,
+				886C3A5F2666964B00B20F46 /* ProfileApiCaller.swift in Sources */,
+				886C3A632666975900B20F46 /* ProfileApiModel.swift in Sources */,
 				5EF7BC7C2643092900544FB6 /* WordApiCaller.swift in Sources */,
 				5EF7BC812643092900544FB6 /* WordTestSelectViewModel.swift in Sources */,
 				5EF7BC662643092400544FB6 /* WordMainViewModel.swift in Sources */,
@@ -10339,6 +10353,8 @@
 				5E11D98B25D979BB00356166 /* loginViewController.swift in Sources */,
 				5E2323E426650A540031E758 /* myPageViewController.swift in Sources */,
 				5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */,
+				886C3A602666964B00B20F46 /* ProfileApiCaller.swift in Sources */,
+				886C3A642666975900B20F46 /* ProfileApiModel.swift in Sources */,
 				5EF7BC8B2643092900544FB6 /* WordApiCaller.swift in Sources */,
 				5EF7BC902643092900544FB6 /* WordTestSelectViewModel.swift in Sources */,
 				5EF7BC672643092400544FB6 /* WordMainViewModel.swift in Sources */,

@@ -103,6 +103,9 @@ class MyPageSceneViewModel: ObservableObject {
   @Published var selectedPlace : PlaceModel?
   @Published var cancellable = Set<AnyCancellable>()
   @Published var placeInfo: [PlaceModel] = []
+  
+  @Published var attendanceInfo: AttendanceInfo
+  
   init() {
     ApiHelper.myWishRead { result in
       let status = result!.result_code
@@ -113,6 +116,19 @@ class MyPageSceneViewModel: ObservableObject {
         break
       }
     }
+    
+    ProfileApiCaller.attendanceInfo { result in
+      let status = Int(result?.result_code ?? 0)
+      switch status {
+      case 200:
+        self.attendanceInfo = result!.data
+        print("----- attendance info get api done")
+      default:
+        print("----- attendance info get api error")
+      }
+      
+    }
+    
   }
 }
 
@@ -156,6 +172,14 @@ struct MyPageKeepedPostView: View {
         }
       }
     }
+  }
+}
+
+struct ProfileWordView: View {
+  @ObservedObject var viewModel: MyPageSceneViewModel
+  
+  var body: some View {
+    
   }
 }
 
