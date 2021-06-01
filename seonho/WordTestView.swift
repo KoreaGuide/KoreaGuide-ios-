@@ -313,10 +313,10 @@ struct WordMatchTestView: View {
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("     Match the meaning of the word!")
-                  .font(.system(size: 18, weight: .regular))
-                  //.font(Font.custom("Bangla MN", size: 18))
+                  //.font(.system(size: 18, weight: .regular))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
-                  //.padding(.top, 5)
+                  .padding(.top, 5)
                 Spacer()
               }
               .padding(.horizontal, 20)
@@ -531,8 +531,8 @@ struct WordListenTestView: View {
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("Listen to the pronunciation \nand match the word!")
-                  .font(.system(size: 18, weight: .regular))
-                  //.font(Font.custom("Bangla MN", size: 18))
+                  //.font(.system(size: 18, weight: .regular))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -635,8 +635,8 @@ struct WordSpellingEasyTestView: View {
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("Complete the spelling of \nwords letter by letter!")
-                  .font(.system(size: 18, weight: .regular))
-                  //.font(Font.custom("Bangla MN", size: 18))
+                  //.font(.system(size: 18, weight: .regular))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -645,6 +645,11 @@ struct WordSpellingEasyTestView: View {
           }
           .padding(.horizontal, 20)
           .padding(.bottom, 20)
+          
+          Spacer()
+            .frame(height: 40)
+          
+          
           if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
             HStack {
               ImageView(withURL: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
@@ -656,6 +661,7 @@ struct WordSpellingEasyTestView: View {
                   //.font(Font.custom("Bangla MN", size: 20))
                   //.fontWeight(.bold)
                   .foregroundColor(.white)
+                  .padding(.bottom, 10)
 
                 Text(self.viewModel.chosen_answer.compactMap { $0 }.joined())
                   .font(.system(size: 20, weight: .bold))
@@ -683,6 +689,10 @@ struct WordSpellingEasyTestView: View {
               //.fontWeight(.bold)
               .foregroundColor(.white)
           }
+           
+          Spacer()
+            .frame(height: 40)
+          
           if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
             EasySpellingAnswerView(viewModel: self.viewModel, word_kor_answer: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
 
@@ -1010,8 +1020,8 @@ struct WordSpellingHardTestView: View {
               HStack(alignment: .bottom) {
                 Spacer()
                 Text("Enter the corresponding word \nin Korean by typing!")
-                  .font(.system(size: 18, weight: .regular))
-                  //.font(Font.custom("Bangla MN", size: 18))
+                  //.font(.system(size: 18, weight: .regular))
+                  .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
                 Spacer()
@@ -1022,7 +1032,7 @@ struct WordSpellingHardTestView: View {
           .padding(.bottom, 10)
 
           Spacer()
-            .frame(height: 60)
+            .frame(height: 20)
 
           HStack(alignment: .center) {
             // ProgressBar
@@ -1095,7 +1105,8 @@ struct WordSpellingHardTestView: View {
               .padding(10)
 
             Spacer()
-              .frame(height: 120)
+              .frame(height: 160)
+            
           } else if viewModel.endOfTest == true {
             WordTestResultView(viewModel: viewModel)
             FinishButton(tapAction: { self.presentationMode.wrappedValue.dismiss()

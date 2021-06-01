@@ -52,12 +52,13 @@ struct WordTestSelectScene: View {
         .padding(.horizontal, 20)
 
         Text("Let's see how much \nyou're moving forward !")
-          .font(.system(size: 25, weight: .semibold))
-          //.font(Font.custom("Bangla MN", size: 25))
+          //.font(.system(size: 25, weight: .semibold))
+          .font(Font.custom("Bangla MN", size: 25))
           .foregroundColor(.white)
           .padding(.vertical, 20)
           .multilineTextAlignment(.center)
           .lineLimit(3)
+          .padding(.bottom, 15)
 
         Text("Number of Words to Test: " + String(viewModel.word_list.count))
           .font(.system(size: 14, weight: .regular))

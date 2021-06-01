@@ -24,16 +24,16 @@ struct TodayWordView: View {
 
         VStack {
           Spacer()
-            .frame(height: 20)
+            .frame(height: 10)
           HStack {
             Rectangle()
               .foregroundColor(.white)
               .frame(width: 50, height: 2, alignment: .center)
             Text(" Word of Today")
               .foregroundColor(.white)
-              .font(.system(size: 30, weight: .heavy))
-              //.fontWeight(.heavy)
-              //.font(Font.custom("Bangla MN", size: 30))
+              //.font(.system(size: 30, weight: .heavy))
+              .fontWeight(.heavy)
+              .font(Font.custom("Bangla MN", size: 30))
             Rectangle()
               .foregroundColor(.white)
               .frame(width: 50, height: 2, alignment: .center)
@@ -42,19 +42,19 @@ struct TodayWordView: View {
 
           ImageView(withURL: viewModel.word?.word.image ?? "")
             .frame(width: 300, height: 200, alignment: .center)
-            .padding(.vertical, 5)
+            .padding(.vertical, 20)
           
           HStack {
             VStack(alignment: .leading) {
               Text("Word : " + (viewModel.word?.word.word_kor ?? ""))
                 .foregroundColor(.white)
-                .font(.system(size: 25, weight: .semibold))
+                .font(.system(size: 23, weight: .bold))
                 //.font(Font.custom("Bangla MN", size: 25))
                 //.padding(.top, 10)
-                .padding(.trailing, 10)
+                .padding(.trailing, 22)
               Text("Pronunciation : " + (viewModel.word?.word.pronunciation_eng ?? ""))
                 .foregroundColor(.white)
-                .font(.system(size: 25, weight: .semibold))
+                .font(.system(size: 23, weight: .bold))
                 //.font(Font.custom("Bangla MN", size: 25))
                 //.padding(.top, 10)
             }
@@ -66,6 +66,7 @@ struct TodayWordView: View {
               Text("Meaning in Korean : ")
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .regular))
+                .padding(.vertical, 10)
                 //.font(Font.custom("Bangla MN", size: 20))
 
               Text(viewModel.word?.word.meaning_kor1 ?? "")
@@ -75,6 +76,7 @@ struct TodayWordView: View {
               Text("Meaning in English : ")
                 .foregroundColor(.white)
                 .font(.system(size: 20, weight: .regular))
+                .padding(.vertical, 10)
 
               Text(viewModel.word?.word.meaning_eng1 ?? "")
                 .foregroundColor(.white)
