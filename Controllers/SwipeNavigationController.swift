@@ -10,6 +10,7 @@ import UIKit
 class SwipeNavigationController: UINavigationController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
+      self.isNavigationBarHidden = true
     }
     override init(nibName nibNameorNil: String?, bundle nibBundleorNil: Bundle?) {
         super.init(nibName: nibNameorNil, bundle: nibBundleorNil)

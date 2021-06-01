@@ -72,6 +72,9 @@
 		5E6BB01B25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E6BB01C25DE955E00CB066D /* registerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BB01925DE955E00CB066D /* registerViewController.swift */; };
 		5E804F0C266548310027C240 /* MKGeoJsonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F0B266548310027C240 /* MKGeoJsonExtension.swift */; };
+		5E804F0E266564E00027C240 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F0D266564E00027C240 /* PhotoPicker.swift */; };
+		5E804F13266618790027C240 /* SlidingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F12266618790027C240 /* SlidingTabView.swift */; };
+		5E804F15266623E40027C240 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F14266623E40027C240 /* ColorPicker.swift */; };
 		5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */; };
 		5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
 		5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
@@ -2558,6 +2561,9 @@
 		5E69E554266377C000FECC68 /* PlaceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceStatus.swift; sourceTree = "<group>"; };
 		5E6BB01925DE955E00CB066D /* registerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewController.swift; sourceTree = "<group>"; };
 		5E804F0B266548310027C240 /* MKGeoJsonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKGeoJsonExtension.swift; sourceTree = "<group>"; };
+		5E804F0D266564E00027C240 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		5E804F12266618790027C240 /* SlidingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabView.swift; sourceTree = "<group>"; };
+		5E804F14266623E40027C240 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		5E96587326398E2D00A76449 /* KoreaGuide copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KoreaGuide copy-Info.plist"; path = "/Users/songchihyun/Desktop/2021-1학기/캡스톤/KoreaGuide/KoreaGuide copy-Info.plist"; sourceTree = "<absolute>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
@@ -5060,6 +5066,9 @@
 			isa = PBXGroup;
 			children = (
 				5E2323E626650AE50031E758 /* MyPageScene.swift */,
+				5E804F0D266564E00027C240 /* PhotoPicker.swift */,
+				5E804F12266618790027C240 /* SlidingTabView.swift */,
+				5E804F14266623E40027C240 /* ColorPicker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -10192,6 +10201,7 @@
 				5EF7BC682643092800544FB6 /* WordAddViewModel.swift in Sources */,
 				5EF7BC6D2643092800544FB6 /* WordApiCaller.swift in Sources */,
 				5E6379D9260F889100900192 /* UICollectionViewCellExtensions.swift in Sources */,
+				5E804F15266623E40027C240 /* ColorPicker.swift in Sources */,
 				887A1C8526632EBB000B117C /* NavigationLazyView.swift in Sources */,
 				5E2323E226650A540031E758 /* myPageViewController.swift in Sources */,
 				5EF7BC6A2643092800544FB6 /* WordMainView.swift in Sources */,
@@ -10212,6 +10222,7 @@
 				5E9CE53E2611EA270072E5CD /* PlaceDetailViewModel.swift in Sources */,
 				5EF7BC732643092800544FB6 /* TodayWordViewModel.swift in Sources */,
 				5E65A6F625DE479C00A0259B /* mapViewController.swift in Sources */,
+				5E804F13266618790027C240 /* SlidingTabView.swift in Sources */,
 				5E69E555266377C000FECC68 /* PlaceStatus.swift in Sources */,
 				5EF7BC692643092800544FB6 /* WordApiModel.swift in Sources */,
 				5E804F0C266548310027C240 /* MKGeoJsonExtension.swift in Sources */,
@@ -10225,6 +10236,7 @@
 				5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */,
 				5E20E544261AF7CF002427EA /* MapCell.swift in Sources */,
 				5E192E2525FD071400864789 /* AlertExtensions.swift in Sources */,
+				5E804F0E266564E00027C240 /* PhotoPicker.swift in Sources */,
 				5EF7BC762643092800544FB6 /* TodayWordView.swift in Sources */,
 				5EF7BC722643092800544FB6 /* WordTestSelectViewModel.swift in Sources */,
 				5E2E282025D7CC410067C41F /* SceneDelegate.swift in Sources */,

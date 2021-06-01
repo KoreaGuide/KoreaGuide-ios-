@@ -25,6 +25,7 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     mapView.addOverlays(parseGeoJson())
     mapView.addAnnotations(makePins())
     mapView.isUserInteractionEnabled = true
+    
   }
 
   func makePins() -> [MKPointAnnotation] {
@@ -38,7 +39,6 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
         pins.append(pin)
       }
     }
-
     return pins
   }
 
@@ -75,12 +75,12 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     return annotationView
   }
 
-  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
-    postingVC.place_id = Int((view.annotation?.subtitle)!!)
-    self.postingVC = postingVC
-  }
+//  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
+//    postingVC.place_id = Int((view.annotation?.subtitle)!!)
+//    self.postingVC = postingVC
+//  }
 
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "mapJson", ofType: "geojson") else {

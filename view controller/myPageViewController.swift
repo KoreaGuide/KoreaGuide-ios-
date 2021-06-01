@@ -9,16 +9,18 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class myPageViewController: ViewController {
-  @IBSegueAction func ToMyPageScene(_ coder: NSCoder) -> UIViewController? {
-    return UIHostingController(coder: coder, rootView: MyPageScene())
-  }
+class myPageViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     let hostingController = UIHostingController(rootView: MyPageScene())
-    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-    hostingController.view.frame = view.bounds
+    
+    hostingController.view.frame = view.frame
+    
     addChild(hostingController)
     view.addSubview(hostingController.view)
+  }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 }

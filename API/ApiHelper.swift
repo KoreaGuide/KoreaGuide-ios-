@@ -496,6 +496,7 @@ final class ApiHelper {
           // ApiHelper.defaultHeaders["Authorization"] = "Bearer \(login_info.data.token)"
           UserDefaults.id = login_info.data.id
           UserDefaults.email = login_info.data.email
+          UserDefaults.nickname = login_info.data.nickname
           UserDefaults.created_by = login_info.data.created_by
           UserDefaults.created_at = login_info.data.created_at
           // UserDefaults.token = login_info.data.token

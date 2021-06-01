@@ -9,8 +9,10 @@ import Foundation
 import MapKit
 extension UserDefaults {
   private enum Keys {
+    static let profile = "profile"
     static let email = "Email"
     static let password = "Password"
+    static let nickname = "nickname"
     static let token = "token"
     static let created_at = "created_at"
     static let created_by = "create_by"
@@ -37,7 +39,16 @@ extension UserDefaults {
     static let gyeonnam = "gyeonnam"
     static let jeju = "jeju"
   }
-
+  static var profile: Data {
+    get { return standard.data(forKey: Keys.profile) ?? Data() }
+    set { standard.set(newValue, forKey: Keys.profile) }
+  }
+  
+  static var nickname: String {
+    get { return standard.string(forKey: Keys.nickname) ?? "#ffffffff" }
+    set { standard.set(newValue, forKey: Keys.nickname) }
+  }
+  
   static var placeInfo: [place] = []
   static var deajeon: String {
     get { return standard.string(forKey: Keys.deajeon) ?? "#ffffffff" }
