@@ -11,7 +11,7 @@ import SwiftUI
 
 struct WordCellView: View {
   @ObservedObject var viewModel: WordListSceneViewModel
-  // @State var index: Int // 이걸 viewmodel로 옮겨야함
+  @State var index: Int // 이걸 viewmodel로 옮겨야함
   @State var showingDeleteAlert: Bool = false
 
   var body: some View {
@@ -70,7 +70,7 @@ struct WordGridCellView: View {
   @ObservedObject var viewModel: WordListSceneViewModel
   @State var word: InMyListWord
   @State var folder_id: Int
-  // @State var index: Int // 이걸 viewmodel로 옮겨야함
+  @State var index: Int // 이걸 viewmodel로 옮겨야함
   @State var showingDeleteAlert: Bool = false
 
   var body: some View {
@@ -132,17 +132,22 @@ struct WordLazyGridView: View {
     GridItem(.fixed(UIScreen.main.bounds.width / 23 * 10), spacing: UIScreen.main.bounds.width / 23 * 1),
     GridItem(.fixed(UIScreen.main.bounds.width / 23 * 10), spacing: UIScreen.main.bounds.width / 23 * 1),
   ]
+  // LazyVGrid(columns: coloumns, spacing: 15)
 
   var body: some View {
-    LazyVGrid(columns: coloumns, spacing: 15) {
-      ForEach(viewModel.word_list, id: \.self) { word in
-        WordGridCellView(viewModel: viewModel, word: word, folder_id: viewModel.word_folder_id)
-          .onTapGesture {
-            viewModel.showPopup = word.id
+    VStack {
+      ScrollView {
+        WordGridView(rows: (viewModel.word_list.count + 1) / 2, columns: 2) { row, col in
+          if (viewModel.word_list.count > row * 2 + col) && (row * 2 + col >= 0) {
+            WordGridCellView(viewModel: viewModel, word: viewModel.word_list[row * 2 + col], folder_id: viewModel.word_folder_id, index: row * 2 + col)
+              .onTapGesture {
+                viewModel.showPopup = viewModel.word_list[row * 2 + col].id
+              }
           }
+        }
+        .padding(.horizontal, UIScreen.main.bounds.width / 23 * 1)
       }
-      .onAppear {}
-    }.padding(.horizontal, UIScreen.main.bounds.width / 23 * 1)
+    }
   }
 }
 

@@ -29,7 +29,13 @@ class WordTestSceneViewModel: ObservableObject {
       progressValue = Float(newValue) / Float(totalWordCount)
       if totalWordCount - 1 == newValue {
         endOfTest = true
+        //progressValue = 1.0
       }
+//      else if totalWordCount == newValue {
+//        endOfTest = true
+//        currentWordCount = totalWordCount - 1
+//        //progressValue = 1.0
+//      }
       
     }
   }
@@ -44,6 +50,8 @@ class WordTestSceneViewModel: ObservableObject {
 
   @Published var showPopup: Bool = false
 
+  @Published var chosen_answer: [String] = []
+  
   private var cancellable: Set<AnyCancellable> = []
 
   func getSpellingCount() -> Int {

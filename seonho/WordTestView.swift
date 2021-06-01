@@ -55,12 +55,16 @@ struct CorrectOrNotPopup: View {
 
           HStack {
             Button(action: {
+              viewModel.currentWordCount += 1
+              
               viewModel.showPopup = false
 
+              
+              
               viewModel.choice = -1
               viewModel.answer = ""
+              viewModel.chosen_answer = []
 
-              viewModel.currentWordCount += 1
               if isCorrect == true {
                 viewModel.correctCount += 1
               } else {
@@ -81,12 +85,17 @@ struct CorrectOrNotPopup: View {
     }
     .ignoresSafeArea()
     .onTapGesture {
+      viewModel.currentWordCount += 1
+      
       viewModel.showPopup = false
 
+      
+      
       viewModel.choice = -1
       viewModel.answer = ""
+      viewModel.chosen_answer = []
 
-      viewModel.currentWordCount += 1
+      
       if isCorrect == true {
         viewModel.correctCount += 1
       } else {
@@ -453,7 +462,7 @@ struct MatchAnswerEngView: View {
             Text(" Submit ")
               .font(Font.custom("Bangla MN", size: 25))
               .fontWeight(.bold)
-              .foregroundColor(viewModel.choice == -1 ? .white : .black)
+              .foregroundColor(viewModel.choice == -1 ? .white : .white)
               .padding(.top, 10)
               .background(RoundedRectangle(cornerRadius: 20)
                 .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .center)
@@ -613,36 +622,42 @@ struct WordSpellingEasyTestView: View {
           }
           .padding(.horizontal, 20)
           .padding(.bottom, 20)
+          if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
+            HStack {
+              ImageView(withURL: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
+                .frame(width: 150, height: 150)
 
-          VStack(alignment: .center) {
-            ImageView(withURL: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.image ?? "")
-              .frame(width: 150, height: 150)
+              VStack(alignment: .center) {
+                Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_eng ?? "")
+                  .font(Font.custom("Bangla MN", size: 20))
+                  .fontWeight(.bold)
+                  .foregroundColor(.white)
 
-            Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_eng ?? "")
+                Text(self.viewModel.chosen_answer.compactMap { $0 }.joined())
+                  .font(Font.custom("Bangla MN", size: 20))
+                  .fontWeight(.bold)
+                  .foregroundColor(.white)
+                  .padding(.top, 10)
+                  .background(RoundedRectangle(cornerRadius: 10)
+                    .frame(width: 160, height: 50)
+                    .foregroundColor(Color.white.opacity(0.5)))
+                  .frame(width: 160, height: 50)
+                  .onTapGesture{
+                    self.viewModel.chosen_answer = self.viewModel.chosen_answer.dropLast()
+                    viewModel.choice = -1
+                  }
+              }
+              .padding(.leading, 20)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+          } else {
+            Text("Finish!")
               .font(Font.custom("Bangla MN", size: 20))
               .fontWeight(.bold)
               .foregroundColor(.white)
-//              HStack{
-//                Text("1")
-//                  .font(Font.custom("Bangla MN", size: 20))
-//                  .fontWeight(.bold)
-//                  .foregroundColor(.white)
-//                  .frame(width: 50, height: 50, alignment: .center)
-//                  .padding(.top, 10)
-//
-//                Text("2")
-//                  .font(Font.custom("Bangla MN", size: 20))
-//                  .fontWeight(.bold)
-//                  .foregroundColor(.white)
-//                  .frame(width: 50, height: 50, alignment: .center)
-//                  .padding(.top, 10)
-//
-//            }
           }
-          .padding(.horizontal, 20)
-          .padding(.bottom, 20)
-
-          if viewModel.currentWordCount < viewModel.totalWordCount {
+          if viewModel.endOfTest == false || viewModel.currentWordCount < viewModel.totalWordCount {
             EasySpellingAnswerView(viewModel: self.viewModel, word_kor_answer: self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].selected_word.word_kor ?? "")
 
           } else if viewModel.endOfTest == true {
@@ -656,9 +671,9 @@ struct WordSpellingEasyTestView: View {
 
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
-        // TODO:
+        
         if viewModel.showPopup == true {
-          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice)
+          CorrectOrNotPopup(viewModel: viewModel, isCorrect: self.viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == self.viewModel.chosen_answer.compactMap { $0 }.joined())
             .padding(.top, -50)
             .ignoresSafeArea()
         }
@@ -675,8 +690,6 @@ struct EasySpellingAnswerView: View {
 
   @State var word_kor_answer: String
 
-  @State var chosen_answer: [String] = []
-
   let fontSize: CGFloat = 22
 
   var body: some View {
@@ -685,24 +698,9 @@ struct EasySpellingAnswerView: View {
         // background
         VStack {
           HStack {
-//            ForEach(0 ..< word_kor_answer.count) { i in
-//
-//              Text(chosen_answer[i])
-//                .font(Font.custom("Bangla MN", size: 20))
-//                .fontWeight(.bold)
-//                .foregroundColor(.white)
-//                .frame(width: 50, height: 50, alignment: .center)
-//                .padding(.top, 10)
-//                .background(RoundedRectangle(cornerRadius: 10)
-//                  .foregroundColor(Color.white.opacity(0.8)))
-//            }
-          }
-
-          HStack {
             Button(action: {
-              self.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
-
               self.viewModel.choice = 1
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -717,9 +715,8 @@ struct EasySpellingAnswerView: View {
               .padding(5)
 
             Button(action: {
-              self.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[0] ?? "")
-
               self.viewModel.choice = 2
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[1] ?? "")
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[1] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -735,6 +732,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 3
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[2] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[2] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -750,6 +749,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 4
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[3] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[3] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -766,6 +767,8 @@ struct EasySpellingAnswerView: View {
           HStack {
             Button(action: {
               self.viewModel.choice = 5
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[4] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[4] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -781,6 +784,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 6
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[5] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[5] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -796,6 +801,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 7
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[6] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[6] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -811,6 +818,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 8
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[7] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[7] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -827,6 +836,8 @@ struct EasySpellingAnswerView: View {
           HStack {
             Button(action: {
               self.viewModel.choice = 9
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[8] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[8] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -842,6 +853,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 10
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[9] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[9] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -857,6 +870,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 11
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[10] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[10] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -872,6 +887,8 @@ struct EasySpellingAnswerView: View {
 
             Button(action: {
               self.viewModel.choice = 12
+              self.viewModel.chosen_answer.append(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[11] ?? "")
+
             }, label: {
               Text(self.viewModel.test_easy_spelling_word_info?.quiz_list[viewModel.currentWordCount].alphabet_choice_list[11] ?? "")
                 .font(Font.custom("Bangla MN", size: fontSize))
@@ -889,7 +906,7 @@ struct EasySpellingAnswerView: View {
             .frame(height: 20)
 
           Button(action: {
-            if self.viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id == self.viewModel.choice {
+            if self.viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.word_kor == self.viewModel.chosen_answer.compactMap({ $0 }).joined() {
               let tuple = (viewModel.currentWordCount, viewModel.test_easy_spelling_word_info!.quiz_list[viewModel.currentWordCount].selected_word.id, true)
 
               viewModel.result.append(tuple)
@@ -898,8 +915,7 @@ struct EasySpellingAnswerView: View {
               viewModel.result.append(tuple)
             }
 
-            // viewModel.choice = -1
-            // viewModel.currentWordCount += 1
+            
             viewModel.showPopup = true
 
           }, label: {
@@ -907,7 +923,7 @@ struct EasySpellingAnswerView: View {
               .font(Font.custom("Bangla MN", size: 25))
               .fontWeight(.bold)
               .padding(.top, 10)
-              .foregroundColor(viewModel.choice == -1 ? .white : .black)
+              .foregroundColor(viewModel.choice == -1 ? .white : .white)
               .background(RoundedRectangle(cornerRadius: 20)
                 .frame(width: UIScreen.main.bounds.width - 100, height: 60, alignment: .bottom)
                 .foregroundColor(viewModel.choice == -1 ? Color.gray : Color("Green")))
@@ -968,8 +984,6 @@ struct WordSpellingHardTestView: View {
 
           Spacer()
             .frame(height: 60)
-
-          
 
           HStack(alignment: .center) {
             // ProgressBar
