@@ -18,18 +18,10 @@ final class PostingCell: UICollectionViewCell {
   override func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? PostingViewModel else { return }
 
-    let str = viewModel.title
-    let arr = str.components(separatedBy: "(")
-    print("@@@@ \(str)")
+     
 
-    let strRange = arr[1].startIndex ..< arr[1].index(before: arr[1].endIndex)
-    if arr[1].hasSuffix(")") {
-      title_kor.text = String(arr[1][strRange])
-      title_eng.text = arr[0]
-    } else {
-      title_kor.text = arr[1]
-      title_eng.text = arr[0]
-    }
+    title_kor.text = splitTitle(title: viewModel.title)[0]
+    title_eng.text = splitTitle(title: viewModel.title)[1]
     overview.isEditable = false
     overview.text = viewModel.overview_Eng
     overview_eng = viewModel.overview_Eng

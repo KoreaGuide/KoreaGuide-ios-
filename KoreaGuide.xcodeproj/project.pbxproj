@@ -77,6 +77,7 @@
 		5E804F15266623E40027C240 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F14266623E40027C240 /* ColorPicker.swift */; };
 		5E804F1726667FF10027C240 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F1626667FF10027C240 /* GridView.swift */; };
 		5E804F19266681090027C240 /* ImagePlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F18266681090027C240 /* ImagePlaceHolder.swift */; };
+		5E804F1B266695E70027C240 /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F1A266695E70027C240 /* PlaceDetailView.swift */; };
 		5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */; };
 		5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
 		5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
@@ -2568,6 +2569,7 @@
 		5E804F14266623E40027C240 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		5E804F1626667FF10027C240 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		5E804F18266681090027C240 /* ImagePlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePlaceHolder.swift; sourceTree = "<group>"; };
+		5E804F1A266695E70027C240 /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		5E96587326398E2D00A76449 /* KoreaGuide copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KoreaGuide copy-Info.plist"; path = "/Users/songchihyun/Desktop/2021-1학기/캡스톤/KoreaGuide/KoreaGuide copy-Info.plist"; sourceTree = "<absolute>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
@@ -5075,6 +5077,7 @@
 				5E804F14266623E40027C240 /* ColorPicker.swift */,
 				5E804F1626667FF10027C240 /* GridView.swift */,
 				5E804F18266681090027C240 /* ImagePlaceHolder.swift */,
+				5E804F1A266695E70027C240 /* PlaceDetailView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -10195,6 +10198,7 @@
 				5E11D99725DA31E600356166 /* startViewController.swift in Sources */,
 				5E0CAF1426176E7000B5B3FD /* UITextFieldExtension.swift in Sources */,
 				5E11D98925D979BB00356166 /* loginViewController.swift in Sources */,
+				5E804F1B266695E70027C240 /* PlaceDetailView.swift in Sources */,
 				5E63799D260F760500900192 /* CardCell.swift in Sources */,
 				5E20E539261AF7B8002427EA /* PostingCell.swift in Sources */,
 				5E20E551261B25F1002427EA /* PlaceHeaderCell.swift in Sources */,
