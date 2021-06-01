@@ -35,7 +35,7 @@ struct MyPageScene: View {
                 .clipShape(Circle())
             }
 
-            // 이름, 연동 방법
+            
             VStack(alignment: .leading) {
               HStack {
                 Text(UserDefaults.nickname)
@@ -50,7 +50,7 @@ struct MyPageScene: View {
           Spacer()
         }
         .padding(.horizontal, 18)
-        SlidingTabView(selection: $viewModel.tabNumber, tabs: ["보관함", "내 지도", "내 퀴즈"])
+        SlidingTabView(selection: $viewModel.tabNumber, tabs: ["My Place", "My Map", "My Word"])
         if viewModel.tabNumber == 0 {
           MyPageKeepedPostView(viewModel: viewModel)
           Spacer()
@@ -139,7 +139,7 @@ struct MyPageKeepedPostView: View {
           .resizable()
           .frame(width: 58, height: 55)
           .padding(.vertical, 20)
-        Text("보관중인 컨텐츠가 없습니다. \n 컨텐츠를 먼저 등록해주세요.")
+        Text("There is no stored place. \n Please add a place.")
           .foregroundColor(Color("silver"))
           .multilineTextAlignment(.center)
         Spacer()
