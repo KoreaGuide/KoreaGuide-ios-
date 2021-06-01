@@ -15,6 +15,14 @@ struct MyPageScene: View {
   var body: some View {
     ZStack {
       VStack {
+        NavigationLink(destination: NavigationLazyView(
+          PlaceDetailView(viewModel: viewModel)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+        ), isActive: $viewModel.didTapPlace) {
+          EmptyView()
+        }.isDetailLink(false)
+        
         HStack {
           HStack {
             // 사진
@@ -69,7 +77,7 @@ struct MyPageScene: View {
           Spacer()
         }
       }
-
+      
       .sheet(isPresented: $viewModel.showImagePicker) {
         PhotoPicker(isPresented: $viewModel.showImagePicker, selectionLimit: $selectionLimit) { image in
 
@@ -102,10 +110,12 @@ class MyPageSceneViewModel: ObservableObject {
   @Published var showImagePicker: Bool = false
   @Published var image: UIImage?
   @Published var tabNumber: Int = 0
+  @Published var selectedPlace : PlaceModel?
   @Published var keepedPostViewModel = KeepedPostViewModel()
   @Published var selectedPlace: PlaceModel?
   @Published var cancellable = Set<AnyCancellable>()
   @Published var placeInfo: [PlaceModel] = []
+  @Published var didTapPlace : Bool = false
 
   @Published var attendance: Int = 0
   @Published var week_quiz_result: [OneDayInfo] = []
@@ -161,6 +171,18 @@ struct ProfileImage: UIViewRepresentable {
 
   func updateUIView(_: UIImageView, context _: Context) {}
 }
+struct MyPageWordView: View {
+  @ObservedObject var viewModel : MyPageSceneViewModel
+  var body: some View {
+    VStack {
+      Text("Great Job!\n Your attendance this week is: \(UserDefaults.week_attendance ?? 0)/7")
+        .foregroundColor(.white)
+        .font(.system(size: 20))
+        .frame(alignment: .leading)
+        .padding(.top, 40)
+    }
+  }
+}
 
 struct MyPageKeepedPostView: View {
   @ObservedObject var viewModel: MyPageSceneViewModel
@@ -185,6 +207,7 @@ struct MyPageKeepedPostView: View {
           PostGridSquareViewForKeeped(viewModel: viewModel, index: a)
             .onTapGesture {
               viewModel.selectedPlace = viewModel.placeInfo[a]
+                viewModel.didTapPlace = true
             }
         }
       }
@@ -476,7 +499,7 @@ struct MapView: UIViewRepresentable {
 
       return pins
     }
-
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
       if let polygon = overlay as? MKPolygon {
         print(polygon.title!)
@@ -561,3 +584,6 @@ struct MapView: UIViewRepresentable {
     return Coordinator(viewModel: viewModel)
   }
 }
+
+
+
