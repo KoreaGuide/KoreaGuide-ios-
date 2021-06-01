@@ -68,7 +68,7 @@ struct WordMainNavigationLinks : View {
   @ObservedObject var viewModel: WordMainSceneViewModel
   var body: some View{
     NavigationLink(destination: NavigationLazyView(
-                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1))
+      WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.add_folder_id ?? 1), mainSceneViewModel: viewModel)
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
     ), isActive: $viewModel.didTapAddedWord) {
@@ -77,7 +77,7 @@ struct WordMainNavigationLinks : View {
     .isDetailLink(false)
 
     NavigationLink(destination: NavigationLazyView(
-                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2))
+                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.learning_folder_id ?? 2), mainSceneViewModel: viewModel)
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
     ), isActive: $viewModel.didTapLearningWord) {
@@ -86,7 +86,7 @@ struct WordMainNavigationLinks : View {
     .isDetailLink(false)
 
     NavigationLink(destination: NavigationLazyView(
-                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3)).navigationBarTitle("")
+                    WordListScene(viewModel: WordListSceneViewModel(word_folder_id: UserDefaults.complete_folder_id ?? 3), mainSceneViewModel: viewModel).navigationBarTitle("")
                     .navigationBarHidden(true)
     ), isActive: $viewModel.didTapCompleteWord) {
       EmptyView()
@@ -137,7 +137,7 @@ struct WordMainScene: View {
               }
           
           Spacer()
-            .frame(height: 40)
+            .frame(height: 80)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
       }

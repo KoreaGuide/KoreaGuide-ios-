@@ -47,6 +47,7 @@ struct WordPopup: View {
     .ignoresSafeArea()
     .onTapGesture {
       self.popupWordId = -1
+      viewModel.reload()
     }
   }
 }
@@ -139,7 +140,7 @@ struct WordListNavigationLinks: View {
 struct WordListScene: View {
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
   @ObservedObject var viewModel: WordListSceneViewModel
-
+  @ObservedObject var mainSceneViewModel: WordMainSceneViewModel
   // @State var showPopup: Int = -1
 
   // var input as option 1~3
@@ -159,6 +160,7 @@ struct WordListScene: View {
           HStack {
             BackButton(tapAction: {
               //self.viewModel.didTapBackButton = true
+              mainSceneViewModel.reload()
               self.presentationMode.wrappedValue.dismiss()
               print("----- back button tapped")
             })
