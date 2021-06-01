@@ -21,35 +21,38 @@ struct MyPageScene: View {
             if !UserDefaults.profile.isEmpty {
               Image(uiImage: UIImage(data: UserDefaults.profile)!)
                 .resizable()
-                .frame(width: 51, height: 51, alignment: .center)
+                .frame(width: 60, height: 60, alignment: .center)
                 .clipShape(Circle())
             } else if viewModel.image != nil {
               Image(uiImage: viewModel.image!)
                 .resizable()
-                .frame(width: 51, height: 51, alignment: .center)
+                .frame(width: 60, height: 60, alignment: .center)
                 .clipShape(Circle())
             } else {
               Image("personNoImg")
                 .resizable()
-                .frame(width: 51, height: 51, alignment: .center)
+                .frame(width: 60, height: 60, alignment: .center)
                 .clipShape(Circle())
             }
 
-            
             VStack(alignment: .leading) {
               HStack {
                 Text(UserDefaults.nickname)
                   .foregroundColor(.white)
+                  .font(.system(size: 18, weight: .semibold))
+
                 Image("silverArrow")
               }
             }
+            .padding(.leading, 6)
           }.onTapGesture {
             // 네비게이션 링크 실행하기
             viewModel.showImagePicker.toggle()
           }
           Spacer()
         }
-        .padding(.horizontal, 18)
+        .padding(.horizontal, 20)
+
         SlidingTabView(selection: $viewModel.tabNumber, tabs: ["My Place", "My Map", "My Word"])
         if viewModel.tabNumber == 0 {
           MyPageKeepedPostView(viewModel: viewModel)
@@ -59,7 +62,7 @@ struct MyPageScene: View {
 
           Spacer()
         } else if viewModel.tabNumber == 2 {
-          EmptyView()
+          ProfileWordView(viewModel: viewModel)
           Spacer()
         } else {
           EmptyView()
@@ -100,12 +103,13 @@ class MyPageSceneViewModel: ObservableObject {
   @Published var image: UIImage?
   @Published var tabNumber: Int = 0
   @Published var keepedPostViewModel = KeepedPostViewModel()
-  @Published var selectedPlace : PlaceModel?
+  @Published var selectedPlace: PlaceModel?
   @Published var cancellable = Set<AnyCancellable>()
   @Published var placeInfo: [PlaceModel] = []
-  
-  @Published var attendanceInfo: AttendanceInfo
-  
+
+  @Published var attendance: Int = 0
+  @Published var week_quiz_result: [OneDayInfo] = []
+
   init() {
     ApiHelper.myWishRead { result in
       let status = result!.result_code
@@ -116,19 +120,32 @@ class MyPageSceneViewModel: ObservableObject {
         break
       }
     }
-    
+
     ProfileApiCaller.attendanceInfo { result in
       let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
-        self.attendanceInfo = result!.data
+        self.attendance = result?.data.attendance ?? 0
+        self.week_quiz_result = result?.data.week_quiz_result ?? []
         print("----- attendance info get api done")
       default:
         print("----- attendance info get api error")
       }
-      
     }
-    
+  }
+  
+  func reload() {
+    ProfileApiCaller.attendanceInfo { result in
+      let status = Int(result?.result_code ?? 0)
+      switch status {
+      case 200:
+        self.attendance = result?.data.attendance ?? 0
+        self.week_quiz_result = result?.data.week_quiz_result ?? []
+        print("----- attendance info get api done")
+      default:
+        print("----- attendance info get api error")
+      }
+    }
   }
 }
 
@@ -153,7 +170,7 @@ struct MyPageKeepedPostView: View {
         Spacer()
         Image("lightgrayCalendar")
           .resizable()
-          .frame(width: 58, height: 55)
+          .frame(width: 40, height: 40)
           .padding(.vertical, 20)
         Text("There is no stored place. \n Please add a place.")
           .foregroundColor(Color("silver"))
@@ -161,7 +178,7 @@ struct MyPageKeepedPostView: View {
         Spacer()
       }
     } else {
-      GridView(rows: (viewModel.placeInfo.count + 1 )/2,
+      GridView(rows: (viewModel.placeInfo.count + 1) / 2,
                columns: 2) { row, col in
         let a = row * 2 + col
         if (viewModel.placeInfo.count > a) && (a >= 0) {
@@ -176,10 +193,247 @@ struct MyPageKeepedPostView: View {
 }
 
 struct ProfileWordView: View {
-  @ObservedObject var viewModel: MyPageSceneViewModel
   
+  @ObservedObject var viewModel: MyPageSceneViewModel
+
+  let height: CGFloat = 380
+  
+  let graphWidth: CGFloat = 12
+  let graphPadding: CGFloat = 13
+  
+  let graphHeight: CGFloat = 100
+
   var body: some View {
-    
+    VStack {
+      VStack {
+        ZStack {
+          RoundedRectangle(cornerRadius: 20)
+            .frame(width: UIScreen.main.bounds.width - 40, height: 100)
+            .foregroundColor(Color.white.opacity(1))
+
+          HStack {
+            VStack(alignment: .leading) {
+              Text("Keep going!")
+                .font(.system(size: 16, weight: .semibold))
+              Text("Your attendance this week ")
+                .font(.system(size: 16, weight: .semibold))
+            }
+            Spacer()
+          }
+          .padding(.horizontal, 20)
+
+          HStack(alignment: .center) {
+            Spacer()
+            Text("\(viewModel.attendance)")
+              .foregroundColor(Color("Mint"))
+              .font(.system(size: 30, weight: .heavy))
+            Text("/")
+              .font(.system(size: 40, weight: .regular))
+            Text("7")
+              .font(.system(size: 30, weight: .heavy))
+          }
+          .padding(.horizontal, 20)
+        }
+      }
+      .frame(width: UIScreen.main.bounds.width - 40, height: 100)
+      .padding(.bottom, 20)
+
+      VStack {
+        ZStack {
+          RoundedRectangle(cornerRadius: 20)
+            .frame(width: UIScreen.main.bounds.width - 40, height: self.height)
+            .foregroundColor(Color.white.opacity(1))
+
+          VStack {
+            // VStack {
+            HStack {
+              Text("Check your progress")
+                .font(.system(size: 16, weight: .bold))
+              Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 10)
+//              Rectangle()
+//                .foregroundColor(Color.gray)
+//                .frame(height: 2)
+            // }
+
+            HStack(alignment: .center) {
+              Text("correct")
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(Color("Mint"))
+            }
+            
+            HStack(alignment: .bottom) {
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[0].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[0].correct / viewModel.week_quiz_result[0].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[1].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[1].correct / viewModel.week_quiz_result[1].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[2].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[2].correct / viewModel.week_quiz_result[2].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[3].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[3].correct / viewModel.week_quiz_result[3].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[4].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[4].correct / viewModel.week_quiz_result[4].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[5].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[5].correct / viewModel.week_quiz_result[5].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[6].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[6].correct / viewModel.week_quiz_result[6].total) * graphHeight)
+                .foregroundColor(Color("Mint"))
+                .padding(.horizontal, graphPadding)
+            }
+            .frame(height: self.graphHeight)
+
+            HStack {
+              ZStack {
+                Text(viewModel.week_quiz_result[0].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[1].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[2].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[3].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[4].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[5].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepBlue"), Color("RingColor_LightBlue")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.6)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+
+              ZStack {
+                Text(viewModel.week_quiz_result[6].day_of_week.first?.description ?? "")
+                  .font(.system(size: 15, weight: .bold))
+                Circle()
+                  .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("RingColor_DeepPink"), Color("RingColor_LightOrange")]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 1.4)
+                  .frame(width: 30, height: 30)
+                  .padding(4)
+              }
+            }
+
+            HStack(alignment: .top) {
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[0].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[0].wrong / viewModel.week_quiz_result[0].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[1].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[1].wrong / viewModel.week_quiz_result[1].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[2].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[2].wrong / viewModel.week_quiz_result[2].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[3].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[3].wrong / viewModel.week_quiz_result[3].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[4].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[4].wrong / viewModel.week_quiz_result[4].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[5].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[5].wrong / viewModel.week_quiz_result[5].total) * graphHeight )
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+
+              RoundedRectangle(cornerRadius: 10)
+                .frame(width: graphWidth, height: viewModel.week_quiz_result[6].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[6].wrong / viewModel.week_quiz_result[6].total) * graphHeight)
+                .foregroundColor(Color("Orange"))
+                .padding(.horizontal, graphPadding)
+            }
+            .frame(height: self.graphHeight)
+            
+            HStack(alignment: .center) {
+              Text("incorrect")
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(Color("Orange"))
+            }
+          }
+        }
+        .padding(.horizontal, 20)
+      }
+      .onAppear{ viewModel.reload() }
+      .padding(.bottom, 20)
+
+//      HStack {
+//        ZStack {
+//          RoundedRectangle(cornerRadius: 20)
+//            .frame(width: UIScreen.main.bounds.width / 2 - 30, height: 100)
+//            .foregroundColor(Color.white.opacity(1))
+//          Text("")
+//        }
+//        Spacer()
+//          .frame(width: 15)
+//        ZStack {
+//          RoundedRectangle(cornerRadius: 20)
+//            .frame(width: UIScreen.main.bounds.width / 2 - 30, height: 100)
+//            .foregroundColor(Color.white.opacity(1))
+//          Text("")
+//        }
+//      }
+    }
   }
 }
 
@@ -194,7 +448,7 @@ struct MapView: UIViewRepresentable {
     viewModel.$placeInfo
       .receive(on: DispatchQueue.main)
       .sink { _ in
-    view.addAnnotations(context.coordinator.makePins())
+        view.addAnnotations(context.coordinator.makePins())
       }
       .store(in: &viewModel.cancellable)
     view.isUserInteractionEnabled = true

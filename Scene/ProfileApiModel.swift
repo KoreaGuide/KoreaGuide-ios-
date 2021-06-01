@@ -16,16 +16,16 @@ struct ProfileAttendanceModel: Codable {
 }
 
 struct AttendanceInfo: Codable {
-  let attendance: String
- 
+  let attendance: Int
   let week_quiz_result: [OneDayInfo]
 
-  struct OneDayInfo: Codable {
-    let date: String
-    let day_of_week: String
-    let total: Int
-    let correct: Int
-    let wrong: Int
-   
-  }
+}
+
+struct OneDayInfo: Codable {
+  let date: String
+  let day_of_week: String
+  let total: Int
+  let correct: Int
+  let wrong: Int
+ 
 }
