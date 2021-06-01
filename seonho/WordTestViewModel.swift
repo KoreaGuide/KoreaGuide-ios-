@@ -50,6 +50,8 @@ class WordTestSceneViewModel: ObservableObject {
 
   @Published var showPopup: Bool = false
 
+  @Published var playing: Bool = false
+  
   @Published var chosen_answer: [String] = []
   
   private var cancellable: Set<AnyCancellable> = []

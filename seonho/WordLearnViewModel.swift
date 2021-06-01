@@ -42,6 +42,9 @@ class WordLearnSceneViewModel: ObservableObject {
   @Published var progressValue: Float = 0.0
 
   @Published var finish: Bool = false
+  
+  @Published var playing: Bool = false
+  
   private var cancellable: Set<AnyCancellable> = []
 
   init(word_folder_id: Int) {
@@ -54,7 +57,7 @@ class WordLearnSceneViewModel: ObservableObject {
       case 200:
         self.word_list = result?.data.word_list ?? []
         self.word_folder_name = result?.data.folder_name ?? ""
-
+        print("-----learning words load api done")
       default:
         print("-----learning words load api error")
       }

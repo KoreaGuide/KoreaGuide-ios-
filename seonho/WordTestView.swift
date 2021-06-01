@@ -6,6 +6,7 @@
 //
 
 import AVKit
+import AVFoundation
 import Foundation
 import SwiftUI
 
@@ -502,8 +503,9 @@ struct MatchAnswerEngView: View {
 struct WordListenTestView: View {
   @ObservedObject var viewModel: WordTestSceneViewModel
   @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-  @State var audioPlayer: AVAudioPlayer!
-  @State var playing: Bool = false
+  @State var audioPlayer: AVAudioPlayer?
+  
+  
   var body: some View {
     VStack {
       ZStack {
@@ -559,11 +561,26 @@ struct WordListenTestView: View {
                   .foregroundColor(.white)
 
                 Button(action: {
-                  self.playing.toggle()
-                  self.audioPlayer.play()
+                  let url = Bundle.main.url(forResource: String(self.viewModel.test_word_info?.quiz_list[viewModel.currentWordCount].selected_word.id ?? 1), withExtension: "mp3")
+                                  if let url = url {
+                                    do {
+                                      audioPlayer = try AVAudioPlayer(contentsOf: url)
+                                      guard let sound = audioPlayer else {
+                                        return
+                                      }
+                                      sound.prepareToPlay()
+                                      sound.play()
+                                    } catch {
+                                      print(error.localizedDescription)
+                                    }
+                                  }
+                  
+                  self.viewModel.playing.toggle()
+                  self.audioPlayer?.play()
                   // self.audioPlayer.pause()
+                  self.viewModel.playing.toggle()
                 }, label: {
-                  Image(systemName: self.playing ? "play.circle.fill" : "play.circle")
+                  Image(systemName: self.viewModel.playing ? "play.circle.fill" : "play.circle")
                     .resizable()
                     .frame(width: 50, height: 50, alignment: .center)
                     .foregroundColor(Color.orange)
