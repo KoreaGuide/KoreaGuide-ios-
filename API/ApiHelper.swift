@@ -316,7 +316,29 @@ final class ApiHelper {
         }
       }
   }
-
+  static func myWishRead(callback: @escaping (response_my_map_all_read?) -> Void) {
+    AF.request(Router.myMapWishRead)
+      .responseJSON { response in
+        debugPrint(response)
+        switch response.result {
+        case .failure:
+          callback(nil)
+          return
+        case .success:
+          break
+        }
+        guard let data = response.data else { return }
+        print(String(decoding: data, as: UTF8.self))
+        let decoder = JSONDecoder()
+        do {
+          let result = try decoder.decode(response_my_map_all_read.self, from: data)
+          print(result)
+          callback(result)
+        } catch {
+          callback(nil)
+        }
+      }
+  }
   static func myWordCreate(word_id: String, callback: @escaping (Int?) -> Void) {
     AF.request(Router.myWordCreate(word_id: word_id))
       .responseJSON { response in

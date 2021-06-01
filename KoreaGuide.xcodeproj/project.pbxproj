@@ -75,6 +75,8 @@
 		5E804F0E266564E00027C240 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F0D266564E00027C240 /* PhotoPicker.swift */; };
 		5E804F13266618790027C240 /* SlidingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F12266618790027C240 /* SlidingTabView.swift */; };
 		5E804F15266623E40027C240 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F14266623E40027C240 /* ColorPicker.swift */; };
+		5E804F1726667FF10027C240 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F1626667FF10027C240 /* GridView.swift */; };
+		5E804F19266681090027C240 /* ImagePlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E804F18266681090027C240 /* ImagePlaceHolder.swift */; };
 		5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */; };
 		5E9CE5272611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
 		5E9CE5282611E7850072E5CD /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */; };
@@ -2564,6 +2566,8 @@
 		5E804F0D266564E00027C240 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		5E804F12266618790027C240 /* SlidingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabView.swift; sourceTree = "<group>"; };
 		5E804F14266623E40027C240 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		5E804F1626667FF10027C240 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		5E804F18266681090027C240 /* ImagePlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePlaceHolder.swift; sourceTree = "<group>"; };
 		5E96587326398E2D00A76449 /* KoreaGuide copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "KoreaGuide copy-Info.plist"; path = "/Users/songchihyun/Desktop/2021-1학기/캡스톤/KoreaGuide/KoreaGuide copy-Info.plist"; sourceTree = "<absolute>"; };
 		5E9BF0DC2609E4B300A5516B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5E9CE5262611E7850072E5CD /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
@@ -5069,6 +5073,8 @@
 				5E804F0D266564E00027C240 /* PhotoPicker.swift */,
 				5E804F12266618790027C240 /* SlidingTabView.swift */,
 				5E804F14266623E40027C240 /* ColorPicker.swift */,
+				5E804F1626667FF10027C240 /* GridView.swift */,
+				5E804F18266681090027C240 /* ImagePlaceHolder.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -10210,10 +10216,12 @@
 				5EF7BC6E2643092800544FB6 /* WordCellView.swift in Sources */,
 				5EF7BC6B2643092800544FB6 /* WordListViewModel.swift in Sources */,
 				5E0CAF442618B1E400B5B3FD /* profileViewController.swift in Sources */,
+				5E804F1726667FF10027C240 /* GridView.swift in Sources */,
 				5E03502025FB15B600CE21E0 /* ApiHelper.swift in Sources */,
 				5E9BF0DD2609E4B300A5516B /* PaddingLabel.swift in Sources */,
 				5EF7BC742643092800544FB6 /* WordAddView.swift in Sources */,
 				5EF5916C25EFA62800E07D88 /* homeViewController.swift in Sources */,
+				5E804F19266681090027C240 /* ImagePlaceHolder.swift in Sources */,
 				8894A0672649606200F8EC89 /* BackButton.swift in Sources */,
 				5EF7BC6F2643092800544FB6 /* WordTestSelectView.swift in Sources */,
 				5EF7BC622643091D00544FB6 /* WordListView.swift in Sources */,

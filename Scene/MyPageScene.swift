@@ -5,9 +5,10 @@
 //  Created by Song chi hyun on 2021/05/31.
 //
 
+import Combine
 import Foundation
-import SwiftUI
 import MapKit
+import SwiftUI
 struct MyPageScene: View {
   @ObservedObject var viewModel = MyPageSceneViewModel()
   @State var selectionLimit = 0
@@ -51,10 +52,11 @@ struct MyPageScene: View {
         .padding(.horizontal, 18)
         SlidingTabView(selection: $viewModel.tabNumber, tabs: ["보관함", "내 지도", "내 퀴즈"])
         if viewModel.tabNumber == 0 {
-          EmptyView()
+          MyPageKeepedPostView(viewModel: viewModel)
           Spacer()
         } else if viewModel.tabNumber == 1 {
           MapView(viewModel: viewModel)
+
           Spacer()
         } else if viewModel.tabNumber == 2 {
           EmptyView()
@@ -64,12 +66,23 @@ struct MyPageScene: View {
           Spacer()
         }
       }
-      
+
       .sheet(isPresented: $viewModel.showImagePicker) {
         PhotoPicker(isPresented: $viewModel.showImagePicker, selectionLimit: $selectionLimit) { image in
 
           viewModel.image = image
           UserDefaults.profile = image.pngData() ?? Data()
+        }
+      }
+    }
+    .onAppear {
+      ApiHelper.myWishRead { result in
+        let status = result!.result_code
+        switch status {
+        case 200:
+          viewModel.placeInfo = (result?.data.place_list)!
+        default:
+          break
         }
       }
     }
@@ -87,9 +100,19 @@ class MyPageSceneViewModel: ObservableObject {
   @Published var image: UIImage?
   @Published var tabNumber: Int = 0
   @Published var keepedPostViewModel = KeepedPostViewModel()
-  @Published var placeInfo : [place] = []
-  init () {
-    
+  @Published var selectedPlace : PlaceModel?
+  @Published var cancellable = Set<AnyCancellable>()
+  @Published var placeInfo: [PlaceModel] = []
+  init() {
+    ApiHelper.myWishRead { result in
+      let status = result!.result_code
+      switch status {
+      case 200:
+        self.placeInfo = (result?.data.place_list)!
+      default:
+        break
+      }
+    }
   }
 }
 
@@ -106,42 +129,73 @@ struct ProfileImage: UIViewRepresentable {
   func updateUIView(_: UIImageView, context _: Context) {}
 }
 
-struct MyPageKeepedPostView : View {
-  @ObservedObject var viewModel : KeepedPostViewModel
+struct MyPageKeepedPostView: View {
+  @ObservedObject var viewModel: MyPageSceneViewModel
   var body: some View {
-    ZStack{
-      
+    if viewModel.placeInfo.count == 0 {
+      VStack {
+        Spacer()
+        Image("lightgrayCalendar")
+          .resizable()
+          .frame(width: 58, height: 55)
+          .padding(.vertical, 20)
+        Text("보관중인 컨텐츠가 없습니다. \n 컨텐츠를 먼저 등록해주세요.")
+          .foregroundColor(Color("silver"))
+          .multilineTextAlignment(.center)
+        Spacer()
+      }
+    } else {
+      GridView(rows: (viewModel.placeInfo.count + 1 )/2,
+               columns: 2) { row, col in
+        let a = row * 2 + col
+        if (viewModel.placeInfo.count > a) && (a >= 0) {
+          PostGridSquareViewForKeeped(viewModel: viewModel, index: a)
+            .onTapGesture {
+              viewModel.selectedPlace = viewModel.placeInfo[a]
+            }
+        }
+      }
     }
   }
 }
 
-class KeepedPostViewModel : ObservableObject {
-  
-}
+class KeepedPostViewModel: ObservableObject {}
 
-struct MapView : UIViewRepresentable {
-  @ObservedObject var viewModel : MyPageSceneViewModel
-  func makeUIView(context: Context) ->MyMapView {
+struct MapView: UIViewRepresentable {
+  @ObservedObject var viewModel: MyPageSceneViewModel
+  func makeUIView(context: Context) -> MyMapView {
     let view = MyMapView()
     view.delegate = context.coordinator
     view.addOverlays(context.coordinator.parseGeoJson())
+    viewModel.$placeInfo
+      .receive(on: DispatchQueue.main)
+      .sink { _ in
     view.addAnnotations(context.coordinator.makePins())
+      }
+      .store(in: &viewModel.cancellable)
     view.isUserInteractionEnabled = true
     return view
   }
-  
+
   class Coordinator: NSObject, MKMapViewDelegate, UIColorPickerViewControllerDelegate {
+    init(viewModel: MyPageSceneViewModel) {
+      self.viewModel = viewModel
+    }
+
+    @ObservedObject var viewModel: MyPageSceneViewModel
     func makePins() -> [MKPointAnnotation] {
       var pins = [MKPointAnnotation]()
-      UserDefaults.placeInfo.forEach {
+
+      viewModel.placeInfo.forEach {
         let pin = MKPointAnnotation()
         pin.title = $0.title
         if $0.map_y != "null" {
-          pin.coordinate = CLLocationCoordinate2D(latitude: Double($0.map_y)!, longitude: Double($0.map_x)!)
-          pin.subtitle = String($0.id)
+          pin.coordinate = CLLocationCoordinate2D(latitude: Double($0.map_y!)!, longitude: Double($0.map_x!)!)
+          pin.subtitle = String($0.my_map_id)
           pins.append(pin)
         }
       }
+
       return pins
     }
 
@@ -221,13 +275,11 @@ struct MapView : UIViewRepresentable {
       }
       return overlays
     }
-    
   }
 
   func updateUIView(_: MyMapView, context _: Context) {}
-  
+
   func makeCoordinator() -> Coordinator {
-    return Coordinator()
+    return Coordinator(viewModel: viewModel)
   }
-  
 }

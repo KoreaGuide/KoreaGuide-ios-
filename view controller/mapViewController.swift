@@ -75,12 +75,12 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
     return annotationView
   }
 
-//  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
-//    postingVC.place_id = Int((view.annotation?.subtitle)!!)
-//    self.postingVC = postingVC
-//  }
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let postingVC = storyboard.instantiateViewController(withIdentifier: "placeDetailViewController") as! placeDetailViewController
+    postingVC.place_id = Int((view.annotation?.subtitle)!!)
+    self.postingVC = postingVC
+  }
 
   func parseGeoJson() -> [MKOverlay] {
     guard let path = Bundle.main.path(forResource: "mapJson", ofType: "geojson") else {
@@ -152,7 +152,9 @@ class mapViewController: UIViewController, MapViewTouchDelegate, MKMapViewDelega
         self.target = polygon
       }
       let search = UIAlertAction(title: "Search", style: .default) { action in
-        // 시점이동하고 줌 시키기.
+        if self.postingVC != nil {
+          self.navigationController?.pushViewController(self.postingVC!, animated: true)
+        }
       }
       let cancle = UIAlertAction(title: "Cancle", style: .cancel)
       action.addAction(search)

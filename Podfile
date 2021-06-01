@@ -15,7 +15,7 @@ target 'KoreaGuide' do
     inherit! :search_paths
     # Pods for testing
   end
-
+  pod 'Kingfisher'
   target 'KoreaGuideUITests' do
     # Pods for testing
   end
