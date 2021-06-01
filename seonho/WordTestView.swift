@@ -1024,6 +1024,7 @@ struct WordSpellingHardTestView: View {
                   .font(Font.custom("Bangla MN", size: 18))
                   .foregroundColor(.white)
                   .multilineTextAlignment(.center)
+                  .padding(.leading, 10)
                 Spacer()
               }
               .padding(.horizontal, 20)
