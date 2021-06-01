@@ -112,7 +112,7 @@ class MyPageSceneViewModel: ObservableObject {
   @Published var tabNumber: Int = 0
   @Published var selectedPlace : PlaceModel?
   @Published var keepedPostViewModel = KeepedPostViewModel()
-  @Published var selectedPlace: PlaceModel?
+  
   @Published var cancellable = Set<AnyCancellable>()
   @Published var placeInfo: [PlaceModel] = []
   @Published var didTapPlace : Bool = false
