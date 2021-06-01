@@ -116,17 +116,20 @@ struct LearnBox: View {
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
-            .fontWeight(.bold)
-            .font(Font.custom("Bangla MN", size: 16))
+            .font(.system(size: 16, weight: .bold))
+            //.fontWeight(.bold)
+            //.font(Font.custom("Bangla MN", size: 16))
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 16))
+            .font(.system(size: 16, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 16))
 
           VStack(alignment: .leading) {
             Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
               .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 14))
+              .font(.system(size: 14, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 14))
               .lineLimit(6)
               .multilineTextAlignment(.leading)
             
@@ -134,7 +137,8 @@ struct LearnBox: View {
           VStack(alignment: .leading) {
             Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
               .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 14))
+              .font(.system(size: 14, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 14))
               .lineLimit(6)
               .multilineTextAlignment(.leading)
           }
@@ -166,8 +170,10 @@ struct LearnBox: View {
 
 struct WordLearnFinishView: View {
   var body: some View {
-    Text("end of learning")
-      .font(Font.custom("Bangla MN", size: 18))
+    Text("End of pages")
+      .font(.system(size: 18, weight: .bold))
+      //.font(Font.custom("Bangla MN", size: 18))
+    
     // 뭘 보여주지... 잘햇다?
     // learn 도 기록이 되면 공부한 횟수라든가...
     // Button()

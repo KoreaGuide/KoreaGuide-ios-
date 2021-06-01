@@ -31,8 +31,9 @@ struct TodayWordView: View {
               .frame(width: 50, height: 2, alignment: .center)
             Text(" Word of Today")
               .foregroundColor(.white)
-              .fontWeight(.heavy)
-              .font(Font.custom("Bangla MN", size: 30))
+              .font(.system(size: 30, weight: .heavy))
+              //.fontWeight(.heavy)
+              //.font(Font.custom("Bangla MN", size: 30))
             Rectangle()
               .foregroundColor(.white)
               .frame(width: 50, height: 2, alignment: .center)
@@ -47,13 +48,15 @@ struct TodayWordView: View {
             VStack(alignment: .leading) {
               Text("Word : " + (viewModel.word?.word.word_kor ?? ""))
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 25))
-                .padding(.top, 10)
+                .font(.system(size: 25, weight: .semibold))
+                //.font(Font.custom("Bangla MN", size: 25))
+                //.padding(.top, 10)
                 .padding(.trailing, 10)
               Text("Pronunciation : " + (viewModel.word?.word.pronunciation_eng ?? ""))
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 25))
-                .padding(.top, 10)
+                .font(.system(size: 25, weight: .semibold))
+                //.font(Font.custom("Bangla MN", size: 25))
+                //.padding(.top, 10)
             }
             Spacer()
           }
@@ -62,19 +65,20 @@ struct TodayWordView: View {
             VStack(alignment: .leading) {
               Text("Meaning in Korean : ")
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 20))
+                .font(.system(size: 20, weight: .regular))
+                //.font(Font.custom("Bangla MN", size: 20))
 
               Text(viewModel.word?.word.meaning_kor1 ?? "")
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 20))
+                .font(.system(size: 20, weight: .regular))
 
               Text("Meaning in English : ")
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 20))
+                .font(.system(size: 20, weight: .regular))
 
               Text(viewModel.word?.word.meaning_eng1 ?? "")
                 .foregroundColor(.white)
-                .font(Font.custom("Bangla MN", size: 20))
+                .font(.system(size: 20, weight: .regular))
             }
             Spacer()
           }
@@ -83,36 +87,36 @@ struct TodayWordView: View {
           // add button
           // close button
 
-          HStack {
-            Text("Related Places")
-              .foregroundColor(.white)
-              .fontWeight(.semibold)
-              .font(Font.custom("Bangla MN", size: 18))
-              .padding(.top, 10)
-            Image(systemName: "chevron.right.2")
-              .resizable()
-              .frame(width: 15, height: 15, alignment: .center)
-              .foregroundColor(.white)
-
-            Spacer()
-          }
-          .padding(.horizontal, 20)
+//          HStack {
+//            Text("Related Places")
+//              .foregroundColor(.white)
+//              .fontWeight(.semibold)
+//              .font(Font.custom("Bangla MN", size: 18))
+//              .padding(.top, 10)
+//            Image(systemName: "chevron.right.2")
+//              .resizable()
+//              .frame(width: 15, height: 15, alignment: .center)
+//              .foregroundColor(.white)
+//
+//            Spacer()
+//          }
+//          .padding(.horizontal, 20)
 
           // List
-          ScrollView(.horizontal) {
-            HStack(spacing: 20) {
-              ForEach(0 ..< 10) {
-                Text("  Place \($0)  ")
-                  .foregroundColor(.white)
-                  .font(Font.custom("Bangla MN", size: 16))
-                  .frame(height: 40)
-                  .background(RoundedRectangle(cornerRadius: 10)
-                    .fill(Color("Navy")))
-              }
-            }
-          }
-          .padding(.horizontal, 20)
-          .padding(.bottom, 10)
+//          ScrollView(.horizontal) {
+//            HStack(spacing: 20) {
+//              ForEach(0 ..< 10) {
+//                Text("  Place \($0)  ")
+//                  .foregroundColor(.white)
+//                  .font(Font.custom("Bangla MN", size: 16))
+//                  .frame(height: 40)
+//                  .background(RoundedRectangle(cornerRadius: 10)
+//                    .fill(Color("Navy")))
+//              }
+//            }
+//          }
+//          .padding(.horizontal, 20)
+//          .padding(.bottom, 10)
 
           TodayInOutButton(viewModel: viewModel)
 
@@ -153,8 +157,9 @@ struct TodayInOutButton: View {
             .padding(.horizontal, 5)
           Text(viewModel.word?.added ?? false ? "Get it out of my vocabulary" : "Put it in my vocabulary")
             .foregroundColor(Color.orange)
-            .font(Font.custom("Bangla MN", size: 18))
-            .padding(.top, 10)
+            .font(.system(size: 18, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 18))
+            //.padding(.top, 10)
         }
       }
 

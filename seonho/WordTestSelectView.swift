@@ -12,12 +12,13 @@ struct rowItem: View {
   var content: String
   var body: some View {
     Text(content)
-      .font(Font.custom("Bangla MN", size: 18))
-      .fontWeight(.bold)
+      .font(.system(size: 18, weight: .bold))
+      //.font(Font.custom("Bangla MN", size: 18))
+      //.fontWeight(.bold)
       .foregroundColor(.black)
       .frame(width: UIScreen.main.bounds.width - 40, height: 60, alignment: .center)
       .multilineTextAlignment(TextAlignment.center)
-      .padding(.top, 5)
+      //.padding(.top, 5)
   }
 }
 
@@ -51,23 +52,26 @@ struct WordTestSelectScene: View {
         .padding(.horizontal, 20)
 
         Text("Let's see how much \nyou're moving forward !")
-          .font(Font.custom("Bangla MN", size: 25))
+          .font(.system(size: 25, weight: .semibold))
+          //.font(Font.custom("Bangla MN", size: 25))
           .foregroundColor(.white)
           .padding(.vertical, 20)
           .multilineTextAlignment(.center)
           .lineLimit(3)
 
         Text("Number of Words to Test: " + String(viewModel.word_list.count))
-          .font(Font.custom("Bangla MN", size: 14))
+          .font(.system(size: 14, weight: .regular))
+          //.font(Font.custom("Bangla MN", size: 14))
           .background(RoundedRectangle(cornerRadius: 10)
             .frame(width: 240, height: 50, alignment: .top)
             .foregroundColor(Color.white.opacity(0.8)))
-          .padding(.top, 15)
+          //.padding(.top, 15)
 
         Text("Select word test type !")
-          .font(Font.custom("Bangla MN", size: 20))
+          .font(.system(size: 20, weight: .heavy))
+          //.font(Font.custom("Bangla MN", size: 20))
           .foregroundColor(.white)
-          .fontWeight(.heavy)
+          //.fontWeight(.heavy)
           .padding(.top, 15)
 
         // NavigationView {

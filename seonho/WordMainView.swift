@@ -27,6 +27,7 @@ struct TopLabel: View {
     HStack {
       Text("Welcome, ") // + String(UserDefaults.id!) // nickname으로 변경
         .foregroundColor(.white)
+        //.font(.system(size: 30, weight: .bold))
         .font(Font.custom("Bangla MN", size: 30))
         .padding(.horizontal, 20)
       Spacer()
@@ -34,6 +35,7 @@ struct TopLabel: View {
     HStack {
       Text("Let's review your words!")
         .foregroundColor(.white)
+        //.font(.system(size: 20, weight: .bold))
         .font(Font.custom("Bangla MN", size: 20))
         .padding(.horizontal, 20)
 
@@ -56,8 +58,9 @@ struct TotalCountBox: View {
         VStack {
           Text("Total Words : " )//+ String(viewModel.totalCount))
             .foregroundColor(.black)
-            .font(Font.custom("Bangla MN", size: 25))
-            .padding(.top, 10)
+            .font(.system(size: 25, weight: .bold))
+            //.font(Font.custom("Bangla MN", size: 25))
+            //.padding(.top, 10)
         }
       }
     }.padding(20)
@@ -163,11 +166,14 @@ struct AddedWordButton: View {
       VStack {
         Text("Added Word List")
           .foregroundColor(.white)
+          //.font(.system(size: 25, weight: .semibold))
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
         Text("number of words : " + String(viewModel.added_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
-          .font(Font.custom("Bangla MN", size: 20))
+          .font(.system(size: 20, weight: .semibold))
+          .padding(.bottom, 10)
+          //.font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
@@ -184,11 +190,14 @@ struct LearningWordButton: View {
       VStack {
         Text("Learning Word List")
           .foregroundColor(.white)
+          //.font(.system(size: 25, weight: .semibold))
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
         Text("number of words : " + String(viewModel.learning_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
-          .font(Font.custom("Bangla MN", size: 20))
+          .font(.system(size: 20, weight: .semibold))
+          .padding(.bottom, 10)
+          //.font(Font.custom("Bangla MN", size: 20))
       }
     }
   }
@@ -205,11 +214,14 @@ struct CompleteWordButton: View {
       VStack {
         Text("Complete Word List")
           .foregroundColor(.white)
+          //.font(.system(size: 25, weight: .semibold))
           .font(Font.custom("Bangla MN", size: 25))
           .padding(.top, 10)
         Text("number of words : " + String(viewModel.complete_word_info?.data?.now_word_count ?? 0))
           .foregroundColor(.white)
-          .font(Font.custom("Bangla MN", size: 20))
+          .font(.system(size: 20, weight: .semibold))
+          .padding(.bottom, 10)
+          //.font(Font.custom("Bangla MN", size: 20))
       }
     }
   }

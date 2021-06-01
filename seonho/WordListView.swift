@@ -21,19 +21,22 @@ struct WordPopup: View {
         VStack(alignment: .leading) {
           HStack {
             Text(popupWord.word_kor)
-              .font(Font.custom("Bangla MN", size: 20))
-              .fontWeight(.heavy)
+              .font(.system(size: 20, weight: .heavy))
+              //.font(Font.custom("Bangla MN", size: 20))
+              //.fontWeight(.heavy)
           }
 
           HStack {
             Text(popupWord.word_eng)
-              .font(Font.custom("Bangla MN", size: 18))
-              .fontWeight(.bold)
+              .font(.system(size: 18, weight: .bold))
+              //.font(Font.custom("Bangla MN", size: 18))
+              //.fontWeight(.bold)
           }
 
           HStack {
             Text(popupWord.meaning_eng1)
-              .font(Font.custom("Bangla MN", size: 16))
+              .font(.system(size: 16, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 16))
               .multilineTextAlignment(.leading)
               .lineLimit(6)
           }
@@ -65,8 +68,9 @@ struct LearnButton: View {
             .frame(width: 30, height: 30)
           Text("Learn")
             .foregroundColor(Color("Green"))
-            .font(Font.custom("Bangla MN", size: 25))
-            .padding(.top, 10)
+            .font(.system(size: 25, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 25))
+            //.padding(.top, 10)
         }
       }
       .frame(width: UIScreen.main.bounds.width / 23 * 10, height: 50, alignment: .center)
@@ -87,8 +91,9 @@ struct TestButton: View {
             .frame(width: 30, height: 30)
           Text("Test")
             .foregroundColor(Color("Green"))
-            .font(Font.custom("Bangla MN", size: 25))
-            .padding(.top, 10)
+            .font(.system(size: 25, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 25))
+            //.padding(.top, 10)
         }
       }
       .frame(width: UIScreen.main.bounds.width / 23 * 10, height: 50, alignment: .center)
@@ -171,8 +176,9 @@ struct WordListScene: View {
 
           WordListNavigationLinks(viewModel: viewModel)
           
-          Text("" + " Words List") // TODO:
+          Text(" Words List ") // TODO:
             .foregroundColor(.white)
+            //.font(.system(size: 25, weight: .heavy))
             .fontWeight(.heavy)
             .font(Font.custom("Bangla MN", size: 25))
             .padding(.vertical, 15)
@@ -196,8 +202,9 @@ struct WordListScene: View {
           if viewModel.word_list.count == 0 {
             Text("This folder is empty.")
               .foregroundColor(.white)
-              .fontWeight(.heavy)
-              .font(Font.custom("Bangla MN", size: 25))
+              //.fontWeight(.heavy)
+              //.font(Font.custom("Bangla MN", size: 25))
+              .font(.system(size: 25, weight: .heavy))
               .padding(.vertical, 15)
             Spacer()
           } else {

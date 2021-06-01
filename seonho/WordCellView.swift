@@ -26,16 +26,18 @@ struct WordCellView: View {
           HStack {
             Text(viewModel.word_list[viewModel.index].word_kor)
               .foregroundColor(.black)
-              .font(Font.custom("Bangla MN", size: 20))
-              .fontWeight(.heavy)
-              .padding(.top, 10)
+              .font(.system(size: 20, weight: .heavy))
+              //.font(Font.custom("Bangla MN", size: 20))
+              //.fontWeight(.heavy)
+              //.padding(.top, 10)
           }
           HStack {
             Text(viewModel.word_list[viewModel.index].word_eng)
               .foregroundColor(.black)
-              .font(Font.custom("Bangla MN", size: 18))
-              .fontWeight(.regular)
-              .padding(.top, 10)
+              .font(.system(size: 18, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 18))
+              //.fontWeight(.regular)
+              //.padding(.top, 10)
           }
 
           HStack {
@@ -85,16 +87,18 @@ struct WordGridCellView: View {
           HStack {
             Text(word.word_kor)
               .foregroundColor(.black)
-              .font(Font.custom("Bangla MN", size: 20))
-              .fontWeight(.heavy)
-              .padding(.top, 10)
+              .font(.system(size: 20, weight: .heavy))
+              //.font(Font.custom("Bangla MN", size: 20))
+              //.fontWeight(.heavy)
+              //.padding(.top, 10)
           }
           HStack {
             Text(word.word_eng)
               .foregroundColor(.black)
-              .font(Font.custom("Bangla MN", size: 18))
-              .fontWeight(.regular)
-              .padding(.top, 10)
+              .font(.system(size: 18, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 18))
+              //.fontWeight(.regular)
+              //.padding(.top, 10)
           }
 
           HStack {

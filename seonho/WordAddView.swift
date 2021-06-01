@@ -80,7 +80,8 @@ struct WordAddView: View {
           // place title
           Label(viewModel.place_title, systemImage: "flag") // flag.fill
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 18))
+            .font(.system(size: 18, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 18))
             .multilineTextAlignment(.center)
             .frame(width: 280, alignment: .center)
           Spacer()
@@ -89,8 +90,9 @@ struct WordAddView: View {
           Section {
             Text(viewModel.finish ? "Finish!" : (String(viewModel.currentWordCountforShow) + "  /  " + String(viewModel.totalWordCount)))
               .foregroundColor(.white)
-              .fontWeight(.heavy)
-              .font(Font.custom("Bangla MN", size: 18))
+              .font(.system(size: 18, weight: .heavy))
+              //.fontWeight(.heavy)
+              //.font(Font.custom("Bangla MN", size: 18))
 
             ProgressBar(value: $viewModel.progressValue)
               .frame(width: UIScreen.main.bounds.width - 100, height: 15, alignment: .center)
@@ -110,8 +112,9 @@ struct WordAddView: View {
 
                   VStack {
                     Text("You got " + String(viewModel.added_word_id_list.count) + (viewModel.added_word_id_list.count <= 1 ? " word." : " words!"))
-                      .font(Font.custom("Bangla MN", size: 20))
-                      .fontWeight(.bold)
+                      .font(.system(size: 20, weight: .bold))
+                      //.font(Font.custom("Bangla MN", size: 20))
+                      //.fontWeight(.bold)
                       .foregroundColor(.white)
 
                     Spacer()
@@ -123,7 +126,8 @@ struct WordAddView: View {
 
                       }, label: {
                         Text("  Let's go back to place page  ")
-                          .font(Font.custom("Bangla MN", size: 15))
+                          .font(.system(size: 15, weight: .regular))
+                          //.font(Font.custom("Bangla MN", size: 15))
                           .foregroundColor(Color("Navy"))
                           .padding(5)
                           .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(1)))
@@ -233,8 +237,9 @@ struct AddEndBox: View {
 
         VStack {
           Text("End of \nplace related words \nadding.")
-            .font(Font.custom("Bangla MN", size: 20))
-            .fontWeight(.bold)
+            .font(.system(size: 20, weight: .bold))
+            //.font(Font.custom("Bangla MN", size: 20))
+            //.fontWeight(.bold)
             .foregroundColor(.white)
 
           Spacer()
@@ -249,8 +254,9 @@ struct AddEndBox: View {
             }, label: {
               VStack(alignment: .center) {
                 Text("Finish and Save")
-                  .font(Font.custom("Bangla MN", size: 18))
-                  .fontWeight(.bold)
+                  .font(.system(size: 18, weight: .bold))
+                  //.font(Font.custom("Bangla MN", size: 18))
+                  //.fontWeight(.bold)
                   .foregroundColor(Color.orange)
                 Image(systemName: "cursor.rays")
                   .resizable()
@@ -290,23 +296,27 @@ struct WordBox: View {
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_kor)
             .foregroundColor(.white)
-            .fontWeight(.bold)
-            .font(Font.custom("Bangla MN", size: 16))
+            .font(.system(size: 16, weight: .bold))
+            //.fontWeight(.bold)
+            //.font(Font.custom("Bangla MN", size: 16))
 
           Text(viewModel.word_list[viewModel.currentWordCount].word_eng)
             .foregroundColor(.white)
-            .font(Font.custom("Bangla MN", size: 16))
+            .font(.system(size: 16, weight: .regular))
+            //.font(Font.custom("Bangla MN", size: 16))
 
           VStack(alignment: .leading) {
             Text(viewModel.word_list[viewModel.currentWordCount].meaning_kor1)
               .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 14))
+              .font(.system(size: 14, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 14))
               .lineLimit(4)
               .multilineTextAlignment(.leading)
 
             Text(viewModel.word_list[viewModel.currentWordCount].meaning_eng1)
               .foregroundColor(.white)
-              .font(Font.custom("Bangla MN", size: 14))
+              .font(.system(size: 14, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 14))
               .lineLimit(4)
               .multilineTextAlignment(.leading)
           }
@@ -375,8 +385,9 @@ struct InOutButton: View {
               .padding(.horizontal, 5)
             Text("Already in my word list")
               .foregroundColor(Color.gray)
-              .font(Font.custom("Bangla MN", size: 18))
-              .padding(.top, 10)
+              .font(.system(size: 18, weight: .regular))
+              //.font(Font.custom("Bangla MN", size: 18))
+              //.padding(.top, 10)
           }
         }
       } else {
@@ -394,8 +405,9 @@ struct InOutButton: View {
                 .padding(.horizontal, 5)
               Text("Take out the word you put in")
                 .foregroundColor(Color.orange)
-                .font(Font.custom("Bangla MN", size: 18))
-                .padding(.top, 10)
+                .font(.system(size: 18, weight: .regular))
+                //.font(Font.custom("Bangla MN", size: 18))
+                //.padding(.top, 10)
             }
           }
         } else {
@@ -412,8 +424,9 @@ struct InOutButton: View {
                 .padding(.horizontal, 5)
               Text("Put it in my vocabulary")
                 .foregroundColor(Color.orange)
-                .font(Font.custom("Bangla MN", size: 18))
-                .padding(.top, 10)
+                .font(.system(size: 18, weight: .regular))
+                //.font(Font.custom("Bangla MN", size: 18))
+                //.padding(.top, 10)
             }
           }
         }

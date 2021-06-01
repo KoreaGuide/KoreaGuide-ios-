@@ -7,6 +7,8 @@
 
 import Alamofire
 import Foundation
+import Combine
+import UIKit
 
 final class WordApiCaller {
   static var baseHostName = "http://localhost:8080"
@@ -68,7 +70,7 @@ final class WordApiCaller {
           return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
 
         case let .testResultPost(word_id, original_folder_id, final_folder_id, result_status):
-          return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": ["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]], .post, defaultHeaders)
+          return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": [["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]]], .post, defaultHeaders)
 
         case let .learningWords(word_folder_id):
           return ("api/myWordFolder/learnWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
@@ -344,6 +346,20 @@ final class WordApiCaller {
       }
   }
 
+//  private func _testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String, session: URLSession = URLSession.shared) throws -> URLSession.DataTaskPublisher {
+//    let request = try Router.testResultPost(word_id: word_id, original_folder_id: original_folder_id, final_folder_id: final_folder_id, result_status: result_status).asURLRequest()
+//    return session.dataTaskPublisher(for: request)
+//  }
+//
+//  func testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String) -> AnyPublisher<WordResultPostModel, Error>? {
+//    let decoder = JSONDecoder()
+//    return try? _testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String)
+//      .tryMap { try validate($0.data, $0.response) }
+//      .decode(type: WordResultPostModel.self, decoder: decoder)
+//      .eraseToAnyPublisher()
+//  }
+
+  
   static func testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String, callback: @escaping (WordResultPostModel?) -> Void) {
     AF.request(Router.testResultPost(word_id: word_id, original_folder_id: original_folder_id, final_folder_id: final_folder_id, result_status: result_status))
       .responseJSON { response in
