@@ -43,7 +43,7 @@ struct WordTestSelectScene: View {
 
       VStack {
         Spacer()
-          .frame(height: 50)
+          .frame(height: 60)
         HStack {
           BackButton(tapAction: { self.presentationMode.wrappedValue.dismiss() })
           Spacer()
@@ -62,13 +62,13 @@ struct WordTestSelectScene: View {
           .background(RoundedRectangle(cornerRadius: 10)
             .frame(width: 240, height: 50, alignment: .top)
             .foregroundColor(Color.white.opacity(0.8)))
-          .padding(10)
+          .padding(.top, 15)
 
         Text("Select word test type !")
           .font(Font.custom("Bangla MN", size: 20))
           .foregroundColor(.white)
           .fontWeight(.heavy)
-          .padding(5)
+          .padding(.top, 15)
 
         // NavigationView {
         VStack(alignment: .leading) {

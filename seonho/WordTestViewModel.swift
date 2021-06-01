@@ -17,7 +17,8 @@ class WordTestSceneViewModel: ObservableObject {
   @Published var test_hard_spelling_word_info: HardSpellingTestWordInfo?
 
   @Published var choice: Int = -1
-
+  @Published var answer: String = ""
+  
   var result: [(Int, Int, Bool)] = [] // 순서, word id, correct or not
 
   @Published var didSelectWord: Bool = false
@@ -28,7 +29,13 @@ class WordTestSceneViewModel: ObservableObject {
       progressValue = Float(newValue) / Float(totalWordCount)
       if totalWordCount - 1 == newValue {
         endOfTest = true
+        //progressValue = 1.0
       }
+//      else if totalWordCount == newValue {
+//        endOfTest = true
+//        currentWordCount = totalWordCount - 1
+//        //progressValue = 1.0
+//      }
       
     }
   }
@@ -43,14 +50,60 @@ class WordTestSceneViewModel: ObservableObject {
 
   @Published var showPopup: Bool = false
 
+  @Published var chosen_answer: [String] = []
+  
   private var cancellable: Set<AnyCancellable> = []
 
   func getSpellingCount() -> Int {
     return test_easy_spelling_word_info?.quiz_list[currentWordCount].selected_word.word_kor.count ?? 0
   }
 
-  func postTestResult(){
-    //testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String)
+  func postTestResult() {
+    
+    for r in result {
+      if word_folder_id == UserDefaults.add_folder_id {
+        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+          let status = Int(result!.result_code)
+          switch status {
+          case 200:
+            print("----- word test result post api done")
+          case 204:
+            print("@@@")
+          default:
+            print("----- word test result post api error")
+          }
+        }
+      }
+      else if word_folder_id == UserDefaults.learning_folder_id {
+        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+          let status = Int(result!.result_code)
+          switch status {
+          case 200:
+            print("----- word test result post api done")
+          case 204:
+            print("@@@")
+          default:
+            print("----- word test result post api error")
+          }
+        }
+      }
+      else if word_folder_id == UserDefaults.complete_folder_id {
+        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+          let status = Int(result!.result_code)
+          switch status {
+          case 200:
+            print("----- word test result post api done")
+          case 204:
+            print("@@@")
+          default:
+            print("----- word test result post api error")
+          }
+        }
+      }
+      
+
+        
+    }
   }
   
   init(quiz_type: String, word_folder_id: Int) {
