@@ -120,16 +120,17 @@ class WordTestSceneViewModel: ObservableObject {
         
       }
       
-      WordApiCaller.testResultPost(result_list: result_list)?
-        .receive(on : DispatchQueue.main)
-        .sink(receiveCompletion: {
-          completion in
-        }, receiveValue: {
-          _ in
-        })
-        .store(in: &cancellable)
         
     }
+    
+    WordApiCaller.testResultPost(result_list: result_list)?
+      .receive(on : DispatchQueue.main)
+      .sink(receiveCompletion: {
+        completion in
+      }, receiveValue: {
+        _ in
+      })
+      .store(in: &cancellable)
   }
   
   init(quiz_type: String, word_folder_id: Int) {
