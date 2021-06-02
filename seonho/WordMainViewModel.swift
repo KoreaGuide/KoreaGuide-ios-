@@ -57,9 +57,6 @@ class WordMainSceneViewModel: ObservableObject {
   }
   
   func reload() {
-   
-    
-    
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 1) { result in
       let status = Int(result?.result_code ?? 0)
       switch status {
