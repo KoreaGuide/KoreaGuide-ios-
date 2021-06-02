@@ -119,8 +119,20 @@ class MyPageSceneViewModel: ObservableObject {
 
   @Published var attendance: Int = 0
   @Published var week_quiz_result: [OneDayInfo] = []
-
+  @Published var graphHeights : [CGFloat] = [0,0,0,0,0,0,0]
   init() {
+//    $week_quiz_result
+//      .receive(on: DispatchQueue.main)
+//      .sink {
+//        self.graphHeights = []
+//        $0.forEach { result in
+//          if result.total == 0 {
+//            self.graphHeights.append(0)
+//          } else {
+//            self.graphHeights.append(CGFloat(result.correct/result.total))
+//          }
+//        }
+//      }.store(in: &cancellable)
     ApiHelper.myWishRead { result in
       let status = result!.result_code
       switch status {
@@ -137,6 +149,16 @@ class MyPageSceneViewModel: ObservableObject {
       case 200:
         self.attendance = result?.data.attendance ?? 0
         self.week_quiz_result = result?.data.week_quiz_result ?? []
+        
+        self.graphHeights = []
+        self.week_quiz_result.forEach {
+            if $0.total == 0 {
+              self.graphHeights.append(0)
+            } else {
+              self.graphHeights.append(CGFloat(Float($0.correct)/Float($0.total)))
+            }
+          
+        }
         print("----- attendance info get api done")
       default:
         print("----- attendance info get api error")
@@ -289,37 +311,37 @@ struct ProfileWordView: View {
             
             HStack(alignment: .bottom) {
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[0].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[0].correct / viewModel.week_quiz_result[0].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[0]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[1].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[1].correct / viewModel.week_quiz_result[1].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[1]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[2].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[2].correct / viewModel.week_quiz_result[2].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[2]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[3].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[3].correct / viewModel.week_quiz_result[3].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[3]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[4].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[4].correct / viewModel.week_quiz_result[4].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[4]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[5].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[5].correct / viewModel.week_quiz_result[5].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[5]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
 
               RoundedRectangle(cornerRadius: 10)
-                .frame(width: graphWidth, height: viewModel.week_quiz_result[6].total == 0 ? 0.0 : CGFloat(viewModel.week_quiz_result[6].correct / viewModel.week_quiz_result[6].total) * graphHeight)
+                .frame(width: graphWidth, height: viewModel.graphHeights[6]*graphHeight)
                 .foregroundColor(Color("Mint"))
                 .padding(.horizontal, graphPadding)
             }
