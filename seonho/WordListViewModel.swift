@@ -48,6 +48,7 @@ class WordListSceneViewModel: ObservableObject {
     WordApiCaller.folderWordRead(word_folder_id: self.word_folder_id){ result in
       switch result?.result_code{
       case 200:
+        
         self.word_list = result?.data?.my_word_list ?? []
       default:
         print("---- folder word read api error")

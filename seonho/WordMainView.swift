@@ -146,6 +146,9 @@ struct WordMainScene: View {
       }
       .ignoresSafeArea()
     }
+    .onAppear{
+      viewModel.reload()
+    }
     .navigationBarTitle("")
     .navigationBarHidden(true)
     .ignoresSafeArea()

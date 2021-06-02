@@ -56,10 +56,14 @@ class WordMainSceneViewModel: ObservableObject {
   }
   
   func reload() {
+   
+    
+    
     WordApiCaller.folderWordRead(word_folder_id: UserDefaults.add_folder_id ?? 1) { result in
       let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
+        self.added_word_info = nil
         self.added_word_info = result
       default:
         print("----- folder word read api error")
@@ -70,6 +74,7 @@ class WordMainSceneViewModel: ObservableObject {
       let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
+        self.learning_word_info = nil
         self.learning_word_info = result
       default:
         print("----- folder word read api error")
@@ -80,6 +85,7 @@ class WordMainSceneViewModel: ObservableObject {
       let status = Int(result?.result_code ?? 0)
       switch status {
       case 200:
+        self.complete_word_info = nil
         self.complete_word_info = result
       default:
         print("----- folder word read api error")

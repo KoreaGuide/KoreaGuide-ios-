@@ -33,7 +33,7 @@ final class WordApiCaller {
     case testingEasySpellingWords(folder_id: Int)
     case testingHardSpellingWords(folder_id: Int)
 
-    case testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String)
+    case testResultPost(result_list: [PostResultModel])
 
     case learningWords(word_folder_id: Int)
 
@@ -69,8 +69,8 @@ final class WordApiCaller {
         case let .testingHardSpellingWords(folder_id):
           return ("/api/quiz/\(UserDefaults.id!)", ["data": ["quiz_type": "SPELLING_H", "folder_id": folder_id]], .post, defaultHeaders)
 
-        case let .testResultPost(word_id, original_folder_id, final_folder_id, result_status):
-          return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": [["word_id": word_id, "original_folder_id": original_folder_id, "final_folder_id": final_folder_id, "result_status": result_status]]]], .post, defaultHeaders)
+        case let .testResultPost(result_list):
+          return ("/api/quiz/result/\(UserDefaults.id!)", ["data": ["quiz_results": result_list]], .post, defaultHeaders)
 
         case let .learningWords(word_folder_id):
           return ("api/myWordFolder/learnWord/\(UserDefaults.id!)/\(word_folder_id)", ["": ""], .get, defaultHeaders)
@@ -360,8 +360,8 @@ final class WordApiCaller {
 //  }
 
   
-  static func testResultPost(word_id: Int, original_folder_id: Int, final_folder_id: Int, result_status: String, callback: @escaping (WordResultPostModel?) -> Void) {
-    AF.request(Router.testResultPost(word_id: word_id, original_folder_id: original_folder_id, final_folder_id: final_folder_id, result_status: result_status))
+  static func testResultPost(result_list: [PostResultModel], callback: @escaping (WordResultPostModel?) -> Void) {
+    AF.request(Router.testResultPost(result_list: result_list))
       .responseJSON { response in
         debugPrint(response)
         switch response.result {

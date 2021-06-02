@@ -185,12 +185,14 @@ struct WordListScene: View {
 
           HStack {
             Button(action: {
+              //mainSceneViewModel.reload()
               self.viewModel.didTapLearnButton = true
             }, label: {
               LearnButton()
             })
             Spacer()
             Button(action: {
+              //mainSceneViewModel.reload()
               self.viewModel.didTapTestButton = true
             }, label: {
               TestButton()

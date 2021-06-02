@@ -54,6 +54,8 @@ class WordTestSceneViewModel: ObservableObject {
   
   @Published var chosen_answer: [String] = []
   
+  @Published var result_list: [PostResultModel] = []
+  
   private var cancellable: Set<AnyCancellable> = []
 
   func getSpellingCount() -> Int {
@@ -63,47 +65,72 @@ class WordTestSceneViewModel: ObservableObject {
   func postTestResult() {
     
     for r in result {
-      if word_folder_id == UserDefaults.add_folder_id {
-        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
-          let status = Int(result!.result_code)
-          switch status {
-          case 200:
-            print("----- word test result post api done")
-          case 204:
-            print("@@@")
-          default:
-            print("----- word test result post api error")
-          }
-        }
+      if self.word_folder_id == UserDefaults.add_folder_id {
+        var post_result: PostResultModel = PostResultModel(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: ((r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0), result_status:  r.2 == true ? "CORRECT" : "WRONG")
+                       
+        result_list.append(post_result)
+        
+//        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+//          let status = Int(result!.result_code)
+//          switch status {
+//          case 200:
+//            print("----- word test result post api done")
+//          case 204:
+//            print("@@@")
+//          default:
+//            print("----- word test result post api error")
+//          }
+//        }
       }
-      else if word_folder_id == UserDefaults.learning_folder_id {
-        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
-          let status = Int(result!.result_code)
-          switch status {
-          case 200:
-            print("----- word test result post api done")
-          case 204:
-            print("@@@")
-          default:
-            print("----- word test result post api error")
-          }
-        }
+      else if self.word_folder_id == UserDefaults.learning_folder_id {
+        var post_result: PostResultModel = PostResultModel(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")
+                       
+        result_list.append(post_result)
+        
+//        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+//          let status = Int(result!.result_code)
+//          switch status {
+//          case 200:
+//            print("----- word test result post api done")
+//          case 204:
+//            print("@@@")
+//          default:
+//            print("----- word test result post api error")
+//          }
+//        }
       }
-      else if word_folder_id == UserDefaults.complete_folder_id {
-        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
-          let status = Int(result!.result_code)
-          switch status {
-          case 200:
-            print("----- word test result post api done")
-          case 204:
-            print("@@@")
-          default:
-            print("----- word test result post api error")
-          }
-        }
+      else if self.word_folder_id == UserDefaults.complete_folder_id {
+        var post_result: PostResultModel = PostResultModel(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")
+                       
+        result_list.append(post_result)
+        
+//        WordApiCaller.testResultPost(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: (r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0, result_status: r.2 == true ? "CORRECT" : "WRONG")  { result in
+//          let status = Int(result!.result_code)
+//          switch status {
+//          case 200:
+//            print("----- word test result post api done")
+//          case 204:
+//            print("@@@")
+//          default:
+//            print("----- word test result post api error")
+//          }
+//        }
+      }
+      else{
+        
       }
       
-
+      WordApiCaller.testResultPost(result_list: result_list)  { result in
+        let status = Int(result!.result_code)
+        switch status {
+        case 200:
+          print("----- word test result post api done")
+        case 204:
+          print("@@@")
+        default:
+          print("----- word test result post api error")
+        }
+      }
         
     }
   }
@@ -188,4 +215,18 @@ class WordTestSceneViewModel: ObservableObject {
       }
     }
   }
+}
+
+
+struct PostResultModel: Codable {
+  init(word_id:Int, original_folder_id: Int, final_folder_id: Int, result_status: String) {
+    self.word_id = word_id
+    self.original_folder_id = original_folder_id
+    self.final_folder_id = final_folder_id
+    self.result_status = result_status
+  }
+  var word_id: Int
+  var original_folder_id: Int
+  var final_folder_id: Int
+  var result_status: String
 }

@@ -64,13 +64,15 @@ struct MyPageScene: View {
         SlidingTabView(selection: $viewModel.tabNumber, tabs: ["My Place", "My Map", "My Word"])
         if viewModel.tabNumber == 0 {
           MyPageKeepedPostView(viewModel: viewModel)
+            
           Spacer()
         } else if viewModel.tabNumber == 1 {
           MapView(viewModel: viewModel)
-
+            
           Spacer()
         } else if viewModel.tabNumber == 2 {
           ProfileWordView(viewModel: viewModel)
+            
           Spacer()
         } else {
           EmptyView()
@@ -96,6 +98,9 @@ struct MyPageScene: View {
           break
         }
       }
+      
+      //viewModel.reload()
+      
     }
     .background(Image("background")
       .resizable()
@@ -169,10 +174,21 @@ class MyPageSceneViewModel: ObservableObject {
   func reload() {
     ProfileApiCaller.attendanceInfo { result in
       let status = Int(result?.result_code ?? 0)
+      
       switch status {
       case 200:
+       
         self.attendance = result?.data.attendance ?? 0
         self.week_quiz_result = result?.data.week_quiz_result ?? []
+        self.graphHeights = []
+        self.week_quiz_result.forEach {
+            if $0.total == 0 {
+              self.graphHeights.append(0)
+            } else {
+              self.graphHeights.append(CGFloat(Float($0.correct)/Float($0.total)))
+            }
+          
+        }
         print("----- attendance info get api done")
       default:
         print("----- attendance info get api error")
@@ -459,7 +475,7 @@ struct ProfileWordView: View {
         }
         .padding(.horizontal, 20)
       }
-      .onAppear{ viewModel.reload() }
+      
       .padding(.bottom, 20)
 
 //      HStack {
