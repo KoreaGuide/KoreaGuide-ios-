@@ -39,6 +39,7 @@ class WordMainSceneViewModel: ObservableObject {
       switch status {
       case 200:
         self.learning_word_info = result
+      
       default:
         print("----- folder word read api error")
       }

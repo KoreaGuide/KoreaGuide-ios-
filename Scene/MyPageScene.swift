@@ -99,7 +99,7 @@ struct MyPageScene: View {
         }
       }
       
-      //viewModel.reload()
+      viewModel.reload()
       
     }
     .background(Image("background")

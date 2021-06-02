@@ -63,7 +63,7 @@ class WordTestSceneViewModel: ObservableObject {
   }
 
   func postTestResult() {
-    
+    result_list = []
     for r in result {
       if self.word_folder_id == UserDefaults.add_folder_id {
         var post_result: PostResultModel = PostResultModel(word_id: r.1, original_folder_id: word_folder_id, final_folder_id: ((r.2 == true ? UserDefaults.complete_folder_id : UserDefaults.learning_folder_id) ?? 0), result_status:  r.2 == true ? "CORRECT" : "WRONG")
@@ -127,8 +127,16 @@ class WordTestSceneViewModel: ObservableObject {
       .receive(on : DispatchQueue.main)
       .sink(receiveCompletion: {
         completion in
+        switch completion {
+        case .finished:
+          print("sibale")
+        case let .failure(error):
+          print("error")
+          print(error)
+        }
       }, receiveValue: {
         _ in
+        
       })
       .store(in: &cancellable)
   }
