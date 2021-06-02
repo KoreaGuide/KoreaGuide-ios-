@@ -120,17 +120,14 @@ class WordTestSceneViewModel: ObservableObject {
         
       }
       
-      WordApiCaller.testResultPost(result_list: result_list)  { result in
-        let status = Int(result!.result_code)
-        switch status {
-        case 200:
-          print("----- word test result post api done")
-        case 204:
-          print("@@@")
-        default:
-          print("----- word test result post api error")
-        }
-      }
+      WordApiCaller.testResultPost(result_list: result_list)?
+        .receive(on : DispatchQueue.main)
+        .sink(receiveCompletion: {
+          completion in
+        }, receiveValue: {
+          _ in
+        })
+        .store(in: &cancellable)
         
     }
   }

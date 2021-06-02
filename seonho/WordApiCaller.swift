@@ -87,6 +87,65 @@ final class WordApiCaller {
     }
   }
 
+  enum Router1 {
+    case testResultPost(result_list: [PostResultModel])
+    func asURLRequestAddSchedule() throws -> URLRequest {
+      let result: (path: String, body: [Any], method: HTTPType, bodyType: BodyType) = {
+        switch self {
+        case let .testResultPost(result_list):
+          return ("/api/quiz/result/\(UserDefaults.id!)", result_list, .post, .json)
+        default:
+          return ("", [], .post, .json)
+        }
+      }()
+      guard let urlComponent = URLComponents(string: baseHostName + result.path) else { throw APIError.invalidEndpoint }
+
+      guard let url = urlComponent.url else { throw APIError.invalidEndpoint }
+      var request = URLRequest(url: url)
+
+      print("-----request")
+      print(request)
+      print("---result.body는...")
+      print(result.body)
+
+      if !result.body.isEmpty {
+        var data: [String:[String: Any]] = [:]
+        var quiz_result : [String:[[String:Any]]]
+        var datas : [[String: Any]] = []
+        result.body.forEach { fuckingjson in
+          let v = (fuckingjson as! PostResultModel)
+          
+          let final_folder_id = v.final_folder_id
+          let original_folder_id = v.original_folder_id
+          let result_status = v.result_status
+          let word_id = v.word_id
+          datas.append(["final_folder_id": final_folder_id, "original_folder_id": original_folder_id, "result_status": result_status ,"word_id": word_id])
+          
+        }
+        quiz_result = ["quiz_results":datas]
+        data = ["data" : quiz_result]
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: data) else {
+          throw APIError.invalidBody
+        }
+        request.httpBody = jsonData
+      }
+      
+      // 헤더 설정
+      if let key = result.bodyType.header?[0], let value = result.bodyType.header?[1] {
+        request.addValue(value, forHTTPHeaderField: key)
+      }
+
+      // 모든 API콜에 User-Agent IOS로 넣음
+      request.addValue("IOS", forHTTPHeaderField: "User-Agent")
+
+      request.httpMethod = result.method.rawValue
+      print("-----request")
+      print(request)
+
+      return request
+    }
+  }
+  
   static func userFolderRead(callback: @escaping (AllFolderInfo?) -> Void) {
     AF.request(Router.homeRead)
       .responseJSON { response in
@@ -360,18 +419,31 @@ final class WordApiCaller {
 //  }
 
   
-  static func testResultPost(result_list: [PostResultModel], callback: @escaping (WordResultPostModel?) -> Void) {
-    AF.request(Router.testResultPost(result_list: result_list))
-      .responseJSON { response in
-        debugPrint(response)
-        switch response.result {
-        case .failure:
-          callback(nil)
-          return
-        case .success:
-          break
-        }
-      }
+//  static func testResultPost(result_list: [PostResultModel], callback: @escaping (WordResultPostModel?) -> Void) {
+//    AF.request(Router.testResultPost(result_list: result_list))
+//      .responseJSON { response in
+//        debugPrint(response)
+//        switch response.result {
+//        case .failure:
+//          callback(nil)
+//          return
+//        case .success:
+//          break
+//        }
+//      }
+//  }
+  
+  static func _testResultPost(result_list:[PostResultModel],session: URLSession = URLSession.shared) throws -> URLSession.DataTaskPublisher {
+    let request = try Router1.testResultPost(result_list: result_list).asURLRequestAddSchedule()
+    return session.dataTaskPublisher(for: request)
+  }
+  
+  static func testResultPost(result_list: [PostResultModel]) -> AnyPublisher<response_string , Error>? {
+     let decoder = JSONDecoder()
+    return try? WordApiCaller._testResultPost(result_list: result_list)
+      .tryMap {try validate($0.data,$0.response)}
+      .decode(type: response_string.self, decoder: decoder)
+      .eraseToAnyPublisher()
   }
 
   static func learningWords(word_folder_id: Int, callback: @escaping (WordFolderLearnModel?) -> Void) {
@@ -396,4 +468,10 @@ final class WordApiCaller {
         }
       }
   }
+}
+
+struct response_string : Codable {
+  let result_code : Int
+  let status : String
+  let description : String
 }
